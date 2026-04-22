@@ -1,299 +1,131 @@
-root@node0:/home/Storage_Automation_Inspection# python3 get_pool_info.py 
+root@gm1-pub-ceph-172-16-3-107:/tmp# python3 get_pool_info.py
 {
-  "cluster": "ceph-cluster",
+  "cluster": "test-cluster",
   "pools": [
     {
       "pool_id": 1,
       "pool_name": "device_health_metrics",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 1,
-      "pgp_num": 1,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "mgr_devicehealth"
-      ],
-      "stored_bytes": 0,
-      "objects": 0,
-      "used_bytes": 0,
-      "percent_used": 0,
-      "max_avail_bytes": 151610998784
+      "bytes_used": 317549190,
+      "objects": 28,
+      "performance": {
+        "iops_12h": 0.0005555555555555557,
+        "bw_bytes_12h": 26.66666666666667,
+        "latency_ms": 21.70568504879978
+      }
+    },
+    {
+      "pool_id": 2,
+      "pool_name": "cloud",
+      "bytes_used": 259248902666,
+      "objects": 35484,
+      "performance": {
+        "iops_12h": 132.04349217752252,
+        "bw_bytes_12h": 7527949.835606643,
+        "latency_ms": 21.70568504879978
+      }
+    },
+    {
+      "pool_id": 3,
+      "pool_name": "cephfs-metadata",
+      "bytes_used": 848153872,
+      "objects": 662,
+      "performance": {
+        "iops_12h": 1.5275981800766296,
+        "bw_bytes_12h": 5735.160153256712,
+        "latency_ms": 21.70568504879978
+      }
+    },
+    {
+      "pool_id": 4,
+      "pool_name": "cephfs-data",
+      "bytes_used": 30454112256,
+      "objects": 6601,
+      "performance": {
+        "iops_12h": 0.5574736590038305,
+        "bw_bytes_12h": 1403.400664112389,
+        "latency_ms": 21.70568504879978
+      }
+    },
+    {
+      "pool_id": 5,
+      "pool_name": ".rgw.root",
+      "bytes_used": 73728,
+      "objects": 6,
+      "performance": {
+        "iops_12h": 0.0,
+        "bw_bytes_12h": 0.0,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 6,
-      "pool_name": "volumes",
-      "type": "replicated",
-      "size": 2,
-      "min_size": 2,
-      "pg_num": 64,
-      "pgp_num": 64,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rbd"
-      ],
-      "stored_bytes": 1784156672,
-      "objects": 477,
-      "used_bytes": 3568328704,
-      "percent_used": 0.0077842893078923225,
-      "max_avail_bytes": 227416506368
+      "pool_name": "default.rgw.log",
+      "bytes_used": 2887680,
+      "objects": 209,
+      "performance": {
+        "iops_12h": 3.9699026181353747,
+        "bw_bytes_12h": 5848.0420945083,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 7,
-      "pool_name": "images",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rbd"
-      ],
-      "stored_bytes": 19,
-      "objects": 3,
-      "used_bytes": 12288,
-      "percent_used": 2.7016508141741724e-08,
-      "max_avail_bytes": 151610998784
+      "pool_name": "default.rgw.control",
+      "bytes_used": 0,
+      "objects": 8,
+      "performance": {
+        "iops_12h": 0.0,
+        "bw_bytes_12h": 0.0,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 8,
-      "pool_name": "backups",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rbd"
-      ],
-      "stored_bytes": 19,
-      "objects": 3,
-      "used_bytes": 12288,
-      "percent_used": 2.7016508141741724e-08,
-      "max_avail_bytes": 151610998784
+      "pool_name": "default.rgw.meta",
+      "bytes_used": 3850915,
+      "objects": 372,
+      "performance": {
+        "iops_12h": 0.4354869093231163,
+        "bw_bytes_12h": 346.606998722861,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 9,
-      "pool_name": "vms",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rbd"
-      ],
-      "stored_bytes": 19,
-      "objects": 1,
-      "used_bytes": 12288,
-      "percent_used": 2.7016508141741724e-08,
-      "max_avail_bytes": 151610998784
+      "pool_name": "default.rgw.buckets.data",
+      "bytes_used": 17463049175040,
+      "objects": 4600294,
+      "performance": {
+        "iops_12h": 18.11484115581101,
+        "bw_bytes_12h": 4379863.039182629,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 10,
-      "pool_name": "kubernetes",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rbd"
-      ],
-      "stored_bytes": 58091546,
-      "objects": 41,
-      "used_bytes": 159467539,
-      "percent_used": 0.0003504838969092816,
-      "max_avail_bytes": 151610998784
+      "pool_name": "default.rgw.buckets.index",
+      "bytes_used": 2715339475,
+      "objects": 960,
+      "performance": {
+        "iops_12h": 22.426374521072834,
+        "bw_bytes_12h": 42035.44602809702,
+        "latency_ms": 21.70568504879978
+      }
     },
     {
       "pool_id": 11,
-      "pool_name": ".rgw.root",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 1323,
-      "objects": 4,
-      "used_bytes": 49152,
-      "percent_used": 1.0806601835611218e-07,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 12,
-      "pool_name": "default.rgw.log",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 3702,
-      "objects": 209,
-      "used_bytes": 417792,
-      "percent_used": 9.185604312733631e-07,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 13,
-      "pool_name": "default.rgw.control",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 0,
-      "objects": 8,
-      "used_bytes": 0,
-      "percent_used": 0,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 14,
-      "pool_name": "default.rgw.meta",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 3641,
-      "objects": 19,
-      "used_bytes": 208896,
-      "percent_used": 4.59280443010357e-07,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 15,
-      "pool_name": "default.rgw.buckets.index",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 6570,
-      "objects": 22,
-      "used_bytes": 19712,
-      "percent_used": 4.3338978628071345e-08,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 16,
-      "pool_name": "default.rgw.buckets.data",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 6498465,
-      "objects": 15,
-      "used_bytes": 19574784,
-      "percent_used": 4.3035448470618576e-05,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 17,
-      "pool_name": "default.rgw.otp",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "rgw"
-      ],
-      "stored_bytes": 0,
-      "objects": 0,
-      "used_bytes": 0,
-      "percent_used": 0,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 18,
-      "pool_name": "cephfs_data",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 16,
-      "pgp_num": 16,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "cephfs"
-      ],
-      "stored_bytes": 11447,
-      "objects": 1,
-      "used_bytes": 36864,
-      "percent_used": 8.10495208725115e-08,
-      "max_avail_bytes": 151610998784
-    },
-    {
-      "pool_id": 19,
-      "pool_name": "cephfs_metadata",
-      "type": "replicated",
-      "size": 3,
-      "min_size": 2,
-      "pg_num": 12,
-      "pgp_num": 12,
-      "crush_rule": 0,
-      "autoscale_mode": "on",
-      "application": [
-        "cephfs"
-      ],
-      "stored_bytes": 223280,
-      "objects": 23,
-      "used_bytes": 769589,
-      "percent_used": 1.692022578936303e-06,
-      "max_avail_bytes": 151610998784
+      "pool_name": "default.rgw.buckets.non-ec",
+      "bytes_used": 10244167,
+      "objects": 243,
+      "performance": {
+        "iops_12h": 2.05039351851852,
+        "bw_bytes_12h": 1126.7555555555566,
+        "latency_ms": 21.70568504879978
+      }
     }
   ]
 }
-root@node0:/home/Storage_Automation_Inspection# ceph osd pool ls detail --format json
+root@gm1-pub-ceph-172-16-3-107:/tmp# ceph df detail -f json
 
-[{"pool_id":1,"pool_name":"device_health_metrics","create_time":"2024-11-14T11:56:51.666817+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":1,"pg_placement_num":1,"pg_placement_num_target":1,"pg_num_target":1,"pg_num_pending":1,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90584","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{"pg_num_max":32,"pg_num_min":1},"application_metadata":{"mgr_devicehealth":{}}},{"pool_id":6,"pool_name":"volumes","create_time":"2024-12-10T16:48:37.670521+0800","flags":8193,"flags_names":"hashpspool,selfmanaged_snaps","type":1,"size":2,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":64,"pg_placement_num":64,"pg_placement_num_target":64,"pg_num_target":64,"pg_num_pending":64,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"38498","auid":0,"snap_mode":"selfmanaged","snap_seq":57541,"snap_epoch":89964,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rbd":{}}},{"pool_id":7,"pool_name":"images","create_time":"2024-12-10T16:48:53.035783+0800","flags":8193,"flags_names":"hashpspool,selfmanaged_snaps","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":17,"snap_epoch":90035,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rbd":{}}},{"pool_id":8,"pool_name":"backups","create_time":"2024-12-10T16:49:04.180131+0800","flags":8193,"flags_names":"hashpspool,selfmanaged_snaps","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":5,"snap_epoch":660,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rbd":{}}},{"pool_id":9,"pool_name":"vms","create_time":"2024-12-10T16:49:17.108067+0800","flags":8193,"flags_names":"hashpspool,selfmanaged_snaps","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":3,"snap_epoch":484,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rbd":{}}},{"pool_id":10,"pool_name":"kubernetes","create_time":"2025-03-05T15:21:46.110172+0800","flags":8193,"flags_names":"hashpspool,selfmanaged_snaps","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":5037,"snap_epoch":85236,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rbd":{}}},{"pool_id":11,"pool_name":".rgw.root","create_time":"2025-09-28T16:19:01.060252+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rgw":{}}},{"pool_id":12,"pool_name":"default.rgw.log","create_time":"2025-09-28T16:19:23.019302+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rgw":{}}},{"pool_id":13,"pool_name":"default.rgw.control","create_time":"2025-09-28T16:19:26.724988+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rgw":{}}},{"pool_id":14,"pool_name":"default.rgw.meta","create_time":"2025-09-28T16:19:30.247508+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{"pg_autoscale_bias":4},"application_metadata":{"rgw":{}}},{"pool_id":15,"pool_name":"default.rgw.buckets.index","create_time":"2025-09-28T18:02:21.948001+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{"pg_autoscale_bias":4},"application_metadata":{"rgw":{}}},{"pool_id":16,"pool_name":"default.rgw.buckets.data","create_time":"2025-09-28T20:28:40.690936+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rgw":{}}},{"pool_id":17,"pool_name":"default.rgw.otp","create_time":"2025-11-04T15:26:46.980648+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"rgw":{}}},{"pool_id":18,"pool_name":"cephfs_data","create_time":"2026-01-09T14:34:46.272059+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":16,"pg_placement_num":16,"pg_placement_num_target":16,"pg_num_target":16,"pg_num_pending":16,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{},"application_metadata":{"cephfs":{"data":"cephfs"}}},{"pool_id":19,"pool_name":"cephfs_metadata","create_time":"2026-01-09T14:44:07.381814+0800","flags":1,"flags_names":"hashpspool","type":1,"size":3,"min_size":2,"crush_rule":0,"peering_crush_bucket_count":0,"peering_crush_bucket_target":0,"peering_crush_bucket_barrier":0,"peering_crush_bucket_mandatory_member":2147483647,"object_hash":2,"pg_autoscale_mode":"on","pg_num":12,"pg_placement_num":12,"pg_placement_num_target":12,"pg_num_target":12,"pg_num_pending":12,"last_pg_merge_meta":{"source_pgid":"0.0","ready_epoch":0,"last_epoch_started":0,"last_epoch_clean":0,"source_version":"0'0","target_version":"0'0"},"last_change":"90039","last_force_op_resend":"0","last_force_op_resend_prenautilus":"0","last_force_op_resend_preluminous":"0","auid":0,"snap_mode":"selfmanaged","snap_seq":0,"snap_epoch":0,"pool_snaps":[],"removed_snaps":"[]","quota_max_bytes":0,"quota_max_objects":0,"tiers":[],"tier_of":-1,"read_tier":-1,"write_tier":-1,"cache_mode":"none","target_max_bytes":0,"target_max_objects":0,"cache_target_dirty_ratio_micro":400000,"cache_target_dirty_high_ratio_micro":600000,"cache_target_full_ratio_micro":800000,"cache_min_flush_age":0,"cache_min_evict_age":0,"erasure_code_profile":"","hit_set_params":{"type":"none"},"hit_set_period":0,"hit_set_count":0,"use_gmt_hitset":true,"min_read_recency_for_promote":0,"min_write_recency_for_promote":0,"hit_set_grade_decay_rate":0,"hit_set_search_last_n":0,"grade_table":[],"stripe_width":0,"expected_num_objects":0,"fast_read":false,"options":{"pg_autoscale_bias":4,"pg_num_min":16,"recovery_priority":5},"application_metadata":{"cephfs":{"metadata":"cephfs"}}}]root@node0:/home/Storage_Automation_Inspection# 
-root@node0:/home/Storage_Automation_Inspection# 
-root@node0:/home/Storage_Automation_Inspection# ceph df detail --format json
-
-{"stats":{"total_bytes":483171237888,"total_avail_bytes":479106473984,"total_used_bytes":4064763904,"total_used_raw_bytes":4064763904,"total_used_raw_ratio":0.0084126777946949005,"num_osds":3,"num_per_pool_osds":3,"num_per_pool_omap_osds":3},"stats_by_class":{"hdd":{"total_bytes":483171237888,"total_avail_bytes":479106473984,"total_used_bytes":4064763904,"total_used_raw_bytes":4064763904,"total_used_raw_ratio":0.0084126777946949005}},"pools":[{"name":"device_health_metrics","id":1,"stats":{"stored":0,"stored_data":0,"stored_omap":0,"objects":0,"kb_used":0,"bytes_used":0,"data_bytes_used":0,"omap_bytes_used":0,"percent_used":0,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":0,"rd_bytes":0,"wr":0,"wr_bytes":0,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":0,"avail_raw":454832033318}},{"name":"volumes","id":6,"stats":{"stored":1784156672,"stored_data":1784156672,"stored_omap":0,"objects":477,"kb_used":3484696,"bytes_used":3568328704,"data_bytes_used":3568328704,"omap_bytes_used":0,"percent_used":0.0077843060716986656,"max_avail":227416014848,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":188043721,"rd_bytes":21180297821184,"wr":387386148,"wr_bytes":1983427459072,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":3568313344,"avail_raw":454832033318}},{"name":"images","id":7,"stats":{"stored":19,"stored_data":19,"stored_omap":0,"objects":3,"kb_used":12,"bytes_used":12288,"data_bytes_used":12288,"omap_bytes_used":0,"percent_used":2.7016566761517424e-08,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":835396,"rd_bytes":180637096960,"wr":127482,"wr_bytes":177510560768,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":57,"avail_raw":454832033318}},{"name":"backups","id":8,"stats":{"stored":19,"stored_data":19,"stored_omap":0,"objects":3,"kb_used":12,"bytes_used":12288,"data_bytes_used":12288,"omap_bytes_used":0,"percent_used":2.7016566761517424e-08,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":3613,"rd_bytes":4861952,"wr":5481,"wr_bytes":2078420992,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":57,"avail_raw":454832033318}},{"name":"vms","id":9,"stats":{"stored":19,"stored_data":19,"stored_omap":0,"objects":1,"kb_used":12,"bytes_used":12288,"data_bytes_used":12288,"omap_bytes_used":0,"percent_used":2.7016566761517424e-08,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":0,"rd_bytes":0,"wr":2,"wr_bytes":2048,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":57,"avail_raw":454832033318}},{"name":"kubernetes","id":10,"stats":{"stored":58091546,"stored_data":58007572,"stored_omap":83974,"objects":41,"kb_used":155731,"bytes_used":159467539,"data_bytes_used":159215616,"omap_bytes_used":251923,"percent_used":0.00035048465360887349,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":11839921,"rd_bytes":34183492608,"wr":494279,"wr_bytes":603874304,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":174274624,"avail_raw":454832033318}},{"name":".rgw.root","id":11,"stats":{"stored":1323,"stored_data":1323,"stored_omap":0,"objects":4,"kb_used":48,"bytes_used":49152,"data_bytes_used":49152,"omap_bytes_used":0,"percent_used":1.0806625283521498e-07,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":72,"rd_bytes":73728,"wr":4,"wr_bytes":4096,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":3969,"avail_raw":454832033318}},{"name":"default.rgw.log","id":12,"stats":{"stored":3702,"stored_data":3702,"stored_omap":0,"objects":209,"kb_used":408,"bytes_used":417792,"data_bytes_used":417792,"omap_bytes_used":0,"percent_used":9.1856242079302319e-07,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":13194572,"rd_bytes":13510961152,"wr":8771811,"wr_bytes":551936,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":11106,"avail_raw":454832033318}},{"name":"default.rgw.control","id":13,"stats":{"stored":0,"stored_data":0,"stored_omap":0,"objects":8,"kb_used":0,"bytes_used":0,"data_bytes_used":0,"omap_bytes_used":0,"percent_used":0,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":0,"rd_bytes":0,"wr":0,"wr_bytes":0,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":0,"avail_raw":454832033318}},{"name":"default.rgw.meta","id":14,"stats":{"stored":3641,"stored_data":3641,"stored_omap":0,"objects":19,"kb_used":204,"bytes_used":208896,"data_bytes_used":208896,"omap_bytes_used":0,"percent_used":4.5928143777018704e-07,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":1465,"rd_bytes":1227776,"wr":111,"wr_bytes":48128,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":10923,"avail_raw":454832033318}},{"name":"default.rgw.buckets.index","id":15,"stats":{"stored":6570,"stored_data":0,"stored_omap":6570,"objects":22,"kb_used":20,"bytes_used":19712,"data_bytes_used":0,"omap_bytes_used":19712,"percent_used":4.3339074551340673e-08,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":1656,"rd_bytes":1659904,"wr":88,"wr_bytes":40960,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":19710,"avail_raw":454832033318}},{"name":"default.rgw.buckets.data","id":16,"stats":{"stored":6498465,"stored_data":6498465,"stored_omap":0,"objects":15,"kb_used":19116,"bytes_used":19574784,"data_bytes_used":19574784,"omap_bytes_used":0,"percent_used":4.3035539420088753e-05,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":56,"rd_bytes":6298624,"wr":209,"wr_bytes":6512640,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":19495396,"avail_raw":454832033318}},{"name":"default.rgw.otp","id":17,"stats":{"stored":0,"stored_data":0,"stored_omap":0,"objects":0,"kb_used":0,"bytes_used":0,"data_bytes_used":0,"omap_bytes_used":0,"percent_used":0,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":0,"rd_bytes":0,"wr":0,"wr_bytes":0,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":0,"avail_raw":454832033318}},{"name":"cephfs_data","id":18,"stats":{"stored":11447,"stored_data":11447,"stored_omap":0,"objects":1,"kb_used":36,"bytes_used":36864,"data_bytes_used":36864,"omap_bytes_used":0,"percent_used":8.1049698508195434e-08,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":2,"rd_bytes":12288,"wr":61,"wr_bytes":266240,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":34341,"avail_raw":454832033318}},{"name":"cephfs_metadata","id":19,"stats":{"stored":223280,"stored_data":204319,"stored_omap":18961,"objects":23,"kb_used":752,"bytes_used":769589,"data_bytes_used":712704,"omap_bytes_used":56885,"percent_used":1.6920262169151101e-06,"max_avail":151610671104,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":173,"rd_bytes":1248256,"wr":284,"wr_bytes":347136,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":669840,"avail_raw":454832033318}}]}
-root@node0:/home/Storage_Automation_Inspection# 
+{"stats":{"total_bytes":53527166492672,"total_avail_bytes":33118190469120,"total_used_bytes":20408976023552,"total_used_raw_bytes":20408976023552,"total_used_raw_ratio":0.38128256797790527,"num_osds":15,"num_per_pool_osds":15,"num_per_pool_omap_osds":15},"stats_by_class":{"hdd":{"total_bytes":50647126679552,"total_avail_bytes":30250660454400,"total_used_bytes":20396466225152,"total_used_raw_bytes":20396466225152,"total_used_raw_ratio":0.40271714329719543},"ssd":{"total_bytes":2880039813120,"total_avail_bytes":2867530014720,"total_used_bytes":12509798400,"total_used_raw_bytes":12509798400,"total_used_raw_ratio":0.0043436200357973576}},"pools":[{"name":"device_health_metrics","id":1,"stats":{"stored":105849728,"stored_data":0,"stored_omap":105849728,"objects":28,"kb_used":310107,"bytes_used":317549190,"data_bytes_used":0,"omap_bytes_used":317549190,"percent_used":1.2179939403722528e-05,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":51498,"rd_bytes":84037684224,"wr":15948,"wr_bytes":287959040,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":317549184,"avail_raw":26071174189147}},{"name":"cloud","id":2,"stats":{"stored":84824901123,"stored_data":84824809472,"stored_omap":91651,"objects":35150,"kb_used":248511989,"bytes_used":254476276234,"data_bytes_used":254476001280,"omap_bytes_used":274954,"percent_used":0.0096664754673838615,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":1515473976,"rd_bytes":55717897346048,"wr":4639565539,"wr_bytes":279545954838528,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":254474698752,"avail_raw":26071174189147}},{"name":"cephfs-metadata","id":3,"stats":{"stored":283266725,"stored_data":276307872,"stored_omap":6958853,"objects":662,"kb_used":829976,"bytes_used":849894672,"data_bytes_used":829018112,"omap_bytes_used":20876560,"percent_used":0.0003121287445537746,"max_avail":907349327872,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":429024,"rd_bytes":439152640,"wr":8523639,"wr_bytes":31652281344,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":849800192,"avail_raw":2722047873068}},{"name":"cephfs-data","id":4,"stats":{"stored":10140424192,"stored_data":10140424192,"stored_omap":0,"objects":6602,"kb_used":29740376,"bytes_used":30454145024,"data_bytes_used":30454145024,"omap_bytes_used":0,"percent_used":0.0011667526559904218,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":1439020,"rd_bytes":113534329856,"wr":3193067,"wr_bytes":95451713536,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":30421272576,"avail_raw":26071174189147}},{"name":".rgw.root","id":5,"stats":{"stored":2554,"stored_data":2554,"stored_omap":0,"objects":6,"kb_used":72,"bytes_used":73728,"data_bytes_used":73728,"omap_bytes_used":0,"percent_used":2.8279507624517919e-09,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":17839,"rd_bytes":18267136,"wr":6,"wr_bytes":6144,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":7662,"avail_raw":26071174189147}},{"name":"default.rgw.log","id":6,"stats":{"stored":721978,"stored_data":721978,"stored_omap":0,"objects":209,"kb_used":2820,"bytes_used":2887680,"data_bytes_used":2887680,"omap_bytes_used":0,"percent_used":1.107613982753719e-07,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":99408552,"rd_bytes":170941591552,"wr":66455379,"wr_bytes":9351184384,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":2165934,"avail_raw":26071174189147}},{"name":"default.rgw.control","id":7,"stats":{"stored":0,"stored_data":0,"stored_omap":0,"objects":8,"kb_used":0,"bytes_used":0,"data_bytes_used":0,"omap_bytes_used":0,"percent_used":0,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":0,"rd_bytes":0,"wr":0,"wr_bytes":0,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":0,"avail_raw":26071174189147}},{"name":"default.rgw.meta","id":8,"stats":{"stored":114426,"stored_data":75972,"stored_omap":38454,"objects":372,"kb_used":3761,"bytes_used":3850915,"data_bytes_used":3735552,"omap_bytes_used":115363,"percent_used":1.4770773759664735e-07,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":6975311,"rd_bytes":5676555264,"wr":396391,"wr_bytes":195496960,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":343278,"avail_raw":26071174189147}},{"name":"default.rgw.buckets.data","id":9,"stats":{"stored":11642050969600,"stored_data":11642050969600,"stored_omap":0,"objects":4600314,"kb_used":17053785240,"bytes_used":17463076085760,"data_bytes_used":17463076085760,"omap_bytes_used":0,"percent_used":0.401134192943573,"max_avail":17380783685632,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":607499872,"rd_bytes":26644265577472,"wr":1042234889,"wr_bytes":84710369357824,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":17463076978688,"avail_raw":26071174189147}},{"name":"default.rgw.buckets.index","id":10,"stats":{"stored":905113152,"stored_data":0,"stored_omap":905113152,"objects":960,"kb_used":2651699,"bytes_used":2715339475,"data_bytes_used":0,"omap_bytes_used":2715339475,"percent_used":0.0009965414647012949,"max_avail":907349327872,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":1042550193,"rd_bytes":1999486644224,"wr":288665195,"wr_bytes":163598566400,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":2715339520,"avail_raw":2722047873068}},{"name":"default.rgw.buckets.non-ec","id":11,"stats":{"stored":2427349,"stored_data":6561,"stored_omap":2420788,"objects":243,"kb_used":10009,"bytes_used":10248348,"data_bytes_used":2985984,"omap_bytes_used":7262364,"percent_used":3.9309099975071149e-07,"max_avail":8690391842816,"quota_objects":0,"quota_bytes":0,"dirty":0,"rd":27656327,"rd_bytes":18185317376,"wr":12160690,"wr_bytes":5942985728,"compress_bytes_used":0,"compress_under_bytes":0,"stored_raw":7282047,"avail_raw":26071174189147}}]}
+root@gm1-pub-ceph-172-16-3-107:/tmp# 
