@@ -1,57 +1,108 @@
 #!/usr/bin/env python3
 import json
 import subprocess
+import requests
 
+PROM_URL = "http://172.16.3.107:9095"
 
+# ---------------------------
+# 执行命令
+# ---------------------------
 def run_cmd(cmd):
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if result.returncode != 0:
-        raise Exception(f"Command failed: {cmd}\n{result.stderr.decode()}")
-    return json.loads(result.stdout.decode())
+    return subprocess.check_output(cmd, shell=True).decode()
 
+# ---------------------------
+# 获取 pool 基础信息
+# ---------------------------
+def get_pools():
+    out = run_cmd("ceph df detail -f json")
+    data = json.loads(out)
 
+    pools = {}
+    for p in data["pools"]:
+        pools[p["id"]] = {
+            "pool_id": p["id"],
+            "pool_name": p["name"],
+            "bytes_used": p["stats"]["bytes_used"],
+            "objects": p["stats"]["objects"],
+        }
+    return pools
+
+# ---------------------------
+# Prometheus 查询
+# ---------------------------
+def prom_query(query):
+    resp = requests.get(
+        f"{PROM_URL}/api/v1/query",
+        params={"query": query}
+    ).json()
+
+    result = {}
+
+    if resp["status"] != "success":
+        return result
+
+    for item in resp["data"]["result"]:
+        pool_id = int(item["metric"].get("pool_id", -1))
+        value = float(item["value"][1])
+        result[pool_id] = value
+
+    return result
+
+# ---------------------------
+# 获取性能数据
+# ---------------------------
+def get_perf():
+    iops_q = '''
+avg_over_time((sum by (pool_id)
+(rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])
+'''
+
+    bw_q = '''
+avg_over_time((sum by (pool_id)
+(rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])
+'''
+
+    latency_q = '''
+sum(rate(ceph_osd_op_latency_sum[5m])) /
+sum(rate(ceph_osd_op_latency_count[5m]))
+'''
+
+    iops = prom_query(iops_q)
+    bw = prom_query(bw_q)
+
+    # latency 是全局
+    latency_resp = requests.get(
+        f"{PROM_URL}/api/v1/query",
+        params={"query": latency_q}
+    ).json()
+
+    latency = None
+    if latency_resp["data"]["result"]:
+        latency = float(latency_resp["data"]["result"][0]["value"][1]) * 1000  # 转 ms
+
+    return iops, bw, latency
+
+# ---------------------------
+# 主逻辑
+# ---------------------------
 def main():
-    # 获取 pool 配置
-    pool_detail = run_cmd("ceph osd pool ls detail --format json")
-
-    # 获取 pool 使用情况
-    df_detail = run_cmd("ceph df detail --format json")
-
-    # 构建 df map（按 pool_name）
-    df_map = {}
-    for p in df_detail.get("pools", []):
-        df_map[p["name"]] = p
+    pools = get_pools()
+    iops, bw, latency = get_perf()
 
     result = {
-        "cluster": "ceph-cluster",
+        "cluster": "test-cluster",
         "pools": []
     }
 
-    for p in pool_detail:
-        name = p.get("pool_name")
-
-        df = df_map.get(name, {})
-
-        pool_info = {
-            "pool_id": p.get("pool_id"),
-            "pool_name": name,
-            "type": "replicated" if p.get("type") == 1 else "erasure",
-            "size": p.get("size"),
-            "min_size": p.get("min_size"),
-            "pg_num": p.get("pg_num"),
-            "pgp_num": p.get("pg_placement_num"),
-            "crush_rule": p.get("crush_rule"),
-            "autoscale_mode": p.get("pg_autoscale_mode"),
-            "application": list(p.get("application_metadata", {}).keys()),
-
-            "stored_bytes": df.get("stats", {}).get("stored"),
-            "objects": df.get("stats", {}).get("objects"),
-            "used_bytes": df.get("stats", {}).get("bytes_used"),
-            "percent_used": df.get("stats", {}).get("percent_used"),
-            "max_avail_bytes": df.get("stats", {}).get("max_avail"),
+    for pid, p in pools.items():
+        p["performance"] = {
+            "iops_12h": iops.get(pid, 0),
+            "bw_bytes_12h": bw.get(pid, 0),
+            "latency_ms": latency
         }
 
-        result["pools"].append(pool_info)
+        result["pools"].append(p)
 
     print(json.dumps(result, indent=2))
 
