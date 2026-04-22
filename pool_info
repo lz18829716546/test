@@ -1,3 +1,5 @@
+# 我在测试环境执行了你发我的脚步，我想在现有基础上增加一条信息pool的device_class类型，即每个pool底层osd是HDD还是SSD的盘。
+另外，把"bytes_used": 848153872直接更换成"%USED"
 root@gm1-pub-ceph-172-16-3-107:/tmp# python3 get_pool_info.py
 {
   "cluster": "test-cluster",
