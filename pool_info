@@ -1,0 +1,2831 @@
+我在我司部署的4套生产ceph环境上分别执行了一遍“手动检查命令”，你认真仔细的看完后评估下前面的那个脚本是否能达到获取“最终我们想要的数据模型（数据结构）”的目标。如果还有问题，你及时调整和优化。注：这个脚本属于ceph存储自动化巡检其中一个模块（获取pool信息），写这个脚本的目的也只是验证下这个模块功能是否能达到预期（获取“最终我们想要的数据模型（数据结构）”），所以运行这个脚本只需输出处理后的数据模型（数据结构），也不分生产模式和本地测试。你写好脚本后我会直接先在我的那套测试环境ceph上运行测试一遍。
+root@fs-1f8hh0103-ceph-224201:~# ceph osd dump -f json | jq '.pools[] | {
+>   pool_id: .pool,
+>   pool_name: .pool_name,
+>   crush_rule: .crush_rule,
+>   size: .size,
+>   min_size: .min_size,
+>   type: .type,
+>   pg_num: .pg_num,
+>   pgp_num: .pg_placement_num,
+>   autoscale_mode: .pg_autoscale_mode,
+>   application: .application_metadata
+> }'
+{
+  "pool_id": 1,
+  "pool_name": "device_health_metrics",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 1,
+  "pgp_num": 1,
+  "autoscale_mode": "on",
+  "application": {
+    "mgr_devicehealth": {}
+  }
+}
+{
+  "pool_id": 2,
+  "pool_name": "cephfs-data",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "data": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 3,
+  "pool_name": "cephfs-metadata",
+  "crush_rule": 1,
+  "size": 4,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "metadata": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 4,
+  "pool_name": "default.rgw.buckets.data",
+  "crush_rule": 2,
+  "size": 6,
+  "min_size": 4,
+  "type": 3,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "warn",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 6,
+  "pool_name": ".rgw.root",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 7,
+  "pool_name": "images",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "warn",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 8,
+  "pool_name": "volumes",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 256,
+  "pgp_num": 256,
+  "autoscale_mode": "warn",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 9,
+  "pool_name": "backups",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 10,
+  "pool_name": "default.rgw.log",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 11,
+  "pool_name": "default.rgw.control",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 12,
+  "pool_name": "default.rgw.meta",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 13,
+  "pool_name": "default.rgw.buckets.index",
+  "crush_rule": 1,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 14,
+  "pool_name": "default.rgw.archive.data",
+  "crush_rule": 3,
+  "size": 10,
+  "min_size": 8,
+  "type": 3,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "warn",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 15,
+  "pool_name": "default.rgw.glacier.data",
+  "crush_rule": 3,
+  "size": 10,
+  "min_size": 8,
+  "type": 3,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "warn",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 16,
+  "pool_name": "default.rgw.archive.index",
+  "crush_rule": 1,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 17,
+  "pool_name": "default.rgw.archive.non-ec",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 18,
+  "pool_name": "default.rgw.buckets.non-ec",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 19,
+  "pool_name": "fs-plat-test",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 20,
+  "pool_name": "fs-plat-pet",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 21,
+  "pool_name": "leader-tce",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 22,
+  "pool_name": "fs-01-plat-test-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 23,
+  "pool_name": "fs-01-plat-test-0002",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 25,
+  "pool_name": "fs-01-plat-prod-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 27,
+  "pool_name": "fs-01-plat-pet-0002",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 28,
+  "pool_name": "fs-01-plat-test-0005",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 29,
+  "pool_name": "fs-01-plat-test-0003",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 31,
+  "pool_name": "fs-01-plat-demo-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 32,
+  "pool_name": "fs-01-plat-demo-0002",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 33,
+  "pool_name": "fs-01-plat-pre-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 34,
+  "pool_name": "fs-dc01-plat-prod-0002",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 35,
+  "pool_name": "fs-dc01-plat-sit-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 36,
+  "pool_name": "fs-dc01-plat-pet-0001",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+root@fs-1f8hh0103-ceph-224201:~# ceph osd crush rule dump -f json | jq '.[] | {
+>   rule_id: .rule_id,
+>   rule_name: .rule_name,
+>   steps: .steps
+> }'
+{
+  "rule_id": 0,
+  "rule_name": "replicated_rule",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 1,
+  "rule_name": "replicated_rule_ssd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -19,
+      "item_name": "ssd"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 2,
+  "rule_name": "erasure_rule_k4m2_osd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "choose_indep",
+      "num": 3,
+      "type": "host"
+    },
+    {
+      "op": "chooseleaf_indep",
+      "num": 2,
+      "type": "osd"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 3,
+  "rule_name": "erasure_rule_k8m2_osd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "choose_indep",
+      "num": 5,
+      "type": "host"
+    },
+    {
+      "op": "chooseleaf_indep",
+      "num": 2,
+      "type": "osd"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+root@fs-1f8hh0103-ceph-224201:~# ceph osd tree -f json | jq '.nodes[] | select(.type=="osd") | {
+>   osd: .id,
+>   device_class: .device_class
+> }'
+{
+  "osd": 0,
+  "device_class": "ssd"
+}
+{
+  "osd": 13,
+  "device_class": "ssd"
+}
+{
+  "osd": 26,
+  "device_class": "ssd"
+}
+{
+  "osd": 39,
+  "device_class": "ssd"
+}
+{
+  "osd": 52,
+  "device_class": "ssd"
+}
+{
+  "osd": 1,
+  "device_class": "hdd"
+}
+{
+  "osd": 2,
+  "device_class": "hdd"
+}
+{
+  "osd": 3,
+  "device_class": "hdd"
+}
+{
+  "osd": 4,
+  "device_class": "hdd"
+}
+{
+  "osd": 5,
+  "device_class": "hdd"
+}
+{
+  "osd": 6,
+  "device_class": "hdd"
+}
+{
+  "osd": 7,
+  "device_class": "hdd"
+}
+{
+  "osd": 8,
+  "device_class": "hdd"
+}
+{
+  "osd": 9,
+  "device_class": "hdd"
+}
+{
+  "osd": 10,
+  "device_class": "hdd"
+}
+{
+  "osd": 11,
+  "device_class": "hdd"
+}
+{
+  "osd": 12,
+  "device_class": "hdd"
+}
+{
+  "osd": 40,
+  "device_class": "hdd"
+}
+{
+  "osd": 41,
+  "device_class": "hdd"
+}
+{
+  "osd": 42,
+  "device_class": "hdd"
+}
+{
+  "osd": 43,
+  "device_class": "hdd"
+}
+{
+  "osd": 44,
+  "device_class": "hdd"
+}
+{
+  "osd": 45,
+  "device_class": "hdd"
+}
+{
+  "osd": 46,
+  "device_class": "hdd"
+}
+{
+  "osd": 47,
+  "device_class": "hdd"
+}
+{
+  "osd": 48,
+  "device_class": "hdd"
+}
+{
+  "osd": 49,
+  "device_class": "hdd"
+}
+{
+  "osd": 50,
+  "device_class": "hdd"
+}
+{
+  "osd": 51,
+  "device_class": "hdd"
+}
+{
+  "osd": 14,
+  "device_class": "hdd"
+}
+{
+  "osd": 15,
+  "device_class": "hdd"
+}
+{
+  "osd": 16,
+  "device_class": "hdd"
+}
+{
+  "osd": 17,
+  "device_class": "hdd"
+}
+{
+  "osd": 18,
+  "device_class": "hdd"
+}
+{
+  "osd": 19,
+  "device_class": "hdd"
+}
+{
+  "osd": 20,
+  "device_class": "hdd"
+}
+{
+  "osd": 21,
+  "device_class": "hdd"
+}
+{
+  "osd": 22,
+  "device_class": "hdd"
+}
+{
+  "osd": 23,
+  "device_class": "hdd"
+}
+{
+  "osd": 24,
+  "device_class": "hdd"
+}
+{
+  "osd": 25,
+  "device_class": "hdd"
+}
+{
+  "osd": 27,
+  "device_class": "hdd"
+}
+{
+  "osd": 28,
+  "device_class": "hdd"
+}
+{
+  "osd": 29,
+  "device_class": "hdd"
+}
+{
+  "osd": 30,
+  "device_class": "hdd"
+}
+{
+  "osd": 31,
+  "device_class": "hdd"
+}
+{
+  "osd": 32,
+  "device_class": "hdd"
+}
+{
+  "osd": 33,
+  "device_class": "hdd"
+}
+{
+  "osd": 34,
+  "device_class": "hdd"
+}
+{
+  "osd": 35,
+  "device_class": "hdd"
+}
+{
+  "osd": 36,
+  "device_class": "hdd"
+}
+{
+  "osd": 37,
+  "device_class": "hdd"
+}
+{
+  "osd": 38,
+  "device_class": "hdd"
+}
+{
+  "osd": 53,
+  "device_class": "hdd"
+}
+{
+  "osd": 54,
+  "device_class": "hdd"
+}
+{
+  "osd": 55,
+  "device_class": "hdd"
+}
+{
+  "osd": 56,
+  "device_class": "hdd"
+}
+{
+  "osd": 57,
+  "device_class": "hdd"
+}
+{
+  "osd": 58,
+  "device_class": "hdd"
+}
+{
+  "osd": 59,
+  "device_class": "hdd"
+}
+{
+  "osd": 60,
+  "device_class": "hdd"
+}
+{
+  "osd": 61,
+  "device_class": "hdd"
+}
+{
+  "osd": 62,
+  "device_class": "hdd"
+}
+{
+  "osd": 63,
+  "device_class": "hdd"
+}
+{
+  "osd": 64,
+  "device_class": "hdd"
+}
+root@fs-1f8hh0103-ceph-224201:~# ceph osd pool ls detail
+pool 1 'device_health_metrics' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 1 pgp_num 1 autoscale_mode on last_change 64745 flags hashpspool stripe_width 0 pg_num_max 32 pg_num_min 1 application mgr_devicehealth
+pool 2 'cephfs-data' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 7873 lfor 0/6277/6275 flags hashpspool stripe_width 0 application cephfs
+pool 3 'cephfs-metadata' replicated size 4 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7874 flags hashpspool stripe_width 0 pg_autoscale_bias 4 pg_num_min 16 recovery_priority 5 application cephfs
+pool 4 'default.rgw.buckets.data' erasure profile k4m2-osd size 6 min_size 4 crush_rule 2 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode warn last_change 67150 lfor 0/0/988 flags hashpspool,ec_overwrites stripe_width 16384 application rgw
+pool 6 '.rgw.root' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7871 lfor 0/0/473 flags hashpspool stripe_width 0 application rgw
+pool 7 'images' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode warn last_change 67151 lfor 0/3442/3440 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 8 'volumes' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 256 pgp_num 256 autoscale_mode warn last_change 68736 lfor 0/7864/7977 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 9 'backups' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 14020 lfor 0/2205/2203 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 10 'default.rgw.log' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7883 lfor 0/0/517 flags hashpspool stripe_width 0 application rgw
+pool 11 'default.rgw.control' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7881 lfor 0/0/519 flags hashpspool stripe_width 0 application rgw
+pool 12 'default.rgw.meta' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7884 lfor 0/0/519 flags hashpspool stripe_width 0 pg_autoscale_bias 4 application rgw
+pool 13 'default.rgw.buckets.index' replicated size 3 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 8276 lfor 0/8276/8274 flags hashpspool stripe_width 0 application rgw
+pool 14 'default.rgw.archive.data' erasure profile k8m2-osd size 10 min_size 8 crush_rule 3 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode warn last_change 67153 lfor 0/3005/3003 flags hashpspool,ec_overwrites stripe_width 32768 application rgw
+pool 15 'default.rgw.glacier.data' erasure profile k8m2-osd size 10 min_size 8 crush_rule 3 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode warn last_change 67154 lfor 0/3153/3151 flags hashpspool,ec_overwrites stripe_width 32768 application rgw
+pool 16 'default.rgw.archive.index' replicated size 3 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 8260 lfor 0/8260/8258 flags hashpspool stripe_width 0 application rgw
+pool 17 'default.rgw.archive.non-ec' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7877 flags hashpspool stripe_width 0 application rgw
+pool 18 'default.rgw.buckets.non-ec' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7880 flags hashpspool stripe_width 0 application rgw
+pool 19 'fs-plat-test' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 9895 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 20 'fs-plat-pet' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 9898 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 21 'leader-tce' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 9902 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 22 'fs-01-plat-test-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 11100 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 23 'fs-01-plat-test-0002' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 11103 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 25 'fs-01-plat-prod-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 15850 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 27 'fs-01-plat-pet-0002' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 19400 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 28 'fs-01-plat-test-0005' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 19944 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 29 'fs-01-plat-test-0003' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 20270 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 31 'fs-01-plat-demo-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 23592 flags hashpspool stripe_width 0 application rbd
+pool 32 'fs-01-plat-demo-0002' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 23596 flags hashpspool stripe_width 0 application rbd
+pool 33 'fs-01-plat-pre-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 23870 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 34 'fs-dc01-plat-prod-0002' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 38014 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 35 'fs-dc01-plat-sit-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 41161 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 36 'fs-dc01-plat-pet-0001' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 52036 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+
+root@fs-1f8hh0103-ceph-224201:~# curl -G 'http://172.21.224.201:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"13"},"value":[1776843931.288,"9.339314335887611"]},{"metric":{"pool_id":"23"},"value":[1776843931.288,"0.009973659003831414"]},{"metric":{"pool_id":"32"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"8"},"value":[1776843931.288,"2432.7861454342287"]},{"metric":{"pool_id":"22"},"value":[1776843931.288,"133.57745290549178"]},{"metric":{"pool_id":"17"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"3"},"value":[1776843931.288,"7.128041187739455"]},{"metric":{"pool_id":"2"},"value":[1776843931.288,"4.810903575989785"]},{"metric":{"pool_id":"21"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"29"},"value":[1776843931.288,"7.109371008939967"]},{"metric":{"pool_id":"6"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"10"},"value":[1776843931.288,"8.990612228607906"]},{"metric":{"pool_id":"20"},"value":[1776843931.288,"0.009973659003831412"]},{"metric":{"pool_id":"16"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"28"},"value":[1776843931.288,"0.01329821200510858"]},{"metric":{"pool_id":"15"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"4"},"value":[1776843931.288,"264.06129948914474"]},{"metric":{"pool_id":"25"},"value":[1776843931.288,"12.23923132183907"]},{"metric":{"pool_id":"27"},"value":[1776843931.288,"24.53560584291189"]},{"metric":{"pool_id":"34"},"value":[1776843931.288,"68.86905332056207"]},{"metric":{"pool_id":"12"},"value":[1776843931.288,"0.9870019157088118"]},{"metric":{"pool_id":"7"},"value":[1776843931.288,"168.94659083652607"]},{"metric":{"pool_id":"36"},"value":[1776843931.288,"17.06040948275865"]},{"metric":{"pool_id":"11"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"9"},"value":[1776843931.288,"0.009973659003831414"]},{"metric":{"pool_id":"19"},"value":[1776843931.288,"0.009973659003831412"]},{"metric":{"pool_id":"31"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"18"},"value":[1776843931.288,"0.580262611749681"]},{"metric":{"pool_id":"1"},"value":[1776843931.288,"0.03145833333333334"]},{"metric":{"pool_id":"14"},"value":[1776843931.288,"0"]},{"metric":{"pool_id":"33"},"value":[1776843931.288,"135.39595306513436"]},{"metric":{"pool_id":"35"},"value":[1776843931.288,"4.961351372924649"]}]}}root@fs-1f8hh0103-ceph-224201:~# 
+root@fs-1f8hh0103-ceph-224201:~# curl -G 'http://172.21.224.201:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"27"},"value":[1776843945.077,"3464642.83545339"]},{"metric":{"pool_id":"2"},"value":[1776843945.077,"25005.52664112382"]},{"metric":{"pool_id":"13"},"value":[1776843945.077,"14171.542068965524"]},{"metric":{"pool_id":"3"},"value":[1776843945.077,"32976.86968071525"]},{"metric":{"pool_id":"8"},"value":[1776843945.077,"239367368.1957591"]},{"metric":{"pool_id":"10"},"value":[1776843945.077,"6331.144010217121"]},{"metric":{"pool_id":"9"},"value":[1776843945.077,"6.808684546615587"]},{"metric":{"pool_id":"18"},"value":[1776843945.077,"317.4775989782891"]},{"metric":{"pool_id":"21"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"4"},"value":[1776843945.077,"4910950.95499361"]},{"metric":{"pool_id":"36"},"value":[1776843945.077,"223815.40454661567"]},{"metric":{"pool_id":"22"},"value":[1776843945.077,"2171245.4923116267"]},{"metric":{"pool_id":"6"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"23"},"value":[1776843945.077,"10.213026819923366"]},{"metric":{"pool_id":"11"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"1"},"value":[1776843945.077,"26357.546666666705"]},{"metric":{"pool_id":"17"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"35"},"value":[1776843945.077,"40515.696143039546"]},{"metric":{"pool_id":"12"},"value":[1776843945.077,"786.565721583652"]},{"metric":{"pool_id":"31"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"33"},"value":[1776843945.077,"1033876.8911366541"]},{"metric":{"pool_id":"32"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"29"},"value":[1776843945.077,"89147.2960408684"]},{"metric":{"pool_id":"19"},"value":[1776843945.077,"10.213026819923366"]},{"metric":{"pool_id":"25"},"value":[1776843945.077,"112074.17787994888"]},{"metric":{"pool_id":"34"},"value":[1776843945.077,"14028486.363218417"]},{"metric":{"pool_id":"20"},"value":[1776843945.077,"6.808684546615587"]},{"metric":{"pool_id":"14"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"16"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"28"},"value":[1776843945.077,"34.04342273307795"]},{"metric":{"pool_id":"15"},"value":[1776843945.077,"0"]},{"metric":{"pool_id":"7"},"value":[1776843945.077,"157537.18518518476"]}]}}root@fs-1f8hh0103-ceph-224201:~# 
+root@fs-1f8hh0103-ceph-224201:~# curl -G 'http://172.21.224.201:9095/api/v1/query' \
+>   --data-urlencode 'query=sum(rate(ceph_osd_op_latency_sum[5m])) / sum(rate(ceph_osd_op_latency_count[5m]))'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1776843956.935,"0.016168400401720122"]}]}}root@fs-1f8hh0103-ceph-224201:~# 
+root@fs-1f8hh0103-ceph-224201:~# 
+root@fs-1f8hh0103-ceph-224201:~# ceph df -f json | jq '.pools[] | {
+>   name: .name,
+>   stored_bytes: .stats.stored,
+>   objects: .stats.objects,
+>   used_percent: .stats.percent_used
+> }'
+{
+  "name": "device_health_metrics",
+  "stored_bytes": 597038976,
+  "objects": 82,
+  "used_percent": 2.354169282625662e-06
+}
+{
+  "name": "cephfs-data",
+  "stored_bytes": 75948048384,
+  "objects": 479308,
+  "used_percent": 0.00030439390684477985
+}
+{
+  "name": "cephfs-metadata",
+  "stored_bytes": 556910912,
+  "objects": 43825,
+  "used_percent": 0.00029363660723902285
+}
+{
+  "name": "default.rgw.buckets.data",
+  "stored_bytes": 12925267869696,
+  "objects": 8308593,
+  "used_percent": 0.024849478155374527
+}
+{
+  "name": ".rgw.root",
+  "stored_bytes": 1638,
+  "objects": 4,
+  "used_percent": 6.460348922487924e-11
+}
+{
+  "name": "images",
+  "stored_bytes": 183420577904,
+  "objects": 21988,
+  "used_percent": 0.0007227214518934488
+}
+{
+  "name": "volumes",
+  "stored_bytes": 21406316456573,
+  "objects": 5159966,
+  "used_percent": 0.0778091549873352
+}
+{
+  "name": "backups",
+  "stored_bytes": 12986729392,
+  "objects": 4257,
+  "used_percent": 5.1205432100687176e-05
+}
+{
+  "name": "default.rgw.log",
+  "stored_bytes": 360838,
+  "objects": 211,
+  "used_percent": 2.4441364487870487e-09
+}
+{
+  "name": "default.rgw.control",
+  "stored_bytes": 0,
+  "objects": 8,
+  "used_percent": 0
+}
+{
+  "name": "default.rgw.meta",
+  "stored_bytes": 171706,
+  "objects": 666,
+  "used_percent": 8.948893182036954e-09
+}
+{
+  "name": "default.rgw.buckets.index",
+  "stored_bytes": 2197138176,
+  "objects": 1561,
+  "used_percent": 0.0008682571351528168
+}
+{
+  "name": "default.rgw.archive.data",
+  "stored_bytes": 140022841344,
+  "objects": 38005,
+  "used_percent": 0.00022999786597210914
+}
+{
+  "name": "default.rgw.glacier.data",
+  "stored_bytes": 5491359744,
+  "objects": 1323,
+  "used_percent": 9.021958248922601e-06
+}
+{
+  "name": "default.rgw.archive.index",
+  "stored_bytes": 5053986,
+  "objects": 55,
+  "used_percent": 1.9989474822068587e-06
+}
+{
+  "name": "default.rgw.archive.non-ec",
+  "stored_bytes": 1014960,
+  "objects": 10,
+  "used_percent": 4.16291268123814e-09
+}
+{
+  "name": "default.rgw.buckets.non-ec",
+  "stored_bytes": 81720592,
+  "objects": 3736,
+  "used_percent": 3.8217297060327837e-07
+}
+{
+  "name": "fs-plat-test",
+  "stored_bytes": 35227849742,
+  "objects": 9635,
+  "used_percent": 0.00013888748071622103
+}
+{
+  "name": "fs-plat-pet",
+  "stored_bytes": 2755,
+  "objects": 11,
+  "used_percent": 5.910025940858432e-11
+}
+{
+  "name": "leader-tce",
+  "stored_bytes": 19,
+  "objects": 1,
+  "used_percent": 1.615087230621981e-11
+}
+{
+  "name": "fs-01-plat-test-0001",
+  "stored_bytes": 310601144725,
+  "objects": 102749,
+  "used_percent": 0.0012232339940965176
+}
+{
+  "name": "fs-01-plat-test-0002",
+  "stored_bytes": 28798561451,
+  "objects": 8300,
+  "used_percent": 0.00011354253365425393
+}
+{
+  "name": "fs-01-plat-prod-0001",
+  "stored_bytes": 760458083919,
+  "objects": 215831,
+  "used_percent": 0.0029895869083702564
+}
+{
+  "name": "fs-01-plat-pet-0002",
+  "stored_bytes": 260910869540,
+  "objects": 86576,
+  "used_percent": 0.001027737627737224
+}
+{
+  "name": "fs-01-plat-test-0005",
+  "stored_bytes": 116061097274,
+  "objects": 35073,
+  "used_percent": 0.00045743113150820136
+}
+{
+  "name": "fs-01-plat-test-0003",
+  "stored_bytes": 30226253365,
+  "objects": 9634,
+  "used_percent": 0.00011917075607925653
+}
+{
+  "name": "fs-01-plat-demo-0001",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "fs-01-plat-demo-0002",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "fs-01-plat-pre-0001",
+  "stored_bytes": 64900772807,
+  "objects": 21742,
+  "used_percent": 0.0002558451087679714
+}
+{
+  "name": "fs-dc01-plat-prod-0002",
+  "stored_bytes": 979405595534,
+  "objects": 246205,
+  "used_percent": 0.0038470220752060413
+}
+{
+  "name": "fs-dc01-plat-sit-0001",
+  "stored_bytes": 22533606609,
+  "objects": 7796,
+  "used_percent": 8.884427370503545e-05
+}
+{
+  "name": "fs-dc01-plat-pet-0001",
+  "stored_bytes": 412295007882,
+  "objects": 105003,
+  "used_percent": 0.0016230758046731353
+}
+root@fs-1f8hh0103-ceph-224201:~# 
+
+
+root@gm1-pub-ceph-172-16-3-107:~# ceph osd dump -f json | jq '.pools[] | {
+>   pool_id: .pool,
+>   pool_name: .pool_name,
+>   crush_rule: .crush_rule,
+>   size: .size,
+>   min_size: .min_size,
+>   type: .type,
+>   pg_num: .pg_num,
+>   pgp_num: .pg_placement_num,
+>   autoscale_mode: .pg_autoscale_mode,
+>   application: .application_metadata
+> }'
+{
+  "pool_id": 1,
+  "pool_name": "device_health_metrics",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 1,
+  "pgp_num": 1,
+  "autoscale_mode": "on",
+  "application": {
+    "mgr_devicehealth": {}
+  }
+}
+{
+  "pool_id": 2,
+  "pool_name": "cloud",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 128,
+  "pgp_num": 128,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 3,
+  "pool_name": "cephfs-metadata",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "metadata": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 4,
+  "pool_name": "cephfs-data",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 128,
+  "pgp_num": 128,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "data": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 5,
+  "pool_name": ".rgw.root",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "on",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 6,
+  "pool_name": "default.rgw.log",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "on",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 7,
+  "pool_name": "default.rgw.control",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "on",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 8,
+  "pool_name": "default.rgw.meta",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "on",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 9,
+  "pool_name": "default.rgw.buckets.data",
+  "crush_rule": 1,
+  "size": 6,
+  "min_size": 4,
+  "type": 3,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 10,
+  "pool_name": "default.rgw.buckets.index",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 11,
+  "pool_name": "default.rgw.buckets.non-ec",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "on",
+  "application": {
+    "rgw": {}
+  }
+}
+root@gm1-pub-ceph-172-16-3-107:~# ceph osd crush rule dump -f json | jq '.[] | {
+>   rule_id: .rule_id,
+>   rule_name: .rule_name,
+>   steps: .steps
+> }'
+{
+  "rule_id": 0,
+  "rule_name": "replicated_rule",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 1,
+  "rule_name": "erasure_rule_k4m2_osd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "choose_indep",
+      "num": 3,
+      "type": "host"
+    },
+    {
+      "op": "chooseleaf_indep",
+      "num": 2,
+      "type": "osd"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 2,
+  "rule_name": "replicated_rule_ssd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -13,
+      "item_name": "ssd"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+root@gm1-pub-ceph-172-16-3-107:~# ceph osd tree -f json | jq '.nodes[] | select(.type=="osd") | {
+>   osd: .id,
+>   device_class: .device_class
+> }'
+{
+  "osd": 12,
+  "device_class": "ssd"
+}
+{
+  "osd": 13,
+  "device_class": "ssd"
+}
+{
+  "osd": 14,
+  "device_class": "ssd"
+}
+{
+  "osd": 0,
+  "device_class": "hdd"
+}
+{
+  "osd": 1,
+  "device_class": "hdd"
+}
+{
+  "osd": 2,
+  "device_class": "hdd"
+}
+{
+  "osd": 3,
+  "device_class": "hdd"
+}
+{
+  "osd": 4,
+  "device_class": "hdd"
+}
+{
+  "osd": 5,
+  "device_class": "hdd"
+}
+{
+  "osd": 6,
+  "device_class": "hdd"
+}
+{
+  "osd": 7,
+  "device_class": "hdd"
+}
+{
+  "osd": 8,
+  "device_class": "hdd"
+}
+{
+  "osd": 9,
+  "device_class": "hdd"
+}
+{
+  "osd": 10,
+  "device_class": "hdd"
+}
+{
+  "osd": 11,
+  "device_class": "hdd"
+}
+root@gm1-pub-ceph-172-16-3-107:~# ceph osd pool ls detail
+pool 1 'device_health_metrics' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 1 pgp_num 1 autoscale_mode on last_change 6727 flags hashpspool stripe_width 0 pg_num_max 32 pg_num_min 1 application mgr_devicehealth
+pool 2 'cloud' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 128 pgp_num 128 autoscale_mode off last_change 177 lfor 0/0/164 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 3 'cephfs-metadata' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 708 lfor 0/0/706 flags hashpspool stripe_width 0 pg_autoscale_bias 4 pg_num_min 16 recovery_priority 5 application cephfs
+pool 4 'cephfs-data' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 128 pgp_num 128 autoscale_mode off last_change 160 lfor 0/0/158 flags hashpspool stripe_width 0 application cephfs
+pool 5 '.rgw.root' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 136 flags hashpspool stripe_width 0 application rgw
+pool 6 'default.rgw.log' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 139 flags hashpspool stripe_width 0 application rgw
+pool 7 'default.rgw.control' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 140 flags hashpspool stripe_width 0 application rgw
+pool 8 'default.rgw.meta' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 142 flags hashpspool stripe_width 0 pg_autoscale_bias 4 application rgw
+pool 9 'default.rgw.buckets.data' erasure profile k4m2-osd size 6 min_size 4 crush_rule 1 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 172 lfor 0/0/170 flags hashpspool,ec_overwrites stripe_width 16384 application rgw
+pool 10 'default.rgw.buckets.index' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 713 lfor 0/0/711 flags hashpspool stripe_width 0 application rgw
+pool 11 'default.rgw.buckets.non-ec' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 743 flags hashpspool stripe_width 0 application rgw
+
+root@gm1-pub-ceph-172-16-3-107:~# curl -G 'http://172.21.224.201:9095/api/v1/query' \
+> curl -G 'http://172.21.224.201:9095/api/v1/query' \^C
+root@gm1-pub-ceph-172-16-3-107:~# 
+root@gm1-pub-ceph-172-16-3-107:~# 
+root@gm1-pub-ceph-172-16-3-107:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"7"},"value":[1776844285.38,"0"]},{"metric":{"pool_id":"9"},"value":[1776844285.38,"13.48792943805875"]},{"metric":{"pool_id":"1"},"value":[1776844285.38,"0.0024074074074073998"]},{"metric":{"pool_id":"10"},"value":[1776844285.38,"16.724543422733063"]},{"metric":{"pool_id":"8"},"value":[1776844285.38,"0.31986909323116247"]},{"metric":{"pool_id":"4"},"value":[1776844285.38,"0.5391778416347375"]},{"metric":{"pool_id":"2"},"value":[1776844285.38,"123.53378911238846"]},{"metric":{"pool_id":"5"},"value":[1776844285.38,"0"]},{"metric":{"pool_id":"11"},"value":[1776844285.38,"1.2325630587484038"]},{"metric":{"pool_id":"3"},"value":[1776844285.38,"1.4998180076628362"]},{"metric":{"pool_id":"6"},"value":[1776844285.38,"3.9613010855683295"]}]}}root@gm1-pub-ceph-172-16-3-107:~# 
+root@gm1-pub-ceph-172-16-3-107:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"6"},"value":[1776844298.561,"4906.249808429118"]},{"metric":{"pool_id":"5"},"value":[1776844298.561,"0"]},{"metric":{"pool_id":"2"},"value":[1776844298.561,"7340387.181200524"]},{"metric":{"pool_id":"3"},"value":[1776844298.561,"5535.237394636018"]},{"metric":{"pool_id":"4"},"value":[1776844298.561,"1351.6849042145589"]},{"metric":{"pool_id":"9"},"value":[1776844298.561,"2762951.635044698"]},{"metric":{"pool_id":"11"},"value":[1776844298.561,"675.4321328224776"]},{"metric":{"pool_id":"1"},"value":[1776844298.561,"4479.905185185186"]},{"metric":{"pool_id":"10"},"value":[1776844298.561,"37233.16311621965"]},{"metric":{"pool_id":"7"},"value":[1776844298.561,"0"]},{"metric":{"pool_id":"8"},"value":[1776844298.561,"257.89057471264346"]}]}}root@gm1-pub-ceph-172-16-3-107:~# 
+root@gm1-pub-ceph-172-16-3-107:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=sum(rate(ceph_osd_op_latency_sum[5m])) / sum(rate(ceph_osd_op_latency_count[5m]))'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1776844307.668,"0.028351460733368458"]}]}}root@gm1-pub-ceph-172-16-3-107:~# 
+root@gm1-pub-ceph-172-16-3-107:~# ceph df -f json | jq '.pools[] | {
+>   name: .name,
+>   stored_bytes: .stats.stored,
+>   objects: .stats.objects,
+>   used_percent: .stats.percent_used
+> }'
+{
+  "name": "device_health_metrics",
+  "stored_bytes": 105849728,
+  "objects": 28,
+  "used_percent": 1.2176026757515501e-05
+}
+{
+  "name": "cloud",
+  "stored_bytes": 85241169411,
+  "objects": 35269,
+  "used_percent": 0.009710362181067467
+}
+{
+  "name": "cephfs-metadata",
+  "stored_bytes": 282275116,
+  "objects": 662,
+  "used_percent": 0.00031096802558749914
+}
+{
+  "name": "cephfs-data",
+  "stored_bytes": 10139146240,
+  "objects": 6601,
+  "used_percent": 0.0011662323959171772
+}
+{
+  "name": ".rgw.root",
+  "stored_bytes": 2554,
+  "objects": 6,
+  "used_percent": 2.8270423779730436e-09
+}
+{
+  "name": "default.rgw.log",
+  "stored_bytes": 1771114,
+  "objects": 209,
+  "used_percent": 2.3464446030629915e-07
+}
+{
+  "name": "default.rgw.control",
+  "stored_bytes": 0,
+  "objects": 8,
+  "used_percent": 0
+}
+{
+  "name": "default.rgw.meta",
+  "stored_bytes": 114426,
+  "objects": 372,
+  "used_percent": 1.476602875527533e-07
+}
+{
+  "name": "default.rgw.buckets.data",
+  "stored_bytes": 11636483031040,
+  "objects": 4597605,
+  "used_percent": 0.4009420871734619
+}
+{
+  "name": "default.rgw.buckets.index",
+  "stored_bytes": 903420736,
+  "objects": 960,
+  "used_percent": 0.0009944629855453968
+}
+{
+  "name": "default.rgw.buckets.non-ec",
+  "stored_bytes": 2411285,
+  "objects": 243,
+  "used_percent": 3.9142889818322146e-07
+}
+root@gm1-pub-ceph-172-16-3-107:~# 
+
+
+root@fs-1f8hh0104-ceph-224250:~# ceph osd dump -f json | jq '.pools[] | {
+>   pool_id: .pool,
+>   pool_name: .pool_name,
+>   crush_rule: .crush_rule,
+>   size: .size,
+>   min_size: .min_size,
+>   type: .type,
+>   pg_num: .pg_num,
+>   pgp_num: .pg_placement_num,
+>   autoscale_mode: .pg_autoscale_mode,
+>   application: .application_metadata
+> }'
+{
+  "pool_id": 1,
+  "pool_name": "device_health_metrics",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 1,
+  "pgp_num": 1,
+  "autoscale_mode": "off",
+  "application": {
+    "mgr_devicehealth": {}
+  }
+}
+{
+  "pool_id": 2,
+  "pool_name": "openstack",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 512,
+  "pgp_num": 512,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 3,
+  "pool_name": ".rgw.root",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 8,
+  "pgp_num": 8,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 4,
+  "pool_name": "default.rgw.log",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 8,
+  "pgp_num": 8,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 5,
+  "pool_name": "default.rgw.control",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 8,
+  "pgp_num": 8,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 6,
+  "pool_name": "default.rgw.meta",
+  "crush_rule": 0,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 8,
+  "pgp_num": 8,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 7,
+  "pool_name": "openstack2",
+  "crush_rule": 1,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 512,
+  "pgp_num": 512,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+root@fs-1f8hh0104-ceph-224250:~# ceph osd crush rule dump -f json | jq '.[] | {
+>   rule_id: .rule_id,
+>   rule_name: .rule_name,
+>   steps: .steps
+> }'
+{
+  "rule_id": 0,
+  "rule_name": "replicated_rule",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 1,
+  "rule_name": "replicated_rule_ssd2t",
+  "steps": [
+    {
+      "op": "take",
+      "item": -13,
+      "item_name": "ssd2t"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+root@fs-1f8hh0104-ceph-224250:~# ceph osd tree -f json | jq '.nodes[] | select(.type=="osd") | {
+>   osd: .id,
+>   device_class: .device_class
+> }'
+{
+  "osd": 45,
+  "device_class": "ssd"
+}
+{
+  "osd": 46,
+  "device_class": "ssd"
+}
+{
+  "osd": 47,
+  "device_class": "ssd"
+}
+{
+  "osd": 48,
+  "device_class": "ssd"
+}
+{
+  "osd": 49,
+  "device_class": "ssd"
+}
+{
+  "osd": 50,
+  "device_class": "ssd"
+}
+{
+  "osd": 39,
+  "device_class": "ssd"
+}
+{
+  "osd": 40,
+  "device_class": "ssd"
+}
+{
+  "osd": 41,
+  "device_class": "ssd"
+}
+{
+  "osd": 42,
+  "device_class": "ssd"
+}
+{
+  "osd": 43,
+  "device_class": "ssd"
+}
+{
+  "osd": 44,
+  "device_class": "ssd"
+}
+{
+  "osd": 33,
+  "device_class": "ssd"
+}
+{
+  "osd": 34,
+  "device_class": "ssd"
+}
+{
+  "osd": 35,
+  "device_class": "ssd"
+}
+{
+  "osd": 36,
+  "device_class": "ssd"
+}
+{
+  "osd": 37,
+  "device_class": "ssd"
+}
+{
+  "osd": 38,
+  "device_class": "ssd"
+}
+{
+  "osd": 27,
+  "device_class": "ssd"
+}
+{
+  "osd": 28,
+  "device_class": "ssd"
+}
+{
+  "osd": 29,
+  "device_class": "ssd"
+}
+{
+  "osd": 30,
+  "device_class": "ssd"
+}
+{
+  "osd": 31,
+  "device_class": "ssd"
+}
+{
+  "osd": 32,
+  "device_class": "ssd"
+}
+{
+  "osd": 21,
+  "device_class": "ssd"
+}
+{
+  "osd": 22,
+  "device_class": "ssd"
+}
+{
+  "osd": 23,
+  "device_class": "ssd"
+}
+{
+  "osd": 24,
+  "device_class": "ssd"
+}
+{
+  "osd": 25,
+  "device_class": "ssd"
+}
+{
+  "osd": 26,
+  "device_class": "ssd"
+}
+{
+  "osd": 15,
+  "device_class": "ssd"
+}
+{
+  "osd": 16,
+  "device_class": "ssd"
+}
+{
+  "osd": 17,
+  "device_class": "ssd"
+}
+{
+  "osd": 18,
+  "device_class": "ssd"
+}
+{
+  "osd": 19,
+  "device_class": "ssd"
+}
+{
+  "osd": 20,
+  "device_class": "ssd"
+}
+{
+  "osd": 2,
+  "device_class": "ssd"
+}
+{
+  "osd": 5,
+  "device_class": "ssd"
+}
+{
+  "osd": 8,
+  "device_class": "ssd"
+}
+{
+  "osd": 11,
+  "device_class": "ssd"
+}
+{
+  "osd": 14,
+  "device_class": "ssd"
+}
+{
+  "osd": 1,
+  "device_class": "ssd"
+}
+{
+  "osd": 4,
+  "device_class": "ssd"
+}
+{
+  "osd": 7,
+  "device_class": "ssd"
+}
+{
+  "osd": 10,
+  "device_class": "ssd"
+}
+{
+  "osd": 13,
+  "device_class": "ssd"
+}
+{
+  "osd": 0,
+  "device_class": "ssd"
+}
+{
+  "osd": 3,
+  "device_class": "ssd"
+}
+{
+  "osd": 6,
+  "device_class": "ssd"
+}
+{
+  "osd": 9,
+  "device_class": "ssd"
+}
+{
+  "osd": 12,
+  "device_class": "ssd"
+}
+root@fs-1f8hh0104-ceph-224250:~# ceph osd pool ls detail
+pool 1 'device_health_metrics' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 1 pgp_num 1 autoscale_mode off last_change 40063 flags hashpspool stripe_width 0 pg_num_max 32 pg_num_min 1 application mgr_devicehealth
+pool 2 'openstack' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 512 pgp_num 512 autoscale_mode off last_change 40255 lfor 0/1805/2513 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 3 '.rgw.root' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 8 pgp_num 8 autoscale_mode off last_change 11155 flags hashpspool stripe_width 0 application rgw
+pool 4 'default.rgw.log' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 8 pgp_num 8 autoscale_mode off last_change 11155 flags hashpspool stripe_width 0 application rgw
+pool 5 'default.rgw.control' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 8 pgp_num 8 autoscale_mode off last_change 11155 flags hashpspool stripe_width 0 application rgw
+pool 6 'default.rgw.meta' replicated size 3 min_size 2 crush_rule 0 object_hash rjenkins pg_num 8 pgp_num 8 autoscale_mode off last_change 11155 flags hashpspool stripe_width 0 pg_autoscale_bias 4 application rgw
+pool 7 'openstack2' replicated size 3 min_size 2 crush_rule 1 object_hash rjenkins pg_num 512 pgp_num 512 autoscale_mode off last_change 44037 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+
+root@fs-1f8hh0104-ceph-224250:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"10"},"value":[1776844491.345,"16.776589240102183"]},{"metric":{"pool_id":"11"},"value":[1776844491.345,"1.2390788633461056"]},{"metric":{"pool_id":"2"},"value":[1776844491.345,"123.66721743295003"]},{"metric":{"pool_id":"1"},"value":[1776844491.345,"0.0024074074074074032"]},{"metric":{"pool_id":"3"},"value":[1776844491.345,"1.5008381226053615"]},{"metric":{"pool_id":"5"},"value":[1776844491.345,"0"]},{"metric":{"pool_id":"4"},"value":[1776844491.345,"0.5399193805874836"]},{"metric":{"pool_id":"6"},"value":[1776844491.345,"3.96205060664112"]},{"metric":{"pool_id":"8"},"value":[1776844491.345,"0.32056912515964225"]},{"metric":{"pool_id":"7"},"value":[1776844491.345,"0"]},{"metric":{"pool_id":"9"},"value":[1776844491.345,"13.523933588761167"]}]}}root@fs-1f8hh0104-ceph-224250:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"10"},"value":[1776844513.581,"37280.871315453376"]},{"metric":{"pool_id":"11"},"value":[1776844513.581,"679.4217113665386"]},{"metric":{"pool_id":"3"},"value":[1776844513.581,"5543.693895274583"]},{"metric":{"pool_id":"4"},"value":[1776844513.581,"1353.9416602809724"]},{"metric":{"pool_id":"9"},"value":[1776844513.581,"2784205.490676885"]},{"metric":{"pool_id":"5"},"value":[1776844513.581,"0"]},{"metric":{"pool_id":"8"},"value":[1776844513.581,"258.39816091954026"]},{"metric":{"pool_id":"1"},"value":[1776844513.581,"4479.905185185189"]},{"metric":{"pool_id":"6"},"value":[1776844513.581,"4907.969553001279"]},{"metric":{"pool_id":"7"},"value":[1776844513.581,"0"]},{"metric":{"pool_id":"2"},"value":[1776844513.581,"7339492.370472545"]}]}}root@fs-1f8hh0104-ceph-224250:~# 
+root@fs-1f8hh0104-ceph-224250:~# 
+root@fs-1f8hh0104-ceph-224250:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=sum(rate(ceph_osd_op_latency_sum[5m])) / sum(rate(ceph_osd_op_latency_count[5m]))'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1776844525.57,"0.024545146754408026"]}]}}root@fs-1f8hh0104-ceph-224250:~# 
+root@fs-1f8hh0104-ceph-224250:~# ceph df -f json | jq '.pools[] | {
+>   name: .name,
+>   stored_bytes: .stats.stored,
+>   objects: .stats.objects,
+>   used_percent: .stats.percent_used
+> }'
+{
+  "name": "device_health_metrics",
+  "stored_bytes": 21350182,
+  "objects": 56,
+  "used_percent": 1.1747841199394315e-05
+}
+{
+  "name": "openstack",
+  "stored_bytes": 2638395511072,
+  "objects": 620587,
+  "used_percent": 0.5921342968940735
+}
+{
+  "name": ".rgw.root",
+  "stored_bytes": 1323,
+  "objects": 4,
+  "used_percent": 9.015328039652104e-09
+}
+{
+  "name": "default.rgw.log",
+  "stored_bytes": 182,
+  "objects": 2,
+  "used_percent": 4.507664019826052e-09
+}
+{
+  "name": "default.rgw.control",
+  "stored_bytes": 0,
+  "objects": 8,
+  "used_percent": 0
+}
+{
+  "name": "default.rgw.meta",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "openstack2",
+  "stored_bytes": 11259564292606,
+  "objects": 2720572,
+  "used_percent": 0.5435197949409485
+}
+root@fs-1f8hh0104-ceph-224250:~# 
+
+root@gz-4f31406-ceph-001201:~# ceph osd dump -f json | jq '.pools[] | {
+>   pool_id: .pool,
+>   pool_name: .pool_name,
+>   crush_rule: .crush_rule,
+>   size: .size,
+>   min_size: .min_size,
+>   type: .type,
+>   pg_num: .pg_num,
+>   pgp_num: .pg_placement_num,
+>   autoscale_mode: .pg_autoscale_mode,
+>   application: .application_metadata
+> }'
+{
+  "pool_id": 2,
+  "pool_name": "device_health_metrics",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 1,
+  "pgp_num": 1,
+  "autoscale_mode": "on",
+  "application": {
+    "mgr_devicehealth": {}
+  }
+}
+{
+  "pool_id": 3,
+  "pool_name": "images",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 4,
+  "pool_name": "volumes",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 128,
+  "pgp_num": 128,
+  "autoscale_mode": "warn",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 5,
+  "pool_name": "backups",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 6,
+  "pool_name": "cephfs-data",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "data": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 7,
+  "pool_name": "guangzhou.rgw.buckets.data",
+  "crush_rule": 3,
+  "size": 6,
+  "min_size": 4,
+  "type": 3,
+  "pg_num": 64,
+  "pgp_num": 64,
+  "autoscale_mode": "warn",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 8,
+  "pool_name": "guangzhou.rgw.archive.data",
+  "crush_rule": 4,
+  "size": 10,
+  "min_size": 8,
+  "type": 3,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "warn",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 9,
+  "pool_name": "guangzhou.rgw.glacier.data",
+  "crush_rule": 4,
+  "size": 10,
+  "min_size": 8,
+  "type": 3,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 10,
+  "pool_name": "cephfs-metadata",
+  "crush_rule": 1,
+  "size": 4,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "cephfs": {
+      "metadata": "cephfs"
+    }
+  }
+}
+{
+  "pool_id": 11,
+  "pool_name": "guangzhou.rgw.buckets.index",
+  "crush_rule": 1,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 12,
+  "pool_name": "guangzhou.rgw.archive.index",
+  "crush_rule": 1,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 13,
+  "pool_name": "guangzhou.rgw.buckets.non-ec",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 14,
+  "pool_name": "guangzhou.rgw.archive.non-ec",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 15,
+  "pool_name": ".rgw.root",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 16,
+  "pool_name": "guangzhou.rgw.control",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 17,
+  "pool_name": "guangzhou.rgw.meta",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 18,
+  "pool_name": "guangzhou.rgw.log",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 19,
+  "pool_name": "guangzhou.rgw.otp",
+  "crush_rule": 5,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rgw": {}
+  }
+}
+{
+  "pool_id": 21,
+  "pool_name": "gz-01-plat-prod-0001",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 22,
+  "pool_name": "gz-01-business-prod-0001",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 23,
+  "pool_name": "images-new",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 24,
+  "pool_name": "volumes-new",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 128,
+  "pgp_num": 128,
+  "autoscale_mode": "warn",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 26,
+  "pool_name": "gz-01-plat-prod-0002",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+{
+  "pool_id": 27,
+  "pool_name": "gz-01-plat-prod-0003",
+  "crush_rule": 2,
+  "size": 3,
+  "min_size": 2,
+  "type": 1,
+  "pg_num": 32,
+  "pgp_num": 32,
+  "autoscale_mode": "off",
+  "application": {
+    "rbd": {}
+  }
+}
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# ceph osd crush rule dump -f json | jq '.[] | {
+>   rule_id: .rule_id,
+>   rule_name: .rule_name,
+>   steps: .steps
+> }'
+{
+  "rule_id": 0,
+  "rule_name": "replicated_rule",
+  "steps": [
+    {
+      "op": "take",
+      "item": -1,
+      "item_name": "default"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 1,
+  "rule_name": "replicated_rule_ssd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -4,
+      "item_name": "ssd"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 2,
+  "rule_name": "replicated_rule_rbd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -5,
+      "item_name": "rbd"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 3,
+  "rule_name": "erasure_rule_k4m2_osd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -6,
+      "item_name": "rgw"
+    },
+    {
+      "op": "choose_indep",
+      "num": 3,
+      "type": "host"
+    },
+    {
+      "op": "chooseleaf_indep",
+      "num": 2,
+      "type": "osd"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 4,
+  "rule_name": "erasure_rule_k8m2_osd",
+  "steps": [
+    {
+      "op": "take",
+      "item": -6,
+      "item_name": "rgw"
+    },
+    {
+      "op": "choose_indep",
+      "num": 5,
+      "type": "host"
+    },
+    {
+      "op": "chooseleaf_indep",
+      "num": 2,
+      "type": "osd"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+{
+  "rule_id": 5,
+  "rule_name": "replicated_rule_rgw",
+  "steps": [
+    {
+      "op": "take",
+      "item": -6,
+      "item_name": "rgw"
+    },
+    {
+      "op": "chooseleaf_firstn",
+      "num": 0,
+      "type": "host"
+    },
+    {
+      "op": "emit"
+    }
+  ]
+}
+root@gz-4f31406-ceph-001201:~# ceph osd tree -f json | jq '.nodes[] | select(.type=="osd") | {
+>   osd: .id,
+>   device_class: .device_class
+> }'
+{
+  "osd": 7,
+  "device_class": "hdd"
+}
+{
+  "osd": 8,
+  "device_class": "hdd"
+}
+{
+  "osd": 9,
+  "device_class": "hdd"
+}
+{
+  "osd": 10,
+  "device_class": "hdd"
+}
+{
+  "osd": 11,
+  "device_class": "hdd"
+}
+{
+  "osd": 12,
+  "device_class": "hdd"
+}
+{
+  "osd": 20,
+  "device_class": "hdd"
+}
+{
+  "osd": 21,
+  "device_class": "hdd"
+}
+{
+  "osd": 22,
+  "device_class": "hdd"
+}
+{
+  "osd": 23,
+  "device_class": "hdd"
+}
+{
+  "osd": 24,
+  "device_class": "hdd"
+}
+{
+  "osd": 25,
+  "device_class": "hdd"
+}
+{
+  "osd": 33,
+  "device_class": "hdd"
+}
+{
+  "osd": 34,
+  "device_class": "hdd"
+}
+{
+  "osd": 35,
+  "device_class": "hdd"
+}
+{
+  "osd": 36,
+  "device_class": "hdd"
+}
+{
+  "osd": 37,
+  "device_class": "hdd"
+}
+{
+  "osd": 38,
+  "device_class": "hdd"
+}
+{
+  "osd": 46,
+  "device_class": "hdd"
+}
+{
+  "osd": 47,
+  "device_class": "hdd"
+}
+{
+  "osd": 48,
+  "device_class": "hdd"
+}
+{
+  "osd": 49,
+  "device_class": "hdd"
+}
+{
+  "osd": 50,
+  "device_class": "hdd"
+}
+{
+  "osd": 51,
+  "device_class": "hdd"
+}
+{
+  "osd": 59,
+  "device_class": "hdd"
+}
+{
+  "osd": 60,
+  "device_class": "hdd"
+}
+{
+  "osd": 61,
+  "device_class": "hdd"
+}
+{
+  "osd": 62,
+  "device_class": "hdd"
+}
+{
+  "osd": 63,
+  "device_class": "hdd"
+}
+{
+  "osd": 64,
+  "device_class": "hdd"
+}
+{
+  "osd": 1,
+  "device_class": "hdd"
+}
+{
+  "osd": 2,
+  "device_class": "hdd"
+}
+{
+  "osd": 3,
+  "device_class": "hdd"
+}
+{
+  "osd": 4,
+  "device_class": "hdd"
+}
+{
+  "osd": 5,
+  "device_class": "hdd"
+}
+{
+  "osd": 6,
+  "device_class": "hdd"
+}
+{
+  "osd": 14,
+  "device_class": "hdd"
+}
+{
+  "osd": 15,
+  "device_class": "hdd"
+}
+{
+  "osd": 16,
+  "device_class": "hdd"
+}
+{
+  "osd": 17,
+  "device_class": "hdd"
+}
+{
+  "osd": 18,
+  "device_class": "hdd"
+}
+{
+  "osd": 19,
+  "device_class": "hdd"
+}
+{
+  "osd": 27,
+  "device_class": "hdd"
+}
+{
+  "osd": 28,
+  "device_class": "hdd"
+}
+{
+  "osd": 29,
+  "device_class": "hdd"
+}
+{
+  "osd": 30,
+  "device_class": "hdd"
+}
+{
+  "osd": 31,
+  "device_class": "hdd"
+}
+{
+  "osd": 32,
+  "device_class": "hdd"
+}
+{
+  "osd": 40,
+  "device_class": "hdd"
+}
+{
+  "osd": 41,
+  "device_class": "hdd"
+}
+{
+  "osd": 42,
+  "device_class": "hdd"
+}
+{
+  "osd": 43,
+  "device_class": "hdd"
+}
+{
+  "osd": 44,
+  "device_class": "hdd"
+}
+{
+  "osd": 45,
+  "device_class": "hdd"
+}
+{
+  "osd": 53,
+  "device_class": "hdd"
+}
+{
+  "osd": 55,
+  "device_class": "hdd"
+}
+{
+  "osd": 56,
+  "device_class": "hdd"
+}
+{
+  "osd": 57,
+  "device_class": "hdd"
+}
+{
+  "osd": 58,
+  "device_class": "hdd"
+}
+{
+  "osd": 65,
+  "device_class": "hdd"
+}
+{
+  "osd": 0,
+  "device_class": "ssd"
+}
+{
+  "osd": 13,
+  "device_class": "ssd"
+}
+{
+  "osd": 26,
+  "device_class": "ssd"
+}
+{
+  "osd": 39,
+  "device_class": "ssd"
+}
+{
+  "osd": 52,
+  "device_class": "ssd"
+}
+root@gz-4f31406-ceph-001201:~# ceph osd pool ls detail
+pool 2 'device_health_metrics' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 1 pgp_num 1 autoscale_mode on last_change 58848 lfor 0/628/626 flags hashpspool stripe_width 0 pg_num_max 32 pg_num_min 1 application mgr_devicehealth
+pool 3 'images' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 62024 lfor 0/0/4809 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 4 'volumes' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 128 pgp_num 128 autoscale_mode warn last_change 61567 lfor 0/1634/2346 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 5 'backups' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 8290 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 6 'cephfs-data' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode off last_change 2423 lfor 0/1203/1201 flags hashpspool stripe_width 0 application cephfs
+pool 7 'guangzhou.rgw.buckets.data' erasure profile k4m2-osd size 6 min_size 4 crush_rule 3 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode warn last_change 61568 lfor 0/1297/1295 flags hashpspool,ec_overwrites stripe_width 16384 application rgw
+pool 8 'guangzhou.rgw.archive.data' erasure profile k8m2-osd size 10 min_size 8 crush_rule 4 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode warn last_change 49451 lfor 0/2405/2403 flags hashpspool,ec_overwrites stripe_width 32768 application rgw
+pool 9 'guangzhou.rgw.glacier.data' erasure profile k8m2-osd size 10 min_size 8 crush_rule 4 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2543 lfor 0/2543/2541 flags hashpspool,ec_overwrites stripe_width 32768 application rgw
+pool 10 'cephfs-metadata' replicated size 4 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2423 flags hashpspool stripe_width 0 pg_autoscale_bias 4 pg_num_min 16 recovery_priority 5 application cephfs
+pool 11 'guangzhou.rgw.buckets.index' replicated size 3 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2525 lfor 0/2525/2523 flags hashpspool stripe_width 0 application rgw
+pool 12 'guangzhou.rgw.archive.index' replicated size 3 min_size 2 crush_rule 1 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2462 lfor 0/2462/2460 flags hashpspool stripe_width 0 application rgw
+pool 13 'guangzhou.rgw.buckets.non-ec' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2280 flags hashpspool stripe_width 0 application rgw
+pool 14 'guangzhou.rgw.archive.non-ec' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 2223 flags hashpspool stripe_width 0 application rgw
+pool 15 '.rgw.root' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 3346 flags hashpspool stripe_width 0 application rgw
+pool 16 'guangzhou.rgw.control' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 3354 flags hashpspool stripe_width 0 application rgw
+pool 17 'guangzhou.rgw.meta' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 3358 flags hashpspool stripe_width 0 application rgw
+pool 18 'guangzhou.rgw.log' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 3362 flags hashpspool stripe_width 0 application rgw
+pool 19 'guangzhou.rgw.otp' replicated size 3 min_size 2 crush_rule 5 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 3398 flags hashpspool stripe_width 0 application rgw
+pool 21 'gz-01-plat-prod-0001' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7498 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 22 'gz-01-business-prod-0001' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 7483 flags hashpspool stripe_width 0 application rbd
+pool 23 'images-new' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 57988 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 24 'volumes-new' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 128 pgp_num 128 autoscale_mode warn last_change 61569 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 26 'gz-01-plat-prod-0002' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 12880 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+pool 27 'gz-01-plat-prod-0003' replicated size 3 min_size 2 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode off last_change 15003 flags hashpspool,selfmanaged_snaps stripe_width 0 application rbd
+
+root@gz-4f31406-ceph-001201:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"8"},"value":[1776844701.755,"0.3209690293742014"]},{"metric":{"pool_id":"10"},"value":[1776844701.755,"16.885862867177526"]},{"metric":{"pool_id":"3"},"value":[1776844701.755,"1.5011230842911858"]},{"metric":{"pool_id":"4"},"value":[1776844701.755,"0.5402171136653886"]},{"metric":{"pool_id":"6"},"value":[1776844701.755,"3.9629932950191504"]},{"metric":{"pool_id":"7"},"value":[1776844701.755,"0"]},{"metric":{"pool_id":"9"},"value":[1776844701.755,"13.610408684546602"]},{"metric":{"pool_id":"1"},"value":[1776844701.755,"0.0024074074074074015"]},{"metric":{"pool_id":"2"},"value":[1776844701.755,"123.81138090676892"]},{"metric":{"pool_id":"5"},"value":[1776844701.755,"0"]},{"metric":{"pool_id":"11"},"value":[1776844701.755,"1.2523595146871012"]}]}}root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=avg_over_time((sum by (pool_id) (rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"pool_id":"10"},"value":[1776844713.42,"37377.47289910601"]},{"metric":{"pool_id":"11"},"value":[1776844713.42,"686.9848275862072"]},{"metric":{"pool_id":"1"},"value":[1776844713.42,"4479.905185185189"]},{"metric":{"pool_id":"4"},"value":[1776844713.42,"1354.306206896549"]},{"metric":{"pool_id":"3"},"value":[1776844713.42,"5546.80398467432"]},{"metric":{"pool_id":"5"},"value":[1776844713.42,"0"]},{"metric":{"pool_id":"9"},"value":[1776844713.42,"2812312.777726692"]},{"metric":{"pool_id":"8"},"value":[1776844713.42,"258.69650063856955"]},{"metric":{"pool_id":"2"},"value":[1776844713.42,"7365945.121839084"]},{"metric":{"pool_id":"6"},"value":[1776844713.42,"4911.26518518518"]},{"metric":{"pool_id":"7"},"value":[1776844713.42,"0"]}]}}root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# curl -G 'http://172.16.3.107:9095/api/v1/query' \
+>   --data-urlencode 'query=sum(rate(ceph_osd_op_latency_sum[5m])) / sum(rate(ceph_osd_op_latency_count[5m]))'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1776844722.935,"0.021829092007743463"]}]}}root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# ceph df -f json | jq '.pools[] | {
+>   name: .name,
+>   stored_bytes: .stats.stored,
+>   objects: .stats.objects,
+>   used_percent: .stats.percent_used
+> }'
+{
+  "name": "device_health_metrics",
+  "stored_bytes": 550641088,
+  "objects": 78,
+  "used_percent": 4.478237315197475e-06
+}
+{
+  "name": "images",
+  "stored_bytes": 144261015455,
+  "objects": 17301,
+  "used_percent": 0.0011718743480741978
+}
+{
+  "name": "volumes",
+  "stored_bytes": 14309271812857,
+  "objects": 3428018,
+  "used_percent": 0.10424353182315826
+}
+{
+  "name": "backups",
+  "stored_bytes": 238673,
+  "objects": 33,
+  "used_percent": 2.4317741154078476e-09
+}
+{
+  "name": "cephfs-data",
+  "stored_bytes": 35109773312,
+  "objects": 27477,
+  "used_percent": 0.0002858947846107185
+}
+{
+  "name": "guangzhou.rgw.buckets.data",
+  "stored_bytes": 3006325063680,
+  "objects": 3515658,
+  "used_percent": 0.025941375643014908
+}
+{
+  "name": "guangzhou.rgw.archive.data",
+  "stored_bytes": 149666826027008,
+  "objects": 47763320,
+  "used_percent": 0.5249142050743103
+}
+{
+  "name": "guangzhou.rgw.glacier.data",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "cephfs-metadata",
+  "stored_bytes": 284355794,
+  "objects": 3132,
+  "used_percent": 0.00015042716404423118
+}
+{
+  "name": "guangzhou.rgw.buckets.index",
+  "stored_bytes": 1138531968,
+  "objects": 125937,
+  "used_percent": 0.0004515324253588915
+}
+{
+  "name": "guangzhou.rgw.archive.index",
+  "stored_bytes": 7406073344,
+  "objects": 27986,
+  "used_percent": 0.0029299049638211727
+}
+{
+  "name": "guangzhou.rgw.buckets.non-ec",
+  "stored_bytes": 368766,
+  "objects": 52,
+  "used_percent": 1.028241047862366e-08
+}
+{
+  "name": "guangzhou.rgw.archive.non-ec",
+  "stored_bytes": 14337386,
+  "objects": 2,
+  "used_percent": 2.541668209232739e-07
+}
+{
+  "name": ".rgw.root",
+  "stored_bytes": 8992,
+  "objects": 19,
+  "used_percent": 1.306274421963849e-09
+}
+{
+  "name": "guangzhou.rgw.control",
+  "stored_bytes": 0,
+  "objects": 8,
+  "used_percent": 0
+}
+{
+  "name": "guangzhou.rgw.meta",
+  "stored_bytes": 239270,
+  "objects": 336,
+  "used_percent": 2.3071400789831387e-08
+}
+{
+  "name": "guangzhou.rgw.log",
+  "stored_bytes": 80910,
+  "objects": 338,
+  "used_percent": 1.2843442753762702e-08
+}
+{
+  "name": "guangzhou.rgw.otp",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "gz-01-plat-prod-0001",
+  "stored_bytes": 168239433695,
+  "objects": 195177,
+  "used_percent": 0.0013663902645930648
+}
+{
+  "name": "gz-01-business-prod-0001",
+  "stored_bytes": 0,
+  "objects": 0,
+  "used_percent": 0
+}
+{
+  "name": "images-new",
+  "stored_bytes": 76802430217,
+  "objects": 9220,
+  "used_percent": 0.0006242307717911899
+}
+{
+  "name": "volumes-new",
+  "stored_bytes": 6680891445443,
+  "objects": 1610393,
+  "used_percent": 0.05153448134660721
+}
+{
+  "name": "gz-01-plat-prod-0002",
+  "stored_bytes": 3939790022,
+  "objects": 1651,
+  "used_percent": 3.2040657970355824e-05
+}
+{
+  "name": "gz-01-plat-prod-0003",
+  "stored_bytes": 142685294511,
+  "objects": 37739,
+  "used_percent": 0.0011590883368626237
+}
+root@gz-4f31406-ceph-001201:~# 
+
