@@ -133,7 +133,8 @@ def get_prom_pool_metrics():
       - percent_used     : 需求1 - ceph_pool_percent_used（0~1 小数，显示时 *100 转百分比）
       - bytes_used       : 需求2 - ceph_pool_bytes_used（字节）
       - objects          : 需求3 - ceph_pool_objects（个数）
-      - growth_24h_bytes : 需求4 - increase(ceph_pool_bytes_used[24h])（字节）
+      - growth_24h_bytes : 需求4 - ceph_pool_bytes_used - ceph_pool_bytes_used offset 24h
+                           用当前值减去24h前的值，结果更精确；正值=增长，负值=释放
       - max_avail_bytes  : 需求5 - ceph_pool_max_avail（字节）
       - dirty            : 需求6 - ceph_pool_dirty（个数）
     """
@@ -159,7 +160,9 @@ def get_prom_pool_metrics():
     collect("ceph_pool_objects", "objects", lambda v: int(float(v)))
  
     # 需求4: 存储池 24 小时空间增长量（字节）
-    collect("increase(ceph_pool_bytes_used[24h])", "growth_24h_bytes")
+    # 用 offset 差值法：当前值 - 24h 前的值，比 increase() 更精确
+    # 返回值可为负数（表示该池在过去 24h 内净释放了空间）
+    collect("ceph_pool_bytes_used - ceph_pool_bytes_used offset 24h", "growth_24h_bytes")
  
     # 需求5: 存储池最大可用空间（字节）
     collect("ceph_pool_max_avail", "max_avail_bytes")
@@ -208,7 +211,7 @@ def main():
         # 需求3: 对象数（来自 Prometheus）
         objects = pm.get("objects", 0)
  
-        # 需求4: 24h 空间增长量（字节 + 人类可读）
+        # 需求4: 24h 空间净变化量（字节 + 人类可读），正值=增长，负值=净释放
         growth_24h_raw = pm.get("growth_24h_bytes", 0)
  
         # 需求5: 最大可用空间（字节 + 人类可读）
