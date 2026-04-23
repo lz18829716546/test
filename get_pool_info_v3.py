@@ -1,138 +1,304 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+ 
 import json
 import subprocess
 import requests
-
-PROMETHEUS_URL = "http://127.0.0.1:9095/api/v1/query"
-
-# ===============================
-# PromQL 查询（24h增长）
-# ===============================
-PROMQL = 'ceph_pool_bytes_used - ceph_pool_bytes_used offset 24h'
-
-
-def get_prometheus_data():
+ 
+PROM_URL = "http://172.16.3.107:9095"
+ 
+# =========================
+# 基础工具
+# =========================
+ 
+def run_cmd(cmd):
     try:
-        resp = requests.get(PROMETHEUS_URL, params={"query": PROMQL}, timeout=10)
-        data = resp.json()
-        result = data.get("data", {}).get("result", [])
-
-        pool_usage = {}
-        for item in result:
-            pool_id = item["metric"].get("pool_id")
-            value = float(item["value"][1])
-            pool_usage[pool_id] = value
-
-        return pool_usage
+        out = subprocess.check_output(cmd, shell=True)
+        return out.decode().strip()
     except Exception as e:
-        print(f"[ERROR] Prometheus query failed: {e}")
+        print(f"[ERROR] {cmd} failed: {e}")
+        return ""
+ 
+def run_json(cmd):
+    out = run_cmd(cmd)
+    try:
+        return json.loads(out)
+    except:
         return {}
-
-
-def get_ceph_pool_detail():
+ 
+def prom_query(query):
     try:
-        cmd = ["ceph", "osd", "pool", "ls", "detail", "-f", "json"]
-        output = subprocess.check_output(cmd)
-        return json.loads(output)
+        r = requests.get(f"{PROM_URL}/api/v1/query", params={"query": query}, timeout=10)
+        return r.json().get("data", {}).get("result", [])
     except Exception as e:
-        print(f"[ERROR] Ceph command failed: {e}")
+        print(f"[WARN] Prometheus query failed: {query} -> {e}")
         return []
-
-
-def build_pool_model(pool_list, prom_data):
-    pool_models = []
-
-    for p in pool_list:
-        pool_id = str(p.get("pool_id"))
-        pool_name = p.get("pool_name")
-
-        # ===============================
-        # 1️⃣ 副本/EC配置
-        # ===============================
-        replica_ec_conf = {
-            "type": p.get("type"),  # 1=replicated, 3=ec
-            "size": p.get("size"),
-            "min_size": p.get("min_size"),
-            "erasure_code_profile": p.get("erasure_code_profile") or None
+ 
+def bytes_to_human(b):
+    """将字节转换为人类可读格式"""
+    try:
+        b = float(b)
+    except:
+        return "0 B"
+    for unit in ["B", "KB", "MB", "GB", "TB", "PB"]:
+        if abs(b) < 1024.0:
+            return f"{b:.2f} {unit}"
+        b /= 1024.0
+    return f"{b:.2f} EB"
+ 
+# =========================
+# Step1: pool_name -> crush_rule_name
+# =========================
+ 
+def get_pool_rule_name(pool_name):
+    out = run_cmd(f"ceph osd pool get {pool_name} crush_rule")
+    # crush_rule: replicated_rule_ssd
+    return out.split(":")[-1].strip() if out else ""
+ 
+# =========================
+# Step2: crush_rule_name -> root(item_name)
+# =========================
+ 
+def get_rule_root(rule_name):
+    data = run_json(f"ceph osd crush rule dump {rule_name} -f json")
+    if not data:
+        return ""
+    for step in data.get("steps", []):
+        if step.get("op") == "take":
+            return step.get("item_name", "")
+    return ""
+ 
+# =========================
+# Step3: root -> device_class（核心）
+# =========================
+ 
+def get_device_class(root_name):
+    if not root_name:
+        return "unknown"
+    data = run_json("ceph osd crush tree -f json")
+    nodes = data.get("nodes", [])
+ 
+    # 找 root
+    root = next((n for n in nodes if n.get("type") == "root" and n.get("name") == root_name), None)
+    if not root:
+        return "unknown"
+ 
+    classes = set()
+    # root -> host -> osd
+    for host_id in root.get("children", []):
+        host = next((n for n in nodes if n.get("id") == host_id), None)
+        if not host:
+            continue
+        for osd_id in host.get("children", []):
+            osd = next((n for n in nodes if n.get("id") == osd_id), None)
+            if osd and osd.get("device_class"):
+                classes.add(osd.get("device_class"))
+ 
+    if not classes:
+        return "unknown"
+    return ",".join(sorted(classes))
+ 
+# =========================
+# ceph osd pool ls detail 信息采集
+# 提取4个维度：replica_ec_conf / pg_conf / crush_rule_name / application_metadata
+# =========================
+ 
+# pool type 整型 -> 可读字符串映射
+POOL_TYPE_MAP = {1: "replicated", 3: "erasure"}
+ 
+def get_pool_ls_detail():
+    """
+    执行 'ceph osd pool ls detail -f json'，
+    返回以 pool_id（int）为 key 的字典，每条记录包含：
+      - replica_ec_conf : 副本/EC 配置
+      - pg_conf         : PG 配置
+      - crush_rule_id   : crush rule 整型 id（用于校验，实际显示用 rule name）
+      - application_metadata : 应用元数据
+    """
+    pools = run_json("ceph osd pool ls detail -f json")
+    detail = {}
+    for p in pools:
+        pid = p.get("pool_id")
+        if pid is None:
+            continue
+ 
+        pool_type_int = p.get("type", 1)
+        detail[pid] = {
+            "replica_ec_conf": {
+                "type":                 POOL_TYPE_MAP.get(pool_type_int, str(pool_type_int)),
+                "size":                 p.get("size"),
+                "min_size":             p.get("min_size"),
+                "erasure_code_profile": p.get("erasure_code_profile", ""),
+            },
+            "pg_conf": {
+                "pg_num":            p.get("pg_num"),
+                "pg_autoscale_mode": p.get("pg_autoscale_mode", "unknown"),
+                "pg_num_target":     p.get("pg_num_target"),
+                "pg_num_pending":    p.get("pg_num_pending"),
+            },
+            "crush_rule_id":      p.get("crush_rule"),
+            "application_metadata": p.get("application_metadata", {}),
         }
-
-        # ===============================
-        # 2️⃣ PG配置
-        # ===============================
-        pg_conf = {
-            "pg_num": p.get("pg_num"),
-            "pg_autoscale_mode": p.get("pg_autoscale_mode"),
-            "pg_num_target": p.get("pg_num_target"),
-            "pg_num_pending": p.get("pg_num_pending")
-        }
-
-        # ===============================
-        # 3️⃣ CRUSH规则
-        # ===============================
-        crush_rule = p.get("crush_rule")
-
-        # ===============================
-        # 4️⃣ 应用类型
-        # ===============================
-        app_meta = p.get("application_metadata", {})
-
-        # 简单提取类型标签（增强）
-        if "rbd" in app_meta:
-            app_type = "rbd"
-        elif "cephfs" in app_meta:
-            if "metadata" in app_meta.get("cephfs", {}):
-                app_type = "cephfs_metadata"
-            elif "data" in app_meta.get("cephfs", {}):
-                app_type = "cephfs_data"
-            else:
-                app_type = "cephfs"
-        elif "rgw" in app_meta:
-            app_type = "rgw"
-        else:
-            app_type = "unknown"
-
-        # ===============================
-        # Prometheus数据
-        # ===============================
-        used_delta = prom_data.get(pool_id, 0)
-
-        # ===============================
-        # 构建最终模型
-        # ===============================
-        pool_model = {
-            "pool_id": pool_id,
-            "pool_name": pool_name,
-
-            # 你的4个维度
-            "replica_ec_conf": replica_ec_conf,
-            "pg_conf": pg_conf,
-            "crush_rule": crush_rule,
-            "application_metadata": app_meta,
-            "app_type": app_type,   # 🔥增强字段（强烈建议保留）
-
-            # Prometheus扩展
-            "used_delta_24h_bytes": used_delta,
-            "used_delta_24h_gb": round(used_delta / 1024 / 1024 / 1024, 2)
-        }
-
-        pool_models.append(pool_model)
-
-    return pool_models
-
-
+    return detail
+ 
+# =========================
+# 性能数据
+# =========================
+ 
+def get_perf():
+    perf = {"iops": {}, "bw": {}, "latency": 0}
+ 
+    q_iops = 'avg_over_time((sum by (pool_id) (rate(ceph_pool_rd[5m]) + rate(ceph_pool_wr[5m])))[12h:])'
+    for r in prom_query(q_iops):
+        pid = int(r["metric"]["pool_id"])
+        perf["iops"][pid] = float(r["value"][1])
+ 
+    q_bw = 'avg_over_time((sum by (pool_id) (rate(ceph_pool_rd_bytes[5m]) + rate(ceph_pool_wr_bytes[5m])))[12h:])'
+    for r in prom_query(q_bw):
+        pid = int(r["metric"]["pool_id"])
+        perf["bw"][pid] = float(r["value"][1])
+ 
+    q_lat = 'sum(rate(ceph_osd_op_latency_sum[5m])) / sum(rate(ceph_osd_op_latency_count[5m]))'
+    res = prom_query(q_lat)
+    if res:
+        perf["latency"] = float(res[0]["value"][1]) * 1000
+ 
+    return perf
+ 
+# =========================
+# Prometheus 存储池指标批量采集
+# 需求1~6：通过 Prometheus API 获取各项存储池指标
+# =========================
+ 
+def get_prom_pool_metrics():
+    """
+    从 Prometheus 批量获取以下指标（均以 pool_id 为 key）：
+      - percent_used     : 需求1 - ceph_pool_percent_used（0~1 小数，显示时 *100 转百分比）
+      - bytes_used       : 需求2 - ceph_pool_bytes_used（字节）
+      - objects          : 需求3 - ceph_pool_objects（个数）
+      - growth_24h_bytes : 需求4 - ceph_pool_bytes_used - ceph_pool_bytes_used offset 24h
+                           用当前值减去24h前的值，结果更精确；正值=增长，负值=释放
+      - max_avail_bytes  : 需求5 - ceph_pool_max_avail（字节）
+      - dirty            : 需求6 - ceph_pool_dirty（个数）
+    """
+    metrics = {}
+ 
+    def collect(query, field, converter=float):
+        for r in prom_query(query):
+            pid = int(r["metric"]["pool_id"])
+            if pid not in metrics:
+                metrics[pid] = {}
+            try:
+                metrics[pid][field] = converter(r["value"][1])
+            except:
+                metrics[pid][field] = 0
+ 
+    # 需求1: 存储池利用率（Prometheus 返回 0~1 的小数）
+    collect("ceph_pool_percent_used", "percent_used")
+ 
+    # 需求2: 存储池实际使用量（字节）
+    collect("ceph_pool_bytes_used", "bytes_used")
+ 
+    # 需求3: 存储池对象数
+    collect("ceph_pool_objects", "objects", lambda v: int(float(v)))
+ 
+    # 需求4: 存储池 24 小时空间增长量（字节）
+    # 用 offset 差值法：当前值 - 24h 前的值，比 increase() 更精确
+    # 返回值可为负数（表示该池在过去 24h 内净释放了空间）
+    collect("ceph_pool_bytes_used - ceph_pool_bytes_used offset 24h", "growth_24h_bytes")
+ 
+    # 需求5: 存储池最大可用空间（字节）
+    collect("ceph_pool_max_avail", "max_avail_bytes")
+ 
+    # 需求6: 存储池 dirty 数据
+    collect("ceph_pool_dirty", "dirty", lambda v: int(float(v)))
+ 
+    return metrics
+ 
+# =========================
+# 主逻辑
+# =========================
+ 
 def main():
-    ceph_pools = get_ceph_pool_detail()
-    prom_data = get_prometheus_data()
-
-    pool_models = build_pool_model(ceph_pools, prom_data)
-
-    # 按增长排序（方便巡检）
-    pool_models = sorted(pool_models, key=lambda x: x["used_delta_24h_bytes"], reverse=True)
-
-    print(json.dumps(pool_models, indent=2, ensure_ascii=False))
-
-
+    # 使用 ceph df detail 获取 pool 列表（pool_id / pool_name），
+    # 存储池各统计指标均改由 Prometheus API 提供
+    df = run_json("ceph df detail -f json")
+    perf = get_perf()
+ 
+    # 批量从 Prometheus 获取所有存储池指标（需求 1~6）
+    prom_metrics = get_prom_pool_metrics()
+ 
+    # 从 ceph osd pool ls detail 获取4个维度的扩展配置信息
+    pool_detail = get_pool_ls_detail()
+ 
+    result = {
+        "cluster": run_cmd("ceph fsid"),
+        "pools": []
+    }
+ 
+    for p in df.get("pools", []):
+        pool_name = p.get("name")
+        pool_id   = p.get("id")
+ 
+        # ⭐ 核心链路：device_class 解析保持不变
+        rule_name    = get_pool_rule_name(pool_name)
+        root_name    = get_rule_root(rule_name)
+        device_class = get_device_class(root_name)
+ 
+        # 从 Prometheus 获取该 pool 的指标，若未采集到则置默认值
+        pm = prom_metrics.get(pool_id, {})
+ 
+        # 需求1: percent_used —— Prometheus 返回 0~1 小数，*100 转为百分比保留4位小数
+        percent_used = round(pm.get("percent_used", 0) * 100, 4)
+ 
+        # 需求2: 实际使用量（字节 + 人类可读）
+        bytes_used_raw = pm.get("bytes_used", 0)
+ 
+        # 需求3: 对象数（来自 Prometheus）
+        objects = pm.get("objects", 0)
+ 
+        # 需求4: 24h 空间净变化量（字节 + 人类可读），正值=增长，负值=净释放
+        growth_24h_raw = pm.get("growth_24h_bytes", 0)
+ 
+        # 需求5: 最大可用空间（字节 + 人类可读）
+        max_avail_raw = pm.get("max_avail_bytes", 0)
+ 
+        # 需求6: dirty 数据量（个数）
+        dirty = pm.get("dirty", 0)
+ 
+        # 从 pool ls detail 取4个维度扩展信息，不存在时给空默认值
+        pd = pool_detail.get(pool_id, {})
+        replica_ec_conf    = pd.get("replica_ec_conf",    {"type": "", "size": None, "min_size": None, "erasure_code_profile": ""})
+        pg_conf            = pd.get("pg_conf",            {"pg_num": None, "pg_autoscale_mode": "", "pg_num_target": None, "pg_num_pending": None})
+        application_metadata = pd.get("application_metadata", {})
+ 
+        result["pools"].append({
+            "pool_id":      pool_id,
+            "pool_name":    pool_name,
+            "percent_used": percent_used,                          # 单位: %
+            "bytes_used":   bytes_to_human(bytes_used_raw),        # 需求2
+            "bytes_used_raw": int(bytes_used_raw),                 # 需求2（原始字节）
+            "objects":      objects,                               # 需求3
+            "max_avail":    bytes_to_human(max_avail_raw),         # 需求5
+            "max_avail_raw": int(max_avail_raw),                   # 需求5（原始字节）
+            "growth_24h":   bytes_to_human(growth_24h_raw),        # 需求4
+            "growth_24h_raw": int(growth_24h_raw),                 # 需求4（原始字节）
+            "dirty":        dirty,                                  # 需求6
+            "device_class": device_class,
+            # ---- 来自 ceph osd pool ls detail 的4个维度 ----
+            "replica_ec_conf":     replica_ec_conf,                # 副本/EC 配置
+            "pg_conf":             pg_conf,                        # PG 配置
+            "crush_rule":          rule_name,                      # crush rule 名称（字符串）
+            "application_metadata": application_metadata,          # 应用元数据
+            # -----------------------------------------------
+            "performance": {
+                "iops_12h":     perf["iops"].get(pool_id, 0),
+                "bw_bytes_12h": perf["bw"].get(pool_id, 0),
+                "latency_ms":   perf["latency"]
+            }
+        })
+ 
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+ 
 if __name__ == "__main__":
     main()
