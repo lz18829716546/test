@@ -5,28 +5,54 @@ import requests
 
 PROM_URL = "http://172.16.3.107:9095"
 
-# ---------------------------
-# 执行命令
-# ---------------------------
 def run_cmd(cmd):
     return subprocess.check_output(cmd, shell=True).decode()
 
 # ---------------------------
-# 获取 pool 基础信息
+# 获取 pool 基础信息 + percent_used
 # ---------------------------
 def get_pools():
-    out = run_cmd("ceph df detail -f json")
-    data = json.loads(out)
-
+    df = json.loads(run_cmd("ceph df detail -f json"))
     pools = {}
-    for p in data["pools"]:
+
+    for p in df["pools"]:
         pools[p["id"]] = {
             "pool_id": p["id"],
             "pool_name": p["name"],
-            "bytes_used": p["stats"]["bytes_used"],
             "objects": p["stats"]["objects"],
+            "%USED": round(p["stats"]["percent_used"] * 100, 4)
         }
+
     return pools
+
+# ---------------------------
+# 获取 pool -> crush_rule
+# ---------------------------
+def get_pool_rule_map():
+    data = json.loads(run_cmd("ceph osd pool ls detail -f json"))
+    m = {}
+    for p in data:
+        m[p["pool"]] = p["crush_rule"]
+    return m
+
+# ---------------------------
+# 获取 crush_rule -> device_class
+# ---------------------------
+def get_rule_class_map():
+    rules = json.loads(run_cmd("ceph osd crush rule dump -f json"))
+    m = {}
+
+    for r in rules:
+        rule_id = r["rule_id"]
+        device_class = "unknown"
+
+        for step in r["steps"]:
+            if step["op"] == "take":
+                device_class = step.get("item_name", "unknown")
+
+        m[rule_id] = device_class
+
+    return m
 
 # ---------------------------
 # Prometheus 查询
@@ -50,7 +76,7 @@ def prom_query(query):
     return result
 
 # ---------------------------
-# 获取性能数据
+# 获取性能
 # ---------------------------
 def get_perf():
     iops_q = '''
@@ -71,7 +97,6 @@ sum(rate(ceph_osd_op_latency_count[5m]))
     iops = prom_query(iops_q)
     bw = prom_query(bw_q)
 
-    # latency 是全局
     latency_resp = requests.get(
         f"{PROM_URL}/api/v1/query",
         params={"query": latency_q}
@@ -79,7 +104,7 @@ sum(rate(ceph_osd_op_latency_count[5m]))
 
     latency = None
     if latency_resp["data"]["result"]:
-        latency = float(latency_resp["data"]["result"][0]["value"][1]) * 1000  # 转 ms
+        latency = float(latency_resp["data"]["result"][0]["value"][1]) * 1000
 
     return iops, bw, latency
 
@@ -88,6 +113,8 @@ sum(rate(ceph_osd_op_latency_count[5m]))
 # ---------------------------
 def main():
     pools = get_pools()
+    pool_rule = get_pool_rule_map()
+    rule_class = get_rule_class_map()
     iops, bw, latency = get_perf()
 
     result = {
@@ -96,6 +123,11 @@ def main():
     }
 
     for pid, p in pools.items():
+        rule_id = pool_rule.get(pid)
+        device_class = rule_class.get(rule_id, "unknown")
+
+        p["device_class"] = device_class
+
         p["performance"] = {
             "iops_12h": iops.get(pid, 0),
             "bw_bytes_12h": bw.get(pid, 0),
