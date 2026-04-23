@@ -1,139 +1,295 @@
-root@gm1-pub-ceph-172-16-3-107:/tmp# python3 get_pool_info.py
-[ERROR] cmd failed: ceph fsid, Extra data: line 1 column 2 (char 1)
+root@gz-4f31406-ceph-001201:/tmp# python3 get_pool_info.py
 {
-  "cluster": {},
+  "cluster": "7ebb8530-f215-11ed-80e2-97aadb4506a0",
   "pools": [
     {
-      "pool_id": 1,
-      "pool_name": "device_health_metrics",
-      "percent_used": 0.0012,
-      "objects": 28,
-      "device_class": "default",
-      "performance": {
-        "iops_12h": 0.0024074074074074076,
-        "bw_bytes_12h": 4459.496296296296,
-        "latency_ms": 26.56347223563688
-      }
-    },
-    {
       "pool_id": 2,
-      "pool_name": "cloud",
-      "percent_used": 0.9785,
-      "objects": 35455,
-      "device_class": "default",
+      "pool_name": "device_health_metrics",
+      "percent_used": 0.0004,
+      "objects": 78,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 116.66199792464846,
-        "bw_bytes_12h": 7076844.876015323,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 118.46124521072815,
+        "bw_bytes_12h": 7138808.009399743,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 3,
-      "pool_name": "cephfs-metadata",
-      "percent_used": 0.0305,
-      "objects": 675,
-      "device_class": "ssd",
+      "pool_name": "images",
+      "percent_used": 0.1172,
+      "objects": 17301,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 1.4195170817369107,
-        "bw_bytes_12h": 4985.024572158381,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 1.4410791826309068,
+        "bw_bytes_12h": 5109.907943805875,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 4,
-      "pool_name": "cephfs-data",
-      "percent_used": 0.1167,
-      "objects": 6603,
-      "device_class": "default",
+      "pool_name": "volumes",
+      "percent_used": 10.4253,
+      "objects": 3428357,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 0.4824417305236262,
-        "bw_bytes_12h": 692.9957598978294,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 0.4942033844189013,
+        "bw_bytes_12h": 742.8797956577266,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 5,
-      "pool_name": ".rgw.root",
+      "pool_name": "backups",
       "percent_used": 0.0,
-      "objects": 6,
-      "device_class": "default",
+      "objects": 33,
+      "device_class": "hdd",
       "performance": {
         "iops_12h": 0.0008333333333333349,
         "bw_bytes_12h": 0.8533333333333349,
-        "latency_ms": 26.56347223563688
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 6,
-      "pool_name": "default.rgw.log",
-      "percent_used": 0.0,
-      "objects": 209,
-      "device_class": "default",
+      "pool_name": "cephfs-data",
+      "percent_used": 0.0286,
+      "objects": 27471,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 3.846861430395916,
-        "bw_bytes_12h": 3000.1295530012712,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 3.881538154533838,
+        "bw_bytes_12h": 3452.665134099621,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 7,
-      "pool_name": "default.rgw.control",
-      "percent_used": 0,
-      "objects": 8,
-      "device_class": "default",
+      "pool_name": "guangzhou.rgw.buckets.data",
+      "percent_used": 2.6383,
+      "objects": 3552560,
+      "device_class": "hdd",
       "performance": {
         "iops_12h": 0.0,
         "bw_bytes_12h": 0.0,
-        "latency_ms": 26.56347223563688
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 8,
-      "pool_name": "default.rgw.meta",
-      "percent_used": 0.0,
-      "objects": 372,
-      "device_class": "default",
+      "pool_name": "guangzhou.rgw.archive.data",
+      "percent_used": 52.954,
+      "objects": 48053117,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 0.3322278097062579,
-        "bw_bytes_12h": 252.4117496807164,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 0.31665628991060135,
+        "bw_bytes_12h": 240.87867177522338,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 9,
-      "pool_name": "default.rgw.buckets.data",
-      "percent_used": 40.1208,
-      "objects": 4600914,
-      "device_class": "default",
+      "pool_name": "guangzhou.rgw.glacier.data",
+      "percent_used": 0,
+      "objects": 0,
+      "device_class": "hdd",
       "performance": {
-        "iops_12h": 7.0028687739463615,
-        "bw_bytes_12h": 459644.54007662926,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 13.735577107279703,
+        "bw_bytes_12h": 3344759.1070242664,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 10,
-      "pool_name": "default.rgw.buckets.index",
-      "percent_used": 0.0998,
-      "objects": 960,
+      "pool_name": "cephfs-metadata",
+      "percent_used": 0.0151,
+      "objects": 3133,
       "device_class": "ssd",
       "performance": {
-        "iops_12h": 3.0318079501915536,
-        "bw_bytes_12h": 4163.482809706275,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 12.176513409961697,
+        "bw_bytes_12h": 26911.50794380588,
+        "latency_ms": 10.974656120235624
       }
     },
     {
       "pool_id": 11,
-      "pool_name": "default.rgw.buckets.non-ec",
-      "percent_used": 0.0,
-      "objects": 243,
-      "device_class": "default",
+      "pool_name": "guangzhou.rgw.buckets.index",
+      "percent_used": 0.0457,
+      "objects": 125937,
+      "device_class": "ssd",
       "performance": {
-        "iops_12h": 0.23143199233716452,
-        "bw_bytes_12h": 117.27775223499383,
-        "latency_ms": 26.56347223563688
+        "iops_12h": 0.6396527777777777,
+        "bw_bytes_12h": 328.1066666666666,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 12,
+      "pool_name": "guangzhou.rgw.archive.index",
+      "percent_used": 0.2982,
+      "objects": 27986,
+      "device_class": "ssd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 13,
+      "pool_name": "guangzhou.rgw.buckets.non-ec",
+      "percent_used": 0.0,
+      "objects": 52,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 14,
+      "pool_name": "guangzhou.rgw.archive.non-ec",
+      "percent_used": 0.0,
+      "objects": 2,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 15,
+      "pool_name": ".rgw.root",
+      "percent_used": 0.0,
+      "objects": 19,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 16,
+      "pool_name": "guangzhou.rgw.control",
+      "percent_used": 0,
+      "objects": 8,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 17,
+      "pool_name": "guangzhou.rgw.meta",
+      "percent_used": 0.0,
+      "objects": 336,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 18,
+      "pool_name": "guangzhou.rgw.log",
+      "percent_used": 0.0,
+      "objects": 338,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 19,
+      "pool_name": "guangzhou.rgw.otp",
+      "percent_used": 0,
+      "objects": 0,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 21,
+      "pool_name": "gz-01-plat-prod-0001",
+      "percent_used": 0.1336,
+      "objects": 194285,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 22,
+      "pool_name": "gz-01-business-prod-0001",
+      "percent_used": 0,
+      "objects": 0,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 23,
+      "pool_name": "images-new",
+      "percent_used": 0.0624,
+      "objects": 9220,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 24,
+      "pool_name": "volumes-new",
+      "percent_used": 5.1538,
+      "objects": 1610511,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 26,
+      "pool_name": "gz-01-plat-prod-0002",
+      "percent_used": 0.0031,
+      "objects": 1655,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
+      }
+    },
+    {
+      "pool_id": 27,
+      "pool_name": "gz-01-plat-prod-0003",
+      "percent_used": 0.1157,
+      "objects": 37686,
+      "device_class": "hdd",
+      "performance": {
+        "iops_12h": 0,
+        "bw_bytes_12h": 0,
+        "latency_ms": 10.974656120235624
       }
     }
   ]
 }
+root@gz-4f31406-ceph-001201:/tmp# 
