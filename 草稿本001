@@ -87,3 +87,59 @@ CMDB_OUTPUT venv_python=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bi
 Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3 /root/ceph_patrol/v5_offline_install/ceph_patrol/ceph_patrol.py ...
 
 如果看到这两行，就说明已经真正用虚拟环境执行了。此时 No module named 'docx' 就不
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+这次我换成了你刚发的脚本，并且新增一个参数名：ceph_venv_python
+
+参数值填：/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+但是运行结果还是报错：
+[2026-05-09 17:38:10 (line:555) INFO] No conf_json provided. Use existing config file: /root/ceph_patrol/v5_offline_install/ceph_patrol/config.json
+##PARAMETER_result_status:
+cnVubmluZw==
+:result_status_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT result_status=running
+##PARAMETER_patrol_home:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9s
+:patrol_home_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT patrol_home=/root/ceph_patrol/v5_offline_install/ceph_patrol
+##PARAMETER_venv_python:
+L3Vzci9iaW4vcHl0aG9uMy4xMA==
+:venv_python_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT venv_python=/usr/bin/python3.10
+##PARAMETER_output_dir:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9sL291dHB1dA==
+:output_dir_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT output_dir=/root/ceph_patrol/v5_offline_install/ceph_patrol/output
+[2026-05-09 17:38:10 (line:858) ERROR] Run failed: RuntimeError: 当前 venv_python 指向系统 Python，不允许继续：/usr/bin/python3.10。请设置为 /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+[2026-05-09 17:38:10 (line:859) ERROR] Traceback:
+Traceback (most recent call last):
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addc277046666df9d4_0.py", line 802, in main
+    result_json, docx_path = run_ceph_patrol(
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addc277046666df9d4_0.py", line 617, in run_ceph_patrol
+    raise RuntimeError(
+RuntimeError: 当前 venv_python 指向系统 Python，不允许继续：/usr/bin/python3.10。请设置为 /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+##PARAMETER_result_status:
+ZmFpbA==
+:result_status_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT result_status=fail
+##PARAMETER_error_message:
+UnVudGltZUVycm9yOiDlvZPliY0gdmVudl9weXRob24g5oyH5ZCR57O757ufIFB5dGhvbu+8jOS4jeWFgeiuuOe7p+e7re+8mi91c3IvYmluL3B5dGhvbjMuMTDjgILor7forr7nva7kuLogL3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9sL3ZlbnYvYmluL3B5dGhvbjM=
+:error_message_RETEMARAP##
+[2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT error_message=RuntimeError: 当前 venv_python 指向系统 Python，不允许继续：/usr/bin/python3.10。请设置为 /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+exit status 1
