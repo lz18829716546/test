@@ -1,39 +1,62 @@
-是的，我也判断：之前的方向被你们 CMDB 平台机制坑住了。不是你操作问题。
-从 v5 日志看，脚本已经确实换成了最新版：
-Wrapper version: v5_force_patrol_home_venv_20260509
-但变量最后还是变成：
-/usr/bin/python3.10
-这说明你们 CMDB 平台可能会对包含 python 的变量名做特殊注入/覆盖，甚至影响脚本内部变量。继续围绕 venv_python / ceph_venv_python / ceph_python 修，性价比很低。
-我换了一个思路，做了 v6 版本：
-下载 v6 脚本
-下载 v6 打包版
-v6 的核心变化
-这版彻底不再使用这些名字：
-venv_pythonceph_venv_pythonceph_python
-也不再读取任何带 python 的 CMDB 输入参数。
-它只根据：
-patrol_home
-自动拼出固定路径：
-/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
-并且内部变量名改成：
-runtime_bin
-输出字段也改成：
-runtime_bin_used
-这样避开你们 CMDB 对 python 类字段的特殊处理。
-你这次 CMDB 输入参数只保留这些
-不要再填 venv_python，也不要填 ceph_venv_python。
-dry_run              truemail_subject         【EasyOps】Ceph自动化巡检报告output_dir           /root/ceph_patrol/v5_offline_install/ceph_patrol/outputpatrol_home          /root/ceph_patrol/v5_offline_install/ceph_patrolpatrol_timeout       10receiver_emails      sz.zzli@qevoc.comsender_email         sz.yys9@qevoc.comsmtp_password        ************smtp_port            25smtp_server          mail.qevoc.comsmtp_username        sz.yys9@qevoc.com
-正确日志应该长这样
-第一行版本号：
-Wrapper version: v6_runtime_bin_no_python_variable_20260509
-然后关键看这个输出：
-CMDB_OUTPUT runtime_bin_used=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
-以及启动命令：
-Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3 /root/ceph_patrol/v5_offline_install/ceph_patrol/ceph_patrol.py ...
-只要这里变成 venv/bin/python3，这个老问题就结束了。
-更稳的最终方案
-如果 v6 还被 CMDB 干扰，我建议就彻底不要在 CMDB 里写完整 Python 逻辑了，改成：
-CMDB 只负责触发一个服务器本地 shell 脚本真正巡检和发邮件逻辑放在 /root/ceph_patrol/... 目录里的脚本中
-也就是 CMDB 里面只写一行：
-/bin/bash /root/ceph_patrol/v5_offline_install/ceph_patrol/run_ceph_patrol_cmdb.sh
-这样就绕开 CMDB 对 Python 变量的注入机制。当前先试 v6；如果 v6 仍异常，就直接切 shell 外层包装方案。
+这次还是报错了：
+[2026-05-09 18:29:31 (line:730) INFO] Wrapper version: v6_runtime_bin_no_python_variable_20260509
+##PARAMETER_wrapper_version:
+djZfcnVudGltZV9iaW5fbm9fcHl0aG9uX3ZhcmlhYmxlXzIwMjYwNTA5
+:wrapper_version_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT wrapper_version=v6_runtime_bin_no_python_variable_20260509
+[2026-05-09 18:29:31 (line:558) INFO] No conf_json provided. Use existing config file: /root/ceph_patrol/v5_offline_install/ceph_patrol/config.json
+##PARAMETER_result_status:
+cnVubmluZw==
+:result_status_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT result_status=running
+##PARAMETER_patrol_home:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9s
+:patrol_home_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT patrol_home=/root/ceph_patrol/v5_offline_install/ceph_patrol
+##PARAMETER_runtime_bin_used:
+L3Vzci9iaW4vcHl0aG9uMy4xMA==
+:runtime_bin_used_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT runtime_bin_used=/usr/bin/python3.10
+##PARAMETER_output_dir:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9sL291dHB1dA==
+:output_dir_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT output_dir=/root/ceph_patrol/v5_offline_install/ceph_patrol/output
+##PARAMETER_dry_run:
+dHJ1ZQ==
+:dry_run_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT dry_run=true
+[2026-05-09 18:29:31 (line:826) ERROR] Run failed: RuntimeError: 虚拟环境依赖检查失败，请确认 venv 已安装 requests/python-docx/openpyxl。
+runtime_bin=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+[2026-05-09 18:29:31 (line:827) ERROR] Traceback:
+Traceback (most recent call last):
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addef4cf6f7c667f2d_0.py", line 757, in main
+    result_json, docx_path = run_patrol(
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addef4cf6f7c667f2d_0.py", line 630, in run_patrol
+    check_runtime_ready(runtime_bin)
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addef4cf6f7c667f2d_0.py", line 591, in check_runtime_ready
+    raise RuntimeError(
+RuntimeError: 虚拟环境依赖检查失败，请确认 venv 已安装 requests/python-docx/openpyxl。
+runtime_bin=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+
+##PARAMETER_result_status:
+ZmFpbA==
+:result_status_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT result_status=fail
+##PARAMETER_error_message:
+UnVudGltZUVycm9yOiDomZrmi5/njq/looPkvp3otZbmo4Dmn6XlpLHotKXvvIzor7fnoa7orqQgdmVudiDlt7Llronoo4UgcmVxdWVzdHMvcHl0aG9uLWRvY3gvb3BlbnB5eGzjgIIKcnVudGltZV9iaW49L3Vzci9iaW4vcHl0aG9uMy4xMApzdGRvdXQ9CnN0ZGVycj1UcmFjZWJhY2sgKG1vc3QgcmVjZW50IGNhbGwgbGFzdCk6CiAgRmlsZSAiPHN0cmluZz4iLCBsaW5lIDEsIGluIDxtb2R1bGU+Ck1vZHVsZU5vdEZvdW5kRXJyb3I6IE5vIG1vZHVsZSBuYW1lZCAnZG9jeCc=
+:error_message_RETEMARAP##
+[2026-05-09 18:29:31 (line:538) INFO] CMDB_OUTPUT error_message=RuntimeError: 虚拟环境依赖检查失败，请确认 venv 已安装 requests/python-docx/openpyxl。
+runtime_bin=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+exit status 1
