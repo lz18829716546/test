@@ -1,0 +1,89 @@
+这次日志非常关键，已经把问题定位死了：
+
+CMDB_OUTPUT venv_python=/usr/bin/python3.10
+
+你明明在输入参数里填的是：
+
+venv_python /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+但脚本读到的却是：
+
+/usr/bin/python3.10
+
+这说明 venv_python 这个参数名很可能被 CMDB 平台占用了，或者被执行器自动注入成当前脚本解释器路径。所以你填的自定义参数被覆盖了。
+
+换句话说，不是你填错了，也不是 venv 不存在，而是这个参数名不能再用了。
+
+我重新改了一版 v3，绕开这个冲突：
+
+下载 run_ceph_patrol_cmdb_v3_cmdb_safe.py
+
+下载打包版 ceph_patrol_cmdb_wrapper_v3_cmdb_safe.zip
+
+你接下来这样改
+
+把 CMDB 里的脚本代码替换成 v3 版本。
+
+然后把输入参数里的：
+
+venv_python
+
+删除或者不用管它。
+
+新增一个参数名：
+
+ceph_venv_python
+
+参数值填：
+
+/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+也就是说，现在参数改成这样：
+
+dry_run              true
+mail_subject         【EasyOps】Ceph自动化巡检报告
+output_dir           /root/ceph_patrol/v5_offline_install/ceph_patrol/output
+patrol_home          /root/ceph_patrol/v5_offline_install/ceph_patrol
+patrol_timeout       10
+receiver_emails      sz.zzli@qevoc.com
+sender_email         sz.yys9@qevoc.com
+smtp_password        ************
+smtp_port            25
+smtp_server          mail.qevoc.com
+smtp_username        sz.yys9@qevoc.com
+ceph_venv_python     /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+重点是最后这个：
+
+ceph_venv_python
+
+不要再用：
+
+venv_python
+v3 版本做了什么保护
+
+v3 会优先读：
+
+ceph_venv_python
+
+如果没填，就默认使用：
+
+/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+即使 CMDB 自动注入了：
+
+venv_python=/usr/bin/python3.10
+
+v3 也会忽略它，不会再拿系统 Python 去跑 ceph_patrol.py。
+
+下次正确日志应该长这样
+
+重新调试后，你重点看这几行：
+
+CMDB_OUTPUT venv_python=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+以及：
+
+Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3 /root/ceph_patrol/v5_offline_install/ceph_patrol/ceph_patrol.py ...
+
+如果看到这两行，就说明已经真正用虚拟环境执行了。此时 No module named 'docx' 就不
