@@ -301,3 +301,43 @@ stderr=Traceback (most recent call last):
   File "<string>", line 1, in <module>
 ModuleNotFoundError: No module named 'docx'
 exit status 1
+
+
+
+
+
+
+
+
+
+这次终于把根因摸清了：你们 CMDB 平台不只是覆盖 venv_python，连 ceph_venv_python 这种带 python 的自定义参数也可能被平台替换成 /usr/bin/python3.10。
+所以 v4 虽然避开了 venv_python，但还是被 ceph_venv_python 坑了。
+我重新做了 v5 版本：彻底不再读取任何 *python* 类输入参数，直接根据 patrol_home 拼出虚拟环境路径：
+/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+下载：
+run_ceph_patrol_cmdb_v5_force_patrol_home_venv.py
+ceph_patrol_cmdb_wrapper_v5_force_patrol_home_venv.zip
+你这次这样改
+CMDB 工具库脚本代码替换成 v5 里的：
+run_ceph_patrol_cmdb.py
+然后输入参数里删除或不用管这个参数：
+ceph_venv_python
+以后不要再填它了。
+保留这些参数就行：
+dry_run              truemail_subject         【EasyOps】Ceph自动化巡检报告output_dir           /root/ceph_patrol/v5_offline_install/ceph_patrol/outputpatrol_home          /root/ceph_patrol/v5_offline_install/ceph_patrolpatrol_timeout       10receiver_emails      sz.zzli@qevoc.comsender_email         sz.yys9@qevoc.comsmtp_password        ************smtp_port            25smtp_server          mail.qevoc.comsmtp_username        sz.yys9@qevoc.com
+下次正确日志应该是这样
+重点看这三行。
+第一行：
+Wrapper version: v5_force_patrol_home_venv_20260509
+第二行必须是：
+CMDB_OUTPUT ceph_python_used=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+第三行必须是：
+Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3 /root/ceph_patrol/v5_offline_install/ceph_patrol/ceph_patrol.py ...
+只要第二行还是：
+ceph_python_used=/usr/bin/python3.10
+那就不是参数问题了，而是 CMDB 里没有真正替换成 v5 脚本，或者替换后没有保存 / 发布 / 启用新版本。
+第一轮继续用：
+dry_run true
+等确认能跑完并生成 .docx 后，再改成：
+dry_run false
+测试邮件发送。
