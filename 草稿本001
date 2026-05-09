@@ -235,3 +235,69 @@ Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv
 Start ceph patrol command: /usr/bin/python3.10 ...
 
 那就说明 CMDB 里仍然没有真正替换成 v4 脚本，或者保存后没有发布/启用新版本。这个时候重点不是参数，而是 CMDB 工具库脚本版本没有生效。
+
+
+
+
+完全按照你说的方法操作并跑了一遍脚本，还是报错了：
+[2026-05-09 17:52:03 (line:748) INFO] Wrapper version: v4_no_reserved_venv_20260509
+##PARAMETER_wrapper_version:
+djRfbm9fcmVzZXJ2ZWRfdmVudl8yMDI2MDUwOQ==
+:wrapper_version_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT wrapper_version=v4_no_reserved_venv_20260509
+[2026-05-09 17:52:03 (line:559) INFO] No conf_json provided. Use existing config file: /root/ceph_patrol/v5_offline_install/ceph_patrol/config.json
+##PARAMETER_result_status:
+cnVubmluZw==
+:result_status_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT result_status=running
+##PARAMETER_patrol_home:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9s
+:patrol_home_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT patrol_home=/root/ceph_patrol/v5_offline_install/ceph_patrol
+##PARAMETER_ceph_python_used:
+L3Vzci9iaW4vcHl0aG9uMy4xMA==
+:ceph_python_used_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT ceph_python_used=/usr/bin/python3.10
+##PARAMETER_output_dir:
+L3Jvb3QvY2VwaF9wYXRyb2wvdjVfb2ZmbGluZV9pbnN0YWxsL2NlcGhfcGF0cm9sL291dHB1dA==
+:output_dir_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT output_dir=/root/ceph_patrol/v5_offline_install/ceph_patrol/output
+##PARAMETER_dry_run:
+dHJ1ZQ==
+:dry_run_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT dry_run=true
+[2026-05-09 17:52:03 (line:866) ERROR] Run failed: RuntimeError: ceph 虚拟环境依赖检查失败，请确认该 venv 已安装 requests/python-docx/openpyxl。
+ceph_python=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+[2026-05-09 17:52:03 (line:867) ERROR] Traceback:
+Traceback (most recent call last):
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addce974e2c1f22061_0.py", line 783, in main
+    result_json, docx_path = run_ceph_patrol(
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addce974e2c1f22061_0.py", line 644, in run_ceph_patrol
+    assert_ceph_python_ready(ceph_python)
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18addce974e2c1f22061_0.py", line 594, in assert_ceph_python_ready
+    raise RuntimeError(
+RuntimeError: ceph 虚拟环境依赖检查失败，请确认该 venv 已安装 requests/python-docx/openpyxl。
+ceph_python=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+
+##PARAMETER_result_status:
+ZmFpbA==
+:result_status_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT result_status=fail
+##PARAMETER_error_message:
+UnVudGltZUVycm9yOiBjZXBoIOiZmuaLn+eOr+Wig+S+nei1luajgOafpeWksei0pe+8jOivt+ehruiupOivpSB2ZW52IOW3suWuieijhSByZXF1ZXN0cy9weXRob24tZG9jeC9vcGVucHl4bOOAggpjZXBoX3B5dGhvbj0vdXNyL2Jpbi9weXRob24zLjEwCnN0ZG91dD0Kc3RkZXJyPVRyYWNlYmFjayAobW9zdCByZWNlbnQgY2FsbCBsYXN0KToKICBGaWxlICI8c3RyaW5nPiIsIGxpbmUgMSwgaW4gPG1vZHVsZT4KTW9kdWxlTm90Rm91bmRFcnJvcjogTm8gbW9kdWxlIG5hbWVkICdkb2N4Jw==
+:error_message_RETEMARAP##
+[2026-05-09 17:52:03 (line:473) INFO] CMDB_OUTPUT error_message=RuntimeError: ceph 虚拟环境依赖检查失败，请确认该 venv 已安装 requests/python-docx/openpyxl。
+ceph_python=/usr/bin/python3.10
+stdout=
+stderr=Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'docx'
+exit status 1
