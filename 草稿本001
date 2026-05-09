@@ -341,3 +341,38 @@ dry_run true
 等确认能跑完并生成 .docx 后，再改成：
 dry_run false
 测试邮件发送。
+
+
+
+
+
+
+
+
+
+
+
+
+按照你说的步骤换成v5 版本并且在输入参数里删除了ceph_venv_python，依然报错了，报错信息如下：
+[2026-05-09 18:10:46 (line:750) INFO] Wrapper version: v5_force_patrol_home_venv_20260509
+##PARAMETER_wrapper_version:
+djVfZm9yY2VfcGF0cm9sX2hvbWVfdmVudl8yMDI2MDUwOQ==
+:wrapper_version_RETEMARAP##
+[2026-05-09 18:10:46 (line:472) INFO] CMDB_OUTPUT wrapper_version=v5_force_patrol_home_venv_20260509
+[2026-05-09 18:10:46 (line:869) ERROR] Run failed: RuntimeError: 内部保护触发：ceph_python 仍然指向系统 Python：/usr/bin/python3.10
+[2026-05-09 18:10:46 (line:870) ERROR] Traceback:
+Traceback (most recent call last):
+  File "/opt/special_agent_phy/agent/cache/script/script_cmd_202605_task18adddef0bf5db05b3ed_0.py", line 767, in main
+    raise RuntimeError("内部保护触发：ceph_python 仍然指向系统 Python：{0}".format(ceph_python))
+RuntimeError: 内部保护触发：ceph_python 仍然指向系统 Python：/usr/bin/python3.10
+
+##PARAMETER_result_status:
+ZmFpbA==
+:result_status_RETEMARAP##
+[2026-05-09 18:10:46 (line:472) INFO] CMDB_OUTPUT result_status=fail
+##PARAMETER_error_message:
+UnVudGltZUVycm9yOiDlhoXpg6jkv53miqTop6blj5HvvJpjZXBoX3B5dGhvbiDku43nhLbmjIflkJHns7vnu58gUHl0aG9u77yaL3Vzci9iaW4vcHl0aG9uMy4xMA==
+:error_message_RETEMARAP##
+[2026-05-09 18:10:46 (line:472) INFO] CMDB_OUTPUT error_message=RuntimeError: 内部保护触发：ceph_python 仍然指向系统 Python：/usr/bin/python3.10
+exit status 1
+这样搞来搞去很多次了，我想是不是一开始思路就错了，是不是换个思路就可以解决这个问题。
