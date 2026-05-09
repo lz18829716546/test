@@ -143,3 +143,95 @@ UnVudGltZUVycm9yOiDlvZPliY0gdmVudl9weXRob24g5oyH5ZCR57O757ufIFB5dGhvbu+8jOS4jeWF
 :error_message_RETEMARAP##
 [2026-05-09 17:38:10 (line:469) INFO] CMDB_OUTPUT error_message=RuntimeError: 当前 venv_python 指向系统 Python，不允许继续：/usr/bin/python3.10。请设置为 /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
 exit status 1
+
+
+
+
+
+
+
+
+
+这次日志说明一个很重要的问题：你现在 CMDB 里实际跑到的，还是会读取/输出 venv_python 的旧逻辑。
+
+因为如果真的跑到我说的 v3 逻辑，至少应该看到类似：
+
+raw_cmdb_venv_python=/usr/bin/python3.10
+
+但你的日志里没有，而且仍然在报：
+
+当前 venv_python 指向系统 Python
+
+所以我建议不要再围绕 venv_python 修了。这个名字在你们 CMDB 环境里明显有“内置变量覆盖”问题。
+
+我重新做了一个 v4 版本，彻底避开 venv_python 这个名字：
+
+下载 v4 脚本 run_ceph_patrol_cmdb_v4_no_reserved.py
+
+下载 v4 打包版 ceph_patrol_cmdb_wrapper_v4_no_reserved.zip
+
+v4 关键变化
+
+这版不再读取：
+
+venv_python
+
+也不再输出：
+
+venv_python
+
+而是只使用：
+
+ceph_venv_python
+
+并且输出字段改成：
+
+ceph_python_used
+
+避免再次被 CMDB 平台覆盖。
+
+你这次需要这样操作
+
+把 CMDB 工具库里的脚本代码完整替换成 v4 的 run_ceph_patrol_cmdb.py 内容。
+
+然后输入参数保留这些：
+
+dry_run              true
+mail_subject         【EasyOps】Ceph自动化巡检报告
+output_dir           /root/ceph_patrol/v5_offline_install/ceph_patrol/output
+patrol_home          /root/ceph_patrol/v5_offline_install/ceph_patrol
+patrol_timeout       10
+receiver_emails      sz.zzli@qevoc.com
+sender_email         sz.yys9@qevoc.com
+smtp_password        ************
+smtp_port            25
+smtp_server          mail.qevoc.com
+smtp_username        sz.yys9@qevoc.com
+ceph_venv_python     /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+可以把旧的这个参数删除：
+
+venv_python
+重新运行后，先看这两行
+
+正确日志里必须出现：
+
+Wrapper version: v4_no_reserved_venv_20260509
+
+以及：
+
+CMDB_OUTPUT ceph_python_used=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+接着应该看到：
+
+Dependency check OK. ceph_python executable=/root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3
+
+最后启动命令应该是：
+
+Start ceph patrol command: /root/ceph_patrol/v5_offline_install/ceph_patrol/venv/bin/python3 /root/ceph_patrol/v5_offline_install/ceph_patrol/ceph_patrol.py ...
+
+如果日志里还是出现：
+
+Start ceph patrol command: /usr/bin/python3.10 ...
+
+那就说明 CMDB 里仍然没有真正替换成 v4 脚本，或者保存后没有发布/启用新版本。这个时候重点不是参数，而是 CMDB 工具库脚本版本没有生效。
