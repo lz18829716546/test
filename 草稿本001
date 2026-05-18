@@ -1,4 +1,4277 @@
-我测试v7版本也报错了：
-/usr/bin/env: ‘python’: No such file or directory
-exit status 127
-我觉得你还是没有真正找到问题根因，一直都在猜测。我建议你在代码中加点debug日志、断点等这类措施，以便能够准确找到问题根因所在。然后根据问题原因找解决方案才能真正解决问题。
+root@fs1-pre-stor-172-21-224-223:~# PREP_DIR="/root/minio_disk_prepare_$(date +%F_%H%M%S)"
+root@fs1-pre-stor-172-21-224-223:~# mkdir -p "$PREP_DIR"
+root@fs1-pre-stor-172-21-224-223:~# echo "$PREP_DIR"
+/root/minio_disk_prepare_2026-05-18_160155
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show all | tee "$PREP_DIR/storcli_c0_show_all.before.txt"
+Generating detailed summary of the adapter, it may take a while to complete.
+
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = None
+
+
+Basics :
+======
+Controller = 0
+Model = AVAGO MegaRAID SAS 9361-8i
+Serial Number = SK82183344
+Current Controller Date/Time = 05/18/2026, 07:50:12
+Current System Date/time = 05/18/2026, 16:02:27
+SAS Address = 500605b0079e0a60
+PCI Address = 00:04:00:00
+Mfg Date = 08/21/18
+Rework Date = 00/00/00
+Revision No = 11B
+
+
+Version :
+=======
+Firmware Package Build = 24.21.0-0119
+Firmware Version = 4.680.00-8505
+CPLD Version = 26747-01A
+Bios Version = 6.36.00.3_4.19.08.00_0x06180203
+HII Version = 03.25.05.12
+Ctrl-R Version = 5.19-0603
+Preboot CLI Version = 01.07-05:#%0000
+NVDATA Version = 3.1705.00-0020
+Boot Block Version = 3.07.00.00-0003
+Driver Name = megaraid_sas
+Driver Version = 07.713.01.00-rc1
+
+
+Bus :
+===
+Vendor Id = 0x1000
+Device Id = 0x5D
+SubVendor Id = 0x1000
+SubDevice Id = 0x9361
+Host Interface = PCI-E
+Device Interface = SAS-12G
+Bus Number = 4
+Device Number = 0
+Function Number = 0
+Domain ID = 0
+
+
+Pending Images in Flash :
+=======================
+Image name = No pending images
+
+
+Status :
+======
+Controller Status = Optimal
+Memory Correctable Errors = 0
+Memory Uncorrectable Errors = 0
+ECC Bucket Count = 0
+Any Offline VD Cache Preserved = No
+BBU Status = NA
+PD Firmware Download in progress = No
+Support PD Firmware Download = Yes
+Lock Key Assigned = No
+Failed to get lock key on bootup = No
+Lock key has not been backed up = No
+Bios was not detected during boot = No
+Controller must be rebooted to complete security operation = No
+A rollback operation is in progress = No
+At least one PFK exists in NVRAM = Yes
+SSC Policy is WB = No
+Controller has booted into safe mode = No
+Controller shutdown required = No
+Controller has booted into certificate provision mode = No
+Current Personality = RAID-Mode 
+
+
+Supported Adapter Operations :
+============================
+Rebuild Rate = Yes
+CC Rate = Yes
+BGI Rate  = Yes
+Reconstruct Rate = Yes
+Patrol Read Rate = Yes
+Alarm Control = Yes
+Cluster Support = No
+BBU = NA
+Spanning = Yes
+Dedicated Hot Spare = Yes
+Revertible Hot Spares = Yes
+Foreign Config Import = Yes
+Self Diagnostic = Yes
+Allow Mixed Redundancy on Array = No
+Global Hot Spares = Yes
+Deny SCSI Passthrough = No
+Deny SMP Passthrough = No
+Deny STP Passthrough = No
+Support more than 8 Phys = Yes
+FW and Event Time in GMT = No
+Support Enhanced Foreign Import = Yes
+Support Enclosure Enumeration = Yes
+Support Allowed Operations = Yes
+Abort CC on Error = Yes
+Support Multipath = Yes
+Support Odd & Even Drive count in RAID1E = No
+Support Security = No
+Support Config Page Model = Yes
+Support the OCE without adding drives = Yes
+Support EKM = No
+Snapshot Enabled = No
+Support PFK = Yes
+Support PI = Yes
+Support LDPI Type1 = No
+Support LDPI Type2 = No
+Support LDPI Type3 = No
+Support Ld BBM Info = No
+Support Shield State = Yes
+Block SSD Write Disk Cache Change = Yes
+Support Suspend Resume BG ops = Yes
+Support Emergency Spares = Yes
+Support Set Link Speed = Yes
+Support Boot Time PFK Change = No
+Support JBOD = Yes
+Disable Online PFK Change = No
+Support Perf Tuning = Yes
+Support SSD PatrolRead = Yes
+Real Time Scheduler = Yes
+Support Reset Now = Yes
+Support Emulated Drives = Yes
+Headless Mode = Yes
+Dedicated HotSpares Limited = No
+Point In Time Progress = Yes
+Extended LD = Yes
+Support Uneven span  = No
+Support Config Auto Balance = No
+Support Maintenance Mode = No
+Support Diagnostic results = Yes
+Support Ext Enclosure = Yes
+Support Sesmonitoring = Yes
+Support SecurityonJBOD = Yes
+Support ForceFlash = Yes
+Support DisableImmediateIO = Yes
+Support LargeIOSupport = Yes
+Support DrvActivityLEDSetting = Yes
+Support FlushWriteVerify = Yes
+Support CPLDUpdate = Yes
+Support ForceTo512e = Yes
+Support discardCacheDuringLDDelete = Yes
+Support JBOD Write cache = No
+Support Large QD Support = No
+Support Ctrl Info Extended = No
+Support IButton less = No
+Support AES Encryption Algorithm = No
+Support Encrypted MFC = No
+Support Snapdump = No
+Support Force Personality Change = No
+Support Dual Fw Image = No
+Support PSOC Update = No
+Support Secure Boot = No
+Support Debug Queue = Yes
+Support Least Latency Mode = Yes
+Support OnDemand Snapdump = No
+Support Clear Snapdump = No
+Support PHY current speed = No
+Support Lane current speed = No
+Support NVMe Width = No
+Support Lane DeviceType = No
+Support Extended Drive performance Monitoring = No
+Support NVMe Repair = No
+Support Platform Security = No
+Support None Mode Params = No
+Support Extended Controller Property = No
+Support Smart Poll Interval for DirectAttached = No
+Support Write Journal Pinning = No
+Support SMP Passthru with Port Number = No
+Support SnapDump Preboot Trace Buffer Toggle = No
+Support Parity Read Cache Bypass = No
+Support NVMe Init Error Device ConnectorIndex = No
+Support VolatileKey = No
+Support PSOC Part Information = No
+
+
+Supported PD Operations :
+=======================
+Force Online = Yes
+Force Offline = Yes
+Force Rebuild = Yes
+Deny Force Failed = No
+Deny Force Good/Bad = No
+Deny Missing Replace = No
+Deny Clear = No
+Deny Locate = No
+Support Power State = Yes
+Set Power State For Cfg = No
+Support T10 Power State = No
+Support Temperature = Yes
+NCQ = Yes
+Support Max Rate SATA = No
+Support Degraded Media = No
+Support Parallel FW Update = Yes
+Support Drive Crypto Erase = Yes
+Support SSD Wear Gauge = No
+Support Sanitize = No
+Support Extended Sanitize = No
+
+
+Supported VD Operations :
+=======================
+Read Policy = Yes
+Write Policy = Yes
+IO Policy = Yes
+Access Policy = Yes
+Disk Cache Policy = Yes
+Reconstruction = Yes
+Deny Locate = No
+Deny CC = No
+Allow Ctrl Encryption = No
+Enable LDBBM = Yes
+Support FastPath = Yes
+Performance Metrics = Yes
+Power Savings = No
+Support Powersave Max With Cache = No
+Support Breakmirror = Yes
+Support SSC WriteBack = No
+Support SSC Association = No
+Support VD Hide = Yes
+Support VD Cachebypass = Yes
+Support VD discardCacheDuringLDDelete = Yes
+Support VD Scsi Unmap = No
+
+
+Advanced Software Option :
+========================
+
+----------------------------------------
+Adv S/W Opt        Time Remaining  Mode 
+----------------------------------------
+MegaRAID FastPath  Unlimited       -    
+MegaRAID RAID6     Unlimited       -    
+MegaRAID RAID5     Unlimited       -    
+----------------------------------------
+
+Safe ID =  13IAP4REBQQ5PCKBX49E56PN7XAU5BIA9184LLIZ
+
+HwCfg :
+=====
+ChipRevision =  C0
+BatteryFRU = N/A
+Front End Port Count = 0
+Backend Port Count = 8
+BBU = Absent
+Alarm = On
+Serial Debugger = Present
+NVRAM Size = 32KB
+Flash Size = 16MB
+On Board Memory Size = 1024MB
+CacheVault Flash Size = NA
+TPM = Absent
+Upgrade Key = Absent
+On Board Expander = Absent
+Temperature Sensor for ROC = Present
+Temperature Sensor for Controller = Absent
+Upgradable CPLD = Present
+Upgradable PSOC = Absent
+Current Size of CacheCade (GB) = 0
+Current Size of FW Cache (MB) = 815
+ROC temperature(Degree Celsius) = 80
+
+
+Policies :
+========
+
+Policies Table :
+==============
+
+------------------------------------------------
+Policy                          Current Default 
+------------------------------------------------
+Predictive Fail Poll Interval   300 sec         
+Interrupt Throttle Active Count 16              
+Interrupt Throttle Completion   50 us           
+Rebuild Rate                    30 %    30%     
+PR Rate                         30 %    30%     
+BGI Rate                        30 %    30%     
+Check Consistency Rate          30 %    30%     
+Reconstruction Rate             30 %    30%     
+Cache Flush Interval            4s              
+------------------------------------------------
+
+Flush Time(Default) = 4s
+Drive Coercion Mode = none
+Auto Rebuild = On
+Battery Warning = On
+ECC Bucket Size = 15
+ECC Bucket Leak Rate (hrs) = 24
+Restore Hot Spare on Insertion = Off
+Expose Enclosure Devices = On
+Maintain PD Fail History = On
+Reorder Host Requests = On
+Auto detect BackPlane = SGPIO/i2c SEP
+Load Balance Mode = Auto
+Security Key Assigned = Off
+Disable Online Controller Reset = Off
+Use drive activity for locate = Off
+
+
+Boot :
+====
+BIOS Enumerate VDs = 1
+Stop BIOS on Error = Off
+Delay during POST = 0
+Spin Down Mode = None
+Enable Ctrl-R = Yes
+Enable Web BIOS = No
+Enable PreBoot CLI = No
+Enable BIOS = Yes
+Max Drives to Spinup at One Time = 2
+Maximum number of direct attached drives to spin up in 1 min = 10
+Delay Among Spinup Groups (sec) = 12
+Allow Boot with Preserved Cache = Off
+
+
+High Availability :
+=================
+Topology Type = None
+Cluster Permitted = No
+Cluster Active = No
+
+
+Defaults :
+========
+Phy Polarity = 0
+Phy PolaritySplit = 0
+Strip Size = 256 KB
+Write Policy = WB
+Read Policy = RA
+Cache When BBU Bad = Off
+Cached IO = Off
+VD PowerSave Policy = Controller Defined
+Default spin down time (mins) = 30
+Coercion Mode = None
+ZCR Config = Unknown
+Max Chained Enclosures = 16
+Direct PD Mapping = No
+Restore Hot Spare on Insertion = No
+Expose Enclosure Devices = Yes
+Maintain PD Fail History = Yes
+Zero Based Enclosure Enumeration = No
+Disable Puncturing = No
+EnableLDBBM = Yes
+DisableHII = No
+Un-Certified Hard Disk Drives = Allow
+SMART Mode = Mode 6
+Enable LED Header = Yes
+LED Show Drive Activity = Yes
+Dirty LED Shows Drive Activity = No
+EnableCrashDump = Yes
+Disable Online Controller Reset = No
+Treat Single span R1E as R10 = No
+Power Saving option = Enabled
+TTY Log In Flash = No
+Auto Enhanced Import = Yes
+BreakMirror RAID Support = single span R1
+Disable Join Mirror = Yes
+Enable Shield State = Yes
+Time taken to detect CME = 60 sec
+
+
+Capabilities :
+============
+Supported Drives = SAS, SATA
+RAID Level Supported = RAID0, RAID1(2 or more drives), RAID5, RAID6, RAID00, RAID10(2 or more drives per span), RAID50, RAID60
+Enable JBOD = Yes
+Mix in Enclosure = Allowed
+Mix of SAS/SATA of HDD type in VD = Allowed
+Mix of SAS/SATA of SSD type in VD = Allowed
+Mix of SSD/HDD in VD = Allowed
+SAS Disable = No
+Max Arms Per VD = 32
+Max Spans Per VD = 8
+Max Arrays = 128
+Max VD per array = 16
+Max Number of VDs = 64
+Max Parallel Commands = 928
+Max SGE Count = 60
+Max Data Transfer Size = 512 sectors
+Max Strips PerIO = 128
+Max Configurable CacheCade Size(GB) = 0
+Max Transportable DGs = 0
+Enable Snapdump = No
+Enable SCSI Unmap = Yes
+Read cache bypass enabled for Parity RAID LDs = No
+FDE Drive Mix Support = No
+Min Strip Size = 64 KB
+Max Strip Size = 1.000 MB
+
+
+Scheduled Tasks :
+===============
+Consistency Check Reoccurrence = 168 hrs
+Next Consistency check launch = 12/18/2083, 03:00:00
+Patrol Read Reoccurrence = 168 hrs
+Next Patrol Read launch = 12/18/2083, 03:00:00
+Battery learn Reoccurrence = NA
+Next Battery Learn = NA
+OEMID = Broadcom
+
+
+Security Protocol properties :
+============================
+Security Protocol = None
+
+
+FOREIGN CONFIGURATION :
+=====================
+
+----------------------------------------
+DG EID:Slot Type  State      Size NoVDs 
+----------------------------------------
+ 0 -        RAID5 Frgn  27.284 TB     1 
+----------------------------------------
+
+NoVDs - Number of VD in Drive Group
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Total foreign Drive Groups = 1
+Drive Groups = 1
+
+TOPOLOGY :
+========
+
+---------------------------------------------------------------------------
+DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
+---------------------------------------------------------------------------
+ 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+ 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+---------------------------------------------------------------------------
+
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Virtual Drives = 1
+
+VD LIST :
+=======
+
+-------------------------------------------------------------
+DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
+-------------------------------------------------------------
+0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
+-------------------------------------------------------------
+
+VD=Virtual Drive| DG=Drive Group|Rec=Recovery
+Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
+Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
+B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
+AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
+Check Consistency
+
+JBOD Drives = 2
+
+JBOD LIST :
+=========
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+Physical Drives = 8
+
+PD LIST :
+=======
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 UGood  F 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 UGood  F 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 UGood  F 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 UGood  F 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+Enclosures = 1
+
+Enclosure LIST :
+==============
+
+--------------------------------------------------------------------
+EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
+--------------------------------------------------------------------
+252 OK        8  8  0    0   0    0   1 -     SGPIO                 
+--------------------------------------------------------------------
+
+EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/sall show all | tee "$PREP_DIR/storcli_e252_sall_show_all.before.txt"
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s0 :
+=================
+
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s0 - Detailed Information :
+========================================
+
+Drive /c0/e252/s0 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s0 Device attributes :
+===================================
+SN =             ZC1D708M
+Manufacturer Id = ATA     
+Model Number = ST4000NM0035-1V4107
+NAND Vendor = NA
+WWN = 5000C500C549CCFA
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s0 Policies/Settings :
+===================================
+Drive position = DriveGroup:0, Span:0, Row:0
+Enclosure position = 1
+Connected Port Number = 0(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221100000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+43 5a 44 31 30 37 4d 38 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s1 :
+=================
+
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s1 - Detailed Information :
+========================================
+
+Drive /c0/e252/s1 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s1 Device attributes :
+===================================
+SN =             ZC1D5J1B
+Manufacturer Id = ATA     
+Model Number = ST4000NM0035-1V4107
+NAND Vendor = NA
+WWN = 5000C500C573EB31
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s1 Policies/Settings :
+===================================
+Drive position = DriveGroup:0, Span:0, Row:1
+Enclosure position = 0
+Connected Port Number = 1(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221101000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+43 5a 44 31 4a 35 42 31 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s2 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s2 - Detailed Information :
+========================================
+
+Drive /c0/e252/s2 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  44C (111.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s2 Device attributes :
+===================================
+SN =             ZS50PFZZ
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F0E76
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s2 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 2(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221102000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 46 50 5a 5a 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s3 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s3 - Detailed Information :
+========================================
+
+Drive /c0/e252/s3 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s3 Device attributes :
+===================================
+SN =             ZS50PESY
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F91E6
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s3 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 3(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221103000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 45 50 59 53 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s4 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:4    29 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s4 - Detailed Information :
+========================================
+
+Drive /c0/e252/s4 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s4 Device attributes :
+===================================
+SN =             WP00VAZ3
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A912A
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s4 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 4(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221104000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 33 5a 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s5 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:5    30 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s5 - Detailed Information :
+========================================
+
+Drive /c0/e252/s5 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s5 Device attributes :
+===================================
+SN =             WP00VAK0
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A9285
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s5 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 5(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221105000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 30 4b 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s6 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:6    31 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s6 - Detailed Information :
+========================================
+
+Drive /c0/e252/s6 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s6 Device attributes :
+===================================
+SN =             WP00V2MC
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A94C3
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s6 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 7(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221106000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 32 56 43 4d 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s7 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:7    32 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s7 - Detailed Information :
+========================================
+
+Drive /c0/e252/s7 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s7 Device attributes :
+===================================
+SN =             WP00VB8X
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13AAEBF
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s7 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 6(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221107000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 42 56 58 38 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall show | tee "$PREP_DIR/storcli_foreign.before.txt"
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Operation on foreign configuration Succeeded
+
+
+FOREIGN CONFIGURATION :
+=====================
+
+----------------------------------------
+DG EID:Slot Type  State      Size NoVDs 
+----------------------------------------
+ 0 -        RAID5 Frgn  27.284 TB     1 
+----------------------------------------
+
+NoVDs - Number of VD in Drive Group
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Total foreign Drive Groups = 1
+Total Foreign PDs = 4
+Total Locked Foreign PDs = 0
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# df -hT | tee "$PREP_DIR/df.before.txt"
+Filesystem                                Type      Size  Used Avail Use% Mounted on
+udev                                      devtmpfs   32G     0   32G   0% /dev
+tmpfs                                     tmpfs     6.3G  2.1M  6.3G   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv         ext4      3.6T  936G  2.6T  27% /
+tmpfs                                     tmpfs      32G   64K   32G   1% /dev/shm
+tmpfs                                     tmpfs     5.0M     0  5.0M   0% /run/lock
+tmpfs                                     tmpfs      32G     0   32G   0% /sys/fs/cgroup
+/dev/sdc2                                 ext4      2.0G  216M  1.6G  12% /boot
+/dev/loop0                                squashfs   64M   64M     0 100% /snap/core20/1828
+/dev/loop1                                squashfs   64M   64M     0 100% /snap/core20/2599
+/dev/loop2                                squashfs   92M   92M     0 100% /snap/lxd/24061
+/dev/loop3                                squashfs   92M   92M     0 100% /snap/lxd/32662
+/dev/loop5                                squashfs   50M   50M     0 100% /snap/snapd/18357
+/dev/loop4                                squashfs   51M   51M     0 100% /snap/snapd/24718
+/dev/mapper/cephbackup--vg-cephbackup--lv ext4       19T   17T  315G  99% /data/ceph-backup
+tmpfs                                     tmpfs     6.3G     0  6.3G   0% /run/user/0
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN | tee "$PREP_DIR/lsblk.before.txt"
+NAME                             SIZE TYPE FSTYPE      LABEL UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                           63.3M loop squashfs                                                 /snap/core20/1828                                                   
+loop1                           63.8M loop squashfs                                                 /snap/core20/2599                                                   
+loop2                           91.9M loop squashfs                                                 /snap/lxd/24061                                                     
+loop3                           91.9M loop squashfs                                                 /snap/lxd/32662                                                     
+loop4                           50.9M loop squashfs                                                 /snap/snapd/24718                                                   
+loop5                           49.9M loop squashfs                                                 /snap/snapd/18357                                                   
+sda                              9.1T disk LVM2_member       EikQjq-EGG7-xgmU-B37w-8HhD-N9qK-ktDQvI                   ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─cephbackup--vg-cephbackup--lv 18.2T lvm  ext4              6a26475e-1321-46f6-9795-3579f1f42146   /data/ceph-backup                                                   
+sdb                              9.1T disk LVM2_member       pzGXm2-gA31-7cxU-nNXP-aUxM-02KV-bkKL85                   ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─cephbackup--vg-cephbackup--lv 18.2T lvm  ext4              6a26475e-1321-46f6-9795-3579f1f42146   /data/ceph-backup                                                   
+sdc                              3.7T disk                                                                            MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                             1M part                                                                                                                              0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                             2G part ext4              fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                           3.7T part LVM2_member       LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv        3.7T lvm  ext4              fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+root@fs1-pre-stor-172-21-224-223:~# pvs | tee "$PREP_DIR/pvs.before.txt"
+  PV         VG            Fmt  Attr PSize  PFree
+  /dev/sda   cephbackup-vg lvm2 a--  <9.10t    0 
+  /dev/sdb   cephbackup-vg lvm2 a--  <9.10t    0 
+  /dev/sdc3  ubuntu-vg     lvm2 a--  <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# vgs | tee "$PREP_DIR/vgs.before.txt"
+  VG            #PV #LV #SN Attr   VSize  VFree
+  cephbackup-vg   2   1   0 wz--n- 18.19t    0 
+  ubuntu-vg       1   1   0 wz--n- <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# lvs | tee "$PREP_DIR/lvs.before.txt"
+  LV            VG            Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  cephbackup-lv cephbackup-vg -wi-ao---- 18.19t                                                    
+  ubuntu-lv     ubuntu-vg     -wi-ao---- <3.64t                                                    
+root@fs1-pre-stor-172-21-224-223:~# blkid | tee "$PREP_DIR/blkid.before.txt"
+/dev/sdb: UUID="pzGXm2-gA31-7cxU-nNXP-aUxM-02KV-bkKL85" TYPE="LVM2_member"
+/dev/sda: UUID="EikQjq-EGG7-xgmU-B37w-8HhD-N9qK-ktDQvI" TYPE="LVM2_member"
+/dev/sdc2: UUID="fe9f95d7-ea42-4593-aa0c-65449e8281fe" TYPE="ext4" PARTUUID="4c019c06-44d7-4574-b8a3-e5af73ed3743"
+/dev/sdc3: UUID="LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l" TYPE="LVM2_member" PARTUUID="c7e14999-8be1-4922-be7d-fad48c647e18"
+/dev/mapper/cephbackup--vg-cephbackup--lv: UUID="6a26475e-1321-46f6-9795-3579f1f42146" TYPE="ext4"
+/dev/mapper/ubuntu--vg-ubuntu--lv: UUID="fd9ce789-fb7f-4806-a075-bcaf417d2078" TYPE="ext4"
+/dev/loop0: TYPE="squashfs"
+/dev/loop1: TYPE="squashfs"
+/dev/loop2: TYPE="squashfs"
+/dev/loop3: TYPE="squashfs"
+/dev/loop4: TYPE="squashfs"
+/dev/loop5: TYPE="squashfs"
+/dev/sdc1: PARTUUID="5e24304f-7309-403b-9d64-ce20bff4569a"
+root@fs1-pre-stor-172-21-224-223:~# cat /etc/fstab | tee "$PREP_DIR/fstab.before.txt"
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/ubuntu-vg/ubuntu-lv during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-ieRkySZHeWHBcX42If0522SqnppV1mfb0y7EDtmSNDUbBAHMOzboYZgULBgayh2R / ext4 defaults 0 1
+# /boot was on /dev/sdc2 during curtin installation
+/dev/disk/by-uuid/fe9f95d7-ea42-4593-aa0c-65449e8281fe /boot ext4 defaults 0 1
+/swap.img       none    swap    sw      0       0
+/dev/cephbackup-vg/cephbackup-lv /data/ceph-backup ext4 defaults 0 2
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# cp -a /etc/fstab "$PREP_DIR/fstab.bak.$(date +%F_%H%M%S)"
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# vgcfgbackup ubuntu-vg -f "$PREP_DIR/ubuntu-vg.vgcfgbackup" || true
+  Volume group "ubuntu-vg" successfully backed up.
+root@fs1-pre-stor-172-21-224-223:~# vgcfgbackup cephbackup-vg -f "$PREP_DIR/cephbackup-vg.vgcfgbackup" || true
+  Volume group "cephbackup-vg" successfully backed up.
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# ll $PREP_DIR
+total 92
+drwxr-xr-x  2 root root  4096 May 18 16:02 ./
+drwx------ 12 root root  4096 May 18 16:01 ../
+-rw-r--r--  1 root root   806 May 18 16:02 blkid.before.txt
+-rw-------  1 root root  1847 May 18 16:02 cephbackup-vg.vgcfgbackup
+-rw-r--r--  1 root root  1381 May 18 16:02 df.before.txt
+-rw-r--r--  1 root root   726 Jun 25  2025 fstab.bak.2026-05-18_160255
+-rw-r--r--  1 root root   726 May 18 16:02 fstab.before.txt
+-rw-r--r--  1 root root  2903 May 18 16:02 lsblk.before.txt
+-rw-r--r--  1 root root   300 May 18 16:02 lvs.before.txt
+-rw-r--r--  1 root root   200 May 18 16:02 pvs.before.txt
+-rw-r--r--  1 root root 15979 May 18 16:02 storcli_c0_show_all.before.txt
+-rw-r--r--  1 root root 24138 May 18 16:02 storcli_e252_sall_show_all.before.txt
+-rw-r--r--  1 root root   938 May 18 16:02 storcli_foreign.before.txt
+-rw-------  1 root root  1392 May 18 16:02 ubuntu-vg.vgcfgbackup
+-rw-r--r--  1 root root   144 May 18 16:02 vgs.before.txt
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# findmnt /data/ceph-backup
+TARGET            SOURCE                                    FSTYPE OPTIONS
+/data/ceph-backup /dev/mapper/cephbackup--vg-cephbackup--lv ext4   rw,relatime
+root@fs1-pre-stor-172-21-224-223:~# fuser -vm /data/ceph-backup
+                     USER        PID ACCESS COMMAND
+/data/ceph-backup:   root     kernel mount /data/ceph-backup
+root@fs1-pre-stor-172-21-224-223:~# lsof +f -- /data/ceph-backup 2>/dev/null | head -100
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-units --type=service --all | egrep -i 'ceph|backup|minio'
+  cephbackup-172-21-224-201.service                                                         loaded    inactive dead    Ceph RBD Backup (Cluster 172-21-224-201)                                     
+● cephbackup-172-21-224-250.service                                                         loaded    failed   failed  Ceph RBD Backup (Cluster 130)                                                
+  systemd-fsck@dev-cephbackup\x2dvg-cephbackup\x2dlv.service                                loaded    active   exited  File System Check on /dev/cephbackup-vg/cephbackup-lv                        
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-timers --all | egrep -i 'ceph|backup|minio'
+Tue 2026-05-19 04:03:39 CST 11h left      Mon 2026-05-18 04:04:06 CST 12h ago       cephbackup-172-21-224-250.timer cephbackup-172-21-224-250.service
+n/a                         n/a           Thu 2026-05-14 16:30:06 CST 3 days ago    cephbackup-172-21-224-201.timer cephbackup-172-21-224-201.service
+root@fs1-pre-stor-172-21-224-223:~# crontab -l 2>/dev/null | egrep -i 'ceph|backup|minio|/data/ceph-backup'
+0 20 * * 5 /root/ceph-rgw-backup/ceph_metadata_bak_cl_v1.3.py -p rgwmetabak-201 -e http://127.0.0.1:8088 -c /etc/ceph/ceph-172-21-224-201.conf -k /etc/ceph/ceph-172-21-224-201.client.admin.keyring -o /root/ceph-rgw-backup/ceph_201_metadata/ceph_201_$(date +\%Y\%m\%d).txt -l /var/log/ceph_rgw_backup_201/backup_201_$(date +\%Y\%m\%d).log
+30 20 * * 5 /usr/bin/flock -n /tmp/ceph_rgw_bucketlist.lock /usr/bin/bash /root/ceph-rgw-backup/ceph-bucketlist.sh >> /root/ceph-rgw-backup/bucketlist_$(date +\%Y\%m\%d_\%H\%M\%S).log 2>&1
+#0 21 * * 5 /usr/bin/flock -n /tmp/ceph_rgw_backup.lock /usr/bin/env RCLONE_BWLIMIT="20M" RCLONE_TPSLIMIT="200" RCLONE_TRANSFERS="8" RCLONE_CHECKERS="16" RCLONE_MAX_DELETE="6000" /root/ceph-rgw-backup/ceph_data_bak.sh >> /root/ceph-rgw-backup/backup_$(date +\%Y\%m\%d_\%H\%M\%S).log 2>&1
+root@fs1-pre-stor-172-21-224-223:~# grep -R "/data/ceph-backup\|cephbackup" /etc/systemd /etc/cron* /var/spool/cron 2>/dev/null
+/etc/systemd/system/timers.target.wants/cephbackup-172-21-224-201.timer:Unit=cephbackup-172-21-224-201.service
+/etc/systemd/system/cephbackup-172-21-224-201.timer:Unit=cephbackup-172-21-224-201.service
+/etc/systemd/system/cephbackup-172-21-224-201.service:ExecStart=/usr/bin/flock -n /var/run/cephbackup-172-21-224-201.lock /usr/local/bin/cephbackup -c /etc/cephbackup/cephbackup-172-21-224-201.conf
+/etc/systemd/system/cephbackup-172-21-224-250.service:ExecStart=/usr/local/bin/cephbackup -c /etc/cephbackup/cephbackup-172-21-224-250.conf
+root@fs1-pre-stor-172-21-224-223:~# systemctl stop cephbackup-172-21-224-201.timer 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl stop cephbackup-172-21-224-201.service 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl disable cephbackup-172-21-224-201.timer 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl disable cephbackup-172-21-224-201.service 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-units --type=service --all | egrep -i 'ceph|backup|minio'
+● cephbackup-172-21-224-250.service                                                         loaded    failed   failed  Ceph RBD Backup (Cluster 130)                                                
+  systemd-fsck@dev-cephbackup\x2dvg-cephbackup\x2dlv.service                                loaded    active   exited  File System Check on /dev/cephbackup-vg/cephbackup-lv                        
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-timers --all | egrep -i 'ceph|backup|minio'
+Tue 2026-05-19 04:02:30 CST 11h left      Mon 2026-05-18 04:04:06 CST 12h ago       cephbackup-172-21-224-250.timer cephbackup-172-21-224-250.service
+root@fs1-pre-stor-172-21-224-223:~# crontab -l 2>/dev/null | egrep -i 'ceph|backup|minio|/data/ceph-backup'
+0 20 * * 5 /root/ceph-rgw-backup/ceph_metadata_bak_cl_v1.3.py -p rgwmetabak-201 -e http://127.0.0.1:8088 -c /etc/ceph/ceph-172-21-224-201.conf -k /etc/ceph/ceph-172-21-224-201.client.admin.keyring -o /root/ceph-rgw-backup/ceph_201_metadata/ceph_201_$(date +\%Y\%m\%d).txt -l /var/log/ceph_rgw_backup_201/backup_201_$(date +\%Y\%m\%d).log
+30 20 * * 5 /usr/bin/flock -n /tmp/ceph_rgw_bucketlist.lock /usr/bin/bash /root/ceph-rgw-backup/ceph-bucketlist.sh >> /root/ceph-rgw-backup/bucketlist_$(date +\%Y\%m\%d_\%H\%M\%S).log 2>&1
+#0 21 * * 5 /usr/bin/flock -n /tmp/ceph_rgw_backup.lock /usr/bin/env RCLONE_BWLIMIT="20M" RCLONE_TPSLIMIT="200" RCLONE_TRANSFERS="8" RCLONE_CHECKERS="16" RCLONE_MAX_DELETE="6000" /root/ceph-rgw-backup/ceph_data_bak.sh >> /root/ceph-rgw-backup/backup_$(date +\%Y\%m\%d_\%H\%M\%S).log 2>&1
+root@fs1-pre-stor-172-21-224-223:~# grep -R "/data/ceph-backup\|cephbackup" /etc/systemd /etc/cron* /var/spool/cron 2>/dev/null
+/etc/systemd/system/cephbackup-172-21-224-201.timer:Unit=cephbackup-172-21-224-201.service
+/etc/systemd/system/cephbackup-172-21-224-201.service:ExecStart=/usr/bin/flock -n /var/run/cephbackup-172-21-224-201.lock /usr/local/bin/cephbackup -c /etc/cephbackup/cephbackup-172-21-224-201.conf
+/etc/systemd/system/cephbackup-172-21-224-250.service:ExecStart=/usr/local/bin/cephbackup -c /etc/cephbackup/cephbackup-172-21-224-250.conf
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# systemctl stop cephbackup-172-21-224-250.timer 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl stop cephbackup-172-21-224-250.service 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# systemctl disable cephbackup-172-21-224-250.timer 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl disable cephbackup-172-21-224-250.service 2>/dev/null || true
+root@fs1-pre-stor-172-21-224-223:~# systemctl reset-failed cephbackup-172-21-224-250.service
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-units --type=service --all | egrep -i 'ceph|backup|minio'
+  systemd-fsck@dev-cephbackup\x2dvg-cephbackup\x2dlv.service                                loaded    active   exited  File System Check on /dev/cephbackup-vg/cephbackup-lv                        
+root@fs1-pre-stor-172-21-224-223:~# systemctl list-timers --all | egrep -i 'ceph|backup|minio'
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# fuser -vm /data/ceph-backup
+                     USER        PID ACCESS COMMAND
+/data/ceph-backup:   root     kernel mount /data/ceph-backup
+root@fs1-pre-stor-172-21-224-223:~# lsof +f -- /data/ceph-backup 2>/dev/null | head -100
+root@fs1-pre-stor-172-21-224-223:~# umount /data/ceph-backup
+root@fs1-pre-stor-172-21-224-223:~# findmnt /data/ceph-backup || echo "/data/ceph-backup 已卸载"
+/data/ceph-backup 已卸载
+root@fs1-pre-stor-172-21-224-223:~# df -hT | grep ceph-backup || echo "df 中已无 /data/ceph-backup"
+df 中已无 /data/ceph-backup
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Operation on foreign configuration Succeeded
+
+
+FOREIGN CONFIGURATION :
+=====================
+
+----------------------------------------
+DG EID:Slot Type  State      Size NoVDs 
+----------------------------------------
+ 0 -        RAID5 Frgn  27.284 TB     1 
+----------------------------------------
+
+NoVDs - Number of VD in Drive Group
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Total foreign Drive Groups = 1
+Total Foreign PDs = 4
+Total Locked Foreign PDs = 0
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s4 show all
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s4 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:4    29 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s4 - Detailed Information :
+========================================
+
+Drive /c0/e252/s4 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s4 Device attributes :
+===================================
+SN =             WP00VAZ3
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A912A
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s4 Policies/Settings :
+===================================
+Enclosure position = 1
+Connected Port Number = 4(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221104000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 33 5a 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s5 show all
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s5 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:5    30 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s5 - Detailed Information :
+========================================
+
+Drive /c0/e252/s5 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s5 Device attributes :
+===================================
+SN =             WP00VAK0
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A9285
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s5 Policies/Settings :
+===================================
+Enclosure position = 1
+Connected Port Number = 5(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221105000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 30 4b 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s6 show all
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s6 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:6    31 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s6 - Detailed Information :
+========================================
+
+Drive /c0/e252/s6 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s6 Device attributes :
+===================================
+SN =             WP00V2MC
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A94C3
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s6 Policies/Settings :
+===================================
+Enclosure position = 1
+Connected Port Number = 7(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221106000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 32 56 43 4d 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s7 show all
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s7 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:7    32 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s7 - Detailed Information :
+========================================
+
+Drive /c0/e252/s7 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s7 Device attributes :
+===================================
+SN =             WP00VB8X
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13AAEBF
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s7 Policies/Settings :
+===================================
+Enclosure position = 1
+Connected Port Number = 6(path0) 
+Sequence Number = 1
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221107000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 42 56 58 38 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall del
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Operation on foreign configuration Succeeded
+
+Total Foreign PDs = 0
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show all
+Generating detailed summary of the adapter, it may take a while to complete.
+
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = None
+
+
+Basics :
+======
+Controller = 0
+Model = AVAGO MegaRAID SAS 9361-8i
+Serial Number = SK82183344
+Current Controller Date/Time = 05/18/2026, 08:10:22
+Current System Date/time = 05/18/2026, 16:22:36
+SAS Address = 500605b0079e0a60
+PCI Address = 00:04:00:00
+Mfg Date = 08/21/18
+Rework Date = 00/00/00
+Revision No = 11B
+
+
+Version :
+=======
+Firmware Package Build = 24.21.0-0119
+Firmware Version = 4.680.00-8505
+CPLD Version = 26747-01A
+Bios Version = 6.36.00.3_4.19.08.00_0x06180203
+HII Version = 03.25.05.12
+Ctrl-R Version = 5.19-0603
+Preboot CLI Version = 01.07-05:#%0000
+NVDATA Version = 3.1705.00-0020
+Boot Block Version = 3.07.00.00-0003
+Driver Name = megaraid_sas
+Driver Version = 07.713.01.00-rc1
+
+
+Bus :
+===
+Vendor Id = 0x1000
+Device Id = 0x5D
+SubVendor Id = 0x1000
+SubDevice Id = 0x9361
+Host Interface = PCI-E
+Device Interface = SAS-12G
+Bus Number = 4
+Device Number = 0
+Function Number = 0
+Domain ID = 0
+
+
+Pending Images in Flash :
+=======================
+Image name = No pending images
+
+
+Status :
+======
+Controller Status = Optimal
+Memory Correctable Errors = 0
+Memory Uncorrectable Errors = 0
+ECC Bucket Count = 0
+Any Offline VD Cache Preserved = No
+BBU Status = NA
+PD Firmware Download in progress = No
+Support PD Firmware Download = Yes
+Lock Key Assigned = No
+Failed to get lock key on bootup = No
+Lock key has not been backed up = No
+Bios was not detected during boot = No
+Controller must be rebooted to complete security operation = No
+A rollback operation is in progress = No
+At least one PFK exists in NVRAM = Yes
+SSC Policy is WB = No
+Controller has booted into safe mode = No
+Controller shutdown required = No
+Controller has booted into certificate provision mode = No
+Current Personality = RAID-Mode 
+
+
+Supported Adapter Operations :
+============================
+Rebuild Rate = Yes
+CC Rate = Yes
+BGI Rate  = Yes
+Reconstruct Rate = Yes
+Patrol Read Rate = Yes
+Alarm Control = Yes
+Cluster Support = No
+BBU = NA
+Spanning = Yes
+Dedicated Hot Spare = Yes
+Revertible Hot Spares = Yes
+Foreign Config Import = Yes
+Self Diagnostic = Yes
+Allow Mixed Redundancy on Array = No
+Global Hot Spares = Yes
+Deny SCSI Passthrough = No
+Deny SMP Passthrough = No
+Deny STP Passthrough = No
+Support more than 8 Phys = Yes
+FW and Event Time in GMT = No
+Support Enhanced Foreign Import = Yes
+Support Enclosure Enumeration = Yes
+Support Allowed Operations = Yes
+Abort CC on Error = Yes
+Support Multipath = Yes
+Support Odd & Even Drive count in RAID1E = No
+Support Security = No
+Support Config Page Model = Yes
+Support the OCE without adding drives = Yes
+Support EKM = No
+Snapshot Enabled = No
+Support PFK = Yes
+Support PI = Yes
+Support LDPI Type1 = No
+Support LDPI Type2 = No
+Support LDPI Type3 = No
+Support Ld BBM Info = No
+Support Shield State = Yes
+Block SSD Write Disk Cache Change = Yes
+Support Suspend Resume BG ops = Yes
+Support Emergency Spares = Yes
+Support Set Link Speed = Yes
+Support Boot Time PFK Change = No
+Support JBOD = Yes
+Disable Online PFK Change = No
+Support Perf Tuning = Yes
+Support SSD PatrolRead = Yes
+Real Time Scheduler = Yes
+Support Reset Now = Yes
+Support Emulated Drives = Yes
+Headless Mode = Yes
+Dedicated HotSpares Limited = No
+Point In Time Progress = Yes
+Extended LD = Yes
+Support Uneven span  = No
+Support Config Auto Balance = No
+Support Maintenance Mode = No
+Support Diagnostic results = Yes
+Support Ext Enclosure = Yes
+Support Sesmonitoring = Yes
+Support SecurityonJBOD = Yes
+Support ForceFlash = Yes
+Support DisableImmediateIO = Yes
+Support LargeIOSupport = Yes
+Support DrvActivityLEDSetting = Yes
+Support FlushWriteVerify = Yes
+Support CPLDUpdate = Yes
+Support ForceTo512e = Yes
+Support discardCacheDuringLDDelete = Yes
+Support JBOD Write cache = No
+Support Large QD Support = No
+Support Ctrl Info Extended = No
+Support IButton less = No
+Support AES Encryption Algorithm = No
+Support Encrypted MFC = No
+Support Snapdump = No
+Support Force Personality Change = No
+Support Dual Fw Image = No
+Support PSOC Update = No
+Support Secure Boot = No
+Support Debug Queue = Yes
+Support Least Latency Mode = Yes
+Support OnDemand Snapdump = No
+Support Clear Snapdump = No
+Support PHY current speed = No
+Support Lane current speed = No
+Support NVMe Width = No
+Support Lane DeviceType = No
+Support Extended Drive performance Monitoring = No
+Support NVMe Repair = No
+Support Platform Security = No
+Support None Mode Params = No
+Support Extended Controller Property = No
+Support Smart Poll Interval for DirectAttached = No
+Support Write Journal Pinning = No
+Support SMP Passthru with Port Number = No
+Support SnapDump Preboot Trace Buffer Toggle = No
+Support Parity Read Cache Bypass = No
+Support NVMe Init Error Device ConnectorIndex = No
+Support VolatileKey = No
+Support PSOC Part Information = No
+
+
+Supported PD Operations :
+=======================
+Force Online = Yes
+Force Offline = Yes
+Force Rebuild = Yes
+Deny Force Failed = No
+Deny Force Good/Bad = No
+Deny Missing Replace = No
+Deny Clear = No
+Deny Locate = No
+Support Power State = Yes
+Set Power State For Cfg = No
+Support T10 Power State = No
+Support Temperature = Yes
+NCQ = Yes
+Support Max Rate SATA = No
+Support Degraded Media = No
+Support Parallel FW Update = Yes
+Support Drive Crypto Erase = Yes
+Support SSD Wear Gauge = No
+Support Sanitize = No
+Support Extended Sanitize = No
+
+
+Supported VD Operations :
+=======================
+Read Policy = Yes
+Write Policy = Yes
+IO Policy = Yes
+Access Policy = Yes
+Disk Cache Policy = Yes
+Reconstruction = Yes
+Deny Locate = No
+Deny CC = No
+Allow Ctrl Encryption = No
+Enable LDBBM = Yes
+Support FastPath = Yes
+Performance Metrics = Yes
+Power Savings = No
+Support Powersave Max With Cache = No
+Support Breakmirror = Yes
+Support SSC WriteBack = No
+Support SSC Association = No
+Support VD Hide = Yes
+Support VD Cachebypass = Yes
+Support VD discardCacheDuringLDDelete = Yes
+Support VD Scsi Unmap = No
+
+
+Advanced Software Option :
+========================
+
+----------------------------------------
+Adv S/W Opt        Time Remaining  Mode 
+----------------------------------------
+MegaRAID FastPath  Unlimited       -    
+MegaRAID RAID6     Unlimited       -    
+MegaRAID RAID5     Unlimited       -    
+----------------------------------------
+
+Safe ID =  13IAP4REBQQ5PCKBX49E56PN7XAU5BIA9184LLIZ
+
+HwCfg :
+=====
+ChipRevision =  C0
+BatteryFRU = N/A
+Front End Port Count = 0
+Backend Port Count = 8
+BBU = Absent
+Alarm = On
+Serial Debugger = Present
+NVRAM Size = 32KB
+Flash Size = 16MB
+On Board Memory Size = 1024MB
+CacheVault Flash Size = NA
+TPM = Absent
+Upgrade Key = Absent
+On Board Expander = Absent
+Temperature Sensor for ROC = Present
+Temperature Sensor for Controller = Absent
+Upgradable CPLD = Present
+Upgradable PSOC = Absent
+Current Size of CacheCade (GB) = 0
+Current Size of FW Cache (MB) = 815
+ROC temperature(Degree Celsius) = 80
+
+
+Policies :
+========
+
+Policies Table :
+==============
+
+------------------------------------------------
+Policy                          Current Default 
+------------------------------------------------
+Predictive Fail Poll Interval   300 sec         
+Interrupt Throttle Active Count 16              
+Interrupt Throttle Completion   50 us           
+Rebuild Rate                    30 %    30%     
+PR Rate                         30 %    30%     
+BGI Rate                        30 %    30%     
+Check Consistency Rate          30 %    30%     
+Reconstruction Rate             30 %    30%     
+Cache Flush Interval            4s              
+------------------------------------------------
+
+Flush Time(Default) = 4s
+Drive Coercion Mode = none
+Auto Rebuild = On
+Battery Warning = On
+ECC Bucket Size = 15
+ECC Bucket Leak Rate (hrs) = 24
+Restore Hot Spare on Insertion = Off
+Expose Enclosure Devices = On
+Maintain PD Fail History = On
+Reorder Host Requests = On
+Auto detect BackPlane = SGPIO/i2c SEP
+Load Balance Mode = Auto
+Security Key Assigned = Off
+Disable Online Controller Reset = Off
+Use drive activity for locate = Off
+
+
+Boot :
+====
+BIOS Enumerate VDs = 1
+Stop BIOS on Error = Off
+Delay during POST = 0
+Spin Down Mode = None
+Enable Ctrl-R = Yes
+Enable Web BIOS = No
+Enable PreBoot CLI = No
+Enable BIOS = Yes
+Max Drives to Spinup at One Time = 2
+Maximum number of direct attached drives to spin up in 1 min = 10
+Delay Among Spinup Groups (sec) = 12
+Allow Boot with Preserved Cache = Off
+
+
+High Availability :
+=================
+Topology Type = None
+Cluster Permitted = No
+Cluster Active = No
+
+
+Defaults :
+========
+Phy Polarity = 0
+Phy PolaritySplit = 0
+Strip Size = 256 KB
+Write Policy = WB
+Read Policy = RA
+Cache When BBU Bad = Off
+Cached IO = Off
+VD PowerSave Policy = Controller Defined
+Default spin down time (mins) = 30
+Coercion Mode = None
+ZCR Config = Unknown
+Max Chained Enclosures = 16
+Direct PD Mapping = No
+Restore Hot Spare on Insertion = No
+Expose Enclosure Devices = Yes
+Maintain PD Fail History = Yes
+Zero Based Enclosure Enumeration = No
+Disable Puncturing = No
+EnableLDBBM = Yes
+DisableHII = No
+Un-Certified Hard Disk Drives = Allow
+SMART Mode = Mode 6
+Enable LED Header = Yes
+LED Show Drive Activity = Yes
+Dirty LED Shows Drive Activity = No
+EnableCrashDump = Yes
+Disable Online Controller Reset = No
+Treat Single span R1E as R10 = No
+Power Saving option = Enabled
+TTY Log In Flash = No
+Auto Enhanced Import = Yes
+BreakMirror RAID Support = single span R1
+Disable Join Mirror = Yes
+Enable Shield State = Yes
+Time taken to detect CME = 60 sec
+
+
+Capabilities :
+============
+Supported Drives = SAS, SATA
+RAID Level Supported = RAID0, RAID1(2 or more drives), RAID5, RAID6, RAID00, RAID10(2 or more drives per span), RAID50, RAID60
+Enable JBOD = Yes
+Mix in Enclosure = Allowed
+Mix of SAS/SATA of HDD type in VD = Allowed
+Mix of SAS/SATA of SSD type in VD = Allowed
+Mix of SSD/HDD in VD = Allowed
+SAS Disable = No
+Max Arms Per VD = 32
+Max Spans Per VD = 8
+Max Arrays = 128
+Max VD per array = 16
+Max Number of VDs = 64
+Max Parallel Commands = 928
+Max SGE Count = 60
+Max Data Transfer Size = 512 sectors
+Max Strips PerIO = 128
+Max Configurable CacheCade Size(GB) = 0
+Max Transportable DGs = 0
+Enable Snapdump = No
+Enable SCSI Unmap = Yes
+Read cache bypass enabled for Parity RAID LDs = No
+FDE Drive Mix Support = No
+Min Strip Size = 64 KB
+Max Strip Size = 1.000 MB
+
+
+Scheduled Tasks :
+===============
+Consistency Check Reoccurrence = 168 hrs
+Next Consistency check launch = 12/18/2083, 03:00:00
+Patrol Read Reoccurrence = 168 hrs
+Next Patrol Read launch = 12/18/2083, 03:00:00
+Battery learn Reoccurrence = NA
+Next Battery Learn = NA
+OEMID = Broadcom
+
+
+Security Protocol properties :
+============================
+Security Protocol = None
+
+Drive Groups = 1
+
+TOPOLOGY :
+========
+
+---------------------------------------------------------------------------
+DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
+---------------------------------------------------------------------------
+ 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+ 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+---------------------------------------------------------------------------
+
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Virtual Drives = 1
+
+VD LIST :
+=======
+
+-------------------------------------------------------------
+DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
+-------------------------------------------------------------
+0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
+-------------------------------------------------------------
+
+VD=Virtual Drive| DG=Drive Group|Rec=Recovery
+Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
+Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
+B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
+AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
+Check Consistency
+
+JBOD Drives = 2
+
+JBOD LIST :
+=========
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+Physical Drives = 8
+
+PD LIST :
+=======
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 UGood  - 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 UGood  - 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 UGood  - 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 UGood  - 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+Enclosures = 1
+
+Enclosure LIST :
+==============
+
+--------------------------------------------------------------------
+EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
+--------------------------------------------------------------------
+252 OK        8  8  0    0   0    0   1 -     SGPIO                 
+--------------------------------------------------------------------
+
+EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s4 set jbod
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Set Drive JBOD Succeeded.
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s5 set jbod
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Set Drive JBOD Succeeded.
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s6 set jbod
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Set Drive JBOD Succeeded.
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s7 set jbod
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Set Drive JBOD Succeeded.
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show all
+Generating detailed summary of the adapter, it may take a while to complete.
+
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = None
+
+
+Basics :
+======
+Controller = 0
+Model = AVAGO MegaRAID SAS 9361-8i
+Serial Number = SK82183344
+Current Controller Date/Time = 05/18/2026, 08:10:48
+Current System Date/time = 05/18/2026, 16:23:02
+SAS Address = 500605b0079e0a60
+PCI Address = 00:04:00:00
+Mfg Date = 08/21/18
+Rework Date = 00/00/00
+Revision No = 11B
+
+
+Version :
+=======
+Firmware Package Build = 24.21.0-0119
+Firmware Version = 4.680.00-8505
+CPLD Version = 26747-01A
+Bios Version = 6.36.00.3_4.19.08.00_0x06180203
+HII Version = 03.25.05.12
+Ctrl-R Version = 5.19-0603
+Preboot CLI Version = 01.07-05:#%0000
+NVDATA Version = 3.1705.00-0020
+Boot Block Version = 3.07.00.00-0003
+Driver Name = megaraid_sas
+Driver Version = 07.713.01.00-rc1
+
+
+Bus :
+===
+Vendor Id = 0x1000
+Device Id = 0x5D
+SubVendor Id = 0x1000
+SubDevice Id = 0x9361
+Host Interface = PCI-E
+Device Interface = SAS-12G
+Bus Number = 4
+Device Number = 0
+Function Number = 0
+Domain ID = 0
+
+
+Pending Images in Flash :
+=======================
+Image name = No pending images
+
+
+Status :
+======
+Controller Status = Optimal
+Memory Correctable Errors = 0
+Memory Uncorrectable Errors = 0
+ECC Bucket Count = 0
+Any Offline VD Cache Preserved = No
+BBU Status = NA
+PD Firmware Download in progress = No
+Support PD Firmware Download = Yes
+Lock Key Assigned = No
+Failed to get lock key on bootup = No
+Lock key has not been backed up = No
+Bios was not detected during boot = No
+Controller must be rebooted to complete security operation = No
+A rollback operation is in progress = No
+At least one PFK exists in NVRAM = Yes
+SSC Policy is WB = No
+Controller has booted into safe mode = No
+Controller shutdown required = No
+Controller has booted into certificate provision mode = No
+Current Personality = RAID-Mode 
+
+
+Supported Adapter Operations :
+============================
+Rebuild Rate = Yes
+CC Rate = Yes
+BGI Rate  = Yes
+Reconstruct Rate = Yes
+Patrol Read Rate = Yes
+Alarm Control = Yes
+Cluster Support = No
+BBU = NA
+Spanning = Yes
+Dedicated Hot Spare = Yes
+Revertible Hot Spares = Yes
+Foreign Config Import = Yes
+Self Diagnostic = Yes
+Allow Mixed Redundancy on Array = No
+Global Hot Spares = Yes
+Deny SCSI Passthrough = No
+Deny SMP Passthrough = No
+Deny STP Passthrough = No
+Support more than 8 Phys = Yes
+FW and Event Time in GMT = No
+Support Enhanced Foreign Import = Yes
+Support Enclosure Enumeration = Yes
+Support Allowed Operations = Yes
+Abort CC on Error = Yes
+Support Multipath = Yes
+Support Odd & Even Drive count in RAID1E = No
+Support Security = No
+Support Config Page Model = Yes
+Support the OCE without adding drives = Yes
+Support EKM = No
+Snapshot Enabled = No
+Support PFK = Yes
+Support PI = Yes
+Support LDPI Type1 = No
+Support LDPI Type2 = No
+Support LDPI Type3 = No
+Support Ld BBM Info = No
+Support Shield State = Yes
+Block SSD Write Disk Cache Change = Yes
+Support Suspend Resume BG ops = Yes
+Support Emergency Spares = Yes
+Support Set Link Speed = Yes
+Support Boot Time PFK Change = No
+Support JBOD = Yes
+Disable Online PFK Change = No
+Support Perf Tuning = Yes
+Support SSD PatrolRead = Yes
+Real Time Scheduler = Yes
+Support Reset Now = Yes
+Support Emulated Drives = Yes
+Headless Mode = Yes
+Dedicated HotSpares Limited = No
+Point In Time Progress = Yes
+Extended LD = Yes
+Support Uneven span  = No
+Support Config Auto Balance = No
+Support Maintenance Mode = No
+Support Diagnostic results = Yes
+Support Ext Enclosure = Yes
+Support Sesmonitoring = Yes
+Support SecurityonJBOD = Yes
+Support ForceFlash = Yes
+Support DisableImmediateIO = Yes
+Support LargeIOSupport = Yes
+Support DrvActivityLEDSetting = Yes
+Support FlushWriteVerify = Yes
+Support CPLDUpdate = Yes
+Support ForceTo512e = Yes
+Support discardCacheDuringLDDelete = Yes
+Support JBOD Write cache = No
+Support Large QD Support = No
+Support Ctrl Info Extended = No
+Support IButton less = No
+Support AES Encryption Algorithm = No
+Support Encrypted MFC = No
+Support Snapdump = No
+Support Force Personality Change = No
+Support Dual Fw Image = No
+Support PSOC Update = No
+Support Secure Boot = No
+Support Debug Queue = Yes
+Support Least Latency Mode = Yes
+Support OnDemand Snapdump = No
+Support Clear Snapdump = No
+Support PHY current speed = No
+Support Lane current speed = No
+Support NVMe Width = No
+Support Lane DeviceType = No
+Support Extended Drive performance Monitoring = No
+Support NVMe Repair = No
+Support Platform Security = No
+Support None Mode Params = No
+Support Extended Controller Property = No
+Support Smart Poll Interval for DirectAttached = No
+Support Write Journal Pinning = No
+Support SMP Passthru with Port Number = No
+Support SnapDump Preboot Trace Buffer Toggle = No
+Support Parity Read Cache Bypass = No
+Support NVMe Init Error Device ConnectorIndex = No
+Support VolatileKey = No
+Support PSOC Part Information = No
+
+
+Supported PD Operations :
+=======================
+Force Online = Yes
+Force Offline = Yes
+Force Rebuild = Yes
+Deny Force Failed = No
+Deny Force Good/Bad = No
+Deny Missing Replace = No
+Deny Clear = No
+Deny Locate = No
+Support Power State = Yes
+Set Power State For Cfg = No
+Support T10 Power State = No
+Support Temperature = Yes
+NCQ = Yes
+Support Max Rate SATA = No
+Support Degraded Media = No
+Support Parallel FW Update = Yes
+Support Drive Crypto Erase = Yes
+Support SSD Wear Gauge = No
+Support Sanitize = No
+Support Extended Sanitize = No
+
+
+Supported VD Operations :
+=======================
+Read Policy = Yes
+Write Policy = Yes
+IO Policy = Yes
+Access Policy = Yes
+Disk Cache Policy = Yes
+Reconstruction = Yes
+Deny Locate = No
+Deny CC = No
+Allow Ctrl Encryption = No
+Enable LDBBM = Yes
+Support FastPath = Yes
+Performance Metrics = Yes
+Power Savings = No
+Support Powersave Max With Cache = No
+Support Breakmirror = Yes
+Support SSC WriteBack = No
+Support SSC Association = No
+Support VD Hide = Yes
+Support VD Cachebypass = Yes
+Support VD discardCacheDuringLDDelete = Yes
+Support VD Scsi Unmap = No
+
+
+Advanced Software Option :
+========================
+
+----------------------------------------
+Adv S/W Opt        Time Remaining  Mode 
+----------------------------------------
+MegaRAID FastPath  Unlimited       -    
+MegaRAID RAID6     Unlimited       -    
+MegaRAID RAID5     Unlimited       -    
+----------------------------------------
+
+Safe ID =  13IAP4REBQQ5PCKBX49E56PN7XAU5BIA9184LLIZ
+
+HwCfg :
+=====
+ChipRevision =  C0
+BatteryFRU = N/A
+Front End Port Count = 0
+Backend Port Count = 8
+BBU = Absent
+Alarm = On
+Serial Debugger = Present
+NVRAM Size = 32KB
+Flash Size = 16MB
+On Board Memory Size = 1024MB
+CacheVault Flash Size = NA
+TPM = Absent
+Upgrade Key = Absent
+On Board Expander = Absent
+Temperature Sensor for ROC = Present
+Temperature Sensor for Controller = Absent
+Upgradable CPLD = Present
+Upgradable PSOC = Absent
+Current Size of CacheCade (GB) = 0
+Current Size of FW Cache (MB) = 815
+ROC temperature(Degree Celsius) = 80
+
+
+Policies :
+========
+
+Policies Table :
+==============
+
+------------------------------------------------
+Policy                          Current Default 
+------------------------------------------------
+Predictive Fail Poll Interval   300 sec         
+Interrupt Throttle Active Count 16              
+Interrupt Throttle Completion   50 us           
+Rebuild Rate                    30 %    30%     
+PR Rate                         30 %    30%     
+BGI Rate                        30 %    30%     
+Check Consistency Rate          30 %    30%     
+Reconstruction Rate             30 %    30%     
+Cache Flush Interval            4s              
+------------------------------------------------
+
+Flush Time(Default) = 4s
+Drive Coercion Mode = none
+Auto Rebuild = On
+Battery Warning = On
+ECC Bucket Size = 15
+ECC Bucket Leak Rate (hrs) = 24
+Restore Hot Spare on Insertion = Off
+Expose Enclosure Devices = On
+Maintain PD Fail History = On
+Reorder Host Requests = On
+Auto detect BackPlane = SGPIO/i2c SEP
+Load Balance Mode = Auto
+Security Key Assigned = Off
+Disable Online Controller Reset = Off
+Use drive activity for locate = Off
+
+
+Boot :
+====
+BIOS Enumerate VDs = 1
+Stop BIOS on Error = Off
+Delay during POST = 0
+Spin Down Mode = None
+Enable Ctrl-R = Yes
+Enable Web BIOS = No
+Enable PreBoot CLI = No
+Enable BIOS = Yes
+Max Drives to Spinup at One Time = 2
+Maximum number of direct attached drives to spin up in 1 min = 10
+Delay Among Spinup Groups (sec) = 12
+Allow Boot with Preserved Cache = Off
+
+
+High Availability :
+=================
+Topology Type = None
+Cluster Permitted = No
+Cluster Active = No
+
+
+Defaults :
+========
+Phy Polarity = 0
+Phy PolaritySplit = 0
+Strip Size = 256 KB
+Write Policy = WB
+Read Policy = RA
+Cache When BBU Bad = Off
+Cached IO = Off
+VD PowerSave Policy = Controller Defined
+Default spin down time (mins) = 30
+Coercion Mode = None
+ZCR Config = Unknown
+Max Chained Enclosures = 16
+Direct PD Mapping = No
+Restore Hot Spare on Insertion = No
+Expose Enclosure Devices = Yes
+Maintain PD Fail History = Yes
+Zero Based Enclosure Enumeration = No
+Disable Puncturing = No
+EnableLDBBM = Yes
+DisableHII = No
+Un-Certified Hard Disk Drives = Allow
+SMART Mode = Mode 6
+Enable LED Header = Yes
+LED Show Drive Activity = Yes
+Dirty LED Shows Drive Activity = No
+EnableCrashDump = Yes
+Disable Online Controller Reset = No
+Treat Single span R1E as R10 = No
+Power Saving option = Enabled
+TTY Log In Flash = No
+Auto Enhanced Import = Yes
+BreakMirror RAID Support = single span R1
+Disable Join Mirror = Yes
+Enable Shield State = Yes
+Time taken to detect CME = 60 sec
+
+
+Capabilities :
+============
+Supported Drives = SAS, SATA
+RAID Level Supported = RAID0, RAID1(2 or more drives), RAID5, RAID6, RAID00, RAID10(2 or more drives per span), RAID50, RAID60
+Enable JBOD = Yes
+Mix in Enclosure = Allowed
+Mix of SAS/SATA of HDD type in VD = Allowed
+Mix of SAS/SATA of SSD type in VD = Allowed
+Mix of SSD/HDD in VD = Allowed
+SAS Disable = No
+Max Arms Per VD = 32
+Max Spans Per VD = 8
+Max Arrays = 128
+Max VD per array = 16
+Max Number of VDs = 64
+Max Parallel Commands = 928
+Max SGE Count = 60
+Max Data Transfer Size = 512 sectors
+Max Strips PerIO = 128
+Max Configurable CacheCade Size(GB) = 0
+Max Transportable DGs = 0
+Enable Snapdump = No
+Enable SCSI Unmap = Yes
+Read cache bypass enabled for Parity RAID LDs = No
+FDE Drive Mix Support = No
+Min Strip Size = 64 KB
+Max Strip Size = 1.000 MB
+
+
+Scheduled Tasks :
+===============
+Consistency Check Reoccurrence = 168 hrs
+Next Consistency check launch = 12/18/2083, 03:00:00
+Patrol Read Reoccurrence = 168 hrs
+Next Patrol Read launch = 12/18/2083, 03:00:00
+Battery learn Reoccurrence = NA
+Next Battery Learn = NA
+OEMID = Broadcom
+
+
+Security Protocol properties :
+============================
+Security Protocol = None
+
+Drive Groups = 1
+
+TOPOLOGY :
+========
+
+---------------------------------------------------------------------------
+DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
+---------------------------------------------------------------------------
+ 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+ 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+---------------------------------------------------------------------------
+
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Virtual Drives = 1
+
+VD LIST :
+=======
+
+-------------------------------------------------------------
+DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
+-------------------------------------------------------------
+0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
+-------------------------------------------------------------
+
+VD=Virtual Drive| DG=Drive Group|Rec=Recovery
+Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
+Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
+B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
+AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
+Check Consistency
+
+JBOD Drives = 6
+
+JBOD LIST :
+=========
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+Physical Drives = 8
+
+PD LIST :
+=======
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+Enclosures = 1
+
+Enclosure LIST :
+==============
+
+--------------------------------------------------------------------
+EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
+--------------------------------------------------------------------
+252 OK        8  8  0    0   0    0   1 -     SGPIO                 
+--------------------------------------------------------------------
+
+EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Couldn't find any foreign Configuration
+
+Total Foreign PDs = 0
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/sall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive Information :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show
+Generating detailed summary of the adapter, it may take a while to complete.
+
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = None
+
+Product Name = AVAGO MegaRAID SAS 9361-8i
+Serial Number = SK82183344
+SAS Address =  500605b0079e0a60
+PCI Address = 00:04:00:00
+System Time = 05/18/2026 16:23:30
+Mfg. Date = 08/21/18
+Controller Time = 05/18/2026 08:11:15
+FW Package Build = 24.21.0-0119
+BIOS Version = 6.36.00.3_4.19.08.00_0x06180203
+FW Version = 4.680.00-8505
+Driver Name = megaraid_sas
+Driver Version = 07.713.01.00-rc1
+Current Personality = RAID-Mode 
+Vendor Id = 0x1000
+Device Id = 0x5D
+SubVendor Id = 0x1000
+SubDevice Id = 0x9361
+Host Interface = PCI-E
+Device Interface = SAS-12G
+Bus Number = 4
+Device Number = 0
+Function Number = 0
+Domain ID = 0
+Security Protocol = None
+Drive Groups = 1
+
+TOPOLOGY :
+========
+
+---------------------------------------------------------------------------
+DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
+---------------------------------------------------------------------------
+ 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
+ 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+ 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
+---------------------------------------------------------------------------
+
+DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
+DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
+Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
+PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
+DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
+TR=Transport Ready
+
+Virtual Drives = 1
+
+VD LIST :
+=======
+
+-------------------------------------------------------------
+DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
+-------------------------------------------------------------
+0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
+-------------------------------------------------------------
+
+VD=Virtual Drive| DG=Drive Group|Rec=Recovery
+Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
+Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
+B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
+AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
+Check Consistency
+
+JBOD Drives = 6
+
+JBOD LIST :
+=========
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+Physical Drives = 8
+
+PD LIST :
+=======
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+Enclosures = 1
+
+Enclosure LIST :
+==============
+
+--------------------------------------------------------------------
+EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
+--------------------------------------------------------------------
+252 OK        8  8  0    0   0    0   1 -     SGPIO                 
+--------------------------------------------------------------------
+
+EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# CEPHBACKUP_PVS=$(pvs --noheadings -o pv_name,vg_name | awk '$2=="cephbackup-vg"{print $1}')
+root@fs1-pre-stor-172-21-224-223:~# echo "$CEPHBACKUP_PVS"
+/dev/sda
+/dev/sdb
+root@fs1-pre-stor-172-21-224-223:~# umount /data/ceph-backup
+umount: /data/ceph-backup: not mounted.
+root@fs1-pre-stor-172-21-224-223:~# fuser -vm /data/ceph-backup
+                     USER        PID ACCESS COMMAND
+/data/ceph-backup:   root     kernel swap  /swap.img
+                     root     kernel mount /
+                     root          1 Frce. systemd
+                     root          2 .rc.. kthreadd
+                     root          3 .rc.. rcu_gp
+                     root          4 .rc.. rcu_par_gp
+                     root          6 .rc.. kworker/0:0H-kblockd
+                     root          9 .rc.. mm_percpu_wq
+                     root         10 .rc.. ksoftirqd/0
+                     root         11 .rc.. rcu_sched
+                     root         12 .rc.. migration/0
+                     root         13 .rc.. idle_inject/0
+                     root         15 .rc.. cpuhp/0
+                     root         16 .rc.. cpuhp/1
+                     root         17 .rc.. idle_inject/1
+                     root         18 .rc.. migration/1
+                     root         19 .rc.. ksoftirqd/1
+                     root         21 .rc.. kworker/1:0H-kblockd
+                     root         22 .rc.. cpuhp/2
+                     root         23 .rc.. idle_inject/2
+                     root         24 .rc.. migration/2
+                     root         25 .rc.. ksoftirqd/2
+                     root         27 .rc.. kworker/2:0H-kblockd
+                     root         28 .rc.. cpuhp/3
+                     root         29 .rc.. idle_inject/3
+                     root         30 .rc.. migration/3
+                     root         31 .rc.. ksoftirqd/3
+                     root         33 .rc.. kworker/3:0H-kblockd
+                     root         34 .rc.. cpuhp/4
+                     root         35 .rc.. idle_inject/4
+                     root         36 .rc.. migration/4
+                     root         37 .rc.. ksoftirqd/4
+                     root         39 .rc.. kworker/4:0H-kblockd
+                     root         40 .rc.. cpuhp/5
+                     root         41 .rc.. idle_inject/5
+                     root         42 .rc.. migration/5
+                     root         43 .rc.. ksoftirqd/5
+                     root         45 .rc.. kworker/5:0H-kblockd
+                     root         46 .rc.. cpuhp/6
+                     root         47 .rc.. idle_inject/6
+                     root         48 .rc.. migration/6
+                     root         49 .rc.. ksoftirqd/6
+                     root         51 .rc.. kworker/6:0H-kblockd
+                     root         52 .rc.. cpuhp/7
+                     root         53 .rc.. idle_inject/7
+                     root         54 .rc.. migration/7
+                     root         55 .rc.. ksoftirqd/7
+                     root         57 .rc.. kworker/7:0H-kblockd
+                     root         58 .rc.. cpuhp/8
+                     root         59 .rc.. idle_inject/8
+                     root         60 .rc.. migration/8
+                     root         61 .rc.. ksoftirqd/8
+                     root         63 .rc.. kworker/8:0H-kblockd
+                     root         65 .rc.. cpuhp/9
+                     root         66 .rc.. idle_inject/9
+                     root         67 .rc.. migration/9
+                     root         68 .rc.. ksoftirqd/9
+                     root         70 .rc.. kworker/9:0H-kblockd
+                     root         71 .rc.. cpuhp/10
+                     root         72 .rc.. idle_inject/10
+                     root         73 .rc.. migration/10
+                     root         74 .rc.. ksoftirqd/10
+                     root         76 .rc.. kworker/10:0H-kblockd
+                     root         77 .rc.. cpuhp/11
+                     root         78 .rc.. idle_inject/11
+                     root         79 .rc.. migration/11
+                     root         80 .rc.. ksoftirqd/11
+                     root         82 .rc.. kworker/11:0H-kblockd
+                     root         83 .rc.. cpuhp/12
+                     root         84 .rc.. idle_inject/12
+                     root         85 .rc.. migration/12
+                     root         86 .rc.. ksoftirqd/12
+                     root         88 .rc.. kworker/12:0H-kblockd
+                     root         89 .rc.. cpuhp/13
+                     root         90 .rc.. idle_inject/13
+                     root         91 .rc.. migration/13
+                     root         92 .rc.. ksoftirqd/13
+                     root         94 .rc.. kworker/13:0H-kblockd
+                     root         95 .rc.. cpuhp/14
+                     root         96 .rc.. idle_inject/14
+                     root         97 .rc.. migration/14
+                     root         98 .rc.. ksoftirqd/14
+                     root        100 .rc.. kworker/14:0H-kblockd
+                     root        101 .rc.. cpuhp/15
+                     root        102 .rc.. idle_inject/15
+                     root        103 .rc.. migration/15
+                     root        104 .rc.. ksoftirqd/15
+                     root        106 .rc.. kworker/15:0H-kblockd
+                     root        107 .rc.. cpuhp/16
+                     root        108 .rc.. idle_inject/16
+                     root        109 .rc.. migration/16
+                     root        110 .rc.. ksoftirqd/16
+                     root        112 .rc.. kworker/16:0H-kblockd
+                     root        113 .rc.. cpuhp/17
+                     root        114 .rc.. idle_inject/17
+                     root        115 .rc.. migration/17
+                     root        116 .rc.. ksoftirqd/17
+                     root        118 .rc.. kworker/17:0H-kblockd
+                     root        119 .rc.. cpuhp/18
+                     root        120 .rc.. idle_inject/18
+                     root        121 .rc.. migration/18
+                     root        122 .rc.. ksoftirqd/18
+                     root        124 .rc.. kworker/18:0H
+                     root        125 .rc.. cpuhp/19
+                     root        126 .rc.. idle_inject/19
+                     root        127 .rc.. migration/19
+                     root        128 .rc.. ksoftirqd/19
+                     root        130 .rc.. kworker/19:0H-kblockd
+                     root        131 .rc.. cpuhp/20
+                     root        132 .rc.. idle_inject/20
+                     root        133 .rc.. migration/20
+                     root        134 .rc.. ksoftirqd/20
+                     root        136 .rc.. kworker/20:0H-kblockd
+                     root        137 .rc.. cpuhp/21
+                     root        138 .rc.. idle_inject/21
+                     root        139 .rc.. migration/21
+                     root        140 .rc.. ksoftirqd/21
+                     root        142 .rc.. kworker/21:0H-kblockd
+                     root        143 .rc.. cpuhp/22
+                     root        144 .rc.. idle_inject/22
+                     root        145 .rc.. migration/22
+                     root        146 .rc.. ksoftirqd/22
+                     root        148 .rc.. kworker/22:0H
+                     root        149 .rc.. cpuhp/23
+                     root        150 .rc.. idle_inject/23
+                     root        151 .rc.. migration/23
+                     root        152 .rc.. ksoftirqd/23
+                     root        154 .rc.. kworker/23:0H-kblockd
+                     root        155 .rc.. cpuhp/24
+                     root        156 .rc.. idle_inject/24
+                     root        157 .rc.. migration/24
+                     root        158 .rc.. ksoftirqd/24
+                     root        160 .rc.. kworker/24:0H-kblockd
+                     root        161 .rc.. cpuhp/25
+                     root        162 .rc.. idle_inject/25
+                     root        163 .rc.. migration/25
+                     root        164 .rc.. ksoftirqd/25
+                     root        166 .rc.. kworker/25:0H-kblockd
+                     root        167 .rc.. cpuhp/26
+                     root        168 .rc.. idle_inject/26
+                     root        169 .rc.. migration/26
+                     root        170 .rc.. ksoftirqd/26
+                     root        172 .rc.. kworker/26:0H-kblockd
+                     root        173 .rc.. cpuhp/27
+                     root        174 .rc.. idle_inject/27
+                     root        175 .rc.. migration/27
+                     root        176 .rc.. ksoftirqd/27
+                     root        178 .rc.. kworker/27:0H-kblockd
+                     root        179 .rc.. cpuhp/28
+                     root        180 .rc.. idle_inject/28
+                     root        181 .rc.. migration/28
+                     root        182 .rc.. ksoftirqd/28
+                     root        184 .rc.. kworker/28:0H-kblockd
+                     root        185 .rc.. cpuhp/29
+                     root        186 .rc.. idle_inject/29
+                     root        187 .rc.. migration/29
+                     root        188 .rc.. ksoftirqd/29
+                     root        190 .rc.. kworker/29:0H-kblockd
+                     root        191 .rc.. cpuhp/30
+                     root        192 .rc.. idle_inject/30
+                     root        193 .rc.. migration/30
+                     root        194 .rc.. ksoftirqd/30
+                     root        196 .rc.. kworker/30:0H-kblockd
+                     root        197 .rc.. cpuhp/31
+                     root        198 .rc.. idle_inject/31
+                     root        199 .rc.. migration/31
+                     root        200 .rc.. ksoftirqd/31
+                     root        202 .rc.. kworker/31:0H-kblockd
+                     root        204 .rc.. netns
+                     root        205 .rc.. rcu_tasks_kthre
+                     root        206 .rc.. kauditd
+                     root        210 .rc.. khungtaskd
+                     root        211 .rc.. oom_reaper
+                     root        212 .rc.. writeback
+                     root        213 .rc.. kcompactd0
+                     root        214 .rc.. kcompactd1
+                     root        215 .rc.. ksmd
+                     root        216 .rc.. khugepaged
+                     root        263 .rc.. kintegrityd
+                     root        264 .rc.. kblockd
+                     root        265 .rc.. blkcg_punt_bio
+                     root        266 .rc.. tpm_dev_wq
+                     root        267 .rc.. ata_sff
+                     root        268 .rc.. md
+                     root        269 .rc.. edac-poller
+                     root        270 .rc.. devfreq_wq
+                     root        271 .rc.. watchdogd
+                     root        303 .rc.. kswapd0
+                     root        304 .rc.. kswapd1
+                     root        305 .rc.. ecryptfs-kthrea
+                     root        307 .rc.. kthrotld
+                     root        308 .rc.. irq/25-aerdrv
+                     root        309 .rc.. irq/27-aerdrv
+                     root        310 .rc.. irq/28-aerdrv
+                     root        311 .rc.. irq/30-aerdrv
+                     root        312 .rc.. irq/31-pciehp
+                     root        313 .rc.. irq/34-aerdrv
+                     root        314 .rc.. irq/36-aerdrv
+                     root        315 .rc.. irq/38-aerdrv
+                     root        316 .rc.. irq/40-aerdrv
+                     root        317 .rc.. irq/41-aerdrv
+                     root        322 .rc.. acpi_thermal_pm
+                     root        323 .rc.. vfio-irqfd-clea
+                     root        327 .rc.. ipv6_addrconf
+                     root        336 .rc.. kstrp
+                     root        339 .rc.. kworker/u67:0
+                     root        340 .rc.. kworker/u68:0
+                     root        341 .rc.. kworker/u69:0
+                     root        354 .rc.. charger_manager
+                     root        425 .rc.. scsi_eh_0
+                     root        426 .rc.. scsi_tmf_0
+                     root        453 .rc.. cryptd
+                     root        471 .rc.. poll_megasas0_s
+                     root        475 .rc.. ttm_swap
+                     root        476 .rc.. kworker/2:1H-kblockd
+                     root        477 .rc.. kworker/1:1H-kblockd
+                     root        492 .rc.. kdmflush
+                     root        501 .rc.. kdmflush
+                     root        537 .rc.. raid5wq
+                     root        579 .rc.. kworker/11:1H-kblockd
+                     root        593 .rc.. kworker/14:1H-kblockd
+                     root        594 .rc.. jbd2/dm-1-8
+                     root        595 .rc.. ext4-rsv-conver
+                     root        596 .rc.. kworker/28:1H-kblockd
+                     root        622 .rc.. kworker/29:1H-kblockd
+                     root        627 .rc.. kworker/26:1H-kblockd
+                     root        631 .rc.. kworker/30:1H-kblockd
+                     root        633 .rc.. kworker/15:1H-kblockd
+                     root        636 .rc.. kworker/8:1H-kblockd
+                     root        639 .rc.. kworker/25:1H-kblockd
+                     root        657 .rc.. kworker/5:1H-kblockd
+                     root        662 .rc.. kworker/27:1H-kblockd
+                     root        667 .rc.. kworker/12:1H-kblockd
+                     root        669 .rc.. kworker/10:1H-kblockd
+                     root        672 .rc.. kworker/31:1H-kblockd
+                     root        675 .rc.. kworker/3:1H-kblockd
+                     root        676 .rc.. kworker/4:1H-kblockd
+                     root        681 Frce. systemd-journal
+                     root        683 .rc.. kworker/7:1H-kblockd
+                     root        690 .rc.. kworker/23:1H-kblockd
+                     root        698 .rc.. kworker/22:1H-kblockd
+                     root        699 .rc.. kworker/16:1H-kblockd
+                     root        701 .rc.. kworker/0:1H-kblockd
+                     root        703 .rc.. kworker/18:1H-kblockd
+                     root        704 .rc.. kworker/17:1H-kblockd
+                     root        709 .rc.. kworker/19:1H-kblockd
+                     root        716 .rc.. kworker/6:1H-kblockd
+                     root        722 .rc.. kworker/24:1H-kblockd
+                     root        726 .rc.. kworker/9:1H-kblockd
+                     root        728 frce. systemd-udevd
+                     root        811 .rc.. kworker/20:1H-kblockd
+                     root        812 .rc.. ipmi-msghandler
+                     root        922 .rc.. kipmi0
+                     root        951 .rc.. kworker/13:1H-kblockd
+                     root       1032 .rc.. kaluad
+                     root       1034 .rc.. kmpath_rdacd
+                     root       1035 .rc.. kmpathd
+                     root       1036 .rc.. kmpath_handlerd
+                     root       1037 .rce. multipathd
+                     root       1046 .rc.. loop0
+                     root       1058 .rc.. loop1
+                     root       1061 .rc.. jbd2/sdc2-8
+                     root       1062 .rc.. ext4-rsv-conver
+                     root       1064 .rc.. loop2
+                     root       1065 .rc.. loop3
+                     root       1066 .rc.. loop4
+                     root       1069 .rc.. loop5
+                     root       1143 .rc.. kworker/21:1H-kblockd
+                     systemd-network   1148 .rce. systemd-network
+                     root       1150 .rc.. bond0
+                     systemd-resolve   1154 .rce. systemd-resolve
+                     root       1184 .rce. accounts-daemon
+                     messagebus   1188 .rce. dbus-daemon
+                     root       1194 .rce. irqbalance
+                     root       1200 .rce. networkd-dispat
+                     _chrony    1203 .rce. chronyd
+                     root       1205 .rce. polkitd
+                     syslog     1208 Frce. rsyslogd
+                     root       1211 .rce. smartd
+                     root       1217 Frc.. snapd
+                     _chrony    1224 .rce. chronyd
+                     root       1231 .rce. systemd-logind
+                     root       1233 .rce. udisksd
+                     root       1244 .rce. cron
+                     root       1273 .rce. agetty
+                     daemon     1282 .rce. atd
+                     root       1299 Frce. unattended-upgr
+                     root       1311 .rce. ModemManager
+                     root       1382 .rce. sshd
+                     root       1738 Frce. easyAgent
+                     root       1778 Frce. easy_collector
+                     root       1787 Frce. collector_agent
+                     root       1796 Frce. easy_monitor
+                     root       1798 Frce. easy_collector
+                     root       1799 Frce. easy_collector
+                     root      19351 .rce. upowerd
+                     root      32878 .rc.. kworker/31:1-cgroup_destroy
+                     root      108143 .rc.. kworker/30:0-events
+                     root      147342 .rc.. kworker/u64:2-bond0
+                     root      151899 .rc.. kworker/10:0-rcu_gp
+                     root      195004 .rc.. kworker/13:0-rcu_gp
+                     root      218639 .rc.. kworker/30:2
+                     root      247448 .rc.. kworker/4:0-rcu_gp
+                     root      248082 .rc.. kworker/27:2-cgroup_destroy
+                     root      286596 .rc.. kworker/0:2-events
+                     root      301480 .rc.. kworker/25:0-events
+                     root      337850 .rc.. kworker/29:0
+                     root      383615 .rc.. kworker/16:1-rcu_gp
+                     root      388203 .rc.. kworker/5:0-rcu_gp
+                     root      388204 .rc.. kworker/24:1-events
+                     root      394266 .rc.. kworker/u66:1-flush-253:0
+                     root      394268 .rc.. kworker/14:2-rcu_gp
+                     root      394271 .rc.. kworker/12:0
+                     root      421724 .rc.. kworker/15:1-cgroup_destroy
+                     root      421727 .rc.. kworker/26:1-rcu_par_gp
+                     root      457364 .rc.. kworker/14:1-mm_percpu_wq
+                     root      458607 .rc.. kworker/26:2-mm_percpu_wq
+                     root      458623 .rc.. kworker/9:1-events
+                     root      458627 .rc.. kworker/25:3-mm_percpu_wq
+                     root      461421 .rc.. kworker/22:2-events
+                     root      463958 .rc.. kworker/10:1-events
+                     root      463971 .rc.. kworker/15:0-mm_percpu_wq
+                     root      488198 .rc.. kworker/19:0-mm_percpu_wq
+                     root      488841 .rc.. kworker/28:0-mm_percpu_wq
+                     root      510178 .rc.. kworker/18:2-events
+                     root      511983 .rc.. kworker/u64:1-bond0
+                     root      515128 .rc.. kworker/17:2-rcu_gp
+                     root      516178 .rc.. kworker/9:0-mm_percpu_wq
+                     root      527262 .rc.. kworker/21:2-events
+                     root      530944 .rc.. kworker/17:0-events
+                     root      530947 .rc.. kworker/22:0-rcu_par_gp
+                     root      530957 .rc.. kworker/21:0
+                     root      533327 .rc.. kworker/16:0-events
+                     root      533330 .rc.. kworker/19:2-rcu_par_gp
+                     root      533334 .rc.. kworker/2:0-events
+                     root      533340 .rc.. kworker/13:2-events
+                     root      533343 .rc.. kworker/18:0-events
+                     root      533344 .rc.. kworker/20:1-rcu_gp
+                     root      533348 .rc.. kworker/11:2-events
+                     root      533350 .rc.. kworker/11:3-events
+                     root      545947 .rc.. kworker/28:1-events
+                     root      546238 .rc.. kworker/23:1-rcu_par_gp
+                     root      547655 .rc.. kworker/1:0-events
+                     root      551899 .rc.. kworker/0:3-cgroup_destroy
+                     root      551928 .rc.. kworker/1:1
+                     root      551942 .rc.. kworker/6:2-mm_percpu_wq
+                     root      568442 .rc.. kworker/7:0-events
+                     root      568608 .rc.. kworker/u66:0-events_unbound
+                     root      573651 .rc.. kworker/23:2-mm_percpu_wq
+                     root      573709 .rc.. kworker/4:1-mm_percpu_wq
+                     root      573710 .rc.. kworker/8:2-events
+                     root      573719 .rc.. kworker/8:3-events
+                     root      579769 .rc.. kworker/3:0-mm_percpu_wq
+                     root      581426 .rc.. kworker/5:2-rcu_par_gp
+                     root      581455 .rc.. kworker/20:2-events
+                     root      581472 .rc.. kworker/2:2-cgroup_destroy
+                     root      581844 .rce. sshd
+                     root      581879 .rce. systemd
+                     root      581880 .rce. (sd-pam
+                     root      581900 .rc.. kworker/6:0
+                     root      582027 .rce. bash
+                     root      583050 .rc.. kworker/u65:0-events_power_efficient
+                     root      583306 .rc.. kworker/u65:1-events_unbound
+                     root      585279 .rc.. kworker/3:1-mm_percpu_wq
+                     root      585303 .rc.. kworker/7:1-cgroup_destroy
+                     root      585536 .rc.. kworker/u65:2-events_power_efficient
+                     root      585546 .rc.. kworker/u65:3
+                     root      585615 .rc.. kworker/22:1
+                     root      585617 .rc.. kworker/23:0
+                     root      585618 .rc.. kworker/5:1-events
+                     root      585667 .rc.. kworker/19:1
+                     monitor   1703512 .rce. node_exporter
+                     root      4018804 .rc.. kworker/29:1-mm_percpu_wq
+                     root      4027802 .rc.. kworker/24:2-events
+                     root      4047132 .rc.. kworker/31:0-mm_percpu_wq
+                     root      4077240 Frce. nginx
+                     www-data  4077643 Frce. nginx
+                     www-data  4077644 Frce. nginx
+                     www-data  4077645 Frce. nginx
+                     www-data  4077646 Frce. nginx
+                     www-data  4077647 Frce. nginx
+                     www-data  4077648 Frce. nginx
+                     www-data  4077649 Frce. nginx
+                     www-data  4077650 Frce. nginx
+                     www-data  4077651 Frce. nginx
+                     www-data  4077652 Frce. nginx
+                     www-data  4077653 Frce. nginx
+                     www-data  4077654 Frce. nginx
+                     www-data  4077655 Frce. nginx
+                     www-data  4077656 Frce. nginx
+                     www-data  4077657 Frce. nginx
+                     www-data  4077658 Frce. nginx
+                     www-data  4077659 Frce. nginx
+                     www-data  4077660 Frce. nginx
+                     www-data  4077661 Frce. nginx
+                     www-data  4077662 Frce. nginx
+                     www-data  4077663 Frce. nginx
+                     www-data  4077664 Frce. nginx
+                     www-data  4077665 Frce. nginx
+                     www-data  4077666 Frce. nginx
+                     www-data  4077667 Frce. nginx
+                     www-data  4077668 Frce. nginx
+                     www-data  4077669 Frce. nginx
+                     www-data  4077670 Frce. nginx
+                     www-data  4077672 Frce. nginx
+                     www-data  4077674 Frce. nginx
+                     www-data  4077675 Frce. nginx
+                     www-data  4077676 Frce. nginx
+                     root      4087235 .rc.. kworker/27:1-mm_percpu_wq
+                     root      4169127 .rc.. kworker/12:1-mm_percpu_wq
+root@fs1-pre-stor-172-21-224-223:~# lsof +f -- /data/ceph-backup 2>/dev/null | head -100
+root@fs1-pre-stor-172-21-224-223:~# cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/ubuntu-vg/ubuntu-lv during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-ieRkySZHeWHBcX42If0522SqnppV1mfb0y7EDtmSNDUbBAHMOzboYZgULBgayh2R / ext4 defaults 0 1
+# /boot was on /dev/sdc2 during curtin installation
+/dev/disk/by-uuid/fe9f95d7-ea42-4593-aa0c-65449e8281fe /boot ext4 defaults 0 1
+/swap.img       none    swap    sw      0       0
+/dev/cephbackup-vg/cephbackup-lv /data/ceph-backup ext4 defaults 0 2
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# cp -a /etc/fstab "$PREP_DIR/fstab.before-remove-cephbackup.$(date +%F_%H%M%S)"
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# grep -nE 'cephbackup|/data/ceph-backup' /etc/fstab || true
+13:/dev/cephbackup-vg/cephbackup-lv /data/ceph-backup ext4 defaults 0 2
+root@fs1-pre-stor-172-21-224-223:~# sed -i.bak '/cephbackup/d;/\/data\/ceph-backup/d' /etc/fstab
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# grep -nE 'cephbackup|/data/ceph-backup' /etc/fstab || true
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/ubuntu-vg/ubuntu-lv during curtin installation
+/dev/disk/by-id/dm-uuid-LVM-ieRkySZHeWHBcX42If0522SqnppV1mfb0y7EDtmSNDUbBAHMOzboYZgULBgayh2R / ext4 defaults 0 1
+# /boot was on /dev/sdc2 during curtin installation
+/dev/disk/by-uuid/fe9f95d7-ea42-4593-aa0c-65449e8281fe /boot ext4 defaults 0 1
+/swap.img       none    swap    sw      0       0
+root@fs1-pre-stor-172-21-224-223:~# lvremove -y /dev/cephbackup-vg/cephbackup-lv
+  Logical volume "cephbackup-lv" successfully removed
+root@fs1-pre-stor-172-21-224-223:~# vgremove -y cephbackup-vg
+  Volume group "cephbackup-vg" successfully removed
+root@fs1-pre-stor-172-21-224-223:~# pvremove -ff -y $CEPHBACKUP_PVS
+  Labels on physical volume "/dev/sda" successfully wiped.
+  Labels on physical volume "/dev/sdb" successfully wiped.
+root@fs1-pre-stor-172-21-224-223:~# pvs
+  PV         VG        Fmt  Attr PSize  PFree
+  /dev/sdc3  ubuntu-vg lvm2 a--  <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# vgs
+  VG        #PV #LV #SN Attr   VSize  VFree
+  ubuntu-vg   1   1   0 wz--n- <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# lvs
+  LV        VG        Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  ubuntu-lv ubuntu-vg -wi-ao---- <3.64t                                                    
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                 /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                 /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                 /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                 /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                 /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                 /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+sdb                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+sdc                        3.7T disk                                                                            MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                              0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4              fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member       LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4              fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+sde                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+sdf                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+sdg                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+loop0                       7:0    0 63.3M  1 loop /snap/core20/1828
+loop1                       7:1    0 63.8M  1 loop /snap/core20/2599
+loop2                       7:2    0 91.9M  1 loop /snap/lxd/24061
+loop3                       7:3    0 91.9M  1 loop /snap/lxd/32662
+loop4                       7:4    0 50.9M  1 loop /snap/snapd/24718
+loop5                       7:5    0 49.9M  1 loop /snap/snapd/18357
+sda                         8:0    0  9.1T  0 disk 
+sdb                         8:16   0  9.1T  0 disk 
+sdc                         8:32   0  3.7T  0 disk 
+├─sdc1                      8:33   0    1M  0 part 
+├─sdc2                      8:34   0    2G  0 part /boot
+└─sdc3                      8:35   0  3.7T  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:1    0  3.7T  0 lvm  /
+sdd                         8:48   0  9.1T  0 disk 
+sde                         8:64   0  9.1T  0 disk 
+sdf                         8:80   0  9.1T  0 disk 
+sdg                         8:96   0  9.1T  0 disk 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# df -h
+Filesystem                         Size  Used Avail Use% Mounted on
+udev                                32G     0   32G   0% /dev
+tmpfs                              6.3G  2.2M  6.3G   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv  3.6T  936G  2.6T  27% /
+tmpfs                               32G   64K   32G   1% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+tmpfs                               32G     0   32G   0% /sys/fs/cgroup
+/dev/sdc2                          2.0G  216M  1.6G  12% /boot
+/dev/loop0                          64M   64M     0 100% /snap/core20/1828
+/dev/loop1                          64M   64M     0 100% /snap/core20/2599
+/dev/loop2                          92M   92M     0 100% /snap/lxd/24061
+/dev/loop3                          92M   92M     0 100% /snap/lxd/32662
+/dev/loop5                          50M   50M     0 100% /snap/snapd/18357
+/dev/loop4                          51M   51M     0 100% /snap/snapd/24718
+tmpfs                              6.3G     0  6.3G   0% /run/user/0
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# lsblk -d -o NAME,SIZE,TYPE,MODEL,SERIAL,WWN
+NAME   SIZE TYPE MODEL            SERIAL                           WWN
+loop0 63.3M loop                                                   
+loop1 63.8M loop                                                   
+loop2 91.9M loop                                                   
+loop3 91.9M loop                                                   
+loop4 50.9M loop                                                   
+loop5 49.9M loop                                                   
+sda    9.1T disk ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+sdb    9.1T disk ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+sdc    3.7T disk MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+sdd    9.1T disk ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+sde    9.1T disk ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+sdf    9.1T disk ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+sdg    9.1T disk ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# findmnt /
+TARGET SOURCE                            FSTYPE OPTIONS
+/      /dev/mapper/ubuntu--vg-ubuntu--lv ext4   rw,relatime,stripe=64
+root@fs1-pre-stor-172-21-224-223:~# findmnt /boot
+TARGET SOURCE    FSTYPE OPTIONS
+/boot  /dev/sdc2 ext4   rw,relatime,stripe=64
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                 /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                 /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                 /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                 /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                 /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                 /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+sdb                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+sdc                        3.7T disk                                                                            MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                              0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4              fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member       LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4              fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+sde                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+sdf                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+sdg                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# MINIO_DISKS="/dev/sda /dev/sdb /dev/sdd /dev/sde /dev/sdf /dev/sdg"
+root@fs1-pre-stor-172-21-224-223:~# echo "$MINIO_DISKS"
+/dev/sda /dev/sdb /dev/sdd /dev/sde /dev/sdf /dev/sdg
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== $d ===="
+>   lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN "$d"
+> done
+==== /dev/sda ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sda   9.1T disk                              ST10000NM001G-2M 5000c500db5f0e76 0x5000c500db5f0e76
+==== /dev/sdb ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sdb   9.1T disk                              ST10000NM001G-2M 5000c500db5f91e6 0x5000c500db5f91e6
+==== /dev/sdd ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sdd   9.1T disk                              ST10000NM017B-2T 5000c500f13a912a 0x5000c500f13a912a
+==== /dev/sde ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sde   9.1T disk                              ST10000NM017B-2T 5000c500f13a9285 0x5000c500f13a9285
+==== /dev/sdf ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sdf   9.1T disk                              ST10000NM017B-2T 5000c500f13a94c3 0x5000c500f13a94c3
+==== /dev/sdg ====
+NAME  SIZE TYPE FSTYPE LABEL UUID MOUNTPOINT MODEL            SERIAL           WWN
+sdg   9.1T disk                              ST10000NM017B-2T 5000c500f13aaebf 0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== wipefs before: $d ===="
+>   wipefs "$d"
+> done
+==== wipefs before: /dev/sda ====
+==== wipefs before: /dev/sdb ====
+==== wipefs before: /dev/sdd ====
+==== wipefs before: /dev/sde ====
+DEVICE OFFSET TYPE UUID LABEL
+sde    0x1fe  PMBR      
+==== wipefs before: /dev/sdf ====
+DEVICE OFFSET TYPE UUID LABEL
+sdf    0x1fe  PMBR      
+==== wipefs before: /dev/sdg ====
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== cleaning $d ===="
+>   wipefs -a "$d"
+>   dd if=/dev/zero of="$d" bs=1M count=100 conv=fsync
+>   blockdev --rereadpt "$d" || true
+> done
+==== cleaning /dev/sda ====
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.593395 s, 177 MB/s
+==== cleaning /dev/sdb ====
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.533617 s, 197 MB/s
+==== cleaning /dev/sdd ====
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.520319 s, 202 MB/s
+==== cleaning /dev/sde ====
+/dev/sde: 2 bytes were erased at offset 0x000001fe (PMBR): 55 aa
+/dev/sde: calling ioctl to re-read partition table: Success
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.502874 s, 209 MB/s
+==== cleaning /dev/sdf ====
+/dev/sdf: 2 bytes were erased at offset 0x000001fe (PMBR): 55 aa
+/dev/sdf: calling ioctl to re-read partition table: Success
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.498874 s, 210 MB/s
+==== cleaning /dev/sdg ====
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.515102 s, 204 MB/s
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== wipefs before: $d ===="
+>   wipefs "$d"
+> done
+==== wipefs before: /dev/sda ====
+==== wipefs before: /dev/sdb ====
+==== wipefs before: /dev/sdd ====
+==== wipefs before: /dev/sde ====
+==== wipefs before: /dev/sdf ====
+==== wipefs before: /dev/sdg ====
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== zap gpt: $d ===="
+>   sgdisk --zap-all "$d"
+>   wipefs -a "$d"
+>   blockdev --rereadpt "$d" || true
+> done
+==== zap gpt: /dev/sda ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+==== zap gpt: /dev/sdb ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+==== zap gpt: /dev/sdd ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+==== zap gpt: /dev/sde ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+==== zap gpt: /dev/sdf ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+==== zap gpt: /dev/sdg ====
+Creating new GPT entries in memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# which mkfs.xfs
+/usr/sbin/mkfs.xfs
+root@fs1-pre-stor-172-21-224-223:~# which parted
+/usr/sbin/parted
+root@fs1-pre-stor-172-21-224-223:~# which wipefs
+/usr/sbin/wipefs
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# i=1
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   echo "==== partitioning $d as MINIODISK$i ===="
+> 
+>   parted -s "$d" mklabel gpt
+>   parted -s -a optimal "$d" mkpart primary xfs 0% 100%
+>   partprobe "$d"
+>   udevadm settle
+> 
+>   i=$((i+1))
+> done
+==== partitioning /dev/sda as MINIODISK1 ====
+==== partitioning /dev/sdb as MINIODISK2 ====
+==== partitioning /dev/sdd as MINIODISK3 ====
+==== partitioning /dev/sde as MINIODISK4 ====
+==== partitioning /dev/sdf as MINIODISK5 ====
+==== partitioning /dev/sdg as MINIODISK6 ====
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                 /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                 /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                 /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                 /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                 /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                 /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─sda1                     9.1T part                                                                                                                              0x5000c500db5f0e76
+sdb                        9.1T disk                                                                            ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─sdb1                     9.1T part                                                                                                                              0x5000c500db5f91e6
+sdc                        3.7T disk                                                                            MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                              0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4              fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member       LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4              fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+└─sdd1                     9.1T part                                                                                                                              0x5000c500f13a912a
+sde                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+└─sde1                     9.1T part                                                                                                                              0x5000c500f13a9285
+sdf                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+└─sdf1                     9.1T part                                                                                                                              0x5000c500f13a94c3
+sdg                        9.1T disk                                                                            ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+└─sdg1                     9.1T part                                                                                                                              0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# i=1
+root@fs1-pre-stor-172-21-224-223:~# for d in $MINIO_DISKS; do
+>   part="${d}1"
+> 
+>   # 如果设备名以数字结尾，例如 /dev/nvme0n1，则分区会是 /dev/nvme0n1p1
+>   if [[ "$d" =~ [0-9]$ ]]; then
+>     part="${d}p1"
+>   fi
+> 
+>   label="MINIODISK${i}"
+> 
+>   echo "==== mkfs.xfs $part label=$label ===="
+>   mkfs.xfs -f -L "$label" "$part"
+> 
+>   i=$((i+1))
+> done
+==== mkfs.xfs /dev/sda1 label=MINIODISK1 ====
+meta-data=/dev/sda1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+==== mkfs.xfs /dev/sdb1 label=MINIODISK2 ====
+meta-data=/dev/sdb1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+==== mkfs.xfs /dev/sdd1 label=MINIODISK3 ====
+meta-data=/dev/sdd1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+==== mkfs.xfs /dev/sde1 label=MINIODISK4 ====
+meta-data=/dev/sde1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+==== mkfs.xfs /dev/sdf1 label=MINIODISK5 ====
+meta-data=/dev/sdf1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+==== mkfs.xfs /dev/sdg1 label=MINIODISK6 ====
+meta-data=/dev/sdg1              isize=512    agcount=10, agsize=268435455 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2441608704, imaxpct=5
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+root@fs1-pre-stor-172-21-224-223:~# blkid | egrep 'MINIODISK|xfs'
+/dev/sdb1: LABEL="MINIODISK2" UUID="26bcd46d-e49d-4506-89dd-c1a46813327a" TYPE="xfs" PARTLABEL="primary" PARTUUID="61f93352-356c-49aa-a271-74f69e2c56ab"
+/dev/sda1: LABEL="MINIODISK1" UUID="1c35ccee-e073-4ef9-9d4d-38e0f8406eb5" TYPE="xfs" PARTLABEL="primary" PARTUUID="0e9811ec-dc66-4393-96b1-953046b20328"
+/dev/sdd1: LABEL="MINIODISK3" UUID="0fd62bed-9b92-4326-92d1-63f8204cf49c" TYPE="xfs" PARTLABEL="primary" PARTUUID="f34332c7-f992-48ee-829e-df63f4c9c9ec"
+/dev/sde1: LABEL="MINIODISK4" UUID="366d642d-dac8-4772-8661-7db74828c803" TYPE="xfs" PARTLABEL="primary" PARTUUID="c8f4f1e0-5108-4e47-830a-de70a71275f3"
+/dev/sdf1: LABEL="MINIODISK5" UUID="729729ff-b8c9-451f-9e9e-e50be6d9e50d" TYPE="xfs" PARTLABEL="primary" PARTUUID="de8fb805-9921-49fc-9393-8288524bda97"
+/dev/sdg1: LABEL="MINIODISK6" UUID="ce748d00-89a3-4a30-afc2-d48d2d061911" TYPE="xfs" PARTLABEL="primary" PARTUUID="ab7152a5-9af9-4d23-a740-ccd91d27a056"
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL      UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                      /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                      /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                      /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                      /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                      /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                      /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─sda1                     9.1T part xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5                                                                       0x5000c500db5f0e76
+sdb                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─sdb1                     9.1T part xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a                                                                       0x5000c500db5f91e6
+sdc                        3.7T disk                                                                                 MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                                   0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+└─sdd1                     9.1T part xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c                                                                       0x5000c500f13a912a
+sde                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+└─sde1                     9.1T part xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803                                                                       0x5000c500f13a9285
+sdf                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+└─sdf1                     9.1T part xfs         MINIODISK5 729729ff-b8c9-451f-9e9e-e50be6d9e50d                                                                       0x5000c500f13a94c3
+sdg                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+└─sdg1                     9.1T part xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911                                                                       0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# mkdir -p /mnt/minio/disk{1..6}
+root@fs1-pre-stor-172-21-224-223:~# id minio-user || useradd -r -s /usr/sbin/nologin minio-user
+id: ‘minio-user’: no such user
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# cp -a /etc/fstab "$PREP_DIR/fstab.before-minio.$(date +%F_%H%M%S)"
+root@fs1-pre-stor-172-21-224-223:~# cat >> /etc/fstab <<'EOF'
+> 
+> # MinIO single-node multi-drive data disks
+> LABEL=MINIODISK1 /mnt/minio/disk1 xfs defaults,noatime 0 2
+> LABEL=MINIODISK2 /mnt/minio/disk2 xfs defaults,noatime 0 2
+> LABEL=MINIODISK3 /mnt/minio/disk3 xfs defaults,noatime 0 2
+> LABEL=MINIODISK4 /mnt/minio/disk4 xfs defaults,noatime 0 2
+> LABEL=MINIODISK5 /mnt/minio/disk5 xfs defaults,noatime 0 2
+> LABEL=MINIODISK6 /mnt/minio/disk6 xfs defaults,noatime 0 2
+> EOF
+root@fs1-pre-stor-172-21-224-223:~# systemctl daemon-reload
+root@fs1-pre-stor-172-21-224-223:~# mount -a
+root@fs1-pre-stor-172-21-224-223:~# df -hT | egrep '/mnt/minio|Filesystem'
+Filesystem                        Type      Size  Used Avail Use% Mounted on
+/dev/sda1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk1
+/dev/sdb1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk2
+/dev/sdd1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk3
+/dev/sde1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk4
+/dev/sdf1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk5
+/dev/sdg1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk6
+root@fs1-pre-stor-172-21-224-223:~# findmnt | grep /mnt/minio
+├─/mnt/minio/disk1                    /dev/sda1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk2                    /dev/sdb1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk3                    /dev/sdd1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk4                    /dev/sde1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk5                    /dev/sdf1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+└─/mnt/minio/disk6                    /dev/sdg1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL      UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                      /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                      /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                      /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                      /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                      /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                      /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─sda1                     9.1T part xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                    0x5000c500db5f0e76
+sdb                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─sdb1                     9.1T part xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                    0x5000c500db5f91e6
+sdc                        3.7T disk                                                                                 MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                                   0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+└─sdd1                     9.1T part xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                    0x5000c500f13a912a
+sde                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+└─sde1                     9.1T part xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                    0x5000c500f13a9285
+sdf                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+└─sdf1                     9.1T part xfs         MINIODISK5 729729ff-b8c9-451f-9e9e-e50be6d9e50d   /mnt/minio/disk5                                                    0x5000c500f13a94c3
+sdg                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+└─sdg1                     9.1T part xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                    0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# chown -R minio-user:minio-user /mnt/minio/disk{1..6}
+root@fs1-pre-stor-172-21-224-223:~# chmod 750 /mnt/minio/disk{1..6}
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Couldn't find any foreign Configuration
+
+Total Foreign PDs = 0
+
+
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/sall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive Information :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# pvs
+  PV         VG        Fmt  Attr PSize  PFree
+  /dev/sdc3  ubuntu-vg lvm2 a--  <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# vgs
+  VG        #PV #LV #SN Attr   VSize  VFree
+  ubuntu-vg   1   1   0 wz--n- <3.64t    0 
+root@fs1-pre-stor-172-21-224-223:~# lvs
+  LV        VG        Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  ubuntu-lv ubuntu-vg -wi-ao---- <3.64t                                                    
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# df -hT
+Filesystem                        Type      Size  Used Avail Use% Mounted on
+udev                              devtmpfs   32G     0   32G   0% /dev
+tmpfs                             tmpfs     6.3G  2.2M  6.3G   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4      3.6T  936G  2.6T  27% /
+tmpfs                             tmpfs      32G   64K   32G   1% /dev/shm
+tmpfs                             tmpfs     5.0M     0  5.0M   0% /run/lock
+tmpfs                             tmpfs      32G     0   32G   0% /sys/fs/cgroup
+/dev/sdc2                         ext4      2.0G  216M  1.6G  12% /boot
+/dev/loop0                        squashfs   64M   64M     0 100% /snap/core20/1828
+/dev/loop1                        squashfs   64M   64M     0 100% /snap/core20/2599
+/dev/loop2                        squashfs   92M   92M     0 100% /snap/lxd/24061
+/dev/loop3                        squashfs   92M   92M     0 100% /snap/lxd/32662
+/dev/loop5                        squashfs   50M   50M     0 100% /snap/snapd/18357
+/dev/loop4                        squashfs   51M   51M     0 100% /snap/snapd/24718
+tmpfs                             tmpfs     6.3G     0  6.3G   0% /run/user/0
+/dev/sda1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk1
+/dev/sdb1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk2
+/dev/sdd1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk3
+/dev/sde1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk4
+/dev/sdf1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk5
+/dev/sdg1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk6
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL      UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                      /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                      /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                      /snap/lxd/24061                                                     
+loop3                     91.9M loop squashfs                                                      /snap/lxd/32662                                                     
+loop4                     50.9M loop squashfs                                                      /snap/snapd/24718                                                   
+loop5                     49.9M loop squashfs                                                      /snap/snapd/18357                                                   
+sda                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─sda1                     9.1T part xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                    0x5000c500db5f0e76
+sdb                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─sdb1                     9.1T part xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                    0x5000c500db5f91e6
+sdc                        3.7T disk                                                                                 MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdc1                       1M part                                                                                                                                   0x600605b0079e0a60273acd4d0c839f5e
+├─sdc2                       2G part ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdc3                     3.7T part LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sdd                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+└─sdd1                     9.1T part xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                    0x5000c500f13a912a
+sde                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+└─sde1                     9.1T part xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                    0x5000c500f13a9285
+sdf                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+└─sdf1                     9.1T part xfs         MINIODISK5 729729ff-b8c9-451f-9e9e-e50be6d9e50d   /mnt/minio/disk5                                                    0x5000c500f13a94c3
+sdg                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+└─sdg1                     9.1T part xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                    0x5000c500f13aaebf
+root@fs1-pre-stor-172-21-224-223:~# 
