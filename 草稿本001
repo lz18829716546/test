@@ -4275,3 +4275,173 @@ sdf                        9.1T disk                                            
 sdg                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
 └─sdg1                     9.1T part xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                    0x5000c500f13aaebf
 root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# sudo systemctl reboot
+root@fs1-pre-stor-172-21-224-223:~# Connection to 172.21.224.223 closed by remote host.
+Connection to 172.21.224.223 closed.
+[root@fs-yum-repo ~]# ssh root@172.21.224.223
+root@172.21.224.223's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-216-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Mon 18 May 2026 05:11:47 PM CST
+
+  System load:  0.02              Temperature:            49.0 C
+  Usage of /:   25.3% of 3.58TB   Processes:              479
+  Memory usage: 1%                Users logged in:        0
+  Swap usage:   0%                IPv4 address for bond0: 172.21.224.223
+
+
+Expanded Security Maintenance for Infrastructure is not enabled.
+
+39 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+26 additional security updates can be applied with ESM Infra.
+Learn more about enabling ESM Infra service for Ubuntu 20.04 at
+https://ubuntu.com/20-04
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Mon May 18 17:11:48 2026
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# df -hT | egrep '/mnt/minio|Filesystem'
+Filesystem                        Type      Size  Used Avail Use% Mounted on
+/dev/sda1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk1
+/dev/sdd1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk4
+/dev/sdf1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk6
+/dev/sdb1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk2
+/dev/sdc1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk3
+/dev/sde1                         xfs       9.1T   65G  9.1T   1% /mnt/minio/disk5
+root@fs1-pre-stor-172-21-224-223:~# findmnt | grep /mnt/minio
+├─/mnt/minio/disk1                    /dev/sda1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk4                    /dev/sdd1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk6                    /dev/sdf1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk2                    /dev/sdb1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/mnt/minio/disk3                    /dev/sdc1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+└─/mnt/minio/disk5                    /dev/sde1                         xfs         rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota
+root@fs1-pre-stor-172-21-224-223:~# lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN
+NAME                       SIZE TYPE FSTYPE      LABEL      UUID                                   MOUNTPOINT        MODEL            SERIAL                           WWN
+loop0                     63.3M loop squashfs                                                      /snap/core20/1828                                                   
+loop1                     63.8M loop squashfs                                                      /snap/core20/2599                                                   
+loop2                     91.9M loop squashfs                                                      /snap/lxd/32662                                                     
+loop3                     49.9M loop squashfs                                                      /snap/snapd/18357                                                   
+loop4                     50.9M loop squashfs                                                      /snap/snapd/24718                                                   
+loop5                     91.9M loop squashfs                                                      /snap/lxd/24061                                                     
+sda                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76
+└─sda1                     9.1T part xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                    0x5000c500db5f0e76
+sdb                        9.1T disk                                                                                 ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6
+└─sdb1                     9.1T part xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                    0x5000c500db5f91e6
+sdc                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a
+└─sdc1                     9.1T part xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                    0x5000c500f13a912a
+sdd                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285
+└─sdd1                     9.1T part xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                    0x5000c500f13a9285
+sde                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3
+└─sde1                     9.1T part xfs         MINIODISK5 729729ff-b8c9-451f-9e9e-e50be6d9e50d   /mnt/minio/disk5                                                    0x5000c500f13a94c3
+sdf                        9.1T disk                                                                                 ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf
+└─sdf1                     9.1T part xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                    0x5000c500f13aaebf
+sdg                        3.7T disk                                                                                 MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e
+├─sdg1                       1M part                                                                                                                                   0x600605b0079e0a60273acd4d0c839f5e
+├─sdg2                       2G part ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                               0x600605b0079e0a60273acd4d0c839f5e
+└─sdg3                     3.7T part LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                     0x600605b0079e0a60273acd4d0c839f5e
+  └─ubuntu--vg-ubuntu--lv  3.7T lvm  ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                   
+sr0                       1024M rom                                                                                  Virtual_CDROM0   AAAABBBBCCCC1                    
+sr1                       1024M rom                                                                                  Virtual_CDROM1   AAAABBBBCCCC1                    
+sr2                       1024M rom                                                                                  Virtual_CDROM2   AAAABBBBCCCC1                    
+sr3                       1024M rom                                                                                  Virtual_CDROM3   AAAABBBBCCCC1                    
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/sall show
+CLI Version = 007.2309.0000.0000 Sep 16, 2022
+Operating system = Linux 5.4.0-216-generic
+Controller = 0
+Status = Success
+Description = Show Drive Information Succeeded.
+
+
+Drive Information :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
+252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+
+root@fs1-pre-stor-172-21-224-223:~# mkdir -p /opt/minio
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# cat > /opt/minio/xfs-retry-settings.sh <<'EOF'
+> #!/usr/bin/env bash
+> set -euo pipefail
+> 
+> for mnt in /mnt/minio/disk{1..6}; do
+>   dev=$(findmnt -n -o SOURCE "$mnt" || true)
+>   [ -z "$dev" ] && continue
+> 
+>   devbase=$(basename "$dev")
+>   xfs_path="/sys/fs/xfs/$devbase/error/metadata"
+> 
+>   if [ -d "$xfs_path" ]; then
+>     echo "Set XFS retry settings for $dev mounted at $mnt"
+>     echo 0 > "$xfs_path/EIO/max_retries" || true
+>     echo 0 > "$xfs_path/ENOSPC/max_retries" || true
+>     echo 0 > "$xfs_path/default/max_retries" || true
+>   fi
+> done
+> EOF
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# chmod +x /opt/minio/xfs-retry-settings.sh
+root@fs1-pre-stor-172-21-224-223:~# /opt/minio/xfs-retry-settings.sh
+Set XFS retry settings for /dev/sda1 mounted at /mnt/minio/disk1
+Set XFS retry settings for /dev/sdb1 mounted at /mnt/minio/disk2
+Set XFS retry settings for /dev/sdc1 mounted at /mnt/minio/disk3
+Set XFS retry settings for /dev/sdd1 mounted at /mnt/minio/disk4
+Set XFS retry settings for /dev/sde1 mounted at /mnt/minio/disk5
+Set XFS retry settings for /dev/sdf1 mounted at /mnt/minio/disk6
+root@fs1-pre-stor-172-21-224-223:~# cat > /etc/systemd/system/minio-xfs-retry-settings.service <<'EOF'
+> [Unit]
+> Description=Apply XFS retry settings for MinIO data disks
+> After=local-fs.target
+> Requires=local-fs.target
+> 
+> [Service]
+> Type=oneshot
+> ExecStart=/opt/minio/xfs-retry-settings.sh
+> 
+> [Install]
+> WantedBy=multi-user.target
+> EOF
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# systemctl daemon-reload
+root@fs1-pre-stor-172-21-224-223:~# systemctl enable minio-xfs-retry-settings.service
+Created symlink /etc/systemd/system/multi-user.target.wants/minio-xfs-retry-settings.service → /etc/systemd/system/minio-xfs-retry-settings.service.
+root@fs1-pre-stor-172-21-224-223:~# 
