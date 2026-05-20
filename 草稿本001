@@ -1,270 +1,587 @@
-root@fs1-pre-stor-172-21-224-223:~# ll /root/minio_disk5_fault_2026-05-20_133509/
-total 60
-drwxr-xr-x  2 root root  4096 May 20 13:35 ./
-drwx------ 17 root root  4096 May 20 13:35 ../
--rw-r--r--  1 root root  1407 May 20 13:35 blkid.txt
--rw-r--r--  1 root root 22670 May 20 13:35 kernel_sde_error.txt
--rw-r--r--  1 root root  4043 May 20 13:35 lsblk.txt
--rw-r--r--  1 root root  3897 May 20 13:35 mc_admin_info.json
--rw-r--r--  1 root root   730 May 20 13:35 mc_admin_info.txt
--rw-r--r--  1 root root   219 May 20 13:35 smartctl_a_sde.txt
--rw-r--r--  1 root root   219 May 20 13:35 smartctl_i_sde.txt
--rw-r--r--  1 root root  3133 May 20 13:37 storcli_c0_e252_s6_all.txt
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/blkid.txt
-/dev/sdf1: LABEL="MINIODISK6" UUID="ce748d00-89a3-4a30-afc2-d48d2d061911" TYPE="xfs" PARTLABEL="primary" PARTUUID="ab7152a5-9af9-4d23-a740-ccd91d27a056"
-/dev/sda1: LABEL="MINIODISK1" UUID="1c35ccee-e073-4ef9-9d4d-38e0f8406eb5" TYPE="xfs" PARTLABEL="primary" PARTUUID="0e9811ec-dc66-4393-96b1-953046b20328"
-/dev/sdc1: LABEL="MINIODISK3" UUID="0fd62bed-9b92-4326-92d1-63f8204cf49c" TYPE="xfs" PARTLABEL="primary" PARTUUID="f34332c7-f992-48ee-829e-df63f4c9c9ec"
-/dev/sdd1: LABEL="MINIODISK4" UUID="366d642d-dac8-4772-8661-7db74828c803" TYPE="xfs" PARTLABEL="primary" PARTUUID="c8f4f1e0-5108-4e47-830a-de70a71275f3"
-/dev/sdb1: LABEL="MINIODISK2" UUID="26bcd46d-e49d-4506-89dd-c1a46813327a" TYPE="xfs" PARTLABEL="primary" PARTUUID="61f93352-356c-49aa-a271-74f69e2c56ab"
-/dev/sdg2: UUID="fe9f95d7-ea42-4593-aa0c-65449e8281fe" TYPE="ext4" PARTUUID="4c019c06-44d7-4574-b8a3-e5af73ed3743"
-/dev/sdg3: UUID="LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l" TYPE="LVM2_member" PARTUUID="c7e14999-8be1-4922-be7d-fad48c647e18"
-/dev/sde1: LABEL="MINIODISK5" UUID="729729ff-b8c9-451f-9e9e-e50be6d9e50d" TYPE="xfs"
-/dev/mapper/ubuntu--vg-ubuntu--lv: UUID="fd9ce789-fb7f-4806-a075-bcaf417d2078" TYPE="ext4"
-/dev/loop0: TYPE="squashfs"
-/dev/loop1: TYPE="squashfs"
-/dev/loop2: TYPE="squashfs"
-/dev/loop3: TYPE="squashfs"
-/dev/loop4: TYPE="squashfs"
-/dev/loop5: TYPE="squashfs"
-/dev/sdg1: PARTUUID="5e24304f-7309-403b-9d64-ce20bff4569a"
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/lsblk.txt
-NAME                      KNAME TYPE  SIZE FSTYPE      LABEL      UUID                                   MOUNTPOINT       MODEL            SERIAL                           WWN                                HCTL       STATE
-sda                       sda   disk  9.1T                                                                                ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76                 0:0:27:0   running
-└─sda1                    sda1  part  9.1T xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                   0x5000c500db5f0e76                            
-sdb                       sdb   disk  9.1T                                                                                ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6                 0:0:28:0   running
-└─sdb1                    sdb1  part  9.1T xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                   0x5000c500db5f91e6                            
-sdc                       sdc   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a                 0:0:29:0   running
-└─sdc1                    sdc1  part  9.1T xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                   0x5000c500f13a912a                            
-sdd                       sdd   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285                 0:0:30:0   running
-└─sdd1                    sdd1  part  9.1T xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                   0x5000c500f13a9285                            
-sde                       sde   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a94c3                 0x5000c500f13a94c3                 0:0:31:0   offline
-└─sde1                    sde1  part  9.1T xfs         MINIODISK5 729729ff-b8c9-451f-9e9e-e50be6d9e50d   /mnt/minio/disk5                                                   0x5000c500f13a94c3                            
-sdf                       sdf   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf                 0:0:32:0   running
-└─sdf1                    sdf1  part  9.1T xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                   0x5000c500f13aaebf                            
-sdg                       sdg   disk  3.7T                                                                                MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e 0:2:0:0    running
-├─sdg1                    sdg1  part    1M                                                                                                                                  0x600605b0079e0a60273acd4d0c839f5e            
-├─sdg2                    sdg2  part    2G ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                              0x600605b0079e0a60273acd4d0c839f5e            
-└─sdg3                    sdg3  part  3.7T LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                    0x600605b0079e0a60273acd4d0c839f5e            
-  └─ubuntu--vg-ubuntu--lv dm-0  lvm   3.7T ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                                                                running
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/kernel_sde_error.txt
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel: INFO: task xfsaild/sde1:1265 blocked for more than 120 seconds.
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel: xfsaild/sde1    D    0  1265      2 0x80004000
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_log_force+0x15e/0x2e0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfsaild_push+0x35a/0x5b0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfsaild+0x116/0x240 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  ? xfsaild_push+0x5b0/0x5b0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_blkdev_issue_flush+0x19/0x20 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_fsync+0x219/0x230 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_buffered_aio_write+0x30c/0x340 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_write_iter+0xb3/0xe0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_fsync+0x5d/0x230 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_buffered_aio_write+0x30c/0x340 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_write_iter+0xb3/0xe0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  ? _xfs_trans_bjoin+0x48/0x60 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  ? xfs_trans_read_buf_map+0x10a/0x350 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  ? xfs_btree_read_buf_block.constprop.0+0xa0/0xd0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  ? xfs_buf_find.isra.0+0x3bf/0x610 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_buf_lock+0x37/0xf0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_buf_find.isra.0+0x3bf/0x610 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_buf_get_map+0x43/0x2b0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_buf_read_map+0x2f/0x1d0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_trans_read_buf_map+0xca/0x350 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_read_agi+0x9c/0x140 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_iunlink+0x5b/0x1c0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_droplink+0x59/0x60 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_remove+0x1d9/0x2c0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_vn_unlink+0x55/0xa0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_fsync+0x5d/0x230 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_buffered_aio_write+0x30c/0x340 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_write_iter+0xb3/0xe0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_fsync+0x5d/0x230 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_buffered_aio_write+0x30c/0x340 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_write_iter+0xb3/0xe0 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_setattr_size+0xae/0x400 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_vn_setattr_size+0x40/0x90 [xfs]
-May 20 11:02:05 fs1-pre-stor-172-21-224-223 kernel:  xfs_vn_setattr+0x72/0xc0 [xfs]
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#479 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#479 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#479 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#479 CDB: Write(16) 8a 00 00 00 00 00 80 00 08 18 00 00 00 10 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#480 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#474 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#477 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#476 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#480 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#477 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 2147485720 op 0x1:(WRITE) flags 0x1000 phys_seg 2 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#476 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#474 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#477 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#480 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#476 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#474 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#477 CDB: Write(16) 8a 00 00 00 00 03 80 00 0e 50 00 00 00 08 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#476 CDB: Write(16) 8a 00 00 00 00 03 00 00 0e 48 00 00 00 08 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#474 CDB: Write(16) 8a 00 00 00 00 01 00 00 09 10 00 00 00 08 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 15032389200 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 12884905544 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 4294969616 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): writeback error on sector 15032389208
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): writeback error on sector 4294969624
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#478 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#480 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#478 Sense Key : Not Ready [current] 
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x80700 phys_seg 1 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#478 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#478 CDB: Write(16) 8a 00 00 00 00 00 80 00 08 00 00 00 00 08 00 00
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 2147485696 op 0x1:(WRITE) flags 0x1000 phys_seg 1 prio class 0
-May 20 11:02:14 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): metadata I/O error in "xfs_buf_iodone_callback_error" at daddr 0x80000018 len 8 error 5
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#475 timing out command, waited 60s
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#467 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#467 Sense Key : Not Ready [current] 
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#467 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#467 CDB: Synchronize Cache(10) 35 00 00 00 00 00 00 00 00 00
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 0 op 0x1:(WRITE) flags 0x800 phys_seg 0 prio class 0
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#488 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#488 Sense Key : Not Ready [current] 
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#488 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 10737576504 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#488 CDB: Write(16) 8a 00 00 00 00 02 00 00 0e 40 00 00 00 20 00 00
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 8589938240 op 0x1:(WRITE) flags 0x1000 phys_seg 4 prio class 0
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): log I/O error -5
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#490 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#490 Sense Key : Not Ready [current] 
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#490 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#490 CDB: Write(16) 8a 00 00 00 00 02 80 00 07 e0 00 00 00 10 00 00
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 10737420256 op 0x1:(WRITE) flags 0x1000 phys_seg 2 prio class 0
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): xfs_do_force_shutdown(0x2) called from line 1262 of file fs/xfs/xfs_log.c. Return address = 00000000b7069e6c
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): Log I/O Error Detected. Shutting down filesystem
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#491 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): Please unmount the filesystem and rectify the problem(s)
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#491 Sense Key : Not Ready [current] 
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#491 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:02:16 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#491 CDB: Write(16) 8a 00 00 00 00 02 80 00 07 f8 00 00 00 20 00 00
-May 20 11:02:47 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): xfs_imap_to_bp: xfs_trans_read_buf() returned error -5.
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#466 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#466 Sense Key : Not Ready [current] 
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#466 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#466 CDB: Synchronize Cache(10) 35 00 00 00 00 00 00 00 00 00
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 10737576528 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 10737576536 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 10737576552 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): log I/O error -5
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): log I/O error -5
-May 20 11:03:11 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): log I/O error -5
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#465 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#465 Sense Key : Not Ready [current] 
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#465 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#465 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:05:22 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:06:06 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_fsync+0x5d/0x230 [xfs]
-May 20 11:06:06 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_buffered_aio_write+0x30c/0x340 [xfs]
-May 20 11:06:06 fs1-pre-stor-172-21-224-223 kernel:  xfs_file_write_iter+0xb3/0xe0 [xfs]
-May 20 11:06:53 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#352 Abort request is for SMID: 353
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#352 task abort SUCCESS!! scmd(0x0000000026ae7975)
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#352 CDB: Write(16) 8a 00 00 00 00 00 80 00 08 18 00 00 00 08 00 00
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#505 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#505 Sense Key : Not Ready [current] 
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#505 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#505 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 Sense Key : Not Ready [current] 
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 CDB: Write(16) 8a 00 00 00 00 00 80 00 08 18 00 00 00 08 00 00
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 2147485720 op 0x1:(WRITE) flags 0x1000 phys_seg 1 prio class 0
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 Sense Key : Not Ready [current] 
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 CDB: Write(16) 8a 00 00 00 00 01 00 00 0e 68 00 00 00 08 00 00
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 4294970984 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
-May 20 11:06:57 fs1-pre-stor-172-21-224-223 kernel: XFS (sde1): writeback error on sector 4294970992
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#509 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#509 Sense Key : Not Ready [current] 
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#509 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#509 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:06:58 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#529 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#529 Sense Key : Not Ready [current] 
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#529 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#529 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 Sense Key : Not Ready [current] 
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#506 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 Sense Key : Not Ready [current] 
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#507 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#508 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#508 Sense Key : Not Ready [current] 
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#508 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#508 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:07:28 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#569 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#569 Sense Key : Not Ready [current] 
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#569 Add. Sense: Logical unit not ready, cause not reportable
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#569 CDB: Read(16) 88 00 00 00 00 04 8c 3f ff 80 00 00 00 08 00 00
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sde, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
-May 20 11:07:29 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sde, logical block 2441609200, async page read
-May 20 12:30:25 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 Abort request is for SMID: 525
-May 20 12:30:46 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 task abort SUCCESS!! scmd(0x000000007516b039)
-May 20 12:30:46 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 CDB: Request Sense 03 00 00 00 60 00
-May 20 12:30:46 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 target reset SUCCESS!!
-May 20 12:30:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 Abort request is for SMID: 525
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 task abort SUCCESS!! scmd(0x000000007516b039)
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 CDB: Test Unit Ready 00 00 00 00 00 00
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 OCR is requested due to IO timeout!!
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 SCSI host state: 5  SCSI host busy: 1  FW outstanding: 0
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 scmd: (0x000000007516b039)  retries: 0x0  allowed: 0x0
-May 20 12:31:23 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 CDB: ATA command pass through(16) 85 06 2c 00 00 00 00 00 00 00 00 00 00 00 e5 00
-May 20 12:32:45 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 Abort request is for SMID: 525
-May 20 12:32:45 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 task abort SUCCESS!! scmd(0x000000007516b039)
-May 20 12:32:45 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:31:0: [sde] tag#524 CDB: Test Unit Ready 00 00 00 00 00 00
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/mc_admin_info.json
-{"status":"success","info":{"mode":"online","deploymentID":"5b8e22b3-1424-43a9-854b-5ee95b9a563e","buckets":{"count":0},"objects":{"count":0},"versions":{"count":0},"deletemarkers":{"count":0},"usage":{"size":0},"services":{"kms":{},"ldap":{}},"backend":{"backendType":"Erasure","onlineDisks":5,"offlineDisks":1,"standardSCParity":2,"rrSCParity":1,"totalSets":[1],"totalDrivesPerSet":[6]},"servers":[{"state":"online","endpoint":"127.0.0.1:9000","uptime":151309,"version":"2025-09-07T16:13:09Z","commitID":"07c3a429bfed433e49018cb0f78a52145d4bedeb","network":{"127.0.0.1:9000":"online"},"drives":[{"endpoint":"/mnt/minio/disk5","state":"faulty","major":0,"minor":0,"metrics":{"totalWaiting":1,"totalErrorsAvailability":5469,"totalErrorsTimeout":2566},"used_inodes":0,"local":true,"pool_index":0,"set_index":0,"disk_index":4},{"endpoint":"/mnt/minio/disk1","path":"/mnt/minio/disk1","state":"ok","uuid":"6c010e97-e0aa-4b40-bdc3-4d3a59e43789","major":8,"minor":1,"totalspace":9998692253696,"usedspace":69746798592,"availspace":9928945455104,"metrics":{"totalErrorsAvailability":6,"totalErrorsTimeout":2},"used_inodes":40,"free_inodes":976643416,"local":true,"pool_index":0,"set_index":0,"disk_index":0},{"endpoint":"/mnt/minio/disk2","path":"/mnt/minio/disk2","state":"ok","uuid":"19ef18ed-600b-465b-9b37-9be6e0fc4876","major":8,"minor":17,"totalspace":9998692253696,"usedspace":69746798592,"availspace":9928945455104,"metrics":{"totalErrorsAvailability":6,"totalErrorsTimeout":2},"used_inodes":40,"free_inodes":976643416,"local":true,"pool_index":0,"set_index":0,"disk_index":1},{"endpoint":"/mnt/minio/disk3","path":"/mnt/minio/disk3","state":"ok","uuid":"d5cd9d24-40e5-4b96-a57b-a47bc65171a9","major":8,"minor":33,"totalspace":9998692253696,"usedspace":69746798592,"availspace":9928945455104,"metrics":{"totalErrorsAvailability":6,"totalErrorsTimeout":2},"used_inodes":40,"free_inodes":976643416,"local":true,"pool_index":0,"set_index":0,"disk_index":2},{"endpoint":"/mnt/minio/disk4","path":"/mnt/minio/disk4","state":"ok","uuid":"2bc107fc-182f-4db3-b203-d67aa927bfea","major":8,"minor":49,"totalspace":9998692253696,"usedspace":69746798592,"availspace":9928945455104,"metrics":{"totalErrorsAvailability":6,"totalErrorsTimeout":2},"used_inodes":40,"free_inodes":976643416,"local":true,"pool_index":0,"set_index":0,"disk_index":3},{"endpoint":"/mnt/minio/disk6","path":"/mnt/minio/disk6","state":"ok","uuid":"884e45f0-aef2-4b37-a888-e1a9cb65320f","major":8,"minor":81,"totalspace":9998692253696,"usedspace":69746798592,"availspace":9928945455104,"metrics":{"totalErrorsAvailability":6,"totalErrorsTimeout":2},"used_inodes":40,"free_inodes":976643416,"local":true,"pool_index":0,"set_index":0,"disk_index":5}],"poolNumber":1,"poolNumbers":[1],"mem_stats":{"Alloc":224265328,"TotalAlloc":11518388608,"Mallocs":28799115,"Frees":28714206,"HeapAlloc":224265328},"go_max_procs":32,"num_cpu":32,"runtime_version":"go1.24.6","gc_stats":{"last_gc":"2026-05-20T05:34:17.619203088Z","num_gc":1266,"pause_total":208990684,"pause":[182725,172741,147957,203594,117104],"pause_end":["2026-05-19T21:12:05.33485214Z","2026-05-19T21:10:05.287422473Z","2026-05-19T21:08:05.236849052Z","2026-05-19T21:06:05.187922789Z","2026-05-19T21:04:05.136395708Z"]},"minio_env_vars":{"MINIO_BROWSER_REDIRECT_URL":"http://172.21.224.223:9001","MINIO_OPTS":"--address :9000 --console-address :9001","MINIO_ROOT_PASSWORD":"*** EXISTS, REDACTED ***","MINIO_ROOT_USER":"*** EXISTS, REDACTED ***","MINIO_SERVER_URL":"http://172.21.224.223:9000","MINIO_STORAGE_CLASS_STANDARD":"EC:2","MINIO_VOLUMES":"/mnt/minio/disk1 /mnt/minio/disk2 /mnt/minio/disk3 /mnt/minio/disk4 /mnt/minio/disk5 /mnt/minio/disk6"},"edition":"","is_leader":false,"ilm_expiry_in_progress":false}],"pools":{"0":{"0":{"id":0,"rawUsage":348733992960,"rawCapacity":49993461268480,"usage":0,"objectsCount":0,"versionsCount":0,"deleteMarkersCount":0,"healDisks":0}}}}}
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/mc_admin_info.txt
-●  127.0.0.1:9000
-   Uptime: 1 day 
-   Version: 2025-09-07T16:13:09Z
-   Network: 1/1 OK 
-   Drives: 5/6 OK 
-   Pool: 1
-
-┌──────┬──────────────────────┬─────────────────────┬──────────────┐
-│ Pool │ Drives Usage         │ Erasure stripe size │ Erasure sets │
-│ 1st  │ 0.7% (total: 36 TiB) │ 6                   │ 1            │
-└──────┴──────────────────────┴─────────────────────┴──────────────┘
-
-5 drives online, 1 drive offline, EC:2
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/smartctl_a_sde.txt
-smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-216-generic] (local build)
-Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
-
-Smartctl open device: /dev/sde failed: No such device or address
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/smartctl_i_sde.txt
-smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-216-generic] (local build)
-Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
-
-Smartctl open device: /dev/sde failed: No such device or address
-root@fs1-pre-stor-172-21-224-223:~# cat /root/minio_disk5_fault_2026-05-20_133509/storcli_c0_e252_s6_all.txt
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/eall/sall show all
 CLI Version = 007.2309.0000.0000 Sep 16, 2022
 Operating system = Linux 5.4.0-216-generic
 Controller = 0
 Status = Success
 Description = Show Drive Information Succeeded.
+
+
+Drive /c0/e252/s0 :
+=================
+
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s0 - Detailed Information :
+========================================
+
+Drive /c0/e252/s0 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s0 Device attributes :
+===================================
+SN =             ZC1D708M
+Manufacturer Id = ATA     
+Model Number = ST4000NM0035-1V4107
+NAND Vendor = NA
+WWN = 5000C500C549CCFA
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s0 Policies/Settings :
+===================================
+Drive position = DriveGroup:0, Span:0, Row:0
+Enclosure position = 1
+Connected Port Number = 0(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221100000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+43 5a 44 31 30 37 4d 38 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s1 :
+=================
+
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s1 - Detailed Information :
+========================================
+
+Drive /c0/e252/s1 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s1 Device attributes :
+===================================
+SN =             ZC1D5J1B
+Manufacturer Id = ATA     
+Model Number = ST4000NM0035-1V4107
+NAND Vendor = NA
+WWN = 5000C500C573EB31
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s1 Policies/Settings :
+===================================
+Drive position = DriveGroup:0, Span:0, Row:1
+Enclosure position = 0
+Connected Port Number = 1(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221101000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+43 5a 44 31 4a 35 42 31 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s2 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s2 - Detailed Information :
+========================================
+
+Drive /c0/e252/s2 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  43C (109.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s2 Device attributes :
+===================================
+SN =             ZS50PFZZ
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F0E76
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s2 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 2(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221102000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 46 50 5a 5a 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s3 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s3 - Detailed Information :
+========================================
+
+Drive /c0/e252/s3 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  44C (111.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s3 Device attributes :
+===================================
+SN =             ZS50PESY
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F91E6
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s3 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 3(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221103000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 45 50 59 53 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s4 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s4 - Detailed Information :
+========================================
+
+Drive /c0/e252/s4 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s4 Device attributes :
+===================================
+SN =             WP00VAZ3
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A912A
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s4 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 4(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221104000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 33 5a 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s5 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s5 - Detailed Information :
+========================================
+
+Drive /c0/e252/s5 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s5 Device attributes :
+===================================
+SN =             WP00VAK0
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A9285
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s5 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 5(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221105000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 30 4b 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
 
 
 Drive /c0/e252/s6 :
@@ -273,7 +590,7 @@ Drive /c0/e252/s6 :
 --------------------------------------------------------------------------------
 EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
 --------------------------------------------------------------------------------
-252:6    31 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+252:6    31 UGood F  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
 --------------------------------------------------------------------------------
 
 EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
@@ -293,19 +610,19 @@ Drive /c0/e252/s6 State :
 =======================
 Shield Counter = 0
 Media Error Count = 0
-Other Error Count = 9
-Drive Temperature = N/A
+Other Error Count = 0
+Drive Temperature =  51C (123.80 F)
 Predictive Failure Count = 0
 S.M.A.R.T alert flagged by drive = No
 
 
 Drive /c0/e252/s6 Device attributes :
 ===================================
-SN =             WP00V2MC
+SN =             WP00VAE0
 Manufacturer Id = ATA     
 Model Number = ST10000NM017B-2TL103
 NAND Vendor = NA
-WWN = 5000C500F13A94C3
+WWN = 5000C500F13A94A7
 Firmware Revision = SCA1    
 Raw size = 9.095 TB [0x48c400000 Sectors]
 Coerced size = 9.094 TB [0x48c300000 Sectors]
@@ -316,14 +633,14 @@ NCQ setting = Enabled
 Write Cache = N/A
 Logical Sector Size = 512B
 Physical Sector Size = 4 KB
-Connector Name = 
+Connector Name = Port 4 - 7 x1
 
 
 Drive /c0/e252/s6 Policies/Settings :
 ===================================
-Enclosure position = 1
+Enclosure position = 0
 Connected Port Number = 6(path0) 
-Sequence Number = 2
+Sequence Number = 10
 Commissioned Spare = No
 Emergency Spare = No
 Last Predictive Failure Event Sequence Number = 0
@@ -354,7 +671,103 @@ Port Status Linkspeed SAS address
 Inquiry Data = 
 5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
-50 57 30 30 32 56 43 4d 00 00 00 00 00 00 43 53 
+50 57 30 30 41 56 30 45 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s7 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s7 - Detailed Information :
+========================================
+
+Drive /c0/e252/s7 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  49C (120.20 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s7 Device attributes :
+===================================
+SN =             WP00VB8X
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13AAEBF
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s7 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 7(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221107000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 42 56 58 38 00 00 00 00 00 00 43 53 
 31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
 37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
@@ -364,4 +777,25 @@ Inquiry Data =
 
 
 
+root@fs1-pre-stor-172-21-224-223:~# systemctl status minio --no-pager
+● minio.service - MinIO Object Storage Server
+     Loaded: loaded (/etc/systemd/system/minio.service; enabled; vendor preset: enabled)
+     Active: inactive (dead) since Wed 2026-05-20 16:30:37 CST; 3h 21min ago
+       Docs: https://min.io/docs/minio/linux/index.html
+    Process: 12642 ExecStartPre=/bin/bash -c for d in /mnt/minio/disk{1..6}; do mountpoint -q "$d" || { echo "$d not mounted"; exit 1; }; test -w "$d" || { echo "$d not writable"; exit 1; }; done (code=exited, status=0/SUCCESS)
+    Process: 12665 ExecStart=/usr/local/bin/minio server $MINIO_OPTS $MINIO_VOLUMES (code=exited, status=0/SUCCESS)
+   Main PID: 12665 (code=exited, status=0/SUCCESS)
+
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        6: internal/logger/logonce.go:149:logger.LogOnceIf()
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        5: cmd/logging.go:168:cmd.storageLogOnceIf()
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        4: cmd/xl-storage.go:814:cmd.(*xlStorage).checkFormatJSON()
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        3: cmd/xl-storage.go:834:cmd.(*xlStorage).GetDiskID()
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        2: cmd/xl-storage-disk-id-check.go:209:cmd.(*xlStorageDiskIDCheck).IsOnline()
+May 20 15:33:22 fs1-pre-stor-172-21-224-223 minio[12665]:        1: cmd/erasure-object.go:739:cmd.erasureObjects.getObjectFileInfo.func1()
+May 20 16:30:36 fs1-pre-stor-172-21-224-223 systemd[1]: Stopping MinIO Object Storage Server...
+May 20 16:30:36 fs1-pre-stor-172-21-224-223 minio[12665]: INFO: Exiting on signal: TERMINATED
+May 20 16:30:37 fs1-pre-stor-172-21-224-223 systemd[1]: minio.service: Succeeded.
+May 20 16:30:37 fs1-pre-stor-172-21-224-223 systemd[1]: Stopped MinIO Object Storage Server.
+root@fs1-pre-stor-172-21-224-223:~# mc admin info local
+mc: <ERROR> Unable to get service info. Get "http://127.0.0.1:9000/minio/admin/v3/info?metrics=false": dial tcp 127.0.0.1:9000: connect: connection refused.
 root@fs1-pre-stor-172-21-224-223:~# 
