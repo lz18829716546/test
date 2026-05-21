@@ -1,162 +1,136 @@
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall delete
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = Operation on foreign configuration Succeeded
+root@fs1-pre-stor-172-21-224-223:~# lsblk -e7 -o NAME,KNAME,TYPE,SIZE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN,HCTL,STATE 
+NAME            KNAME TYPE  SIZE FSTYPE      LABEL      UUID                                   MOUNTPOINT       MODEL            SERIAL                           WWN                                HCTL       STATE
+sda             sda   disk  9.1T                                                                                ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76                 0:0:27:0   running
+└─sda1          sda1  part  9.1T xfs         MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                   0x5000c500db5f0e76                            
+sdb             sdb   disk  9.1T                                                                                ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6                 0:0:28:0   running
+└─sdb1          sdb1  part  9.1T xfs         MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                   0x5000c500db5f91e6                            
+sdc             sdc   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a                 0:0:29:0   running
+└─sdc1          sdc1  part  9.1T xfs         MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                   0x5000c500f13a912a                            
+sdd             sdd   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285                 0:0:30:0   running
+└─sdd1          sdd1  part  9.1T xfs         MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                   0x5000c500f13a9285                            
+sde             sde   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13a94a7                 0x5000c500f13a94a7                 0:0:31:0   running
+└─sde1          sde1  part  9.1T xfs         MINIODISK5 5c869e7f-8c21-4418-86b0-02d14c454e53   /mnt/minio/disk5                                                   0x5000c500f13a94a7                            
+sdf             sdf   disk  9.1T                                                                                ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf                 0:0:32:0   running
+└─sdf1          sdf1  part  9.1T xfs         MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                   0x5000c500f13aaebf                            
+sdg             sdg   disk  3.7T                                                                                MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e 0:2:0:0    running
+├─sdg1          sdg1  part    1M                                                                                                                                  0x600605b0079e0a60273acd4d0c839f5e            
+├─sdg2          sdg2  part    2G ext4                   fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                              0x600605b0079e0a60273acd4d0c839f5e            
+└─sdg3          sdg3  part  3.7T LVM2_member            LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                    0x600605b0079e0a60273acd4d0c839f5e            
+  └─ubuntu--vg-ubuntu--lv
+                dm-0  lvm   3.7T ext4                   fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                                                                running
+root@fs1-pre-stor-172-21-224-223:~# journalctl -k --since "2026-05-21 10:50:00" --no-pager | egrep -i "sde|sde1|I/O error|Buffer I/O|XFS|failed|sense"
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#846 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#846 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#846 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 10737757648 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#885 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#881 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#881 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#881 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 681032 op 0x1:(WRITE) flags 0xc800 phys_seg 3 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#865 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#870 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#865 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#870 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#865 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#870 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 19328000032 op 0x1:(WRITE) flags 0xc800 phys_seg 2 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 19328000544 op 0x1:(WRITE) flags 0xc800 phys_seg 2 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#875 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#875 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#875 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 19532873600 op 0x0:(READ) flags 0x80700 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 10737757712 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#885 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 10737757776 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#885 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 10737757816 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 10737757880 op 0x1:(WRITE) flags 0x21800 phys_seg 1 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 681544 op 0x1:(WRITE) flags 0x8800 phys_seg 2 prio class 0
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): xfs_do_force_shutdown(0x2) called from line 1262 of file fs/xfs/xfs_log.c. Return address = 00000000b7069e6c
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): Log I/O Error Detected. Shutting down filesystem
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): Please unmount the filesystem and rectify the problem(s)
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#866 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#866 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#866 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#857 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#857 Sense Key : Not Ready [current] 
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#857 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:55 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#854 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#854 Sense Key : Not Ready [current] 
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#854 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#850 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#850 Sense Key : Not Ready [current] 
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#850 Add. Sense: Logical unit not ready, cause not reportable
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sdd, logical block 2441609200, async page read
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): log I/O error -5
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sdd, logical block 2441609200, async page read
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 17179890304
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 19327704768
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 4295089528
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 6442669408
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 6442669416
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 8589936912
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 8589939120
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 10741667432
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 10741667440
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): writeback error on sector 4295089456
+May 21 11:19:56 fs1-pre-stor-172-21-224-223 kernel: XFS (sdd1): xfs_imap_to_bp: xfs_trans_read_buf() returned error -5.
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#169 CDB: Request Sense 03 00 00 00 60 00
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#178 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#178 Sense Key : Not Ready [current] 
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#178 Add. Sense: Logical unit not ready, cause not reportable
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sdd, logical block 2441609200, async page read
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#140 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#140 Sense Key : Not Ready [current] 
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: sd 0:0:30:0: [sdd] tag#140 Add. Sense: Logical unit not ready, cause not reportable
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: blk_update_request: I/O error, dev sdd, sector 19532873600 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 0
+May 21 12:01:49 fs1-pre-stor-172-21-224-223 kernel: Buffer I/O error on dev sdd, logical block 2441609200, async page read
+root@fs1-pre-stor-172-21-224-223:~# smartctl -i /dev/sdd
+smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-216-generic] (local build)
+Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
-Total Foreign PDs = 0
-
-
+Short INQUIRY response, skip product id
+A mandatory SMART command failed: exiting. To continue, add one or more '-T permissive' options.
 root@fs1-pre-stor-172-21-224-223:~# 
 root@fs1-pre-stor-172-21-224-223:~# 
 root@fs1-pre-stor-172-21-224-223:~# 
 root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show
-Generating detailed summary of the adapter, it may take a while to complete.
-
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = None
-
-Product Name = AVAGO MegaRAID SAS 9361-8i
-Serial Number = SK82183344
-SAS Address =  500605b0079e0a60
-PCI Address = 00:04:00:00
-System Time = 05/20/2026 20:16:57
-Mfg. Date = 08/21/18
-Controller Time = 05/20/2026 12:16:51
-FW Package Build = 24.21.0-0119
-BIOS Version = 6.36.00.3_4.19.08.00_0x06180203
-FW Version = 4.680.00-8505
-Driver Name = megaraid_sas
-Driver Version = 07.713.01.00-rc1
-Current Personality = RAID-Mode 
-Vendor Id = 0x1000
-Device Id = 0x5D
-SubVendor Id = 0x1000
-SubDevice Id = 0x9361
-Host Interface = PCI-E
-Device Interface = SAS-12G
-Bus Number = 4
-Device Number = 0
-Function Number = 0
-Domain ID = 0
-Security Protocol = None
-Drive Groups = 1
-
-TOPOLOGY :
-========
-
----------------------------------------------------------------------------
-DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
----------------------------------------------------------------------------
- 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
- 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
- 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
- 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
----------------------------------------------------------------------------
-
-DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
-DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
-Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
-PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
-DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
-TR=Transport Ready
-
-Virtual Drives = 1
-
-VD LIST :
-=======
-
--------------------------------------------------------------
-DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
--------------------------------------------------------------
-0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
--------------------------------------------------------------
-
-VD=Virtual Drive| DG=Drive Group|Rec=Recovery
-Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
-Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
-B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
-AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
-Check Consistency
-
-JBOD Drives = 5
-
-JBOD LIST :
-=========
-
---------------------------------------------------------------------------------
-EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
---------------------------------------------------------------------------------
-252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
---------------------------------------------------------------------------------
-
-ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
-Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
-SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
-
-Physical Drives = 8
-
-PD LIST :
-=======
-
---------------------------------------------------------------------------------
-EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
---------------------------------------------------------------------------------
-252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
-252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
-252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:6    31 UGood  - 9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
---------------------------------------------------------------------------------
-
-EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
-DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
-UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
-Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
-SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
-UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
-CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
-UBUnsp=UBad Unsupported|Rbld=Rebuild
-
-Enclosures = 1
-
-Enclosure LIST :
-==============
-
---------------------------------------------------------------------
-EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
---------------------------------------------------------------------
-252 OK        8  8  0    0   0    0   1 -     SGPIO                 
---------------------------------------------------------------------
-
-EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
-TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
-
-
-
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/fall show
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = Couldn't find any foreign Configuration
-
-Total Foreign PDs = 0
-
-
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s6 show all
+root@fs1-pre-stor-172-21-224-223:~# lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+loop0                       7:0    0 63.3M  1 loop /snap/core20/1828
+loop1                       7:1    0 63.8M  1 loop /snap/core20/2599
+loop2                       7:2    0 91.9M  1 loop /snap/lxd/32662
+loop3                       7:3    0 49.9M  1 loop /snap/snapd/18357
+loop4                       7:4    0 50.9M  1 loop /snap/snapd/24718
+loop5                       7:5    0 91.9M  1 loop /snap/lxd/24061
+sda                         8:0    0  9.1T  0 disk 
+└─sda1                      8:1    0  9.1T  0 part /mnt/minio/disk1
+sdb                         8:16   0  9.1T  0 disk 
+└─sdb1                      8:17   0  9.1T  0 part /mnt/minio/disk2
+sdc                         8:32   0  9.1T  0 disk 
+└─sdc1                      8:33   0  9.1T  0 part /mnt/minio/disk3
+sdd                         8:48   0  9.1T  0 disk 
+└─sdd1                      8:49   0  9.1T  0 part /mnt/minio/disk4
+sde                         8:64   0  9.1T  0 disk 
+└─sde1                      8:65   0  9.1T  0 part /mnt/minio/disk5
+sdf                         8:80   0  9.1T  0 disk 
+└─sdf1                      8:81   0  9.1T  0 part /mnt/minio/disk6
+sdg                         8:96   0  3.7T  0 disk 
+├─sdg1                      8:97   0    1M  0 part 
+├─sdg2                      8:98   0    2G  0 part /boot
+└─sdg3                      8:99   0  3.7T  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:0    0  3.7T  0 lvm  /
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# 
+root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/eall/sall show all
 CLI Version = 007.2309.0000.0000 Sep 16, 2022
 Operating system = Linux 5.4.0-216-generic
 Controller = 0
@@ -164,14 +138,14 @@ Status = Success
 Description = Show Drive Information Succeeded.
 
 
-Drive /c0/e252/s6 :
+Drive /c0/e252/s0 :
 =================
 
---------------------------------------------------------------------------------
-EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
---------------------------------------------------------------------------------
-252:6    31 UGood -  9.094 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
 
 EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
 DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
@@ -183,44 +157,45 @@ CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
 UBUnsp=UBad Unsupported|Rbld=Rebuild
 
 
-Drive /c0/e252/s6 - Detailed Information :
+Drive /c0/e252/s0 - Detailed Information :
 ========================================
 
-Drive /c0/e252/s6 State :
+Drive /c0/e252/s0 State :
 =======================
 Shield Counter = 0
 Media Error Count = 0
 Other Error Count = 0
-Drive Temperature =  51C (123.80 F)
+Drive Temperature =  45C (113.00 F)
 Predictive Failure Count = 0
 S.M.A.R.T alert flagged by drive = No
 
 
-Drive /c0/e252/s6 Device attributes :
+Drive /c0/e252/s0 Device attributes :
 ===================================
-SN =             WP00VAE0
+SN =             ZC1D708M
 Manufacturer Id = ATA     
-Model Number = ST10000NM017B-2TL103
+Model Number = ST4000NM0035-1V4107
 NAND Vendor = NA
-WWN = 5000C500F13A94A7
-Firmware Revision = SCA1    
-Raw size = 9.095 TB [0x48c400000 Sectors]
-Coerced size = 9.094 TB [0x48c300000 Sectors]
-Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+WWN = 5000C500C549CCFA
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
 Device Speed = 6.0Gb/s
 Link Speed = 6.0Gb/s
 NCQ setting = Enabled
 Write Cache = N/A
 Logical Sector Size = 512B
-Physical Sector Size = 4 KB
-Connector Name = Port 4 - 7 x1
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
 
 
-Drive /c0/e252/s6 Policies/Settings :
+Drive /c0/e252/s0 Policies/Settings :
 ===================================
+Drive position = DriveGroup:0, Span:0, Row:0
 Enclosure position = 1
-Connected Port Number = 6(path0) 
-Sequence Number = 10
+Connected Port Number = 0(path0) 
+Sequence Number = 2
 Commissioned Spare = No
 Emergency Spare = No
 Last Predictive Failure Event Sequence Number = 0
@@ -244,143 +219,126 @@ Port Information :
 -----------------------------------------
 Port Status Linkspeed SAS address        
 -----------------------------------------
-   0 Active 6.0Gb/s   0x4433221106000000 
+   0 Active 6.0Gb/s   0x4433221100000000 
 -----------------------------------------
 
 
 Inquiry Data = 
 5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
-50 57 30 30 41 56 30 45 00 00 00 00 00 00 43 53 
-31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
-37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+43 5a 44 31 30 37 4d 38 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
-3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
 
 
 
+Drive /c0/e252/s1 :
+=================
 
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s6 set jbod
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = Set Drive JBOD Succeeded.
+-------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model               Sp Type 
+-------------------------------------------------------------------------------
+252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107 U  -    
+-------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
 
 
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0 show
-Generating detailed summary of the adapter, it may take a while to complete.
+Drive /c0/e252/s1 - Detailed Information :
+========================================
 
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = None
+Drive /c0/e252/s1 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  45C (113.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
 
-Product Name = AVAGO MegaRAID SAS 9361-8i
-Serial Number = SK82183344
-SAS Address =  500605b0079e0a60
-PCI Address = 00:04:00:00
-System Time = 05/20/2026 20:17:46
-Mfg. Date = 08/21/18
-Controller Time = 05/20/2026 12:17:40
-FW Package Build = 24.21.0-0119
-BIOS Version = 6.36.00.3_4.19.08.00_0x06180203
-FW Version = 4.680.00-8505
-Driver Name = megaraid_sas
-Driver Version = 07.713.01.00-rc1
-Current Personality = RAID-Mode 
-Vendor Id = 0x1000
-Device Id = 0x5D
-SubVendor Id = 0x1000
-SubDevice Id = 0x9361
-Host Interface = PCI-E
-Device Interface = SAS-12G
-Bus Number = 4
-Device Number = 0
-Function Number = 0
-Domain ID = 0
-Security Protocol = None
-Drive Groups = 1
 
-TOPOLOGY :
-========
+Drive /c0/e252/s1 Device attributes :
+===================================
+SN =             ZC1D5J1B
+Manufacturer Id = ATA     
+Model Number = ST4000NM0035-1V4107
+NAND Vendor = NA
+WWN = 5000C500C573EB31
+Firmware Revision = TN05    
+Raw size = 3.638 TB [0x1d1c0beb0 Sectors]
+Coerced size = 3.637 TB [0x1d1b00000 Sectors]
+Non Coerced size = 3.637 TB [0x1d1b0beb0 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 512B
+Connector Name = Port 0 - 3 x1
 
----------------------------------------------------------------------------
-DG Arr Row EID:Slot DID Type  State BT     Size PDC  PI SED DS3  FSpace TR 
----------------------------------------------------------------------------
- 0 -   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
- 0 0   -   -        -   RAID1 Optl  N  3.637 TB dflt N  N   dflt N      N  
- 0 0   0   252:0    25  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
- 0 0   1   252:1    26  DRIVE Onln  N  3.637 TB dflt N  N   dflt -      N  
----------------------------------------------------------------------------
 
-DG=Disk Group Index|Arr=Array Index|Row=Row Index|EID=Enclosure Device ID
-DID=Device ID|Type=Drive Type|Onln=Online|Rbld=Rebuild|Optl=Optimal|Dgrd=Degraded
-Pdgd=Partially degraded|Offln=Offline|BT=Background Task Active
-PDC=PD Cache|PI=Protection Info|SED=Self Encrypting Drive|Frgn=Foreign
-DS3=Dimmer Switch 3|dflt=Default|Msng=Missing|FSpace=Free Space Present
-TR=Transport Ready
+Drive /c0/e252/s1 Policies/Settings :
+===================================
+Drive position = DriveGroup:0, Span:0, Row:1
+Enclosure position = 0
+Connected Port Number = 1(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
 
-Virtual Drives = 1
+Port Information :
+================
 
-VD LIST :
-=======
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221101000000 
+-----------------------------------------
 
--------------------------------------------------------------
-DG/VD TYPE  State Access Consist Cache Cac sCC     Size Name 
--------------------------------------------------------------
-0/0   RAID1 Optl  RW     No      RWTD  -   ON  3.637 TB      
--------------------------------------------------------------
 
-VD=Virtual Drive| DG=Drive Group|Rec=Recovery
-Cac=CacheCade|OfLn=OffLine|Pdgd=Partially Degraded|Dgrd=Degraded
-Optl=Optimal|dflt=Default|RO=Read Only|RW=Read Write|HD=Hidden|TRANS=TransportReady
-B=Blocked|Consist=Consistent|R=Read Ahead Always|NR=No Read Ahead|WB=WriteBack
-AWB=Always WriteBack|WT=WriteThrough|C=Cached IO|D=Direct IO|sCC=Scheduled
-Check Consistency
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+43 5a 44 31 4a 35 42 31 00 00 00 00 00 00 4e 54 
+35 30 20 20 20 20 54 53 30 34 30 30 4d 4e 30 30 
+35 33 31 2d 34 56 30 31 20 37 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5c ff ff ff 0f 00 00 07 00 
 
-JBOD Drives = 6
 
-JBOD LIST :
-=========
+
+Drive /c0/e252/s2 :
+=================
 
 --------------------------------------------------------------------------------
 EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
 --------------------------------------------------------------------------------
 252:2    27 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:6    31 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
---------------------------------------------------------------------------------
-
-ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
-Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
-SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
-
-Physical Drives = 8
-
-PD LIST :
-=======
-
---------------------------------------------------------------------------------
-EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
---------------------------------------------------------------------------------
-252:0    25 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
-252:1    26 Onln   0 3.637 TB SATA HDD N   N  512B ST4000NM0035-1V4107  U  -    
-252:2    27 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:3    28 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
-252:4    29 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:5    30 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:6    31 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
-252:7    32 JBOD   - 9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
 --------------------------------------------------------------------------------
 
 EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
@@ -392,28 +350,370 @@ UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
 CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
 UBUnsp=UBad Unsupported|Rbld=Rebuild
 
-Enclosures = 1
 
-Enclosure LIST :
-==============
+Drive /c0/e252/s2 - Detailed Information :
+========================================
 
---------------------------------------------------------------------
-EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific 
---------------------------------------------------------------------
-252 OK        8  8  0    0   0    0   1 -     SGPIO                 
---------------------------------------------------------------------
-
-EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
-TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
-
+Drive /c0/e252/s2 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  47C (116.60 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
 
 
-root@fs1-pre-stor-172-21-224-223:~# storcli64 /c0/e252/s6 show all
-CLI Version = 007.2309.0000.0000 Sep 16, 2022
-Operating system = Linux 5.4.0-216-generic
-Controller = 0
-Status = Success
-Description = Show Drive Information Succeeded.
+Drive /c0/e252/s2 Device attributes :
+===================================
+SN =             ZS50PFZZ
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F0E76
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s2 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 2(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221102000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 46 50 5a 5a 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s3 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:3    28 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM001G-2MW103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s3 - Detailed Information :
+========================================
+
+Drive /c0/e252/s3 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  48C (118.40 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s3 Device attributes :
+===================================
+SN =             ZS50PESY
+Manufacturer Id = ATA     
+Model Number = ST10000NM001G-2MW103
+NAND Vendor = NA
+WWN = 5000C500DB5F91E6
+Firmware Revision = SN03    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 0 - 3 x1
+
+
+Drive /c0/e252/s3 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 3(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221103000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+53 5a 30 35 45 50 59 53 00 00 00 00 00 00 4e 53 
+33 30 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+31 30 2d 47 4d 32 31 57 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s4 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:4    29 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s4 - Detailed Information :
+========================================
+
+Drive /c0/e252/s4 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  50C (122.00 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s4 Device attributes :
+===================================
+SN =             WP00VAZ3
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A912A
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s4 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 4(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221104000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 33 5a 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+Drive /c0/e252/s5 :
+=================
+
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:5    30 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s5 - Detailed Information :
+========================================
+
+Drive /c0/e252/s5 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 235
+Drive Temperature =  52C (125.60 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s5 Device attributes :
+===================================
+SN =             WP00VAK0
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13A9285
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = 
+
+
+Drive /c0/e252/s5 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 5(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221105000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 41 56 30 4b 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
 
 
 Drive /c0/e252/s6 :
@@ -470,7 +770,7 @@ Connector Name = Port 4 - 7 x1
 
 Drive /c0/e252/s6 Policies/Settings :
 ===================================
-Enclosure position = 1
+Enclosure position = 0
 Connected Port Number = 6(path0) 
 Sequence Number = 11
 Commissioned Spare = No
@@ -512,54 +812,101 @@ Inquiry Data =
 
 
 
+Drive /c0/e252/s7 :
+=================
 
-root@fs1-pre-stor-172-21-224-223:~# for host in /sys/class/scsi_host/host*; do
->   echo "- - -" > "$host/scan"
-> done
-root@fs1-pre-stor-172-21-224-223:~# 
-root@fs1-pre-stor-172-21-224-223:~# udevadm settle
-root@fs1-pre-stor-172-21-224-223:~# lsblk -e7 -o NAME,KNAME,TYPE,SIZE,FSTYPE,LABEL,UUID,MOUNTPOINT,MODEL,SERIAL,WWN,HCTL,STATE
-NAME         KNAME TYPE  SIZE FSTYPE         LABEL      UUID                                   MOUNTPOINT       MODEL            SERIAL                           WWN                                HCTL       STATE
-sda          sda   disk  9.1T                                                                                   ST10000NM001G-2M 5000c500db5f0e76                 0x5000c500db5f0e76                 0:0:27:0   running
-└─sda1       sda1  part  9.1T xfs            MINIODISK1 1c35ccee-e073-4ef9-9d4d-38e0f8406eb5   /mnt/minio/disk1                                                   0x5000c500db5f0e76                            
-sdb          sdb   disk  9.1T                                                                                   ST10000NM001G-2M 5000c500db5f91e6                 0x5000c500db5f91e6                 0:0:28:0   running
-└─sdb1       sdb1  part  9.1T xfs            MINIODISK2 26bcd46d-e49d-4506-89dd-c1a46813327a   /mnt/minio/disk2                                                   0x5000c500db5f91e6                            
-sdc          sdc   disk  9.1T                                                                                   ST10000NM017B-2T 5000c500f13a912a                 0x5000c500f13a912a                 0:0:29:0   running
-└─sdc1       sdc1  part  9.1T xfs            MINIODISK3 0fd62bed-9b92-4326-92d1-63f8204cf49c   /mnt/minio/disk3                                                   0x5000c500f13a912a                            
-sdd          sdd   disk  9.1T                                                                                   ST10000NM017B-2T 5000c500f13a9285                 0x5000c500f13a9285                 0:0:30:0   running
-└─sdd1       sdd1  part  9.1T xfs            MINIODISK4 366d642d-dac8-4772-8661-7db74828c803   /mnt/minio/disk4                                                   0x5000c500f13a9285                            
-sde          sde   disk  9.1T LVM2_member               nFgY55-YDGr-Seey-olQq-FGFD-r2v0-2Gfu3Y                  ST10000NM017B-2T 5000c500f13a94a7                 0x5000c500f13a94a7                 0:0:31:0   running
-└─ceph--38eb6c76--cfd9--496f--ad33--6d8218991d09-osd--block--528497f1--6edb--4afa--9695--4643c55e632a
-             dm-1  lvm   9.1T ceph_bluestore                                                                                                                                                                    running
-sdf          sdf   disk  9.1T                                                                                   ST10000NM017B-2T 5000c500f13aaebf                 0x5000c500f13aaebf                 0:0:32:0   running
-└─sdf1       sdf1  part  9.1T xfs            MINIODISK6 ce748d00-89a3-4a30-afc2-d48d2d061911   /mnt/minio/disk6                                                   0x5000c500f13aaebf                            
-sdg          sdg   disk  3.7T                                                                                   MR9361-8i        600605b0079e0a60273acd4d0c839f5e 0x600605b0079e0a60273acd4d0c839f5e 0:2:0:0    running
-├─sdg1       sdg1  part    1M                                                                                                                                     0x600605b0079e0a60273acd4d0c839f5e            
-├─sdg2       sdg2  part    2G ext4                      fe9f95d7-ea42-4593-aa0c-65449e8281fe   /boot                                                              0x600605b0079e0a60273acd4d0c839f5e            
-└─sdg3       sdg3  part  3.7T LVM2_member               LZDi32-521C-IuDP-vKVv-Y3uy-uixj-B4WC2l                                                                    0x600605b0079e0a60273acd4d0c839f5e            
-  └─ubuntu--vg-ubuntu--lv
-             dm-0  lvm   3.7T ext4                      fd9ce789-fb7f-4806-a075-bcaf417d2078   /                                                                                                                running
-root@fs1-pre-stor-172-21-224-223:~# findmnt /mnt/minio/disk5
-root@fs1-pre-stor-172-21-224-223:~# df -hT /mnt/minio/disk5
-Filesystem                        Type  Size  Used Avail Use% Mounted on
-/dev/mapper/ubuntu--vg-ubuntu--lv ext4  3.6T  926G  2.6T  27% /
-root@fs1-pre-stor-172-21-224-223:~# mount | grep /mnt/minio/disk5
-root@fs1-pre-stor-172-21-224-223:~# umount /mnt/minio/disk5
-umount: /mnt/minio/disk5: not mounted.
-root@fs1-pre-stor-172-21-224-223:~# lsblk -e7 -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,MODEL,SERIAL,WWN,HCTL,STATE /dev/sde
-NAME                                                                                                   SIZE FSTYPE         LABEL MOUNTPOINT MODEL            SERIAL           WWN                HCTL       STATE
-sde                                                                                                    9.1T LVM2_member                     ST10000NM017B-2T 5000c500f13a94a7 0x5000c500f13a94a7 0:0:31:0   running
-└─ceph--38eb6c76--cfd9--496f--ad33--6d8218991d09-osd--block--528497f1--6edb--4afa--9695--4643c55e632a  9.1T ceph_bluestore                                                                                  running
-root@fs1-pre-stor-172-21-224-223:~# sgdisk --zap-all /dev/sde
-Creating new GPT entries in memory.
-GPT data structures destroyed! You may now partition the disk using fdisk or
-other utilities.
-root@fs1-pre-stor-172-21-224-223:~# parted -s /dev/sde mklabel gpt
-root@fs1-pre-stor-172-21-224-223:~# parted -s /dev/sde mkpart primary xfs 0% 100%
-root@fs1-pre-stor-172-21-224-223:~# partprobe /dev/sde
-root@fs1-pre-stor-172-21-224-223:~# udevadm settle
-root@fs1-pre-stor-172-21-224-223:~# mkfs.xfs -f -L MINIODISK5 /dev/sde1
-mkfs.xfs: cannot open /dev/sde1: Device or resource busy
-root@fs1-pre-stor-172-21-224-223:~# blkid /dev/sde1
-/dev/sde1: TYPE="ceph_bluestore" PARTLABEL="primary" PARTUUID="20c6ce5e-98e9-4e7c-990e-076f65c16ce1"
+--------------------------------------------------------------------------------
+EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                Sp Type 
+--------------------------------------------------------------------------------
+252:7    32 JBOD  -  9.095 TB SATA HDD N   N  512B ST10000NM017B-2TL103 U  -    
+--------------------------------------------------------------------------------
+
+EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+
+Drive /c0/e252/s7 - Detailed Information :
+========================================
+
+Drive /c0/e252/s7 State :
+=======================
+Shield Counter = 0
+Media Error Count = 0
+Other Error Count = 0
+Drive Temperature =  51C (123.80 F)
+Predictive Failure Count = 0
+S.M.A.R.T alert flagged by drive = No
+
+
+Drive /c0/e252/s7 Device attributes :
+===================================
+SN =             WP00VB8X
+Manufacturer Id = ATA     
+Model Number = ST10000NM017B-2TL103
+NAND Vendor = NA
+WWN = 5000C500F13AAEBF
+Firmware Revision = SCA1    
+Raw size = 9.095 TB [0x48c400000 Sectors]
+Coerced size = 9.094 TB [0x48c300000 Sectors]
+Non Coerced size = 9.094 TB [0x48c300000 Sectors]
+Device Speed = 6.0Gb/s
+Link Speed = 6.0Gb/s
+NCQ setting = Enabled
+Write Cache = N/A
+Logical Sector Size = 512B
+Physical Sector Size = 4 KB
+Connector Name = Port 4 - 7 x1
+
+
+Drive /c0/e252/s7 Policies/Settings :
+===================================
+Enclosure position = 0
+Connected Port Number = 7(path0) 
+Sequence Number = 2
+Commissioned Spare = No
+Emergency Spare = No
+Last Predictive Failure Event Sequence Number = 0
+Successful diagnostics completion on = N/A
+FDE Type = None
+SED Capable = No
+SED Enabled = No
+Secured = No
+Cryptographic Erase Capable = No
+Sanitize Support = Not supported
+Locked = No
+Needs EKM Attention = No
+PI Eligible = No
+Certified = No
+Wide Port Capable = No
+Multipath = No
+
+Port Information :
+================
+
+-----------------------------------------
+Port Status Linkspeed SAS address        
+-----------------------------------------
+   0 Active 6.0Gb/s   0x4433221107000000 
+-----------------------------------------
+
+
+Inquiry Data = 
+5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 
+00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 
+50 57 30 30 42 56 58 38 00 00 00 00 00 00 43 53 
+31 41 20 20 20 20 54 53 30 31 30 30 4e 30 30 4d 
+37 31 2d 42 54 32 31 4c 33 30 20 20 20 20 20 20 
+20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 
+00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 
+3f 00 10 fc fb 00 10 5d ff ff ff 0f 00 00 07 00 
+
+
+
+
 root@fs1-pre-stor-172-21-224-223:~# 
