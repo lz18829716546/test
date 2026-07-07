@@ -1,4 +1,3 @@
-root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# HOSTS=(
 > gz-4f31406-ceph-001201
 > gz-4f31406-ceph-001202
@@ -6,712 +5,408 @@ root@gz-4f31406-ceph-001201:~# HOSTS=(
 > )
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h ===================="
+>   echo "==================== $h : slabtop ===================="
 >   ssh "$h" '
->     echo "[1] basic"
->     hostname
->     date
->     uptime
+>     echo "[1] slabtop top 40"
+>     slabtop -o | head -40
 > 
 >     echo
->     echo "[2] free"
->     free -h
-> 
->     echo
->     echo "[3] /proc/meminfo key fields"
->     egrep "MemTotal|MemFree|MemAvailable|Buffers|Cached|SReclaimable|SUnreclaim|Slab|SwapTotal|SwapFree|Committed_AS|CommitLimit" /proc/meminfo
-> 
->     echo
->     echo "[4] vmstat"
->     vmstat 1 5
-> 
->     echo
->     echo "[5] memory PSI"
->     cat /proc/pressure/memory 2>/dev/null || true
-> 
->     echo
->     echo "[6] OOM / memory error"
->     dmesg -T 2>/dev/null | egrep -i "oom|out of memory|memory allocation failure|killed process" | tail -30 || true
->   '
-> done
-==================== gz-4f31406-ceph-001201 ====================
-[1] basic
-gz-4f31406-ceph-001201
-Tue 07 Jul 2026 04:07:59 PM CST
- 16:07:59 up 1076 days, 20:33,  1 user,  load average: 4.00, 3.72, 3.50
-
-[2] free
-              total        used        free      shared  buff/cache   available
-Mem:          125Gi        90Gi       3.1Gi       0.0Ki        31Gi        27Gi
-Swap:         8.0Gi       8.0Gi        27Mi
-
-[3] /proc/meminfo key fields
-MemTotal:       131498096 kB
-MemFree:         3262480 kB
-MemAvailable:   28319784 kB
-Buffers:        28177988 kB
-Cached:          1037872 kB
-SwapCached:        64868 kB
-SwapTotal:       8388604 kB
-SwapFree:          28572 kB
-Slab:           39412752 kB
-SReclaimable:    3761952 kB
-SUnreclaim:     35650800 kB
-CommitLimit:    74137652 kB
-Committed_AS:   157791696 kB
-
-[4] vmstat
-procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
- r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
- 0  0 8360032 3262320 28177992 4799908    0    0   175   467    0    0  2  1 96  1  0
- 2  1 8360032 3223844 28182624 4801400    0    0 15756 13604 28252 30576  2  2 95  1  0
- 1  0 8360032 3210264 28186740 4801860    0    0  9096 18028 36244 42416  2  2 95  1  0
- 3  1 8360032 3173704 28191284 4801924    0    0 10572 34288 37515 40567  2  2 94  1  0
- 5  4 8360016 3138484 28197500 4802112    0    0  8588 62156 42876 46296  2  2 94  2  0
-
-[5] memory PSI
-some avg10=0.00 avg60=0.00 avg300=0.00 total=8420853970
-full avg10=0.00 avg60=0.00 avg300=0.00 total=7291940147
-
-[6] OOM / memory error
-==================== gz-4f31406-ceph-001202 ====================
-[1] basic
-gz-4f31406-ceph-001202
-Tue 07 Jul 2026 04:08:04 PM CST
- 16:08:04 up 1076 days, 20:35,  1 user,  load average: 3.17, 2.89, 2.88
-
-[2] free
-              total        used        free      shared  buff/cache   available
-Mem:          125Gi        96Gi       3.8Gi       2.0Mi        25Gi        21Gi
-Swap:         8.0Gi       4.1Gi       3.9Gi
-
-[3] /proc/meminfo key fields
-MemTotal:       131498096 kB
-MemFree:         4037368 kB
-MemAvailable:   22985112 kB
-Buffers:        22359900 kB
-Cached:           892224 kB
-SwapCached:       160136 kB
-SwapTotal:       8388604 kB
-SwapFree:        4132936 kB
-Slab:           39468916 kB
-SReclaimable:    3457908 kB
-SUnreclaim:     36011008 kB
-CommitLimit:    74137652 kB
-Committed_AS:   155790084 kB
-
-[4] vmstat
-procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
- r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
- 0  1 4255668 4036692 22359900 4350316    0    0   174   494    0    0  1  1 96  1  0
- 1  0 4255668 4039264 22363028 4351260    0    0  7000  8448 21439 22858  0  1 98  1  0
- 0  0 4255668 4028856 22366560 4351272    0    0 14768 26660 27504 28279  1  1 97  1  0
- 1  0 4255668 4020356 22370104 4351616    0    0  6692 16272 29278 32195  1  2 96  1  0
- 2  2 4255668 4000884 22375336 4351732    0    0 16220 30120 27049 28656  1  1 97  1  0
-
-[5] memory PSI
-some avg10=0.00 avg60=0.00 avg300=0.00 total=6920945181
-full avg10=0.00 avg60=0.00 avg300=0.00 total=5903988626
-
-[6] OOM / memory error
-==================== gz-4f31406-ceph-001203 ====================
-[1] basic
-gz-4f31406-ceph-001203
-Tue 07 Jul 2026 04:08:08 PM CST
- 16:08:08 up 1076 days, 20:35,  1 user,  load average: 1.22, 1.62, 1.68
-
-[2] free
-              total        used        free      shared  buff/cache   available
-Mem:          125Gi        93Gi       3.3Gi       0.0Ki        28Gi        24Gi
-Swap:         8.0Gi       6.8Gi       1.2Gi
-
-[3] /proc/meminfo key fields
-MemTotal:       131498092 kB
-MemFree:         3485596 kB
-MemAvailable:   25827116 kB
-Buffers:        25715932 kB
-Cached:           809772 kB
-SwapCached:        56488 kB
-SwapTotal:       8388604 kB
-SwapFree:        1255380 kB
-Slab:           39727640 kB
-SReclaimable:    3702352 kB
-SUnreclaim:     36025288 kB
-CommitLimit:    74137648 kB
-Committed_AS:   156218616 kB
-
-[4] vmstat
-procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
- r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
- 1  1 7133224 3485596 25715932 4512124    0    0   170   503    0    0  1  1 96  2  0
- 1  0 7132968 3489948 25719196 4513868   36    0  8964 26016 18554 18144  1  0 98  1  0
- 0  1 7132968 3489704 25722056 4513812    0    0 17120 20212 18229 18396  0  0 98  1  0
- 0  2 7132968 3463132 25725596 4514144    0    0  8444 33256 22119 19899  1  1 98  1  0
- 1  0 7132968 3500804 25728744 4513516    0    0 12388 12200 19760 18909  1  0 98  1  0
-
-[5] memory PSI
-some avg10=0.00 avg60=0.00 avg300=0.00 total=8431623494
-full avg10=0.00 avg60=0.00 avg300=0.00 total=7255996558
-
-[6] OOM / memory error
-root@gz-4f31406-ceph-001201:~# HOSTS=(
-> gz-4f31406-ceph-001201
-> gz-4f31406-ceph-001202
-> gz-4f31406-ceph-001203
-> )
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : top rss processes ===================="
->   ssh "$h" '
->     ps axo pid,ppid,user:12,comm:24,%mem,rss,vsz,args --sort=-rss \
->     | awk "
->       NR==1 {
->         printf \"%-8s %-8s %-12s %-24s %-6s %-12s %-12s %s\n\", \"PID\", \"PPID\", \"USER\", \"COMM\", \"%MEM\", \"RSS(MiB)\", \"VSZ(MiB)\", \"ARGS\";
->         next
+>     echo "[2] /proc/slabinfo top by memory"
+>     awk '"'"'
+>       NR > 2 {
+>         mem_mib = $3 * $4 / 1024 / 1024;
+>         printf "%-40s %12.1f MiB active_objs=%-12s num_objs=%-12s objsize=%-8s\n", $1, mem_mib, $2, $3, $4;
 >       }
->       NR<=31 {
->         printf \"%-8s %-8s %-12s %-24s %-6s %-12.1f %-12.1f \", \$1, \$2, \$3, \$4, \$5, \$6/1024, \$7/1024;
->         for (i=8; i<=NF; i++) printf \"%s \", \$i;
->         printf \"\n\";
+>     '"'"' /proc/slabinfo | sort -k2 -nr | head -40
+> 
+>     echo
+>     echo "[3] suspicious slab objects"
+>     awk '"'"'
+>       NR > 2 {
+>         mem_mib = $3 * $4 / 1024 / 1024;
+>         if ($1 ~ /dentry|inode|xfs|buffer_head|bio|kmalloc|nf_conntrack|sock|tcp|skbuff|vmap|radix|idr|blk|ceph|rbd/) {
+>           printf "%-40s %12.1f MiB active_objs=%-12s num_objs=%-12s objsize=%-8s\n", $1, mem_mib, $2, $3, $4;
+>         }
 >       }
->     "
+>     '"'"' /proc/slabinfo | sort -k2 -nr | head -40
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : top rss processes ====================
-PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
-11218    11146    167          ceph-osd                 3.0    3876.3       7315.9       /usr/bin/ceph-osd -n osd.5 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11219    11181    167          ceph-osd                 2.9    3775.4       6991.3       /usr/bin/ceph-osd -n osd.2 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11172    10961    167          ceph-osd                 2.8    3711.1       7190.0       /usr/bin/ceph-osd -n osd.4 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11199    11111    167          ceph-osd                 2.8    3699.4       7267.7       /usr/bin/ceph-osd -n osd.3 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11069    10926    167          ceph-osd                 2.8    3687.9       7428.8       /usr/bin/ceph-osd -n osd.1 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11217    11162    167          ceph-osd                 2.8    3644.2       7111.2       /usr/bin/ceph-osd -n osd.6 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11165    10923    167          ceph-osd                 2.7    3587.0       7406.3       /usr/bin/ceph-osd -n osd.7 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11142    10958    167          ceph-osd                 2.6    3398.9       7279.2       /usr/bin/ceph-osd -n osd.12 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11117    10927    167          ceph-osd                 2.6    3382.2       6098.8       /usr/bin/ceph-osd -n osd.0 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11171    10950    167          ceph-osd                 2.5    3305.2       7383.1       /usr/bin/ceph-osd -n osd.11 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11082    10924    167          ceph-osd                 2.5    3291.2       7086.7       /usr/bin/ceph-osd -n osd.9 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-5463     5079     167          radosgw                  2.3    3046.5       10684.5      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11149    10957    167          ceph-osd                 2.3    3007.7       7307.4       /usr/bin/ceph-osd -n osd.8 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-11180    10935    167          ceph-osd                 2.3    2963.2       7383.6       /usr/bin/ceph-osd -n osd.10 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-5464     5106     167          radosgw                  2.3    2960.9       9972.5       /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-918291   918277   167          ceph-mgr                 1.4    1826.7       11887.7      /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001201.txztaq -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-5428     5206     167          ceph-mon                 1.1    1415.8       2994.4       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001201 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
-1944971  1        root         easy_process_sa          0.3    425.4        7138.6       ./bin/easy_process_sampler 
-5445     5077     nobody       prometheus               0.2    307.1        7254.0       /bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.listen-address=:9095 --storage.tsdb.retention.time=15d --web.external-url=http://gz-4f31406-ceph-001201:9095 
-2315507  1        root         wsssr_defence_s          0.2    271.7        5917.2       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
-5290     5055     lxd          grafana-server           0.1    178.6        6206.1       grafana-server --config=/etc/grafana/grafana.ini 
-1275     1        root         systemd-journal          0.1    149.2        289.7        /lib/systemd/systemd-journald 
-2488491  2488490  root         icsfilesec               0.1    148.7        2647.0       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
-3016     1        root         dockerd                  0.0    69.7         6684.1       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
-5519     5479     root         haproxy                  0.0    59.8         1480.8       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
-552368   552354   root         filebeat                 0.0    37.4         5567.5       filebeat 
-61348    61344    root         docker                   0.0    36.2         2318.5       /usr/bin/docker stats --format {{.ID}},{{.MemUsage}} --no-stream 
-1969619  1        root         easyAgent                0.0    30.5         2290.8       ./bin/easyAgent 
-2642     1        root         containerd               0.0    29.3         6017.7       /usr/bin/containerd 
-2427     1        root         multipathd               0.0    25.4         274.3        /sbin/multipathd -d -s 
-==================== gz-4f31406-ceph-001202 : top rss processes ====================
-PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
-4931     4676     167          radosgw                  3.8    4990.8       12055.6      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-4980     4679     167          radosgw                  3.7    4822.5       11568.6      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10700    10573    167          ceph-osd                 3.0    3934.9       7311.0       /usr/bin/ceph-osd -n osd.22 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10691    10552    167          ceph-osd                 3.0    3887.1       7556.5       /usr/bin/ceph-osd -n osd.24 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10695    10515    167          ceph-osd                 2.9    3830.6       7460.2       /usr/bin/ceph-osd -n osd.21 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10707    10558    167          ceph-osd                 2.9    3816.2       7359.2       /usr/bin/ceph-osd -n osd.16 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10697    10553    167          ceph-osd                 2.9    3808.9       7270.1       /usr/bin/ceph-osd -n osd.19 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10692    10525    167          ceph-osd                 2.9    3759.3       7287.1       /usr/bin/ceph-osd -n osd.17 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10611    10516    167          ceph-osd                 2.8    3706.7       7516.1       /usr/bin/ceph-osd -n osd.15 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10696    10541    167          ceph-osd                 2.8    3698.9       6012.1       /usr/bin/ceph-osd -n osd.13 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10684    10543    167          ceph-osd                 2.8    3693.7       7298.4       /usr/bin/ceph-osd -n osd.18 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10706    10548    167          ceph-osd                 2.8    3665.8       7324.5       /usr/bin/ceph-osd -n osd.14 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10699    10524    167          ceph-osd                 2.7    3563.4       7401.8       /usr/bin/ceph-osd -n osd.25 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10693    10542    167          ceph-osd                 2.6    3442.9       7420.7       /usr/bin/ceph-osd -n osd.20 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10698    10518    167          ceph-osd                 2.5    3273.0       7527.5       /usr/bin/ceph-osd -n osd.23 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-4948     4759     167          ceph-mon                 1.4    1837.0       3141.3       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001202 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
-1173345  1173331  167          ceph-mgr                 0.3    439.7        9328.1       /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001202.yeyqxz -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-2124458  1        root         easy_process_sa          0.2    370.2        7138.1       ./bin/easy_process_sampler 
-1437446  1        root         wsssr_defence_s          0.2    284.2        5915.2       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
-1728096  1728095  root         icsfilesec               0.1    210.9        2647.1       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
-1269     1        root         systemd-journal          0.0    115.9        273.3        /lib/systemd/systemd-journald 
-3004     1        root         dockerd                  0.0    65.2         6179.7       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
-4988     4932     root         haproxy                  0.0    60.6         1481.4       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
-613914   613913   root         easy_collector           0.0    55.8         336.8        easy_collector 
-1220558  1220540  root         filebeat                 0.0    42.0         5783.6       filebeat 
-613438   1        root         easyAgent                0.0    38.7         1930.6       ./bin/easyAgent 
-163369   163367   root         docker                   0.0    36.1         2101.5       /usr/bin/docker stats --format {{.ID}},{{.MemUsage}} --no-stream 
-2622     1        root         containerd               0.0    28.7         6017.0       /usr/bin/containerd 
-2407     1        root         multipathd               0.0    25.9         274.3        /sbin/multipathd -d -s 
-26163    1        root         fwupd                    0.0    25.8         378.0        /usr/libexec/fwupd/fwupd 
-==================== gz-4f31406-ceph-001203 : top rss processes ====================
-PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
-4953     4756     167          radosgw                  3.9    5085.3       11923.3      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10792    10624    167          ceph-osd                 3.0    3948.5       7203.6       /usr/bin/ceph-osd -n osd.32 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-2324168  2324153  167          ceph-osd                 3.0    3884.4       7393.0       /usr/bin/ceph-osd -n osd.31 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-5055     4786     167          radosgw                  2.9    3759.4       11827.2      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10788    10641    167          ceph-osd                 2.9    3733.5       7198.4       /usr/bin/ceph-osd -n osd.30 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-980907   980887   167          ceph-osd                 2.8    3708.9       7245.6       /usr/bin/ceph-osd -n osd.28 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10776    10603    167          ceph-osd                 2.8    3676.4       7395.1       /usr/bin/ceph-osd -n osd.33 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10785    10613    167          ceph-osd                 2.8    3668.6       7349.9       /usr/bin/ceph-osd -n osd.27 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10755    10602    167          ceph-osd                 2.7    3587.7       7461.4       /usr/bin/ceph-osd -n osd.34 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10789    10635    167          ceph-osd                 2.7    3582.4       7454.8       /usr/bin/ceph-osd -n osd.29 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10791    10642    167          ceph-osd                 2.6    3440.8       7532.0       /usr/bin/ceph-osd -n osd.35 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10790    10639    167          ceph-osd                 2.6    3388.8       5879.9       /usr/bin/ceph-osd -n osd.26 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10787    10646    167          ceph-osd                 2.6    3375.7       7337.5       /usr/bin/ceph-osd -n osd.36 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10712    10599    167          ceph-osd                 2.6    3358.0       7228.8       /usr/bin/ceph-osd -n osd.37 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-10717    10610    167          ceph-osd                 2.5    3220.1       7450.7       /usr/bin/ceph-osd -n osd.38 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-5004     4784     167          ceph-mon                 1.0    1384.3       3253.4       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001203 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
-3614757  3614745  167          ceph-mgr                 0.3    421.1        9316.9       /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001203.qycafv -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-3786708  1        root         easy_process_sa          0.2    345.4        7072.6       ./bin/easy_process_sampler 
-3573033  3573032  root         icsfilesec               0.1    231.8        2647.0       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
-3536591  1        root         wsssr_defence_s          0.0    80.9         5787.9       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
-5101     5056     root         haproxy                  0.0    67.4         1480.6       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
-3016     1        root         dockerd                  0.0    57.1         6467.9       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
-2229568  2229547  root         filebeat                 0.0    50.6         5783.5       filebeat 
-2160880  1        root         easyAgent                0.0    32.9         1864.2       ./bin/easyAgent 
-2642     1        root         containerd               0.0    29.2         6016.7       /usr/bin/containerd 
-1260     1        root         systemd-journal          0.0    28.6         141.0        /lib/systemd/systemd-journald 
-5013     4799     167          ceph-mds                 0.0    26.0         370.9        /usr/bin/ceph-mds -n mds.cephfs.gz-4f31406-ceph-001203.vnsoyp -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
-2425     1        root         multipathd               0.0    25.7         338.3        /sbin/multipathd -d -s 
-2161359  2161357  root         easy_collector           0.0    19.1         396.8        easy_collector 
-2161358  2161357  root         easy_collector           0.0    18.9         344.7        easy_collector 
-root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : docker stats ===================="
->   ssh "$h" '
->     docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.PIDs}}" \
->     | egrep "NAME|ceph|haproxy|keepalived|prometheus|grafana|alertmanager|node-exporter|loki|promtail|fluent|td-agent|log"
->   '
-> done
-==================== gz-4f31406-ceph-001201 : docker stats ====================
-NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001201-txztaq                             6.22%     1.854GiB / 125.4GiB   1.48%     162
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001201                     0.36%     86.86MiB / 125.4GiB   0.07%     67
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-3                                                         4.16%     3.817GiB / 125.4GiB   3.04%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-5                                                         7.42%     4.453GiB / 125.4GiB   3.55%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-2                                                         6.83%     4.088GiB / 125.4GiB   3.26%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-6                                                         14.10%    4.739GiB / 125.4GiB   3.78%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-12                                                        1.07%     3.513GiB / 125.4GiB   2.80%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-1                                                         17.29%    5.121GiB / 125.4GiB   4.08%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-11                                                        0.53%     3.448GiB / 125.4GiB   2.75%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-8                                                         1.00%     3.278GiB / 125.4GiB   2.61%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-9                                                         0.90%     3.368GiB / 125.4GiB   2.69%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-4                                                         9.89%     4.327GiB / 125.4GiB   3.45%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-7                                                         2.41%     3.979GiB / 125.4GiB   3.17%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-10                                                        2.19%     3.526GiB / 125.4GiB   2.81%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-0                                                         1.54%     3.458GiB / 125.4GiB   2.76%     71
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-jaqqwu      0.22%     235.9MiB / 125.4GiB   0.18%     66
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-grafana-gz-4f31406-ceph-001201                                2.18%     259.8MiB / 125.4GiB   0.20%     75
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-tcrgya              0.42%     3.072GiB / 125.4GiB   2.45%     614
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-njcucn   0.02%     42.34MiB / 125.4GiB   0.03%     3
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-alertmanager-gz-4f31406-ceph-001201                           0.25%     70.62MiB / 125.4GiB   0.05%     70
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001201                                  0.00%     7.617MiB / 125.4GiB   0.01%     2
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-prometheus-gz-4f31406-ceph-001201                             1.58%     374.5MiB / 125.4GiB   0.29%     74
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-vwzjfn              0.46%     2.943GiB / 125.4GiB   2.35%     615
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001201                                    3.16%     1.467GiB / 125.4GiB   1.17%     28
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001201                          7.71%     77.12MiB / 125.4GiB   0.06%     131
-==================== gz-4f31406-ceph-001202 : docker stats ====================
-NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001202                     0.55%     94.16MiB / 125.4GiB   0.07%     70
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001202-yeyqxz                             0.85%     472.4MiB / 125.4GiB   0.37%     46
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-13                                                        1.09%     3.772GiB / 125.4GiB   3.01%     71
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-14                                                        5.08%     3.826GiB / 125.4GiB   3.05%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-20                                                        0.75%     3.57GiB / 125.4GiB    2.85%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-24                                                        2.73%     4.256GiB / 125.4GiB   3.39%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-18                                                        4.86%     3.921GiB / 125.4GiB   3.13%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-22                                                        1.68%     4.301GiB / 125.4GiB   3.43%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-19                                                        3.95%     4.073GiB / 125.4GiB   3.25%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-17                                                        4.84%     4.569GiB / 125.4GiB   3.64%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-16                                                        5.45%     5.207GiB / 125.4GiB   4.15%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-23                                                        1.08%     3.422GiB / 125.4GiB   2.73%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-25                                                        0.99%     3.832GiB / 125.4GiB   3.06%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-15                                                        4.04%     4.591GiB / 125.4GiB   3.66%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-21                                                        2.11%     4.047GiB / 125.4GiB   3.23%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001202                          0.00%     78.87MiB / 125.4GiB   0.06%     173
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001202                                    2.45%     1.872GiB / 125.4GiB   1.49%     28
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001202                                  0.00%     6.508MiB / 125.4GiB   0.01%     2
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-pihmyh   0.98%     42.29MiB / 125.4GiB   0.03%     3
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-djeddm              0.54%     4.933GiB / 125.4GiB   3.93%     614
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-yzihyq      0.73%     323.5MiB / 125.4GiB   0.25%     66
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-rodumt              0.53%     4.775GiB / 125.4GiB   3.81%     614
-==================== gz-4f31406-ceph-001203 : docker stats ====================
-NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001203-qycafv                             1.52%     443.1MiB / 125.4GiB   0.35%     46
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001203                     0.72%     104.3MiB / 125.4GiB   0.08%     70
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-31                                                        7.40%     4.621GiB / 125.4GiB   3.68%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-28                                                        7.88%     4.019GiB / 125.4GiB   3.20%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-32                                                        12.83%    4.453GiB / 125.4GiB   3.55%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-36                                                        3.66%     3.476GiB / 125.4GiB   2.77%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-29                                                        9.33%     4.453GiB / 125.4GiB   3.55%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-35                                                        1.66%     3.767GiB / 125.4GiB   3.00%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-30                                                        10.26%    4.149GiB / 125.4GiB   3.31%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-26                                                        0.72%     3.442GiB / 125.4GiB   2.74%     71
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-38                                                        2.60%     3.337GiB / 125.4GiB   2.66%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-33                                                        1.26%     3.872GiB / 125.4GiB   3.09%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-34                                                        0.89%     3.759GiB / 125.4GiB   3.00%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-27                                                        12.67%    4.768GiB / 125.4GiB   3.80%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-37                                                        1.91%     3.5GiB / 125.4GiB     2.79%     62
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001203                                    1.86%     1.436GiB / 125.4GiB   1.15%     28
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-qrvfsa              0.54%     3.714GiB / 125.4GiB   2.96%     614
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mds-cephfs-gz-4f31406-ceph-001203-vnsoyp                      0.07%     44.23MiB / 125.4GiB   0.03%     17
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-paypjz              0.35%     5.019GiB / 125.4GiB   4.00%     614
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-goxhct   0.02%     41.39MiB / 125.4GiB   0.03%     3
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001203                          0.00%     75.86MiB / 125.4GiB   0.06%     131
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-gmkkdg      0.24%     322.3MiB / 125.4GiB   0.25%     66
-ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001203                                  0.00%     10.73MiB / 125.4GiB   0.01%     2
-root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : ceph orch ps ===================="
->   ceph orch ps --host "$h"
-> done
-==================== gz-4f31406-ceph-001201 : ceph orch ps ====================
-NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
-alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
-container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
-container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
-container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
-container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
-container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
-crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
-crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
-crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
-crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
-crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
-grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
-mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
-mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
-mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
-mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
-mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
-mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
-mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
-mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
-mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
-mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
-mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
-node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
-node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
-node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
-node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
-node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
-osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
-osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
-osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
-osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
-osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
-osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
-osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
-osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
-osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
-osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
-osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
-osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
-osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
-osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
-osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
-osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
-osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
-osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
-osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
-osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
-osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
-osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
-osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
-osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
-osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
-osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
-osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
-osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
-osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
-osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
-osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
-osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
-osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
-osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
-osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
-osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
-osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
-osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
-osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
-osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
-osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
-osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
-osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
-osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
-osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
-osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
-osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
-osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
-osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
-osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
-osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
-osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
-osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
-osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
-osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
-osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
-osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
-osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
-osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
-osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
-osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
-osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
-osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
-osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
-osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
-prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
-==================== gz-4f31406-ceph-001202 : ceph orch ps ====================
-NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
-alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
-container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
-container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
-container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
-container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
-container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
-crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
-crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
-crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
-crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
-crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
-grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
-mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
-mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
-mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
-mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
-mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
-mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
-mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
-mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
-mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
-mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
-mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
-node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
-node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
-node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
-node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
-node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
-osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
-osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
-osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
-osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
-osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
-osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
-osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
-osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
-osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
-osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
-osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
-osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
-osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
-osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
-osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
-osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
-osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
-osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
-osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
-osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
-osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
-osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
-osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
-osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
-osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
-osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
-osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
-osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
-osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
-osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
-osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
-osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
-osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
-osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
-osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
-osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
-osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
-osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
-osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
-osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
-osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
-osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
-osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
-osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
-osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
-osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
-osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
-osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
-osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
-osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
-osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
-osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
-osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
-osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
-osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
-osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
-osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
-osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
-osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
-osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
-osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
-osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
-osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
-osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
-osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
-prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
-==================== gz-4f31406-ceph-001203 : ceph orch ps ====================
-NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
-alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
-container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
-container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
-container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
-container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
-container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
-crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
-crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
-crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
-crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
-crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
-grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
-haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
-keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
-mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
-mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
-mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
-mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
-mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
-mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
-mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
-mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
-mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
-mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
-mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
-node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
-node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
-node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
-node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
-node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
-osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
-osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
-osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
-osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
-osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
-osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
-osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
-osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
-osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
-osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
-osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
-osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
-osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
-osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
-osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
-osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
-osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
-osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
-osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
-osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
-osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
-osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
-osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
-osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
-osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
-osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
-osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
-osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
-osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
-osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
-osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
-osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
-osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
-osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
-osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
-osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
-osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
-osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
-osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
-osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
-osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
-osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
-osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
-osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
-osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
-osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
-osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
-osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
-osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
-osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
-osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
-osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
-osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
-osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
-osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
-osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
-osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
-osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
-osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
-osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
-osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
-osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
-osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
-osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
-osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
-prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
-rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
-root@gz-4f31406-ceph-001201:~# echo "===== OSD memory target ====="
-===== OSD memory target =====
-root@gz-4f31406-ceph-001201:~# ceph config get osd osd_memory_target
-4294967296
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# echo
+==================== gz-4f31406-ceph-001201 : slabtop ====================
+[1] slabtop top 40
+ Active / Total Objects (% used)    : 158608288 / 159899207 (99.2%)
+ Active / Total Slabs (% used)      : 4661262 / 4661262 (100.0%)
+ Active / Total Caches (% used)     : 111 / 161 (68.9%)
+ Active / Total Size (% used)       : 38758011.04K / 39279199.05K (98.7%)
+ Minimum / Average / Maximum Object : 0.01K / 0.25K / 16.75K
 
-root@gz-4f31406-ceph-001201:~# echo "===== MDS cache limit ====="
-===== MDS cache limit =====
-root@gz-4f31406-ceph-001201:~# ceph config get mds mds_cache_memory_limit
-4294967296
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# echo
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME                   
+136482291 136481073  99%    0.24K 4135827       33  33086616K tw_sock_TCP            
+6102954 5960332  97%    0.10K 156486       39    625944K buffer_head            
+3263547 2724131  83%    0.57K  58296       56   1865472K radix_tree_node        
+1613056 1606240  99%    0.06K  25204       64    100816K anon_vma_chain         
+1244124 1019663  81%    0.19K  29624       42    236992K dentry                 
+1204456 1200406  99%    0.20K  30884       39    247072K vm_area_struct         
+1004367 1000428  99%    0.10K  25753       39    103012K anon_vma               
+935232 929752  99%    0.25K  29226       32    233808K filp                   
+827008 804709  97%    0.03K   6461      128     25844K kmalloc-32             
+555328 462201  83%    0.06K   8677       64     34708K kmalloc-64             
+538944 536810  99%    0.12K  16842       32     67368K pid                    
+473344 473344 100%    0.02K   1849      256      7396K kmalloc-16             
+351984 348586  99%    0.66K   7333       48    234656K proc_inode_cache       
+323730 319360  98%    0.59K   6109       53    195488K inode_cache            
+294720 260004  88%    0.06K   4605       64     18420K kmalloc-rcl-64         
+292230 292230 100%    0.04K   2865      102     11460K pde_opener             
+256560 253176  98%    0.13K   4276       60     34208K kernfs_node_cache      
+253878 253345  99%    0.08K   4978       51     19912K task_delay_info        
+245193 244435  99%    0.81K   6287       39    201184K sock_inode_cache       
+238415 136859  57%    0.67K   5095       47    163040K ovl_inode              
+219648 219648 100%    0.01K    429      512      1716K kmalloc-8              
+212632 212576  99%    0.07K   3797       56     15188K eventpoll_pwq          
+204918 204918 100%    0.19K   4879       42     39032K cred_jar               
+200256 200256 100%    0.07K   3576       56     14304K Acpi-Operand           
+185952 184641  99%    0.25K   5813       32     46504K skbuff_head_cache      
+185656 184640  99%    0.50K   5804       32     92864K kmalloc-512            
+166859 116640  69%    1.07K   5795       29    185440K ext4_inode_cache       
+164332 163487  99%    1.00K   5138       32    164416K kmalloc-1k             
+156230 155996  99%    0.02K    919      170      3676K lsm_file_cache         
+154434 148560  96%    0.09K   3677       42     14708K kmalloc-rcl-96         
+125391 125345  99%    0.19K   2986       42     23888K kmalloc-192            
+117714 117714 100%    0.69K   2559       46     81888K files_cache            
+ 95466  94977  99%    0.09K   2273       42      9092K kmalloc-96             
 
-root@gz-4f31406-ceph-001201:~# echo "===== memory related config dump ====="
-===== memory related config dump =====
-root@gz-4f31406-ceph-001201:~# ceph config dump | egrep -i "osd_memory_target|bluestore_cache|mds_cache_memory_limit|rgw.*cache|rgw.*thread|rgw.*frontend"
-  osd                                                        host:gz-4f31406-ceph-001201  basic     osd_memory_target                          4813621186                                                                                             
-  osd                                                        host:gz-4f31406-ceph-001202  basic     osd_memory_target                          4715452533                                                                                             
-  osd                                                        host:gz-4f31406-ceph-001203  basic     osd_memory_target                          4501626726                                                                                             
-  osd                                                        host:gz-4f31406-ceph-001204  basic     osd_memory_target                          5549660370                                                                                             
-  osd                                                        host:gz-4f31406-ceph-001205  basic     osd_memory_target                          5549158541                                                                                             
-  osd                                                                                     advanced  osd_memory_target_autotune                 true                                                                                                   
-  client                                                                                  basic     rgw_thread_pool_size                       512                                                                                                    
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya                               basic     rgw_frontends                              beast endpoint=172.21.1.201:7481                                                                     * 
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn                               basic     rgw_frontends                              beast endpoint=172.21.1.201:7480                                                                     * 
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm                               basic     rgw_frontends                              beast endpoint=172.21.1.202:7481                                                                     * 
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt                               basic     rgw_frontends                              beast endpoint=172.21.1.202:7480                                                                     * 
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz                               basic     rgw_frontends                              beast endpoint=172.21.1.203:7480                                                                     * 
-    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa                               basic     rgw_frontends                              beast endpoint=172.21.1.203:7481                                                                     * 
+[2] /proc/slabinfo top by memory
+tw_sock_TCP                                   32279.6 MiB active_objs=136481073    num_objs=136482291    objsize=248     
+radix_tree_node                                1817.6 MiB active_objs=2724131      num_objs=3263547      objsize=584     
+buffer_head                                     605.3 MiB active_objs=5960332      num_objs=6102954      objsize=104     
+vm_area_struct                                  238.9 MiB active_objs=1200406      num_objs=1204456      objsize=208     
+proc_inode_cache                                228.3 MiB active_objs=348634       num_objs=352032       objsize=680     
+filp                                            228.3 MiB active_objs=929816       num_objs=935296       objsize=256     
+dentry                                          227.8 MiB active_objs=1019705      num_objs=1244166      objsize=192     
+task_struct                                     198.7 MiB active_objs=26687        num_objs=27132        objsize=7680    
+sock_inode_cache                                194.6 MiB active_objs=244435       num_objs=245193       objsize=832     
+inode_cache                                     187.7 MiB active_objs=319360       num_objs=323730       objsize=608     
+ext4_inode_cache                                174.4 MiB active_objs=116640       num_objs=166859       objsize=1096    
+kmalloc-1k                                      160.5 MiB active_objs=163487       num_objs=164332       objsize=1024    
+kmalloc-4k                                      158.6 MiB active_objs=40510        num_objs=40608        objsize=4096    
+ovl_inode                                       156.4 MiB active_objs=136859       num_objs=238415       objsize=688     
+anon_vma                                         99.6 MiB active_objs=1000506      num_objs=1004445      objsize=104     
+TCP                                              99.1 MiB active_objs=45923        num_objs=46396        objsize=2240    
+kmalloc-2k                                       99.1 MiB active_objs=50592        num_objs=50752        objsize=2048    
+anon_vma_chain                                   98.5 MiB active_objs=1606304      num_objs=1613120      objsize=64      
+mm_struct                                        92.0 MiB active_objs=88620        num_objs=88620        objsize=1088    
+signal_cache                                     91.7 MiB active_objs=83110        num_objs=83440        objsize=1152    
+kmalloc-512                                      90.7 MiB active_objs=184640       num_objs=185656       objsize=512     
+PING                                             85.3 MiB active_objs=87328        num_objs=87328        objsize=1024    
+sighand_cache                                    83.8 MiB active_objs=41482        num_objs=41610        objsize=2112    
+files_cache                                      79.0 MiB active_objs=117714       num_objs=117714       objsize=704     
+pid                                              65.8 MiB active_objs=536842       num_objs=538976       objsize=128     
+skbuff_head_cache                                45.4 MiB active_objs=184641       num_objs=185952       objsize=256     
+cred_jar                                         37.5 MiB active_objs=204960       num_objs=204960       objsize=192     
+kmalloc-64                                       33.9 MiB active_objs=462264       num_objs=555392       objsize=64      
+kernfs_node_cache                                33.3 MiB active_objs=253176       num_objs=256560       objsize=136     
+shmem_inode_cache                                26.4 MiB active_objs=37716        num_objs=38520        objsize=720     
+kmalloc-32                                       25.2 MiB active_objs=804709       num_objs=827008       objsize=32      
+kmalloc-192                                      23.0 MiB active_objs=125345       num_objs=125391       objsize=192     
+task_delay_info                                  19.4 MiB active_objs=253345       num_objs=253878       objsize=80      
+kmalloc-rcl-64                                   18.0 MiB active_objs=260004       num_objs=294720       objsize=64      
+UDPv6                                            15.4 MiB active_objs=12048        num_objs=12048        objsize=1344    
+eventpoll_pwq                                    14.6 MiB active_objs=212576       num_objs=212632       objsize=72      
+kmalloc-rcl-96                                   14.1 MiB active_objs=148560       num_objs=154434       objsize=96      
+Acpi-Operand                                     13.8 MiB active_objs=200256       num_objs=200256       objsize=72      
+RAW                                              12.6 MiB active_objs=12800        num_objs=12864        objsize=1024    
+kmalloc-8k                                       12.5 MiB active_objs=1573         num_objs=1596         objsize=8192    
+
+[3] suspicious slab objects
+tw_sock_TCP                                   32279.6 MiB active_objs=136481073    num_objs=136482291    objsize=248     
+radix_tree_node                                1817.6 MiB active_objs=2724131      num_objs=3263547      objsize=584     
+buffer_head                                     605.3 MiB active_objs=5960367      num_objs=6102954      objsize=104     
+proc_inode_cache                                228.3 MiB active_objs=348682       num_objs=352080       objsize=680     
+dentry                                          227.8 MiB active_objs=1019705      num_objs=1244166      objsize=192     
+sock_inode_cache                                194.6 MiB active_objs=244435       num_objs=245193       objsize=832     
+inode_cache                                     187.7 MiB active_objs=319413       num_objs=323783       objsize=608     
+ext4_inode_cache                                174.4 MiB active_objs=116640       num_objs=166859       objsize=1096    
+kmalloc-1k                                      160.5 MiB active_objs=163519       num_objs=164364       objsize=1024    
+kmalloc-4k                                      158.7 MiB active_objs=40518        num_objs=40616        objsize=4096    
+ovl_inode                                       156.4 MiB active_objs=136859       num_objs=238415       objsize=688     
+kmalloc-2k                                       99.1 MiB active_objs=50592        num_objs=50752        objsize=2048    
+kmalloc-512                                      90.7 MiB active_objs=184640       num_objs=185656       objsize=512     
+skbuff_head_cache                                45.4 MiB active_objs=184737       num_objs=185984       objsize=256     
+kmalloc-64                                       33.9 MiB active_objs=462264       num_objs=555392       objsize=64      
+shmem_inode_cache                                26.4 MiB active_objs=37716        num_objs=38520        objsize=720     
+kmalloc-32                                       25.2 MiB active_objs=804709       num_objs=827008       objsize=32      
+kmalloc-192                                      23.0 MiB active_objs=125387       num_objs=125433       objsize=192     
+kmalloc-rcl-64                                   18.0 MiB active_objs=260004       num_objs=294720       objsize=64      
+kmalloc-rcl-96                                   14.1 MiB active_objs=148560       num_objs=154434       objsize=96      
+kmalloc-8k                                       12.5 MiB active_objs=1573         num_objs=1596         objsize=8192    
+squashfs_inode_cache                             10.1 MiB active_objs=9993         num_objs=15088        objsize=704     
+kmalloc-96                                        8.7 MiB active_objs=94977        num_objs=95466        objsize=96      
+kmalloc-16                                        7.2 MiB active_objs=473344       num_objs=473344       objsize=16      
+nf_conntrack                                      6.9 MiB active_objs=18627        num_objs=22542        objsize=320     
+biovec-128                                        6.8 MiB active_objs=3376         num_objs=3472         objsize=2048    
+kmalloc-256                                       6.1 MiB active_objs=24798        num_objs=25088        objsize=256     
+biovec-max                                        5.9 MiB active_objs=1410         num_objs=1504         objsize=4096    
+kmalloc-rcl-128                                   5.4 MiB active_objs=43938        num_objs=44000        objsize=128     
+kmalloc-128                                       4.6 MiB active_objs=29839        num_objs=37920        objsize=128     
+skbuff_ext_cache                                  4.3 MiB active_objs=23551        num_objs=23751        objsize=192     
+skbuff_fclone_cache                               4.2 MiB active_objs=8544         num_objs=8544         objsize=512     
+biovec-64                                         3.0 MiB active_objs=3072         num_objs=3072         objsize=1024    
+vmap_area                                         2.7 MiB active_objs=32364        num_objs=44672        objsize=64      
+request_sock_TCP                                  1.7 MiB active_objs=5777         num_objs=5777         objsize=304     
+kmalloc-8                                         1.7 MiB active_objs=219648       num_objs=219648       objsize=8       
+kmalloc-rcl-192                                   1.5 MiB active_objs=8400         num_objs=8400         objsize=192     
+tw_sock_TCPv6                                     1.1 MiB active_objs=4686         num_objs=4686         objsize=248     
+request_sock_TCPv6                                1.0 MiB active_objs=3392         num_objs=3392         objsize=304     
+JT_fw_psock_ctx                                   0.9 MiB active_objs=13552        num_objs=13552        objsize=72      
+==================== gz-4f31406-ceph-001202 : slabtop ====================
+[1] slabtop top 40
+ Active / Total Objects (% used)    : 159039375 / 160165649 (99.3%)
+ Active / Total Slabs (% used)      : 4684431 / 4684431 (100.0%)
+ Active / Total Caches (% used)     : 106 / 157 (67.5%)
+ Active / Total Size (% used)       : 38891451.25K / 39344753.61K (98.8%)
+ Minimum / Average / Maximum Object : 0.01K / 0.25K / 16.75K
+
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME                   
+138959337 138958207  99%    0.24K 4210889       33  33687112K tw_sock_TCP            
+5253495 5127142  97%    0.10K 134705       39    538820K buffer_head            
+3181437 2715798  85%    0.57K  56835       56   1818720K radix_tree_node        
+1572992 1565550  99%    0.06K  24578       64     98312K anon_vma_chain         
+1159197 1155252  99%    0.20K  29723       39    237784K vm_area_struct         
+1091076 884633  81%    0.19K  25981       42    207848K dentry                 
+970437 966454  99%    0.10K  24883       39     99532K anon_vma               
+789472 784105  99%    0.25K  24671       32    197368K filp                   
+701184 690062  98%    0.03K   5478      128     21912K kmalloc-32             
+473280 471835  99%    0.12K  14790       32     59160K pid                    
+449408 364294  81%    0.06K   7022       64     28088K kmalloc-64             
+404224 404224 100%    0.02K   1579      256      6316K kmalloc-16             
+305492 302384  98%    0.59K   5764       53    184448K inode_cache            
+304326 301704  99%    0.66K   6341       48    202912K proc_inode_cache       
+291584 260913  89%    0.06K   4556       64     18224K kmalloc-rcl-64         
+241638 241638 100%    0.04K   2369      102      9476K pde_opener             
+232320 231290  99%    0.13K   3872       60     30976K kernfs_node_cache      
+229959 229959 100%    0.08K   4509       51     18036K task_delay_info        
+218053 217737  99%    0.81K   5592       39    178944K sock_inode_cache       
+214528 214528 100%    0.01K    419      512      1676K kmalloc-8              
+200200 200200 100%    0.07K   3575       56     14300K Acpi-Operand           
+177933 177892  99%    0.19K   4237       42     33896K cred_jar               
+175432  95506  54%    0.67K   3746       47    119872K ovl_inode              
+167200 166633  99%    0.50K   5225       32     83600K kmalloc-512            
+163984 163537  99%    0.25K   5125       32     41000K skbuff_head_cache      
+161910 156306  96%    0.09K   3855       42     15420K kmalloc-rcl-96         
+159544 159544 100%    0.07K   2849       56     11396K eventpoll_pwq          
+159120 159120 100%    0.02K    936      170      3744K lsm_file_cache         
+145293  96674  66%    1.07K   5063       29    162016K ext4_inode_cache       
+143716 142629  99%    1.00K   4492       32    143744K kmalloc-1k             
+109872 109803  99%    0.19K   2616       42     20928K kmalloc-192            
+103643 103643 100%    0.69K   2254       46     72128K files_cache            
+ 90384  90384 100%    0.09K   2152       42      8608K kmalloc-96             
+
+[2] /proc/slabinfo top by memory
+tw_sock_TCP                                   32865.4 MiB active_objs=138958207    num_objs=138959337    objsize=248     
+radix_tree_node                                1771.9 MiB active_objs=2715798      num_objs=3181437      objsize=584     
+buffer_head                                     521.1 MiB active_objs=5127220      num_objs=5253495      objsize=104     
+vm_area_struct                                  230.0 MiB active_objs=1155330      num_objs=1159275      objsize=208     
+dentry                                          199.8 MiB active_objs=884675       num_objs=1091118      objsize=192     
+proc_inode_cache                                197.4 MiB active_objs=301752       num_objs=304374       objsize=680     
+filp                                            192.8 MiB active_objs=784169       num_objs=789536       objsize=256     
+inode_cache                                     177.1 MiB active_objs=302384       num_objs=305492       objsize=608     
+task_struct                                     173.3 MiB active_objs=23200        num_objs=23668        objsize=7680    
+sock_inode_cache                                173.0 MiB active_objs=217737       num_objs=218053       objsize=832     
+ext4_inode_cache                                151.9 MiB active_objs=96674        num_objs=145293       objsize=1096    
+kmalloc-1k                                      140.3 MiB active_objs=142629       num_objs=143716       objsize=1024    
+kmalloc-4k                                      136.6 MiB active_objs=34849        num_objs=34960        objsize=4096    
+ovl_inode                                       115.1 MiB active_objs=95506        num_objs=175432       objsize=688     
+anon_vma                                         96.3 MiB active_objs=966493       num_objs=970476       objsize=104     
+anon_vma_chain                                   96.0 MiB active_objs=1565614      num_objs=1573056      objsize=64      
+TCP                                              91.4 MiB active_objs=42192        num_objs=42784        objsize=2240    
+kmalloc-2k                                       89.1 MiB active_objs=45440        num_objs=45600        objsize=2048    
+signal_cache                                     83.5 MiB active_objs=75650        num_objs=75967        objsize=1152    
+kmalloc-512                                      81.6 MiB active_objs=166633       num_objs=167200       objsize=512     
+mm_struct                                        80.1 MiB active_objs=77013        num_objs=77193        objsize=1088    
+PING                                             78.8 MiB active_objs=80642        num_objs=80672        objsize=1024    
+sighand_cache                                    78.1 MiB active_objs=38701        num_objs=38776        objsize=2112    
+files_cache                                      69.6 MiB active_objs=103643       num_objs=103643       objsize=704     
+pid                                              57.8 MiB active_objs=471867       num_objs=473312       objsize=128     
+skbuff_head_cache                                40.0 MiB active_objs=163537       num_objs=163984       objsize=256     
+cred_jar                                         32.6 MiB active_objs=177934       num_objs=177975       objsize=192     
+kernfs_node_cache                                30.1 MiB active_objs=231290       num_objs=232320       objsize=136     
+kmalloc-64                                       27.4 MiB active_objs=364358       num_objs=449472       objsize=64      
+shmem_inode_cache                                26.3 MiB active_objs=37701        num_objs=38340        objsize=720     
+kmalloc-32                                       21.4 MiB active_objs=690062       num_objs=701184       objsize=32      
+kmalloc-192                                      20.1 MiB active_objs=109803       num_objs=109872       objsize=192     
+kmalloc-rcl-64                                   17.8 MiB active_objs=260913       num_objs=291584       objsize=64      
+task_delay_info                                  17.5 MiB active_objs=229959       num_objs=229959       objsize=80      
+kmalloc-rcl-96                                   14.8 MiB active_objs=156306       num_objs=161910       objsize=96      
+UDPv6                                            14.2 MiB active_objs=11112        num_objs=11112        objsize=1344    
+Acpi-Operand                                     13.7 MiB active_objs=200200       num_objs=200200       objsize=72      
+RAW                                              12.7 MiB active_objs=12960        num_objs=12960        objsize=1024    
+kmalloc-8k                                       11.4 MiB active_objs=1449         num_objs=1460         objsize=8192    
+eventpoll_pwq                                    11.0 MiB active_objs=159544       num_objs=159544       objsize=72      
+
+[3] suspicious slab objects
+tw_sock_TCP                                   32865.4 MiB active_objs=138958207    num_objs=138959337    objsize=248     
+radix_tree_node                                1771.9 MiB active_objs=2715798      num_objs=3181437      objsize=584     
+buffer_head                                     521.1 MiB active_objs=5127291      num_objs=5253534      objsize=104     
+dentry                                          199.8 MiB active_objs=884675       num_objs=1091118      objsize=192     
+proc_inode_cache                                197.4 MiB active_objs=301752       num_objs=304374       objsize=680     
+inode_cache                                     177.1 MiB active_objs=302384       num_objs=305492       objsize=608     
+sock_inode_cache                                173.0 MiB active_objs=217737       num_objs=218053       objsize=832     
+ext4_inode_cache                                151.9 MiB active_objs=96674        num_objs=145293       objsize=1096    
+kmalloc-1k                                      140.3 MiB active_objs=142629       num_objs=143716       objsize=1024    
+kmalloc-4k                                      136.6 MiB active_objs=34857        num_objs=34968        objsize=4096    
+ovl_inode                                       115.1 MiB active_objs=95506        num_objs=175432       objsize=688     
+kmalloc-2k                                       89.1 MiB active_objs=45440        num_objs=45600        objsize=2048    
+kmalloc-512                                      81.6 MiB active_objs=166633       num_objs=167200       objsize=512     
+skbuff_head_cache                                40.0 MiB active_objs=163537       num_objs=163984       objsize=256     
+kmalloc-64                                       27.4 MiB active_objs=364358       num_objs=449472       objsize=64      
+shmem_inode_cache                                26.3 MiB active_objs=37701        num_objs=38340        objsize=720     
+kmalloc-32                                       21.4 MiB active_objs=690062       num_objs=701184       objsize=32      
+kmalloc-192                                      20.1 MiB active_objs=109803       num_objs=109872       objsize=192     
+kmalloc-rcl-64                                   17.8 MiB active_objs=260913       num_objs=291584       objsize=64      
+kmalloc-rcl-96                                   14.8 MiB active_objs=156306       num_objs=161910       objsize=96      
+kmalloc-8k                                       11.4 MiB active_objs=1449         num_objs=1460         objsize=8192    
+kmalloc-96                                        8.3 MiB active_objs=90384        num_objs=90384        objsize=96      
+squashfs_inode_cache                              7.2 MiB active_objs=5997         num_objs=10764        objsize=704     
+nf_conntrack                                      6.6 MiB active_objs=19956        num_objs=21522        objsize=320     
+biovec-128                                        6.6 MiB active_objs=3344         num_objs=3392         objsize=2048    
+kmalloc-256                                       6.2 MiB active_objs=25318        num_objs=25376        objsize=256     
+kmalloc-16                                        6.2 MiB active_objs=404224       num_objs=404224       objsize=16      
+kmalloc-rcl-128                                   5.9 MiB active_objs=47659        num_objs=48160        objsize=128     
+biovec-max                                        5.8 MiB active_objs=1408         num_objs=1472         objsize=4096    
+skbuff_ext_cache                                  4.7 MiB active_objs=24847        num_objs=25452        objsize=192     
+skbuff_fclone_cache                               4.6 MiB active_objs=9376         num_objs=9472         objsize=512     
+kmalloc-128                                       4.5 MiB active_objs=28501        num_objs=37088        objsize=128     
+vmap_area                                         2.5 MiB active_objs=29004        num_objs=40896        objsize=64      
+biovec-64                                         2.5 MiB active_objs=2560         num_objs=2560         objsize=1024    
+kmalloc-8                                         1.6 MiB active_objs=214528       num_objs=214528       objsize=8       
+request_sock_TCP                                  1.5 MiB active_objs=5300         num_objs=5300         objsize=304     
+kmalloc-rcl-192                                   1.4 MiB active_objs=7770         num_objs=7770         objsize=192     
+request_sock_TCPv6                                1.0 MiB active_objs=3392         num_objs=3392         objsize=304     
+tw_sock_TCPv6                                     0.6 MiB active_objs=2574         num_objs=2574         objsize=248     
+kmalloc-rcl-256                                   0.5 MiB active_objs=2048         num_objs=2048         objsize=256     
+==================== gz-4f31406-ceph-001203 : slabtop ====================
+[1] slabtop top 40
+ Active / Total Objects (% used)    : 159940510 / 161584280 (99.0%)
+ Active / Total Slabs (% used)      : 4720534 / 4720534 (100.0%)
+ Active / Total Caches (% used)     : 106 / 157 (67.5%)
+ Active / Total Size (% used)       : 39000360.14K / 39586227.31K (98.5%)
+ Minimum / Average / Maximum Object : 0.01K / 0.24K / 16.75K
+
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME                   
+139089819 139088123  99%    0.24K 4214843       33  33718744K tw_sock_TCP            
+6353880 5958512  93%    0.10K 162920       39    651680K buffer_head            
+3341240 2788609  83%    0.57K  59665       56   1909280K radix_tree_node        
+1572928 1564415  99%    0.06K  24577       64     98308K anon_vma_chain         
+1155672 878625  76%    0.19K  27516       42    220128K dentry                 
+1136421 1131761  99%    0.20K  29139       39    233112K vm_area_struct         
+955578 951376  99%    0.10K  24502       39     98008K anon_vma               
+803520 798588  99%    0.25K  25110       32    200880K filp                   
+705792 686823  97%    0.03K   5514      128     22056K kmalloc-32             
+482560 481806  99%    0.12K  15080       32     60320K pid                    
+467520 372979  79%    0.06K   7305       64     29220K kmalloc-64             
+401152 401152 100%    0.02K   1567      256      6268K kmalloc-16             
+304896 267229  87%    0.06K   4764       64     19056K kmalloc-rcl-64         
+300576 297315  98%    0.66K   6262       48    200384K proc_inode_cache       
+287949 284207  98%    0.59K   5433       53    173856K inode_cache            
+242148 242148 100%    0.04K   2374      102      9496K pde_opener             
+236880 232158  98%    0.13K   3948       60     31584K kernfs_node_cache      
+220269 220176  99%    0.08K   4319       51     17276K task_delay_info        
+212784 212401  99%    0.81K   5456       39    174592K sock_inode_cache       
+210432 210432 100%    0.01K    411      512      1644K kmalloc-8              
+200256 200256 100%    0.07K   3576       56     14304K Acpi-Operand           
+196507  91901  46%    0.67K   4181       47    133792K ovl_inode              
+176946 176674  99%    0.19K   4213       42     33704K cred_jar               
+165928 165928 100%    0.07K   2963       56     11852K eventpoll_pwq          
+163456 163136  99%    0.25K   5108       32     40864K skbuff_head_cache      
+160896 160224  99%    0.50K   5028       32     80448K kmalloc-512            
+159413  93077  58%    1.07K   5497       29    175904K ext4_inode_cache       
+148470 141824  95%    0.09K   3535       42     14140K kmalloc-rcl-96         
+137248 136331  99%    1.00K   4289       32    137248K kmalloc-1k             
+128010 124022  96%    0.02K    753      170      3012K lsm_file_cache         
+108822 108822 100%    0.19K   2591       42     20728K kmalloc-192            
+104370 103767  99%    0.09K   2485       42      9940K kmalloc-96             
+101798 101798 100%    0.69K   2213       46     70816K files_cache            
+
+[2] /proc/slabinfo top by memory
+tw_sock_TCP                                   32896.3 MiB active_objs=139088123    num_objs=139089819    objsize=248     
+radix_tree_node                                1860.9 MiB active_objs=2788609      num_objs=3341240      objsize=584     
+buffer_head                                     630.2 MiB active_objs=5958512      num_objs=6353880      objsize=104     
+vm_area_struct                                  225.4 MiB active_objs=1131761      num_objs=1136421      objsize=208     
+dentry                                          211.6 MiB active_objs=878625       num_objs=1155672      objsize=192     
+filp                                            196.2 MiB active_objs=798588       num_objs=803520       objsize=256     
+proc_inode_cache                                194.9 MiB active_objs=297315       num_objs=300576       objsize=680     
+task_struct                                     176.7 MiB active_objs=23724        num_objs=24128        objsize=7680    
+sock_inode_cache                                168.8 MiB active_objs=212401       num_objs=212784       objsize=832     
+inode_cache                                     167.0 MiB active_objs=284207       num_objs=287949       objsize=608     
+ext4_inode_cache                                166.6 MiB active_objs=93077        num_objs=159413       objsize=1096    
+kmalloc-1k                                      134.0 MiB active_objs=136331       num_objs=137248       objsize=1024    
+kmalloc-4k                                      132.9 MiB active_objs=33943        num_objs=34024        objsize=4096    
+ovl_inode                                       128.9 MiB active_objs=91901        num_objs=196507       objsize=688     
+anon_vma_chain                                   96.0 MiB active_objs=1564415      num_objs=1572928      objsize=64      
+anon_vma                                         94.8 MiB active_objs=951376       num_objs=955578       objsize=104     
+kmalloc-2k                                       91.8 MiB active_objs=46865        num_objs=46976        objsize=2048    
+TCP                                              85.1 MiB active_objs=39103        num_objs=39844        objsize=2240    
+signal_cache                                     81.5 MiB active_objs=73683        num_objs=74200        objsize=1152    
+PING                                             79.4 MiB active_objs=81344        num_objs=81344        objsize=1024    
+mm_struct                                        79.3 MiB active_objs=76200        num_objs=76380        objsize=1088    
+kmalloc-512                                      78.6 MiB active_objs=160224       num_objs=160896       objsize=512     
+sighand_cache                                    77.7 MiB active_objs=38416        num_objs=38580        objsize=2112    
+files_cache                                      68.3 MiB active_objs=101798       num_objs=101798       objsize=704     
+pid                                              58.9 MiB active_objs=481806       num_objs=482560       objsize=128     
+skbuff_head_cache                                39.9 MiB active_objs=163136       num_objs=163456       objsize=256     
+cred_jar                                         32.4 MiB active_objs=176674       num_objs=176946       objsize=192     
+kernfs_node_cache                                30.7 MiB active_objs=232158       num_objs=236880       objsize=136     
+kmalloc-64                                       28.5 MiB active_objs=372979       num_objs=467520       objsize=64      
+shmem_inode_cache                                26.3 MiB active_objs=37390        num_objs=38250        objsize=720     
+kmalloc-32                                       21.5 MiB active_objs=686823       num_objs=705792       objsize=32      
+kmalloc-192                                      19.9 MiB active_objs=108822       num_objs=108822       objsize=192     
+kmalloc-rcl-64                                   18.6 MiB active_objs=267229       num_objs=304896       objsize=64      
+task_delay_info                                  16.8 MiB active_objs=220176       num_objs=220269       objsize=80      
+UDPv6                                            13.9 MiB active_objs=10872        num_objs=10872        objsize=1344    
+Acpi-Operand                                     13.8 MiB active_objs=200256       num_objs=200256       objsize=72      
+kmalloc-rcl-96                                   13.6 MiB active_objs=141824       num_objs=148470       objsize=96      
+RAW                                              11.9 MiB active_objs=12160        num_objs=12160        objsize=1024    
+kmalloc-8k                                       11.6 MiB active_objs=1484         num_objs=1484         objsize=8192    
+eventpoll_pwq                                    11.4 MiB active_objs=165928       num_objs=165928       objsize=72      
+
+[3] suspicious slab objects
+tw_sock_TCP                                   32896.3 MiB active_objs=139088123    num_objs=139089819    objsize=248     
+radix_tree_node                                1860.9 MiB active_objs=2788609      num_objs=3341240      objsize=584     
+buffer_head                                     630.2 MiB active_objs=5958577      num_objs=6353880      objsize=104     
+dentry                                          211.6 MiB active_objs=878667       num_objs=1155714      objsize=192     
+proc_inode_cache                                195.0 MiB active_objs=297363       num_objs=300624       objsize=680     
+sock_inode_cache                                168.8 MiB active_objs=212401       num_objs=212784       objsize=832     
+inode_cache                                     167.0 MiB active_objs=284207       num_objs=287949       objsize=608     
+ext4_inode_cache                                166.6 MiB active_objs=93077        num_objs=159413       objsize=1096    
+kmalloc-1k                                      134.0 MiB active_objs=136331       num_objs=137248       objsize=1024    
+kmalloc-4k                                      132.9 MiB active_objs=33943        num_objs=34024        objsize=4096    
+ovl_inode                                       128.9 MiB active_objs=91901        num_objs=196507       objsize=688     
+kmalloc-2k                                       91.8 MiB active_objs=46865        num_objs=46976        objsize=2048    
+kmalloc-512                                      78.6 MiB active_objs=160224       num_objs=160896       objsize=512     
+skbuff_head_cache                                39.9 MiB active_objs=163136       num_objs=163456       objsize=256     
+kmalloc-64                                       28.5 MiB active_objs=372979       num_objs=467520       objsize=64      
+shmem_inode_cache                                26.3 MiB active_objs=37390        num_objs=38250        objsize=720     
+kmalloc-32                                       21.5 MiB active_objs=686823       num_objs=705792       objsize=32      
+kmalloc-192                                      19.9 MiB active_objs=108822       num_objs=108822       objsize=192     
+kmalloc-rcl-64                                   18.6 MiB active_objs=267229       num_objs=304896       objsize=64      
+kmalloc-rcl-96                                   13.6 MiB active_objs=141824       num_objs=148470       objsize=96      
+kmalloc-8k                                       11.6 MiB active_objs=1484         num_objs=1484         objsize=8192    
+kmalloc-96                                        9.6 MiB active_objs=103767       num_objs=104370       objsize=96      
+squashfs_inode_cache                              9.0 MiB active_objs=4927         num_objs=13478        objsize=704     
+nf_conntrack                                      7.5 MiB active_objs=22202        num_objs=24429        objsize=320     
+biovec-max                                        6.2 MiB active_objs=1540         num_objs=1584         objsize=4096    
+biovec-128                                        6.2 MiB active_objs=3120         num_objs=3200         objsize=2048    
+kmalloc-256                                       6.1 MiB active_objs=25020        num_objs=25184        objsize=256     
+kmalloc-16                                        6.1 MiB active_objs=401152       num_objs=401152       objsize=16      
+kmalloc-rcl-128                                   6.0 MiB active_objs=48966        num_objs=49184        objsize=128     
+kmalloc-128                                       5.1 MiB active_objs=29997        num_objs=41600        objsize=128     
+skbuff_fclone_cache                               4.8 MiB active_objs=9440         num_objs=9728         objsize=512     
+skbuff_ext_cache                                  4.5 MiB active_objs=24259        num_objs=24696        objsize=192     
+biovec-64                                         2.9 MiB active_objs=3008         num_objs=3008         objsize=1024    
+vmap_area                                         2.7 MiB active_objs=29157        num_objs=44800        objsize=64      
+request_sock_TCP                                  1.6 MiB active_objs=5459         num_objs=5459         objsize=304     
+kmalloc-8                                         1.6 MiB active_objs=210432       num_objs=210432       objsize=8       
+kmalloc-rcl-192                                   1.4 MiB active_objs=7644         num_objs=7644         objsize=192     
+request_sock_TCPv6                                1.0 MiB active_objs=3392         num_objs=3392         objsize=304     
+tw_sock_TCPv6                                     0.6 MiB active_objs=2442         num_objs=2442         objsize=248     
+kmalloc-rcl-256                                   0.5 MiB active_objs=2048         num_objs=2048         objsize=256     
 root@gz-4f31406-ceph-001201:~# 
