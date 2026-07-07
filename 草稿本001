@@ -1,215 +1,717 @@
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# LOGDIR="/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a"
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# OBJ="cv_game_prob_no_card.zip"
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# 
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# grep -R "${OBJ}" "${LOGDIR}"/ceph-client.rgw*.log* 2>/dev/null \
->   | egrep "17:3[7-9]|17:4[0-9]" \
->   | tail -n 300
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:38:39.499+0800 7fd283ebb700  1 beast: 0x7fd1f4c19620: 172.21.233.129 - anonymous [30/Jun/2026:17:37:17.616 +0800] "GET /intelligent-building-test/upload/cv_game_prob_no_card.zip HTTP/1.1" 206 1092398944 - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0" bytes=1088639136- latency=81.883117676s
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# grep -R "17:47" "${LOGDIR}"/ceph-client.rgw*.log* 2>/dev/null | tail -n 200
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.124+0800 7fd257662700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.124+0800 7fd257662700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.124 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/1e/1e863144ef5f9fc7f81a0bce3ad301c84e12f228b2b3f41e1c0555df80f1e2db/data HTTP/1.1" 206 712 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.144+0800 7fd2b0f15700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.144+0800 7fd247642700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.148+0800 7fd247642700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.144 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-marketplace/_manifests/revisions/sha256/36561078c7c6c54377b2877920ca41293eb012a68dfa12ea9b4c02b0118ce417/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.172+0800 7fd24f652700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.172+0800 7fd26f692700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.176+0800 7fd26f692700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.172 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/30/305b1b838097bd5b5b2722bcc2a835eb2aad80f04ffaf519e23b4e78b4fb9057/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T094759Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=9865f4fe859c3b8b6da93eb265a44f79a33fef62c76559fc3e8e7c00625ebcc9 HTTP/1.1" 200 11483 - "Go-http-client/1.1" - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.176+0800 7fd26e690700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.180+0800 7fd2175e2700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.180+0800 7fd2175e2700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.176 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/f3/f3cf46cf7a5f5044760c84fd7d4422dbc5a106f37e149096b8b0e2874d8a3c5d/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T094759Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=803f166992a40f5fe09f5142acedaa35c9ad4791d514f1353e44c3e511107f61 HTTP/1.1" 200 360567 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.252+0800 7fd2a56fe700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.256+0800 7fd26a688700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.004000154s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.256+0800 7fd26a688700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.252 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/9a/9abe00f83312c2be3500c30b9564ab8dd98235e310294b56896a92f3d5f9e7f7/data HTTP/1.1" 206 2402 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000154s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.264+0800 7fd229e07700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.268+0800 7fd271e97700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.268+0800 7fd271e97700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.264 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b7/b744e01c2e3856a5cd883852de62f670d104fc25906f2f91e2dbe94cf213b69c/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T094759Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=78e0f57c59cc8220fee09922e58415bf5bc5211290cdc4c28246d75db5b3e999 HTTP/1.1" 200 21527 - "Go-http-client/1.1" - latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.304+0800 7fd2a9706700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.304+0800 7fd203dbb700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.304+0800 7fd203dbb700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.304 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-victoriametrics/_manifests/revisions/sha256/387703fe28e0032486e3e10cbd2cbeb2c47a47d72dda8632d25dc860242230ad/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.336+0800 7fd260e75700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.340+0800 7fd260e75700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.340+0800 7fd260e75700  1 beast: 0x7fd1f4b98620: 172.21.224.201 - anonymous [30/Jun/2026:17:47:59.336 +0800] "HEAD / HTTP/1.0" 200 5 - - - latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.348+0800 7fd2255fe700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.348+0800 7fd2255fe700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.348+0800 7fd2255fe700  1 beast: 0x7fd1f4b98620: 172.21.224.202 - anonymous [30/Jun/2026:17:47:59.348 +0800] "HEAD / HTTP/1.0" 200 5 - - - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.464+0800 7fd2e3f7b700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.468+0800 7fd2115d6700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.468+0800 7fd2115d6700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.464 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/58/582360789e7effe21f25fd736f3983cbbd309a077a06d89b66bb4dcbd02b1994/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T094759Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=d2df24873528a6267cf31e4ecf61de805fe066632dc1ed12c81fb11f026f5471 HTTP/1.1" 200 204686 - "Go-http-client/1.1" - latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.728+0800 7fd2c3f3b700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.732+0800 7fd2856be700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.732+0800 7fd2856be700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.728 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/cd/cd59982cf0fb45f55cedc2c38b3ea6f6e61731a86efc575315992ea8b5505627/data HTTP/1.1" 206 701 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.808+0800 7fd270694700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.812+0800 7fd2c6740700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.812+0800 7fd2c6740700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.808 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/middleware/rocketmq-frontend/_manifests/revisions/sha256/c52d9ff864deb104003cd517921536b86f2ab39cef629b9db92917d5bbee2936/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.868+0800 7fd216de1700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.872+0800 7fd2986e4700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:47:59.872+0800 7fd2986e4700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:17:47:59.868 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/prd/anshub/ai-gateway/_manifests/revisions/sha256/06acd23e480d389ca41fceb1034c3ff91254c319d05fc24f3685f6f4b17f2983/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.004+0800 7fd2e9f87700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.008+0800 7fd21c5ec700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.008+0800 7fd21c5ec700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.004 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/78/786d33e72598eb17a82eff7fd674ad0bbd69229bd52ad6f82a90ae2f2e3461a7/data HTTP/1.1" 206 713 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.012+0800 7fd1fbdab700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.036+0800 7fd2adf0f700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.072+0800 7fd299ee7700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.060002282s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.072+0800 7fd299ee7700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.012 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-ingress-nginx/_manifests/revisions/sha256/2d8182b1e0206daad9a883838a04d36d893e96697b3369d6e749489ebeba76f7/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.060002282s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.076+0800 7fd25f672700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.040001523s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.076+0800 7fd25f672700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.036 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/1b/1bcd6d545b193df49a213ca0dfd031873aa5a63858671e517acbb5d09c60fdf5/data HTTP/1.1" 206 709 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.040001523s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.108+0800 7fd2d7762700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.112+0800 7fd2e2778700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.112+0800 7fd2e2778700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.108 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-csi-driver-nfs/_manifests/revisions/sha256/a755362c01b7b706720ab392508a57ed166f2257af83f8457c8a49b7b41dbb19/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.140+0800 7fd28eed1700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.144+0800 7fd2b3f1b700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.144+0800 7fd2b3f1b700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.140 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/a7/a755362c01b7b706720ab392508a57ed166f2257af83f8457c8a49b7b41dbb19/data HTTP/1.1" 206 710 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.148+0800 7fd271696700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd2c7f43700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd251656700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd251656700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.148 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/frontend/i18n-zh/_manifests/revisions/sha256/9f12401d786196a161ab91bf69dff325173c16497a63590639d8ae8d618233a2/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd2c1f37700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd27a6a8700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.152+0800 7fd27a6a8700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.152 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-vertical-pod-autoscaler/_manifests/revisions/sha256/79eb4f4dc721ad5050b4db070276ed5dbc8f39c0e117831e6fb66f31174700f4/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.156+0800 7fd20ddcf700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.156+0800 7fd20ddcf700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.152 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-cosi-core/_manifests/revisions/sha256/34afc9224ca8e163f40f8a0e2f01e811b5f0941fbe235b6c08bb63cb7b0ac3f2/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.156+0800 7fd2f4f9d700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.156+0800 7fd266e81700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.156+0800 7fd266e81700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.156 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/12/12820075527f965645a0fd21b9ca54db378e61f702cb90a25f51727a332d2835/data HTTP/1.1" 206 710 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.184+0800 7fd25b66a700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.188+0800 7fd24563e700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.188+0800 7fd24563e700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.184 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/d7/d76449089fa59860e4044cd49a6aed0c0aeac8c8bcf3fbef5b3fda2c6750971a/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=24e1c6775adfe01c3c49204dc02cc3e1578abf95d58e753e83fcad69a5b5d5b4 HTTP/1.1" 200 8508 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.236+0800 7fd243e3b700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.240+0800 7fd2b2718700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.240+0800 7fd2b2718700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.236 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/a7/a7e33f8a734fe6cb478c095442eb7736129832404b779e45eb59e5cb83d8249d/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=3d05ed049cf71e991eb3594192690ad54297a08948167c82076c8c478abf61e2 HTTP/1.1" 200 187887 - "opm/alpha" - latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.240+0800 7fd1f5d9f700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.244+0800 7fd237e23700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.244+0800 7fd237e23700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.240 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-kube-prometheus/_manifests/revisions/sha256/838b999fed27243fc6f8538b483e30a25a94edc73941850a8db5b2f7178d0a37/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.244+0800 7fd253e5b700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.248+0800 7fd2195e6700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.248+0800 7fd2195e6700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.244 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b4/b4ae01475ec23179db632ea538274b1e741ed75b444b535e8d0d01f647f0cea1/data HTTP/1.1" 206 704 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.248+0800 7fd2f1f97700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.252+0800 7fd2e8784700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.252+0800 7fd2e8784700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.248 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/bf/bfbbdb0f23d45f7ec35fa7034459299f4d162a36c8691a2c239bb971db6b9c91/data HTTP/1.1" 206 711 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.268+0800 7fd2f0794700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.272+0800 7fd2035ba700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.272+0800 7fd2035ba700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.268 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/72/7222dd805d88b1248b6401559c8bc7d6d9c5dcc5edee8568ce8f30b3568c3371/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=433050ae8150a34a94f55bf7ea2fd52e346dbd91ee615df9e7bd1f6044787a58 HTTP/1.1" 200 28645 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.288+0800 7fd289ec7700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.292+0800 7fd26ee91700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.292+0800 7fd26ee91700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.288 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/frontend/devops-v1/_manifests/revisions/sha256/e104b8c667330d5d542353b534aee18e2b23dc7c9e60fe2e83797dfa73361c8c/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.296+0800 7fd2926d8700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.300+0800 7fd232e19700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.300+0800 7fd232e19700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.296 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-cpaas-flannel/_manifests/revisions/sha256/fc24fe6d8acee89dfcee1e304d1524113856d85aed8710558cbbe579b56b790b/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.444+0800 7fd247642700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.444+0800 7fd2c6f41700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.444+0800 7fd2c6f41700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.444 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/90/90b60b20bb888c7732e0ac2755e1fd78f6bfc3163cecde747fce7c9bb675b772/data HTTP/1.1" 206 896 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.472+0800 7fd24363a700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.476+0800 7fd206dc1700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.476+0800 7fd206dc1700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.472 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/30/305b1b838097bd5b5b2722bcc2a835eb2aad80f04ffaf519e23b4e78b4fb9057/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=7c9554d2811b0a706c7c5cc44afc257bbd910470b78cf0b609dad5e9fb045504 HTTP/1.1" 200 11483 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.568+0800 7fd259666700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.572+0800 7fd2105d4700  1 ====== starting new request req=0x7fd1f4b98620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.572+0800 7fd2a56fe700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000151s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.572+0800 7fd2a56fe700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.568 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/aa/aa7186bc6d1f396a776153f97e4f986fd67e66cac1804b5e11a29b12650083a0/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=2ebd51f1982221fcaec802f001b98a869047b870b98881cffba0a820f9d55779 HTTP/1.1" 200 88745 - "Go-http-client/1.1" - latency=0.004000151s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.572+0800 7fd2bd72e700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.576+0800 7fd22ee11700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000154s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.576+0800 7fd22ee11700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.572 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/76/76e601ebe3e67f5900bcfa09b096f58070d070ca5a373c8c671dbd95d30ee1b7/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=2ea7d08f2d3a957b871d6c7e4d3d333acfa2315f892142f81fe3b40644b94cb6 HTTP/1.1" 200 36927 - "Go-http-client/1.1" - latency=0.004000154s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.580+0800 7fd2cc74c700  1 ====== req done req=0x7fd1f4b98620 op status=0 http_status=200 latency=0.008000306s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.580+0800 7fd2cc74c700  1 beast: 0x7fd1f4b98620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.572 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/01/01689c770d3a5af3ca6d4eeae01e98740dac7323a750ae2100ea077a1a915a7a/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=088037c3f5afaff77be24453fd8275ac4c14d19934aff61927e5cd6d03b31ad3 HTTP/1.1" 200 3426 - "Go-http-client/1.1" - latency=0.008000306s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.772+0800 7fd2846bc700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.776+0800 7fd266680700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.776+0800 7fd266680700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.772 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b7/b744e01c2e3856a5cd883852de62f670d104fc25906f2f91e2dbe94cf213b69c/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=4e5f26e36fbec16f799c3a5a3f91333a898182d0342d6ea652566478a249a3d0 HTTP/1.1" 200 21527 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.864+0800 7fd2ad70e700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.868+0800 7fd20edd1700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.868+0800 7fd20edd1700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - harbor [30/Jun/2026:18:17:47.864 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b1/b109cc9eab59f3d32878369a82202eda7309a5a98737ecb03c7b1b0562619ad0/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T101747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=96cd63d9ff37c3a8812d6a63f808e2b4d2d0fdabbfc3b26426d8a8a65b15449d HTTP/1.1" 200 22737 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.896+0800 7fd2836ba700  1 ====== starting new request req=0x7fd1f4c19620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.896+0800 7fd2836ba700  0 ERROR: client_io->complete_request() returned Connection reset by peer
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.896+0800 7fd2836ba700  1 ====== req done req=0x7fd1f4c19620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T18:17:47.896+0800 7fd2836ba700  1 beast: 0x7fd1f4c19620: 172.21.224.203 - anonymous [30/Jun/2026:18:17:47.896 +0800] "HEAD / HTTP/1.0" 200 0 - - - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.297+0800 7fd2a16f6700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.301+0800 7fd2135da700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.301+0800 7fd2135da700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.297 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-kyverno/_manifests/revisions/sha256/d06c555a99b15418fb52c33b4a4c9909fb9a9bed60477686da954ec46f4d4b8d/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.409+0800 7fd206dc1700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.409+0800 7fd27c6ac700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.409+0800 7fd27c6ac700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.409 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/c3/c361ec8b952beabf933d39de0df21c23ed280aaef95fed460b4eb98c4297d138/data HTTP/1.1" 206 705 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.437+0800 7fd281eb7700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.525+0800 7fd27d6ae700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.529+0800 7fd26c68c700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.529+0800 7fd26c68c700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.525 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/argoproj/chart/argo-rollouts/_manifests/revisions/sha256/5a77936b2b725be2a6983aae4f77aed8afc6bf7b3c331c433d937d0c30fc6cc8/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.537+0800 7fd220df5700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.541+0800 7fd29eef1700  1 ====== starting new request req=0x7fd1f4c9a620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.541+0800 7fd20edd1700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.541+0800 7fd20edd1700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.537 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/d0/d06c555a99b15418fb52c33b4a4c9909fb9a9bed60477686da954ec46f4d4b8d/data HTTP/1.1" 206 705 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.541+0800 7fd255e5f700  1 ====== req done req=0x7fd1f4c9a620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.541+0800 7fd255e5f700  1 beast: 0x7fd1f4c9a620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.537 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-marketplace/_manifests/revisions/sha256/36561078c7c6c54377b2877920ca41293eb012a68dfa12ea9b4c02b0118ce417/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.553+0800 7fd257662700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.553+0800 7fd27b6aa700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.553+0800 7fd27b6aa700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.553 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-cpaas-kube-ovn/_manifests/revisions/sha256/bfbbdb0f23d45f7ec35fa7034459299f4d162a36c8691a2c239bb971db6b9c91/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.609+0800 7fd2d6f61700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.613+0800 7fd25365a700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.613+0800 7fd25365a700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.609 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-alive/_manifests/revisions/sha256/cd59982cf0fb45f55cedc2c38b3ea6f6e61731a86efc575315992ea8b5505627/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.617+0800 7fd279ea7700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.617+0800 7fd280eb5700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.617+0800 7fd280eb5700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.617 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-cluster-api-provider-alauda/_manifests/revisions/sha256/5605d9cf7e7fe876cd38006ebc2a86accefc4f8cf3156c2fcb527252a6189b9f/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.621+0800 7fd261e77700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.625+0800 7fd2836ba700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.625+0800 7fd2836ba700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.621 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/56/5605d9cf7e7fe876cd38006ebc2a86accefc4f8cf3156c2fcb527252a6189b9f/data HTTP/1.1" 206 724 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.625+0800 7fd233e1b700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.629+0800 7fd21ade9700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.629+0800 7fd21ade9700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.625 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-cosi-core/_manifests/revisions/sha256/34afc9224ca8e163f40f8a0e2f01e811b5f0941fbe235b6c08bb63cb7b0ac3f2/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.641+0800 7fd242638700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.665+0800 7fd25fe73700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=206 latency=0.024000915s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.665+0800 7fd25fe73700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.641 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/78/786d33e72598eb17a82eff7fd674ad0bbd69229bd52ad6f82a90ae2f2e3461a7/data HTTP/1.1" 206 713 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.024000915s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.665+0800 7fd2185e4700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.228008687s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.665+0800 7fd2185e4700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.437 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-alauda-alb2/_manifests/revisions/sha256/da34b265bde946b81fa0281c63f66b47eed3af989883b67e7b079eba3289972a/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.228008687s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.713+0800 7fd2245fc700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.717+0800 7fd21a5e8700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.717+0800 7fd21a5e8700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.713 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-coredns/_manifests/revisions/sha256/b4ae01475ec23179db632ea538274b1e741ed75b444b535e8d0d01f647f0cea1/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.721+0800 7fd2d3f5b700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.725+0800 7fd237622700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.725+0800 7fd237622700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.721 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/76/7698a1f8cd5d25e5352c2a0289fb2f176a0b7ef22285ccc7ec3d53ac09198a45/data HTTP/1.1" 206 711 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.741+0800 7fd259e67700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.745+0800 7fd210dd5700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.004000151s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.745+0800 7fd210dd5700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.741 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/acp/chart-oam-application/_manifests/revisions/sha256/d60409a405108909a5dbaf5b0b1c98e8a79ec55641fc31cfb65d5ca165d35cee/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000151s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.777+0800 7fd29e6f0700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.781+0800 7fd2d9766700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=200 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.781+0800 7fd2d9766700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.777 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b7/b744e01c2e3856a5cd883852de62f670d104fc25906f2f91e2dbe94cf213b69c/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T111747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=0ac7b9e9aee63ce01b6b783788589b99a9cd400f463387c3ece6a26a8b4efa5b HTTP/1.1" 200 21527 - "Go-http-client/1.1" - latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.833+0800 7fd2f1f97700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.833+0800 7fd2caf49700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.833+0800 7fd2caf49700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.833 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/ait/chart-kube-prometheus/_manifests/revisions/sha256/838b999fed27243fc6f8538b483e30a25a94edc73941850a8db5b2f7178d0a37/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.841+0800 7fd215ddf700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.841+0800 7fd1ffdb3700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=206 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.841+0800 7fd1ffdb3700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.841 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/a9/a944d6bf29228f8ebbba26d3f5dec9bb0a724b0b60c187ddd4a1000bd94eac95/data HTTP/1.1" 206 717 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.869+0800 7fd20bdcb700  1 ====== starting new request req=0x7fd1f4d9c620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.869+0800 7fd23461c700  1 ====== starting new request req=0x7fd1f4d1b620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.873+0800 7fd267682700  1 ====== req done req=0x7fd1f4d9c620 op status=0 http_status=200 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.873+0800 7fd267682700  1 beast: 0x7fd1f4d9c620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.869 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/90/90df6c9add803b083c21c5b853bf89a24b516435ef52bc928e9107cbcae353b6/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T111747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=0e7d0f3335ac53b6618b48de39608330cc314e885ea2811081d318c746428e0c HTTP/1.1" 200 19745 - "Go-http-client/1.1" - latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.877+0800 7fd2956de700  1 ====== req done req=0x7fd1f4d1b620 op status=0 http_status=200 latency=0.008000305s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T19:17:47.877+0800 7fd2956de700  1 beast: 0x7fd1f4d1b620: 172.21.224.203 - harbor [30/Jun/2026:19:17:47.869 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/f3/f3cf46cf7a5f5044760c84fd7d4422dbc5a106f37e149096b8b0e2874d8a3c5d/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T111747Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=259ffbc772dcf3382f7ece934e8ee37c0f111891787fb963f23f74e252c7d2e9 HTTP/1.1" 200 360567 - "Go-http-client/1.1" - latency=0.008000305s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.018+0800 7fd24ee51700  1 ====== req done req=0x7fd334bc0620 op status=0 http_status=200 latency=0.048001833s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.018+0800 7fd24ee51700  1 beast: 0x7fd334bc0620: 172.21.224.203 - harbor [30/Jun/2026:20:17:46.970 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/58/582360789e7effe21f25fd736f3983cbbd309a077a06d89b66bb4dcbd02b1994/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AK9U7RLVSI6Y8GLN3OIO%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T121746Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=ba8fa024ec9979e837996913da3a44e929ca31d5f0a35006ecd0022e66d9289f HTTP/1.1" 200 204686 - "Go-http-client/1.1" - latency=0.048001833s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.142+0800 7fd294edd700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.142+0800 7fd294edd700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.142+0800 7fd294edd700  1 beast: 0x7fd334cc2620: 172.21.224.202 - anonymous [30/Jun/2026:20:17:47.142 +0800] "HEAD / HTTP/1.0" 200 5 - - - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.214+0800 7fd2a5eff700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.218+0800 7fd2d9766700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.218+0800 7fd2d9766700  1 beast: 0x7fd334cc2620: 172.21.224.203 - harbor [30/Jun/2026:20:17:47.214 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/repositories/prd/anshub/ai-chat-component/_manifests/revisions/sha256/24f24473c7540a5edaf37ba5bf5ef97fcfaf0a6b7f1e093c0caebf05d7695903/link HTTP/1.1" 206 71 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.310+0800 7fd28b6ca700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.378+0800 7fd23b62a700  1 ====== starting new request req=0x7fd334bc0620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.378+0800 7fd23b62a700  1 ====== req done req=0x7fd334bc0620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.378+0800 7fd23b62a700  1 beast: 0x7fd334bc0620: 172.21.224.201 - anonymous [30/Jun/2026:20:17:47.378 +0800] "HEAD / HTTP/1.0" 200 5 - - - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.390+0800 7fd2ccf4d700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=206 latency=0.080003053s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.390+0800 7fd2ccf4d700  1 beast: 0x7fd334cc2620: 172.21.224.203 - harbor [30/Jun/2026:20:17:47.310 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/79/7919efa3771a94e24eee77e55aa848286b6b5cc3302243fb712e0e45e9c2500a/data HTTP/1.1" 206 710 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.080003053s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.638+0800 7fd248644700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.642+0800 7fd25fe73700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=206 latency=0.004000152s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.642+0800 7fd25fe73700  1 beast: 0x7fd334cc2620: 172.21.224.203 - harbor [30/Jun/2026:20:17:47.638 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/78/786d33e72598eb17a82eff7fd674ad0bbd69229bd52ad6f82a90ae2f2e3461a7/data HTTP/1.1" 206 713 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000152s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.806+0800 7fd276ea1700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.810+0800 7fd229e07700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=206 latency=0.004000153s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.810+0800 7fd229e07700  1 beast: 0x7fd334cc2620: 172.21.224.203 - harbor [30/Jun/2026:20:17:47.806 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/a7/a7c8244066b3f2dd6cf539b0799959c66310de6b92d1b093846b1070f51d65cf/data HTTP/1.1" 206 711 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.004000153s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.878+0800 7fd23ee31700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.878+0800 7fd23ee31700  0 ERROR: client_io->complete_request() returned Connection reset by peer
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.878+0800 7fd23ee31700  1 ====== req done req=0x7fd334cc2620 op status=0 http_status=200 latency=0.000000000s ======
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.878+0800 7fd23ee31700  1 beast: 0x7fd334cc2620: 172.21.224.203 - anonymous [30/Jun/2026:20:17:47.878 +0800] "HEAD / HTTP/1.0" 200 0 - - - latency=0.000000000s
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:47.926+0800 7fd284ebd700  1 ====== starting new request req=0x7fd334cc2620 =====
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T20:17:48.098+0800 7fd258664700  1 beast: 0x7fd334cc2620: 172.21.224.203 - harbor [30/Jun/2026:20:17:47.926 +0800] "GET /fs-01-plat-harbor/docker/registry/v2/blobs/sha256/b8/b826538f5ffb9273a09f4fac860effdde53bb88382d99b297e07d23ec4063067/data HTTP/1.1" 206 889 - "aws-sdk-go/1.15.11 (go1.25.9; linux; amd64)" bytes=0- latency=0.172006562s
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# grep -R "iterate_obj() failed with -125\|op status=-125" \
->   "${LOGDIR}"/ceph-client.rgw*.log* 2>/dev/null \
->   | egrep "17:3[7-9]|17:4[0-9]" \
->   | tail -n 200
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:38:39.499+0800 7fd283ebb700  0 req 16963951743489468241 81.883117676s s3:get_obj iterate_obj() failed with -125
-/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log:2026-06-30T17:38:39.499+0800 7fd283ebb700  1 ====== req done req=0x7fd1f4c19620 op status=-125 http_status=206 latency=81.883117676s ======
-root@fs-1f8hh0105-ceph-224203:/var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a# 
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# HOSTS=(
+> gz-4f31406-ceph-001201
+> gz-4f31406-ceph-001202
+> gz-4f31406-ceph-001203
+> )
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
+>   echo "==================== $h ===================="
+>   ssh "$h" '
+>     echo "[1] basic"
+>     hostname
+>     date
+>     uptime
+> 
+>     echo
+>     echo "[2] free"
+>     free -h
+> 
+>     echo
+>     echo "[3] /proc/meminfo key fields"
+>     egrep "MemTotal|MemFree|MemAvailable|Buffers|Cached|SReclaimable|SUnreclaim|Slab|SwapTotal|SwapFree|Committed_AS|CommitLimit" /proc/meminfo
+> 
+>     echo
+>     echo "[4] vmstat"
+>     vmstat 1 5
+> 
+>     echo
+>     echo "[5] memory PSI"
+>     cat /proc/pressure/memory 2>/dev/null || true
+> 
+>     echo
+>     echo "[6] OOM / memory error"
+>     dmesg -T 2>/dev/null | egrep -i "oom|out of memory|memory allocation failure|killed process" | tail -30 || true
+>   '
+> done
+==================== gz-4f31406-ceph-001201 ====================
+[1] basic
+gz-4f31406-ceph-001201
+Tue 07 Jul 2026 04:07:59 PM CST
+ 16:07:59 up 1076 days, 20:33,  1 user,  load average: 4.00, 3.72, 3.50
+
+[2] free
+              total        used        free      shared  buff/cache   available
+Mem:          125Gi        90Gi       3.1Gi       0.0Ki        31Gi        27Gi
+Swap:         8.0Gi       8.0Gi        27Mi
+
+[3] /proc/meminfo key fields
+MemTotal:       131498096 kB
+MemFree:         3262480 kB
+MemAvailable:   28319784 kB
+Buffers:        28177988 kB
+Cached:          1037872 kB
+SwapCached:        64868 kB
+SwapTotal:       8388604 kB
+SwapFree:          28572 kB
+Slab:           39412752 kB
+SReclaimable:    3761952 kB
+SUnreclaim:     35650800 kB
+CommitLimit:    74137652 kB
+Committed_AS:   157791696 kB
+
+[4] vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0 8360032 3262320 28177992 4799908    0    0   175   467    0    0  2  1 96  1  0
+ 2  1 8360032 3223844 28182624 4801400    0    0 15756 13604 28252 30576  2  2 95  1  0
+ 1  0 8360032 3210264 28186740 4801860    0    0  9096 18028 36244 42416  2  2 95  1  0
+ 3  1 8360032 3173704 28191284 4801924    0    0 10572 34288 37515 40567  2  2 94  1  0
+ 5  4 8360016 3138484 28197500 4802112    0    0  8588 62156 42876 46296  2  2 94  2  0
+
+[5] memory PSI
+some avg10=0.00 avg60=0.00 avg300=0.00 total=8420853970
+full avg10=0.00 avg60=0.00 avg300=0.00 total=7291940147
+
+[6] OOM / memory error
+==================== gz-4f31406-ceph-001202 ====================
+[1] basic
+gz-4f31406-ceph-001202
+Tue 07 Jul 2026 04:08:04 PM CST
+ 16:08:04 up 1076 days, 20:35,  1 user,  load average: 3.17, 2.89, 2.88
+
+[2] free
+              total        used        free      shared  buff/cache   available
+Mem:          125Gi        96Gi       3.8Gi       2.0Mi        25Gi        21Gi
+Swap:         8.0Gi       4.1Gi       3.9Gi
+
+[3] /proc/meminfo key fields
+MemTotal:       131498096 kB
+MemFree:         4037368 kB
+MemAvailable:   22985112 kB
+Buffers:        22359900 kB
+Cached:           892224 kB
+SwapCached:       160136 kB
+SwapTotal:       8388604 kB
+SwapFree:        4132936 kB
+Slab:           39468916 kB
+SReclaimable:    3457908 kB
+SUnreclaim:     36011008 kB
+CommitLimit:    74137652 kB
+Committed_AS:   155790084 kB
+
+[4] vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  1 4255668 4036692 22359900 4350316    0    0   174   494    0    0  1  1 96  1  0
+ 1  0 4255668 4039264 22363028 4351260    0    0  7000  8448 21439 22858  0  1 98  1  0
+ 0  0 4255668 4028856 22366560 4351272    0    0 14768 26660 27504 28279  1  1 97  1  0
+ 1  0 4255668 4020356 22370104 4351616    0    0  6692 16272 29278 32195  1  2 96  1  0
+ 2  2 4255668 4000884 22375336 4351732    0    0 16220 30120 27049 28656  1  1 97  1  0
+
+[5] memory PSI
+some avg10=0.00 avg60=0.00 avg300=0.00 total=6920945181
+full avg10=0.00 avg60=0.00 avg300=0.00 total=5903988626
+
+[6] OOM / memory error
+==================== gz-4f31406-ceph-001203 ====================
+[1] basic
+gz-4f31406-ceph-001203
+Tue 07 Jul 2026 04:08:08 PM CST
+ 16:08:08 up 1076 days, 20:35,  1 user,  load average: 1.22, 1.62, 1.68
+
+[2] free
+              total        used        free      shared  buff/cache   available
+Mem:          125Gi        93Gi       3.3Gi       0.0Ki        28Gi        24Gi
+Swap:         8.0Gi       6.8Gi       1.2Gi
+
+[3] /proc/meminfo key fields
+MemTotal:       131498092 kB
+MemFree:         3485596 kB
+MemAvailable:   25827116 kB
+Buffers:        25715932 kB
+Cached:           809772 kB
+SwapCached:        56488 kB
+SwapTotal:       8388604 kB
+SwapFree:        1255380 kB
+Slab:           39727640 kB
+SReclaimable:    3702352 kB
+SUnreclaim:     36025288 kB
+CommitLimit:    74137648 kB
+Committed_AS:   156218616 kB
+
+[4] vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  1 7133224 3485596 25715932 4512124    0    0   170   503    0    0  1  1 96  2  0
+ 1  0 7132968 3489948 25719196 4513868   36    0  8964 26016 18554 18144  1  0 98  1  0
+ 0  1 7132968 3489704 25722056 4513812    0    0 17120 20212 18229 18396  0  0 98  1  0
+ 0  2 7132968 3463132 25725596 4514144    0    0  8444 33256 22119 19899  1  1 98  1  0
+ 1  0 7132968 3500804 25728744 4513516    0    0 12388 12200 19760 18909  1  0 98  1  0
+
+[5] memory PSI
+some avg10=0.00 avg60=0.00 avg300=0.00 total=8431623494
+full avg10=0.00 avg60=0.00 avg300=0.00 total=7255996558
+
+[6] OOM / memory error
+root@gz-4f31406-ceph-001201:~# HOSTS=(
+> gz-4f31406-ceph-001201
+> gz-4f31406-ceph-001202
+> gz-4f31406-ceph-001203
+> )
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
+>   echo "==================== $h : top rss processes ===================="
+>   ssh "$h" '
+>     ps axo pid,ppid,user:12,comm:24,%mem,rss,vsz,args --sort=-rss \
+>     | awk "
+>       NR==1 {
+>         printf \"%-8s %-8s %-12s %-24s %-6s %-12s %-12s %s\n\", \"PID\", \"PPID\", \"USER\", \"COMM\", \"%MEM\", \"RSS(MiB)\", \"VSZ(MiB)\", \"ARGS\";
+>         next
+>       }
+>       NR<=31 {
+>         printf \"%-8s %-8s %-12s %-24s %-6s %-12.1f %-12.1f \", \$1, \$2, \$3, \$4, \$5, \$6/1024, \$7/1024;
+>         for (i=8; i<=NF; i++) printf \"%s \", \$i;
+>         printf \"\n\";
+>       }
+>     "
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : top rss processes ====================
+PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
+11218    11146    167          ceph-osd                 3.0    3876.3       7315.9       /usr/bin/ceph-osd -n osd.5 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11219    11181    167          ceph-osd                 2.9    3775.4       6991.3       /usr/bin/ceph-osd -n osd.2 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11172    10961    167          ceph-osd                 2.8    3711.1       7190.0       /usr/bin/ceph-osd -n osd.4 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11199    11111    167          ceph-osd                 2.8    3699.4       7267.7       /usr/bin/ceph-osd -n osd.3 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11069    10926    167          ceph-osd                 2.8    3687.9       7428.8       /usr/bin/ceph-osd -n osd.1 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11217    11162    167          ceph-osd                 2.8    3644.2       7111.2       /usr/bin/ceph-osd -n osd.6 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11165    10923    167          ceph-osd                 2.7    3587.0       7406.3       /usr/bin/ceph-osd -n osd.7 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11142    10958    167          ceph-osd                 2.6    3398.9       7279.2       /usr/bin/ceph-osd -n osd.12 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11117    10927    167          ceph-osd                 2.6    3382.2       6098.8       /usr/bin/ceph-osd -n osd.0 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11171    10950    167          ceph-osd                 2.5    3305.2       7383.1       /usr/bin/ceph-osd -n osd.11 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11082    10924    167          ceph-osd                 2.5    3291.2       7086.7       /usr/bin/ceph-osd -n osd.9 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+5463     5079     167          radosgw                  2.3    3046.5       10684.5      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11149    10957    167          ceph-osd                 2.3    3007.7       7307.4       /usr/bin/ceph-osd -n osd.8 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+11180    10935    167          ceph-osd                 2.3    2963.2       7383.6       /usr/bin/ceph-osd -n osd.10 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+5464     5106     167          radosgw                  2.3    2960.9       9972.5       /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+918291   918277   167          ceph-mgr                 1.4    1826.7       11887.7      /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001201.txztaq -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+5428     5206     167          ceph-mon                 1.1    1415.8       2994.4       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001201 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
+1944971  1        root         easy_process_sa          0.3    425.4        7138.6       ./bin/easy_process_sampler 
+5445     5077     nobody       prometheus               0.2    307.1        7254.0       /bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.listen-address=:9095 --storage.tsdb.retention.time=15d --web.external-url=http://gz-4f31406-ceph-001201:9095 
+2315507  1        root         wsssr_defence_s          0.2    271.7        5917.2       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
+5290     5055     lxd          grafana-server           0.1    178.6        6206.1       grafana-server --config=/etc/grafana/grafana.ini 
+1275     1        root         systemd-journal          0.1    149.2        289.7        /lib/systemd/systemd-journald 
+2488491  2488490  root         icsfilesec               0.1    148.7        2647.0       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
+3016     1        root         dockerd                  0.0    69.7         6684.1       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
+5519     5479     root         haproxy                  0.0    59.8         1480.8       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
+552368   552354   root         filebeat                 0.0    37.4         5567.5       filebeat 
+61348    61344    root         docker                   0.0    36.2         2318.5       /usr/bin/docker stats --format {{.ID}},{{.MemUsage}} --no-stream 
+1969619  1        root         easyAgent                0.0    30.5         2290.8       ./bin/easyAgent 
+2642     1        root         containerd               0.0    29.3         6017.7       /usr/bin/containerd 
+2427     1        root         multipathd               0.0    25.4         274.3        /sbin/multipathd -d -s 
+==================== gz-4f31406-ceph-001202 : top rss processes ====================
+PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
+4931     4676     167          radosgw                  3.8    4990.8       12055.6      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+4980     4679     167          radosgw                  3.7    4822.5       11568.6      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10700    10573    167          ceph-osd                 3.0    3934.9       7311.0       /usr/bin/ceph-osd -n osd.22 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10691    10552    167          ceph-osd                 3.0    3887.1       7556.5       /usr/bin/ceph-osd -n osd.24 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10695    10515    167          ceph-osd                 2.9    3830.6       7460.2       /usr/bin/ceph-osd -n osd.21 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10707    10558    167          ceph-osd                 2.9    3816.2       7359.2       /usr/bin/ceph-osd -n osd.16 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10697    10553    167          ceph-osd                 2.9    3808.9       7270.1       /usr/bin/ceph-osd -n osd.19 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10692    10525    167          ceph-osd                 2.9    3759.3       7287.1       /usr/bin/ceph-osd -n osd.17 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10611    10516    167          ceph-osd                 2.8    3706.7       7516.1       /usr/bin/ceph-osd -n osd.15 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10696    10541    167          ceph-osd                 2.8    3698.9       6012.1       /usr/bin/ceph-osd -n osd.13 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10684    10543    167          ceph-osd                 2.8    3693.7       7298.4       /usr/bin/ceph-osd -n osd.18 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10706    10548    167          ceph-osd                 2.8    3665.8       7324.5       /usr/bin/ceph-osd -n osd.14 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10699    10524    167          ceph-osd                 2.7    3563.4       7401.8       /usr/bin/ceph-osd -n osd.25 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10693    10542    167          ceph-osd                 2.6    3442.9       7420.7       /usr/bin/ceph-osd -n osd.20 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10698    10518    167          ceph-osd                 2.5    3273.0       7527.5       /usr/bin/ceph-osd -n osd.23 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+4948     4759     167          ceph-mon                 1.4    1837.0       3141.3       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001202 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
+1173345  1173331  167          ceph-mgr                 0.3    439.7        9328.1       /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001202.yeyqxz -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+2124458  1        root         easy_process_sa          0.2    370.2        7138.1       ./bin/easy_process_sampler 
+1437446  1        root         wsssr_defence_s          0.2    284.2        5915.2       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
+1728096  1728095  root         icsfilesec               0.1    210.9        2647.1       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
+1269     1        root         systemd-journal          0.0    115.9        273.3        /lib/systemd/systemd-journald 
+3004     1        root         dockerd                  0.0    65.2         6179.7       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
+4988     4932     root         haproxy                  0.0    60.6         1481.4       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
+613914   613913   root         easy_collector           0.0    55.8         336.8        easy_collector 
+1220558  1220540  root         filebeat                 0.0    42.0         5783.6       filebeat 
+613438   1        root         easyAgent                0.0    38.7         1930.6       ./bin/easyAgent 
+163369   163367   root         docker                   0.0    36.1         2101.5       /usr/bin/docker stats --format {{.ID}},{{.MemUsage}} --no-stream 
+2622     1        root         containerd               0.0    28.7         6017.0       /usr/bin/containerd 
+2407     1        root         multipathd               0.0    25.9         274.3        /sbin/multipathd -d -s 
+26163    1        root         fwupd                    0.0    25.8         378.0        /usr/libexec/fwupd/fwupd 
+==================== gz-4f31406-ceph-001203 : top rss processes ====================
+PID      PPID     USER         COMM                     %MEM   RSS(MiB)     VSZ(MiB)     ARGS
+4953     4756     167          radosgw                  3.9    5085.3       11923.3      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10792    10624    167          ceph-osd                 3.0    3948.5       7203.6       /usr/bin/ceph-osd -n osd.32 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+2324168  2324153  167          ceph-osd                 3.0    3884.4       7393.0       /usr/bin/ceph-osd -n osd.31 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+5055     4786     167          radosgw                  2.9    3759.4       11827.2      /usr/bin/radosgw -n client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10788    10641    167          ceph-osd                 2.9    3733.5       7198.4       /usr/bin/ceph-osd -n osd.30 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+980907   980887   167          ceph-osd                 2.8    3708.9       7245.6       /usr/bin/ceph-osd -n osd.28 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10776    10603    167          ceph-osd                 2.8    3676.4       7395.1       /usr/bin/ceph-osd -n osd.33 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10785    10613    167          ceph-osd                 2.8    3668.6       7349.9       /usr/bin/ceph-osd -n osd.27 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10755    10602    167          ceph-osd                 2.7    3587.7       7461.4       /usr/bin/ceph-osd -n osd.34 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10789    10635    167          ceph-osd                 2.7    3582.4       7454.8       /usr/bin/ceph-osd -n osd.29 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10791    10642    167          ceph-osd                 2.6    3440.8       7532.0       /usr/bin/ceph-osd -n osd.35 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10790    10639    167          ceph-osd                 2.6    3388.8       5879.9       /usr/bin/ceph-osd -n osd.26 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10787    10646    167          ceph-osd                 2.6    3375.7       7337.5       /usr/bin/ceph-osd -n osd.36 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10712    10599    167          ceph-osd                 2.6    3358.0       7228.8       /usr/bin/ceph-osd -n osd.37 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+10717    10610    167          ceph-osd                 2.5    3220.1       7450.7       /usr/bin/ceph-osd -n osd.38 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+5004     4784     167          ceph-mon                 1.0    1384.3       3253.4       /usr/bin/ceph-mon -n mon.gz-4f31406-ceph-001203 -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug --default-mon-cluster-log-to-file=false --default-mon-cluster-log-to-stderr=true 
+3614757  3614745  167          ceph-mgr                 0.3    421.1        9316.9       /usr/bin/ceph-mgr -n mgr.gz-4f31406-ceph-001203.qycafv -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+3786708  1        root         easy_process_sa          0.2    345.4        7072.6       ./bin/easy_process_sampler 
+3573033  3573032  root         icsfilesec               0.1    231.8        2647.0       /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec 
+3536591  1        root         wsssr_defence_s          0.0    80.9         5787.9       ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon 
+5101     5056     root         haproxy                  0.0    67.4         1480.6       haproxy -W -db -f /var/lib/haproxy/haproxy.cfg 
+3016     1        root         dockerd                  0.0    57.1         6467.9       /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
+2229568  2229547  root         filebeat                 0.0    50.6         5783.5       filebeat 
+2160880  1        root         easyAgent                0.0    32.9         1864.2       ./bin/easyAgent 
+2642     1        root         containerd               0.0    29.2         6016.7       /usr/bin/containerd 
+1260     1        root         systemd-journal          0.0    28.6         141.0        /lib/systemd/systemd-journald 
+5013     4799     167          ceph-mds                 0.0    26.0         370.9        /usr/bin/ceph-mds -n mds.cephfs.gz-4f31406-ceph-001203.vnsoyp -f --setuser ceph --setgroup ceph --default-log-to-file=false --default-log-to-stderr=true --default-log-stderr-prefix=debug 
+2425     1        root         multipathd               0.0    25.7         338.3        /sbin/multipathd -d -s 
+2161359  2161357  root         easy_collector           0.0    19.1         396.8        easy_collector 
+2161358  2161357  root         easy_collector           0.0    18.9         344.7        easy_collector 
+root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
+>   echo "==================== $h : docker stats ===================="
+>   ssh "$h" '
+>     docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.PIDs}}" \
+>     | egrep "NAME|ceph|haproxy|keepalived|prometheus|grafana|alertmanager|node-exporter|loki|promtail|fluent|td-agent|log"
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : docker stats ====================
+NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001201-txztaq                             6.22%     1.854GiB / 125.4GiB   1.48%     162
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001201                     0.36%     86.86MiB / 125.4GiB   0.07%     67
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-3                                                         4.16%     3.817GiB / 125.4GiB   3.04%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-5                                                         7.42%     4.453GiB / 125.4GiB   3.55%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-2                                                         6.83%     4.088GiB / 125.4GiB   3.26%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-6                                                         14.10%    4.739GiB / 125.4GiB   3.78%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-12                                                        1.07%     3.513GiB / 125.4GiB   2.80%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-1                                                         17.29%    5.121GiB / 125.4GiB   4.08%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-11                                                        0.53%     3.448GiB / 125.4GiB   2.75%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-8                                                         1.00%     3.278GiB / 125.4GiB   2.61%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-9                                                         0.90%     3.368GiB / 125.4GiB   2.69%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-4                                                         9.89%     4.327GiB / 125.4GiB   3.45%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-7                                                         2.41%     3.979GiB / 125.4GiB   3.17%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-10                                                        2.19%     3.526GiB / 125.4GiB   2.81%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-0                                                         1.54%     3.458GiB / 125.4GiB   2.76%     71
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-jaqqwu      0.22%     235.9MiB / 125.4GiB   0.18%     66
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-grafana-gz-4f31406-ceph-001201                                2.18%     259.8MiB / 125.4GiB   0.20%     75
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-tcrgya              0.42%     3.072GiB / 125.4GiB   2.45%     614
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-njcucn   0.02%     42.34MiB / 125.4GiB   0.03%     3
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-alertmanager-gz-4f31406-ceph-001201                           0.25%     70.62MiB / 125.4GiB   0.05%     70
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001201                                  0.00%     7.617MiB / 125.4GiB   0.01%     2
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-prometheus-gz-4f31406-ceph-001201                             1.58%     374.5MiB / 125.4GiB   0.29%     74
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-vwzjfn              0.46%     2.943GiB / 125.4GiB   2.35%     615
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001201                                    3.16%     1.467GiB / 125.4GiB   1.17%     28
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001201                          7.71%     77.12MiB / 125.4GiB   0.06%     131
+==================== gz-4f31406-ceph-001202 : docker stats ====================
+NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001202                     0.55%     94.16MiB / 125.4GiB   0.07%     70
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001202-yeyqxz                             0.85%     472.4MiB / 125.4GiB   0.37%     46
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-13                                                        1.09%     3.772GiB / 125.4GiB   3.01%     71
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-14                                                        5.08%     3.826GiB / 125.4GiB   3.05%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-20                                                        0.75%     3.57GiB / 125.4GiB    2.85%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-24                                                        2.73%     4.256GiB / 125.4GiB   3.39%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-18                                                        4.86%     3.921GiB / 125.4GiB   3.13%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-22                                                        1.68%     4.301GiB / 125.4GiB   3.43%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-19                                                        3.95%     4.073GiB / 125.4GiB   3.25%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-17                                                        4.84%     4.569GiB / 125.4GiB   3.64%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-16                                                        5.45%     5.207GiB / 125.4GiB   4.15%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-23                                                        1.08%     3.422GiB / 125.4GiB   2.73%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-25                                                        0.99%     3.832GiB / 125.4GiB   3.06%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-15                                                        4.04%     4.591GiB / 125.4GiB   3.66%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-21                                                        2.11%     4.047GiB / 125.4GiB   3.23%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001202                          0.00%     78.87MiB / 125.4GiB   0.06%     173
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001202                                    2.45%     1.872GiB / 125.4GiB   1.49%     28
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001202                                  0.00%     6.508MiB / 125.4GiB   0.01%     2
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-pihmyh   0.98%     42.29MiB / 125.4GiB   0.03%     3
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-djeddm              0.54%     4.933GiB / 125.4GiB   3.93%     614
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-yzihyq      0.73%     323.5MiB / 125.4GiB   0.25%     66
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-rodumt              0.53%     4.775GiB / 125.4GiB   3.81%     614
+==================== gz-4f31406-ceph-001203 : docker stats ====================
+NAME                                                                                                    CPU %     MEM USAGE / LIMIT     MEM %     PIDS
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mgr-gz-4f31406-ceph-001203-qycafv                             1.52%     443.1MiB / 125.4GiB   0.35%     46
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-container-filebeat-gz-4f31406-ceph-001203                     0.72%     104.3MiB / 125.4GiB   0.08%     70
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-31                                                        7.40%     4.621GiB / 125.4GiB   3.68%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-28                                                        7.88%     4.019GiB / 125.4GiB   3.20%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-32                                                        12.83%    4.453GiB / 125.4GiB   3.55%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-36                                                        3.66%     3.476GiB / 125.4GiB   2.77%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-29                                                        9.33%     4.453GiB / 125.4GiB   3.55%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-35                                                        1.66%     3.767GiB / 125.4GiB   3.00%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-30                                                        10.26%    4.149GiB / 125.4GiB   3.31%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-26                                                        0.72%     3.442GiB / 125.4GiB   2.74%     71
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-38                                                        2.60%     3.337GiB / 125.4GiB   2.66%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-33                                                        1.26%     3.872GiB / 125.4GiB   3.09%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-34                                                        0.89%     3.759GiB / 125.4GiB   3.00%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-27                                                        12.67%    4.768GiB / 125.4GiB   3.80%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-osd-37                                                        1.91%     3.5GiB / 125.4GiB     2.79%     62
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mon-gz-4f31406-ceph-001203                                    1.86%     1.436GiB / 125.4GiB   1.15%     28
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-qrvfsa              0.54%     3.714GiB / 125.4GiB   2.96%     614
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-mds-cephfs-gz-4f31406-ceph-001203-vnsoyp                      0.07%     44.23MiB / 125.4GiB   0.03%     17
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-paypjz              0.35%     5.019GiB / 125.4GiB   4.00%     614
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-keepalived-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-goxhct   0.02%     41.39MiB / 125.4GiB   0.03%     3
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-node-exporter-gz-4f31406-ceph-001203                          0.00%     75.86MiB / 125.4GiB   0.06%     131
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-gmkkdg      0.24%     322.3MiB / 125.4GiB   0.25%     66
+ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-crash-gz-4f31406-ceph-001203                                  0.00%     10.73MiB / 125.4GiB   0.01%     2
+root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
+>   echo "==================== $h : ceph orch ps ===================="
+>   ceph orch ps --host "$h"
+> done
+==================== gz-4f31406-ceph-001201 : ceph orch ps ====================
+NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
+alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
+container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
+container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
+container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
+container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
+container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
+crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
+crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
+crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
+crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
+crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
+grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
+mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
+mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
+mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
+mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
+mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
+mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
+mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
+mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
+mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
+mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
+mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
+node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
+node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
+node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
+node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
+node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
+osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
+osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
+osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
+osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
+osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
+osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
+osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
+osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
+osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
+osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
+osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
+osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
+osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
+osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
+osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
+osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
+osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
+osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
+osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
+osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
+osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
+osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
+osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
+osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
+osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
+osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
+osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
+osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
+osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
+osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
+osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
+osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
+osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
+osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
+osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
+osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
+osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
+osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
+osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
+osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
+osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
+osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
+osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
+osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
+osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
+osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
+osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
+osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
+osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
+osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
+osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
+osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
+osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
+osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
+osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
+osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
+osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
+osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
+osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
+osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
+osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
+osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
+osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
+osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
+osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
+prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
+==================== gz-4f31406-ceph-001202 : ceph orch ps ====================
+NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
+alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
+container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
+container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
+container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
+container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
+container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
+crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
+crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
+crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
+crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
+crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
+grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
+mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
+mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
+mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
+mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
+mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
+mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
+mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
+mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
+mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
+mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
+mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
+node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
+node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
+node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
+node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
+node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
+osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
+osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
+osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
+osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
+osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
+osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
+osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
+osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
+osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
+osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
+osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
+osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
+osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
+osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
+osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
+osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
+osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
+osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
+osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
+osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
+osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
+osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
+osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
+osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
+osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
+osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
+osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
+osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
+osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
+osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
+osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
+osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
+osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
+osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
+osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
+osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
+osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
+osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
+osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
+osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
+osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
+osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
+osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
+osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
+osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
+osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
+osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
+osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
+osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
+osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
+osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
+osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
+osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
+osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
+osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
+osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
+osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
+osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
+osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
+osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
+osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
+osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
+osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
+osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
+osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
+prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
+==================== gz-4f31406-ceph-001203 : ceph orch ps ====================
+NAME                                                         HOST                    PORTS              STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION         IMAGE ID      CONTAINER ID  
+alertmanager.gz-4f31406-ceph-001201                          gz-4f31406-ceph-001201  *:9093,9094        running (2y)      2m ago   3y    70.5M        -  0.23.0          ba2b418f427c  b246a0cb1d84  
+container.filebeat.gz-4f31406-ceph-001201                    gz-4f31406-ceph-001201                     running (12M)     2m ago   2y    86.0M        -  <unknown>       93fd1ad6b998  2c40dea1b34b  
+container.filebeat.gz-4f31406-ceph-001202                    gz-4f31406-ceph-001202                     running (12M)    10m ago   2y    94.2M        -  <unknown>       93fd1ad6b998  96a9455e2aa6  
+container.filebeat.gz-4f31406-ceph-001203                    gz-4f31406-ceph-001203                     running (12M)    10m ago   2y     100M        -  <unknown>       93fd1ad6b998  6a976098748a  
+container.filebeat.gz-4f31406-ceph-001204                    gz-4f31406-ceph-001204                     running (12M)    10m ago   2y    84.0M        -  <unknown>       93fd1ad6b998  f2df53a7b400  
+container.filebeat.gz-4f31406-ceph-001205                    gz-4f31406-ceph-001205                     running (12M)    10m ago   2y    82.2M        -  <unknown>       93fd1ad6b998  81501434727b  
+crash.gz-4f31406-ceph-001201                                 gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    7799k        -  16.2.13         158e1c670c9e  91fc45a228ed  
+crash.gz-4f31406-ceph-001202                                 gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    6664k        -  16.2.13         158e1c670c9e  d197ed282ea1  
+crash.gz-4f31406-ceph-001203                                 gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    10.7M        -  16.2.13         158e1c670c9e  91c13e17f110  
+crash.gz-4f31406-ceph-001204                                 gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    74.6M        -  16.2.13         158e1c670c9e  a55f7a42a501  
+crash.gz-4f31406-ceph-001205                                 gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    19.9M        -  16.2.13         158e1c670c9e  798bc1a4e39a  
+grafana.gz-4f31406-ceph-001201                               gz-4f31406-ceph-001201  *:3000             running (2y)      2m ago   3y     257M        -  8.3.5           dad864ee21e9  479577ca14d3  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.jaqqwu     gz-4f31406-ceph-001201  *:80,1967          running (2y)      2m ago   3y     235M        -  2.3.16-49b2134  b698bf217dd5  400481b8cd90  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.yzihyq     gz-4f31406-ceph-001202  *:80,1967          running (2y)     10m ago   3y     323M        -  2.3.16-49b2134  b698bf217dd5  4c34583dc05e  
+haproxy.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.gmkkdg     gz-4f31406-ceph-001203  *:80,1967          running (2y)     10m ago   3y     322M        -  2.3.16-49b2134  b698bf217dd5  0ce4cfbcab62  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.njcucn  gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    42.6M        -  2.0.5           073e0c3cd1b9  24196353e801  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.pihmyh  gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    42.2M        -  2.0.5           073e0c3cd1b9  d63dddc41726  
+keepalived.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.goxhct  gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    41.2M        -  2.0.5           073e0c3cd1b9  5b2f5bd78308  
+mds.cephfs.gz-4f31406-ceph-001203.vnsoyp                     gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    44.2M        -  16.2.13         158e1c670c9e  3617d58922cf  
+mds.cephfs.gz-4f31406-ceph-001204.lnvvfb                     gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    69.9M        -  16.2.13         158e1c670c9e  3ce62de55589  
+mds.cephfs.gz-4f31406-ceph-001205.gyywgu                     gz-4f31406-ceph-001205                     running (2y)     10m ago   3y     232M        -  16.2.13         158e1c670c9e  ac94c7b08ce1  
+mgr.gz-4f31406-ceph-001201.txztaq                            gz-4f31406-ceph-001201  *:8443,9283        running (10M)     2m ago   3y    1898M        -  16.2.13         158e1c670c9e  4974414fb485  
+mgr.gz-4f31406-ceph-001202.yeyqxz                            gz-4f31406-ceph-001202  *:8443,9283        running (19M)    10m ago   3y     471M        -  16.2.13         158e1c670c9e  7c096f20e242  
+mgr.gz-4f31406-ceph-001203.qycafv                            gz-4f31406-ceph-001203  *:8443,9283        running (4w)     10m ago   3y     443M        -  16.2.13         158e1c670c9e  c6455bc88ce2  
+mon.gz-4f31406-ceph-001201                                   gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    1504M    2048M  16.2.13         158e1c670c9e  195b0358affc  
+mon.gz-4f31406-ceph-001202                                   gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    1914M    2048M  16.2.13         158e1c670c9e  56cb0afecd5f  
+mon.gz-4f31406-ceph-001203                                   gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    1469M    2048M  16.2.13         158e1c670c9e  92af3cae4954  
+mon.gz-4f31406-ceph-001204                                   gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    1970M    2048M  16.2.13         158e1c670c9e  4f2363b0e77c  
+mon.gz-4f31406-ceph-001205                                   gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    1976M    2048M  16.2.13         158e1c670c9e  c8cb41ad3eb7  
+node-exporter.gz-4f31406-ceph-001201                         gz-4f31406-ceph-001201  *:9100             running (2y)      2m ago   3y    76.2M        -  1.3.1           1dbe0e931976  63f3659877df  
+node-exporter.gz-4f31406-ceph-001202                         gz-4f31406-ceph-001202  *:9100             running (2y)     10m ago   3y    80.0M        -  1.3.1           1dbe0e931976  d697a2c66e32  
+node-exporter.gz-4f31406-ceph-001203                         gz-4f31406-ceph-001203  *:9100             running (2y)     10m ago   3y    76.2M        -  1.3.1           1dbe0e931976  728870f1b7e6  
+node-exporter.gz-4f31406-ceph-001204                         gz-4f31406-ceph-001204  *:9100             running (2y)     10m ago   3y    84.6M        -  1.3.1           1dbe0e931976  3ae307502f24  
+node-exporter.gz-4f31406-ceph-001205                         gz-4f31406-ceph-001205  *:9100             running (2y)     10m ago   3y    79.8M        -  1.3.1           1dbe0e931976  6882d0c0858d  
+osd.0                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3542M    4096M  16.2.13         158e1c670c9e  cf9020cdabee  
+osd.1                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5183M    4096M  16.2.13         158e1c670c9e  2daadd761d6a  
+osd.10                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3614M    4096M  16.2.13         158e1c670c9e  4ea074658f7d  
+osd.11                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3530M    4096M  16.2.13         158e1c670c9e  6e8f19f631fa  
+osd.12                                                       gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3598M    4096M  16.2.13         158e1c670c9e  a94089a33f28  
+osd.13                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3849M    4096M  16.2.13         158e1c670c9e  93bc8f520af2  
+osd.14                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3997M    4096M  16.2.13         158e1c670c9e  bbbea15ac372  
+osd.15                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4683M    4096M  16.2.13         158e1c670c9e  adb0e17fc879  
+osd.16                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    5148M    4096M  16.2.13         158e1c670c9e  de94db7cb938  
+osd.17                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4575M    4096M  16.2.13         158e1c670c9e  6f756af444e8  
+osd.18                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4125M    4096M  16.2.13         158e1c670c9e  ff6c1dee18b9  
+osd.19                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4146M    4096M  16.2.13         158e1c670c9e  674f99e5c7ef  
+osd.2                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4159M    4096M  16.2.13         158e1c670c9e  0452980b1452  
+osd.20                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3653M    4096M  16.2.13         158e1c670c9e  ae59093ea0b2  
+osd.21                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4143M    4096M  16.2.13         158e1c670c9e  5e5a18ba74f9  
+osd.22                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  1bb4684096f5  
+osd.23                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3502M    4096M  16.2.13         158e1c670c9e  2fcf9d1bd876  
+osd.24                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    4332M    4096M  16.2.13         158e1c670c9e  fdf1ec6b7643  
+osd.25                                                       gz-4f31406-ceph-001202                     running (2y)     10m ago   3y    3922M    4096M  16.2.13         158e1c670c9e  da9fb2008e1e  
+osd.26                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3510M    4096M  16.2.13         158e1c670c9e  c210d424bd9f  
+osd.27                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    5166M    4096M  16.2.13         158e1c670c9e  fc84f98b3089  
+osd.28                                                       gz-4f31406-ceph-001203                     running (14M)    10m ago  14M    4156M    4096M  16.2.13         158e1c670c9e  87a208216b8c  
+osd.29                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4633M    4096M  16.2.13         158e1c670c9e  58bdefa3daa5  
+osd.3                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3884M    4096M  16.2.13         158e1c670c9e  95135cda3326  
+osd.30                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4156M    4096M  16.2.13         158e1c670c9e  d41708c5c9f5  
+osd.31                                                       gz-4f31406-ceph-001203                     running (13M)    10m ago  13M    4732M    4096M  16.2.13         158e1c670c9e  1c38a1786f88  
+osd.32                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    4540M    4096M  16.2.13         158e1c670c9e  2c1ad1a78ade  
+osd.33                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3963M    4096M  16.2.13         158e1c670c9e  90ec17ff1333  
+osd.34                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3848M    4096M  16.2.13         158e1c670c9e  6efeb56a21b8  
+osd.35                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3858M    4096M  16.2.13         158e1c670c9e  327aa8240a03  
+osd.36                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3572M    4096M  16.2.13         158e1c670c9e  7d5019366a03  
+osd.37                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3582M    4096M  16.2.13         158e1c670c9e  c33c76f01769  
+osd.38                                                       gz-4f31406-ceph-001203                     running (2y)     10m ago   3y    3425M    4096M  16.2.13         158e1c670c9e  5e25e563031e  
+osd.39                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4210M    4096M  16.2.13         158e1c670c9e  cad5ebef10ee  
+osd.4                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4388M    4096M  16.2.13         158e1c670c9e  d71051f0c398  
+osd.40                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6344M    4096M  16.2.13         158e1c670c9e  1c0a4fe75f0f  
+osd.41                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5825M    4096M  16.2.13         158e1c670c9e  dce4914223dd  
+osd.42                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    6467M    4096M  16.2.13         158e1c670c9e  4d84c0753c4d  
+osd.43                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5580M    4096M  16.2.13         158e1c670c9e  f2f4e23bd15e  
+osd.44                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    5592M    4096M  16.2.13         158e1c670c9e  fc321677e965  
+osd.45                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4659M    4096M  16.2.13         158e1c670c9e  dfba468a6647  
+osd.46                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4595M    4096M  16.2.13         158e1c670c9e  91538f4318b5  
+osd.47                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4168M    4096M  16.2.13         158e1c670c9e  14e71dff5208  
+osd.48                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4242M    4096M  16.2.13         158e1c670c9e  458b7e39ed66  
+osd.49                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4404M    4096M  16.2.13         158e1c670c9e  cb27bf4f57fa  
+osd.5                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4525M    4096M  16.2.13         158e1c670c9e  17beaa9607ec  
+osd.50                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4136M    4096M  16.2.13         158e1c670c9e  3b6ce3694666  
+osd.51                                                       gz-4f31406-ceph-001204                     running (2y)     10m ago   3y    4550M    4096M  16.2.13         158e1c670c9e  6e763936c798  
+osd.52                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4117M    4096M  16.2.13         158e1c670c9e  a6e9edd79174  
+osd.53                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5616M    4096M  16.2.13         158e1c670c9e  762bb53624c9  
+osd.55                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    6131M    4096M  16.2.13         158e1c670c9e  fd65098a04ab  
+osd.56                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5595M    4096M  16.2.13         158e1c670c9e  a24cda1ea3b7  
+osd.57                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5770M    4096M  16.2.13         158e1c670c9e  4a272f5c38f9  
+osd.58                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    5136M    4096M  16.2.13         158e1c670c9e  a215da2e3944  
+osd.59                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4727M    4096M  16.2.13         158e1c670c9e  7880f44166be  
+osd.6                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    5037M    4096M  16.2.13         158e1c670c9e  e4c5d48256d8  
+osd.60                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4534M    4096M  16.2.13         158e1c670c9e  5d5727df0c0b  
+osd.61                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4447M    4096M  16.2.13         158e1c670c9e  22de4be59bb2  
+osd.62                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4319M    4096M  16.2.13         158e1c670c9e  e85f7f53b79d  
+osd.63                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4269M    4096M  16.2.13         158e1c670c9e  8c55d131eb3a  
+osd.64                                                       gz-4f31406-ceph-001205                     running (2y)     10m ago   3y    4275M    4096M  16.2.13         158e1c670c9e  a309f73de746  
+osd.65                                                       gz-4f31406-ceph-001205                     running (14M)    10m ago  14M    5895M    4096M  16.2.13         158e1c670c9e  573e9f466021  
+osd.7                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    4071M    4096M  16.2.13         158e1c670c9e  da7561719087  
+osd.8                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3357M    4096M  16.2.13         158e1c670c9e  0d13b1e011a3  
+osd.9                                                        gz-4f31406-ceph-001201                     running (2y)      2m ago   3y    3448M    4096M  16.2.13         158e1c670c9e  cb6b190124f2  
+prometheus.gz-4f31406-ceph-001201                            gz-4f31406-ceph-001201  *:9095             running (2y)      2m ago   3y     377M        -  2.33.4          514e6a882f6e  a6d3df79ae32  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya             gz-4f31406-ceph-001201  172.21.1.201:7481  running (2y)      2m ago   3y    3145M        -  16.2.13         158e1c670c9e  a3f2d2e8ad30  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn             gz-4f31406-ceph-001201  172.21.1.201:7480  running (2y)      2m ago   3y    3013M        -  16.2.13         158e1c670c9e  d8e77f1d7fbf  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm             gz-4f31406-ceph-001202  172.21.1.202:7481  running (2y)     10m ago   3y    5051M        -  16.2.13         158e1c670c9e  2facde17d6d4  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt             gz-4f31406-ceph-001202  172.21.1.202:7480  running (2y)     10m ago   3y    4889M        -  16.2.13         158e1c670c9e  07324c3f88e0  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz             gz-4f31406-ceph-001203  172.21.1.203:7480  running (2y)     10m ago   3y    5139M        -  16.2.13         158e1c670c9e  0f5b8896e05b  
+rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa             gz-4f31406-ceph-001203  172.21.1.203:7481  running (2y)     10m ago   3y    3803M        -  16.2.13         158e1c670c9e  b9fcf1d5451d  
+root@gz-4f31406-ceph-001201:~# echo "===== OSD memory target ====="
+===== OSD memory target =====
+root@gz-4f31406-ceph-001201:~# ceph config get osd osd_memory_target
+4294967296
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# echo
+
+root@gz-4f31406-ceph-001201:~# echo "===== MDS cache limit ====="
+===== MDS cache limit =====
+root@gz-4f31406-ceph-001201:~# ceph config get mds mds_cache_memory_limit
+4294967296
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# echo
+
+root@gz-4f31406-ceph-001201:~# echo "===== memory related config dump ====="
+===== memory related config dump =====
+root@gz-4f31406-ceph-001201:~# ceph config dump | egrep -i "osd_memory_target|bluestore_cache|mds_cache_memory_limit|rgw.*cache|rgw.*thread|rgw.*frontend"
+  osd                                                        host:gz-4f31406-ceph-001201  basic     osd_memory_target                          4813621186                                                                                             
+  osd                                                        host:gz-4f31406-ceph-001202  basic     osd_memory_target                          4715452533                                                                                             
+  osd                                                        host:gz-4f31406-ceph-001203  basic     osd_memory_target                          4501626726                                                                                             
+  osd                                                        host:gz-4f31406-ceph-001204  basic     osd_memory_target                          5549660370                                                                                             
+  osd                                                        host:gz-4f31406-ceph-001205  basic     osd_memory_target                          5549158541                                                                                             
+  osd                                                                                     advanced  osd_memory_target_autotune                 true                                                                                                   
+  client                                                                                  basic     rgw_thread_pool_size                       512                                                                                                    
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya                               basic     rgw_frontends                              beast endpoint=172.21.1.201:7481                                                                     * 
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn                               basic     rgw_frontends                              beast endpoint=172.21.1.201:7480                                                                     * 
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm                               basic     rgw_frontends                              beast endpoint=172.21.1.202:7481                                                                     * 
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt                               basic     rgw_frontends                              beast endpoint=172.21.1.202:7480                                                                     * 
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz                               basic     rgw_frontends                              beast endpoint=172.21.1.203:7480                                                                     * 
+    client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa                               basic     rgw_frontends                              beast endpoint=172.21.1.203:7481                                                                     * 
+root@gz-4f31406-ceph-001201:~# 
