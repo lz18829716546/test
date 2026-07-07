@@ -5,451 +5,133 @@ root@gz-4f31406-ceph-001201:~# HOSTS=(
 > )
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : tcp sockstat ===================="
+>   echo "==================== $h : slab cache identity ===================="
 >   ssh "$h" '
->     echo "[1] date"
->     date
+>     cache="/sys/kernel/slab/tw_sock_TCP"
+> 
+>     echo "[1] cache path"
+>     ls -ld "$cache" 2>/dev/null || true
 > 
 >     echo
->     echo "[2] sockstat"
->     cat /proc/net/sockstat
->     cat /proc/net/sockstat6 2>/dev/null || true
+>     echo "[2] basic sysfs fields"
+>     for f in aliases object_size size objs_per_slab objects total_objects slabs partial cpu_partial reclaim_account destroy_by_rcu; do
+>       if [ -r "$cache/$f" ]; then
+>         printf "%-18s " "$f="
+>         cat "$cache/$f"
+>       fi
+>     done
 > 
 >     echo
->     echo "[3] ss summary"
->     ss -s
+>     echo "[3] symlinks related to tw_sock_TCP"
+>     find /sys/kernel/slab -maxdepth 1 -type l -printf "%f -> %l\n" 2>/dev/null | egrep "tw_sock_TCP|sock|TCP|time|tw" || true
 > 
 >     echo
->     echo "[4] tcp sysctl"
->     sysctl \
->       net.ipv4.tcp_max_tw_buckets \
->       net.ipv4.tcp_tw_reuse \
->       net.ipv4.tcp_timestamps \
->       net.ipv4.tcp_fin_timeout \
->       net.ipv4.ip_local_port_range \
->       2>/dev/null
-> 
->     echo
->     echo "[5] tcp kernel counters"
->     nstat -az 2>/dev/null | egrep -i "TW|TimeWait|Listen|Abort|Retrans|Prune|OutRsts|EstabResets" || true
-> 
->     echo
->     echo "[6] kernel logs"
->     dmesg -T 2>/dev/null | egrep -i "time wait|tw bucket|TCP: time wait|out of socket|possible SYN flooding|nf_conntrack" | tail -100 || true
+>     echo "[4] slabinfo line"
+>     grep "^tw_sock_TCP " /proc/slabinfo || true
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : tcp sockstat ====================
-[1] date
-Tue 07 Jul 2026 04:37:14 PM CST
+==================== gz-4f31406-ceph-001201 : slab cache identity ====================
+[1] cache path
+drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
 
-[2] sockstat
-sockets: used 4954
-TCP: inuse 3598 orphan 0 tw 116 alloc 3615 mem 595
-UDP: inuse 67 mem 4
-UDPLITE: inuse 0
-RAW: inuse 4
-FRAG: inuse 0 memory 0
-TCP6: inuse 16
-UDP6: inuse 2
-UDPLITE6: inuse 0
-RAW6: inuse 2
-FRAG6: inuse 0 memory 0
+[2] basic sysfs fields
+aliases=           0
+object_size=       240
+objs_per_slab=     33
+objects=           135987789 N0=4747595 N1=131240194
+total_objects=     135989007 N0=4747908 N1=131241099
+slabs=             4120879 N0=143876 N1=3977003
+partial=           228 N0=43 N1=185
+cpu_partial=       30
+reclaim_account=   0
+destroy_by_rcu=    1
 
-[3] ss summary
-Total: 4954
-TCP:   3731 (estab 3470, closed 117, orphaned 0, timewait 116)
+[3] symlinks related to tw_sock_TCP
+posix_timers_cache -> :0000256
 
-Transport Total     IP        IPv6
-RAW       6         4         2        
-UDP       69        67        2        
-TCP       3614      3598      16       
-INET      3689      3669      20       
-FRAG      0         0         0        
+[4] slabinfo line
+tw_sock_TCP       136481073 136482291    248   33    2 : tunables    0    0    0 : slabdata 4135827 4135827      0
+==================== gz-4f31406-ceph-001202 : slab cache identity ====================
+[1] cache path
+drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
 
+[2] basic sysfs fields
+aliases=           0
+object_size=       240
+objs_per_slab=     33
+objects=           138097204 N0=4906552 N1=133190652
+total_objects=     138098334 N0=4906671 N1=133191663
+slabs=             4184798 N0=148687 N1=4036111
+partial=           172 N0=16 N1=156
+cpu_partial=       30
+reclaim_account=   0
+destroy_by_rcu=    1
 
-[4] tcp sysctl
-net.ipv4.tcp_max_tw_buckets = 262144
-net.ipv4.tcp_tw_reuse = 2
-net.ipv4.tcp_timestamps = 1
-net.ipv4.tcp_fin_timeout = 60
-net.ipv4.ip_local_port_range = 32768    60999
+[3] symlinks related to tw_sock_TCP
+posix_timers_cache -> :0000256
 
-[5] tcp kernel counters
-TcpEstabResets                  1308769081         0.0
-TcpRetransSegs                  726226438          0.0
-TcpOutRsts                      917447727          0.0
-TcpExtPruneCalled               56264              0.0
-TcpExtRcvPruned                 0                  0.0
-TcpExtOfoPruned                 0                  0.0
-TcpExtTW                        265567922          0.0
-TcpExtTWRecycled                92121              0.0
-TcpExtTWKilled                  0                  0.0
-TcpExtListenOverflows           118993             0.0
-TcpExtListenDrops               118993             0.0
-TcpExtTCPLostRetransmit         40027557           0.0
-TcpExtTCPFastRetrans            671430181          0.0
-TcpExtTCPSlowStartRetrans       1991911            0.0
-TcpExtTCPAbortOnData            603594211          0.0
-TcpExtTCPAbortOnClose           91724382           0.0
-TcpExtTCPAbortOnMemory          0                  0.0
-TcpExtTCPAbortOnTimeout         72364              0.0
-TcpExtTCPAbortOnLinger          0                  0.0
-TcpExtTCPAbortFailed            0                  0.0
-TcpExtTCPTimeWaitOverflow       0                  0.0
-TcpExtTCPRetransFail            0                  0.0
-TcpExtTCPFastOpenListenOverflow 0                  0.0
-TcpExtTCPSynRetrans             46199428           0.0
-TcpExtTCPACKSkippedTimeWait     13183              0.0
+[4] slabinfo line
+tw_sock_TCP       138958207 138959337    248   33    2 : tunables    0    0    0 : slabdata 4210889 4210889      0
+==================== gz-4f31406-ceph-001203 : slab cache identity ====================
+[1] cache path
+drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
 
-[6] kernel logs
-==================== gz-4f31406-ceph-001202 : tcp sockstat ====================
-[1] date
-Tue 07 Jul 2026 04:37:15 PM CST
+[2] basic sysfs fields
+aliases=           0
+object_size=       240
+objs_per_slab=     33
+objects=           138272693 N0=2481657 N1=135791036
+total_objects=     138274389 N0=2481699 N1=135792690
+slabs=             4190133 N0=75203 N1=4114930
+partial=           298 N0=6 N1=292
+cpu_partial=       30
+reclaim_account=   0
+destroy_by_rcu=    1
 
-[2] sockstat
-sockets: used 4202
-TCP: inuse 3143 orphan 0 tw 111 alloc 3151 mem 217
-UDP: inuse 70 mem 2
-UDPLITE: inuse 0
-RAW: inuse 4
-FRAG: inuse 0 memory 0
-TCP6: inuse 8
-UDP6: inuse 1
-UDPLITE6: inuse 0
-RAW6: inuse 2
-FRAG6: inuse 0 memory 0
+[3] symlinks related to tw_sock_TCP
+posix_timers_cache -> :0000256
 
-[3] ss summary
-Total: 4202
-TCP:   3262 (estab 3026, closed 111, orphaned 0, timewait 111)
-
-Transport Total     IP        IPv6
-RAW       6         4         2        
-UDP       71        70        1        
-TCP       3151      3143      8        
-INET      3228      3217      11       
-FRAG      0         0         0        
-
-
-[4] tcp sysctl
-net.ipv4.tcp_max_tw_buckets = 262144
-net.ipv4.tcp_tw_reuse = 2
-net.ipv4.tcp_timestamps = 1
-net.ipv4.tcp_fin_timeout = 60
-net.ipv4.ip_local_port_range = 32768    60999
-
-[5] tcp kernel counters
-TcpEstabResets                  1229773227         0.0
-TcpRetransSegs                  638503929          0.0
-TcpOutRsts                      951737540          0.0
-TcpExtPruneCalled               441                0.0
-TcpExtRcvPruned                 0                  0.0
-TcpExtOfoPruned                 0                  0.0
-TcpExtTW                        263057050          0.0
-TcpExtTWRecycled                92988              0.0
-TcpExtTWKilled                  0                  0.0
-TcpExtListenOverflows           361586             0.0
-TcpExtListenDrops               361586             0.0
-TcpExtTCPLostRetransmit         29118680           0.0
-TcpExtTCPFastRetrans            599427258          0.0
-TcpExtTCPSlowStartRetrans       1732812            0.0
-TcpExtTCPAbortOnData            629947026          0.0
-TcpExtTCPAbortOnClose           67382918           0.0
-TcpExtTCPAbortOnMemory          0                  0.0
-TcpExtTCPAbortOnTimeout         52932              0.0
-TcpExtTCPAbortOnLinger          0                  0.0
-TcpExtTCPAbortFailed            0                  0.0
-TcpExtTCPTimeWaitOverflow       0                  0.0
-TcpExtTCPRetransFail            0                  0.0
-TcpExtTCPFastOpenListenOverflow 0                  0.0
-TcpExtTCPSynRetrans             32671669           0.0
-TcpExtTCPACKSkippedTimeWait     11745              0.0
-
-[6] kernel logs
-==================== gz-4f31406-ceph-001203 : tcp sockstat ====================
-[1] date
-Tue 07 Jul 2026 04:37:15 PM CST
-
-[2] sockstat
-sockets: used 3987
-TCP: inuse 3149 orphan 0 tw 107 alloc 3158 mem 174
-UDP: inuse 67 mem 1
-UDPLITE: inuse 0
-RAW: inuse 4
-FRAG: inuse 0 memory 0
-TCP6: inuse 8
-UDP6: inuse 1
-UDPLITE6: inuse 0
-RAW6: inuse 2
-FRAG6: inuse 0 memory 0
-
-[3] ss summary
-Total: 3987
-TCP:   3265 (estab 3027, closed 108, orphaned 0, timewait 107)
-
-Transport Total     IP        IPv6
-RAW       6         4         2        
-UDP       68        67        1        
-TCP       3157      3149      8        
-INET      3231      3220      11       
-FRAG      0         0         0        
-
-
-[4] tcp sysctl
-net.ipv4.tcp_max_tw_buckets = 262144
-net.ipv4.tcp_tw_reuse = 2
-net.ipv4.tcp_timestamps = 1
-net.ipv4.tcp_fin_timeout = 60
-net.ipv4.ip_local_port_range = 32768    60999
-
-[5] tcp kernel counters
-TcpEstabResets                  1231223909         0.0
-TcpRetransSegs                  612453341          0.0
-TcpOutRsts                      960899713          0.0
-TcpExtPruneCalled               11432              0.0
-TcpExtRcvPruned                 0                  0.0
-TcpExtOfoPruned                 0                  0.0
-TcpExtTW                        265425514          0.0
-TcpExtTWRecycled                92570              0.0
-TcpExtTWKilled                  0                  0.0
-TcpExtListenOverflows           24251689           0.0
-TcpExtListenDrops               24251690           0.0
-TcpExtTCPLostRetransmit         18241291           0.0
-TcpExtTCPFastRetrans            593226951          0.0
-TcpExtTCPSlowStartRetrans       1990831            0.0
-TcpExtTCPAbortOnData            639442250          0.0
-TcpExtTCPAbortOnClose           64468325           0.0
-TcpExtTCPAbortOnMemory          0                  0.0
-TcpExtTCPAbortOnTimeout         86432              0.0
-TcpExtTCPAbortOnLinger          0                  0.0
-TcpExtTCPAbortFailed            0                  0.0
-TcpExtTCPTimeWaitOverflow       0                  0.0
-TcpExtTCPRetransFail            0                  0.0
-TcpExtTCPFastOpenListenOverflow 0                  0.0
-TcpExtTCPSynRetrans             12373994           0.0
-TcpExtTCPACKSkippedTimeWait     11562              0.0
-
-[6] kernel logs
-[Fri Oct 10 08:30:49 2025] TCP: request_sock_TCP: Possible SYN flooding on port 8443. Sending cookies.  Check SNMP counters.
+[4] slabinfo line
+tw_sock_TCP       139088123 139089819    248   33    2 : tunables    0    0    0 : slabdata 4214843 4214843      0
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : TIME_WAIT sample by port ===================="
+>   echo "==================== $h : slabinfo aliases ===================="
 >   ssh "$h" '
->     timeout 20s ss -tan state time-wait 2>/dev/null \
->     | awk "
->       NR==1 {next}
->       NR>200000 {exit}
->       {
->         local=\$(NF-1);
->         peer=\$NF;
->         sub(/^.*:/, \"\", local);
->         sub(/^.*:/, \"\", peer);
->         print \"local_port=\" local, \"peer_port=\" peer;
->       }
->     " \
->     | sort | uniq -c | sort -nr | head -30
+>     command -v slabinfo >/dev/null 2>&1 && slabinfo -a | egrep -A20 -B5 "tw_sock_TCP" || echo "slabinfo command not found"
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : TIME_WAIT sample by port ====================
-      1 local_port=8445 peer_port=51608
-      1 local_port=80 peer_port=57320
-      1 local_port=80 peer_port=51280
-      1 local_port=80 peer_port=51272
-      1 local_port=80 peer_port=51260
-      1 local_port=80 peer_port=51244
-      1 local_port=80 peer_port=47358
-      1 local_port=80 peer_port=45146
-      1 local_port=80 peer_port=45140
-      1 local_port=80 peer_port=45134
-      1 local_port=80 peer_port=45132
-      1 local_port=80 peer_port=40494
-      1 local_port=80 peer_port=40484
-      1 local_port=80 peer_port=40474
-      1 local_port=80 peer_port=40472
-      1 local_port=6848 peer_port=55138
-      1 local_port=6848 peer_port=43732
-      1 local_port=6841 peer_port=44722
-      1 local_port=6841 peer_port=23054
-      1 local_port=6836 peer_port=52936
-      1 local_port=6836 peer_port=43596
-      1 local_port=6836 peer_port=12664
-      1 local_port=6816 peer_port=33976
-      1 local_port=6815 peer_port=58640
-      1 local_port=6815 peer_port=53882
-      1 local_port=6815 peer_port=46130
-      1 local_port=6812 peer_port=56876
-      1 local_port=6812 peer_port=38476
-      1 local_port=6812 peer_port=25266
-      1 local_port=6808 peer_port=14110
-==================== gz-4f31406-ceph-001202 : TIME_WAIT sample by port ====================
-      1 local_port=80 peer_port=56806
-      1 local_port=80 peer_port=56790
-      1 local_port=80 peer_port=47782
-      1 local_port=80 peer_port=47776
-      1 local_port=80 peer_port=47766
-      1 local_port=80 peer_port=43356
-      1 local_port=80 peer_port=43354
-      1 local_port=80 peer_port=43342
-      1 local_port=80 peer_port=43332
-      1 local_port=80 peer_port=43322
-      1 local_port=80 peer_port=42022
-      1 local_port=80 peer_port=40116
-      1 local_port=80 peer_port=40108
-      1 local_port=80 peer_port=40106
-      1 local_port=6844 peer_port=55134
-      1 local_port=6844 peer_port=47312
-      1 local_port=6844 peer_port=17668
-      1 local_port=6842 peer_port=54848
-      1 local_port=6842 peer_port=22512
-      1 local_port=6809 peer_port=60192
-      1 local_port=6804 peer_port=56120
-      1 local_port=6800 peer_port=37098
-      1 local_port=60942 peer_port=443
-      1 local_port=60932 peer_port=443
-      1 local_port=60920 peer_port=443
-      1 local_port=59370 peer_port=443
-      1 local_port=59314 peer_port=1967
-      1 local_port=59306 peer_port=1967
-      1 local_port=59304 peer_port=1967
-      1 local_port=59290 peer_port=1967
-==================== gz-4f31406-ceph-001203 : TIME_WAIT sample by port ====================
-      1 local_port=9283 peer_port=46892
-      1 local_port=80 peer_port=53336
-      1 local_port=80 peer_port=53328
-      1 local_port=80 peer_port=53318
-      1 local_port=80 peer_port=53150
-      1 local_port=80 peer_port=53146
-      1 local_port=80 peer_port=53130
-      1 local_port=80 peer_port=53122
-      1 local_port=80 peer_port=53116
-      1 local_port=80 peer_port=51040
-      1 local_port=80 peer_port=51030
-      1 local_port=80 peer_port=51018
-      1 local_port=80 peer_port=48684
-      1 local_port=80 peer_port=38112
-      1 local_port=80 peer_port=38102
-      1 local_port=80 peer_port=38088
-      1 local_port=6844 peer_port=60421
-      1 local_port=6844 peer_port=13050
-      1 local_port=6840 peer_port=56496
-      1 local_port=6839 peer_port=60892
-      1 local_port=6838 peer_port=9758
-      1 local_port=6836 peer_port=46452
-      1 local_port=6818 peer_port=33770
-      1 local_port=6808 peer_port=60238
-      1 local_port=60148 peer_port=443
-      1 local_port=59650 peer_port=443
-      1 local_port=59636 peer_port=443
-      1 local_port=59598 peer_port=1967
-      1 local_port=59588 peer_port=1967
-      1 local_port=59578 peer_port=1967
-root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : haproxy config ===================="
->   ssh "$h" '
->     cid=$(docker ps --format "{{.Names}}" | grep "haproxy-rgw" | head -1)
->     echo "container=$cid"
->     docker exec "$cid" sh -c "
->       echo \"===== haproxy.cfg key lines =====\"
->       egrep -n \"^(global|defaults|frontend|backend|listen|[[:space:]]+mode|[[:space:]]+option|[[:space:]]+timeout|[[:space:]]+http-reuse|[[:space:]]+server|[[:space:]]+bind)\" /var/lib/haproxy/haproxy.cfg
->     "
->   '
-> done
-==================== gz-4f31406-ceph-001201 : haproxy config ====================
-container=ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-jaqqwu
-===== haproxy.cfg key lines =====
-2:global
-10:defaults
-11:    mode                    http
-13:    option                  httplog
-14:    option                  dontlognull
-15:    option http-server-close
-16:    option forwardfor       except 127.0.0.0/8
-17:    option                  redispatch
-19:    timeout queue           20s
-20:    timeout connect         5s
-21:    timeout http-request    1s
-22:    timeout http-keep-alive 5s
-23:    timeout client          30s
-24:    timeout server          30s
-25:    timeout check           5s
-28:frontend stats
-29:    mode http
-30:    bind *:1967
-31:    bind localhost:1967
-39:frontend frontend
-40:    bind *:80
-43:backend backend
-44:    option forwardfor
-46:    option httpchk HEAD / HTTP/1.0
-47:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya 172.21.1.201:7481 check weight 100
-48:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn 172.21.1.201:7480 check weight 100
-49:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm 172.21.1.202:7481 check weight 100
-50:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt 172.21.1.202:7480 check weight 100
-51:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz 172.21.1.203:7480 check weight 100
-52:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa 172.21.1.203:7481 check weight 100
-==================== gz-4f31406-ceph-001202 : haproxy config ====================
-container=ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001202-yzihyq
-===== haproxy.cfg key lines =====
-2:global
-10:defaults
-11:    mode                    http
-13:    option                  httplog
-14:    option                  dontlognull
-15:    option http-server-close
-16:    option forwardfor       except 127.0.0.0/8
-17:    option                  redispatch
-19:    timeout queue           20s
-20:    timeout connect         5s
-21:    timeout http-request    1s
-22:    timeout http-keep-alive 5s
-23:    timeout client          30s
-24:    timeout server          30s
-25:    timeout check           5s
-28:frontend stats
-29:    mode http
-30:    bind *:1967
-31:    bind localhost:1967
-39:frontend frontend
-40:    bind *:80
-43:backend backend
-44:    option forwardfor
-46:    option httpchk HEAD / HTTP/1.0
-47:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya 172.21.1.201:7481 check weight 100
-48:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn 172.21.1.201:7480 check weight 100
-49:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm 172.21.1.202:7481 check weight 100
-50:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt 172.21.1.202:7480 check weight 100
-51:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz 172.21.1.203:7480 check weight 100
-52:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa 172.21.1.203:7481 check weight 100
-==================== gz-4f31406-ceph-001203 : haproxy config ====================
-container=ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001203-gmkkdg
-===== haproxy.cfg key lines =====
-2:global
-10:defaults
-11:    mode                    http
-13:    option                  httplog
-14:    option                  dontlognull
-15:    option http-server-close
-16:    option forwardfor       except 127.0.0.0/8
-17:    option                  redispatch
-19:    timeout queue           20s
-20:    timeout connect         5s
-21:    timeout http-request    1s
-22:    timeout http-keep-alive 5s
-23:    timeout client          30s
-24:    timeout server          30s
-25:    timeout check           5s
-28:frontend stats
-29:    mode http
-30:    bind *:1967
-31:    bind localhost:1967
-39:frontend frontend
-40:    bind *:80
-43:backend backend
-44:    option forwardfor
-46:    option httpchk HEAD / HTTP/1.0
-47:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya 172.21.1.201:7481 check weight 100
-48:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn 172.21.1.201:7480 check weight 100
-49:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm 172.21.1.202:7481 check weight 100
-50:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt 172.21.1.202:7480 check weight 100
-51:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz 172.21.1.203:7480 check weight 100
-52:    server rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa 172.21.1.203:7481 check weight 100
+==================== gz-4f31406-ceph-001201 : slabinfo aliases ====================
+slabinfo command not found
+==================== gz-4f31406-ceph-001202 : slabinfo aliases ====================
+slabinfo command not found
+==================== gz-4f31406-ceph-001203 : slabinfo aliases ====================
+slabinfo command not found
+root@gz-4f31406-ceph-001201:~# ssh gz-4f31406-ceph-001201 '
+> echo "[before]"
+> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim" /proc/meminfo
+> grep "^tw_sock_TCP " /proc/slabinfo
+> 
+> echo
+> echo "[shrink]"
+> echo 1 > /sys/kernel/slab/tw_sock_TCP/shrink 2>&1 || true
+> 
+> echo
+> echo "[after]"
+> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim" /proc/meminfo
+> grep "^tw_sock_TCP " /proc/slabinfo
+> '
+[before]
+MemAvailable:   28330336 kB
+Slab:           39416404 kB
+SReclaimable:    3756184 kB
+SUnreclaim:     35660220 kB
+tw_sock_TCP       136481073 136482291    248   33    2 : tunables    0    0    0 : slabdata 4135827 4135827      0
+
+[shrink]
+
+[after]
+MemAvailable:   28329468 kB
+Slab:           39417748 kB
+SReclaimable:    3756896 kB
+SUnreclaim:     35660852 kB
+tw_sock_TCP       136424136 136435332    248   33    2 : tunables    0    0    0 : slabdata 4134404 4134404      0
 root@gz-4f31406-ceph-001201:~# 
