@@ -5,133 +5,1161 @@ root@gz-4f31406-ceph-001201:~# HOSTS=(
 > )
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : slab cache identity ===================="
+>   echo "==================== $h : RCU check ===================="
 >   ssh "$h" '
->     cache="/sys/kernel/slab/tw_sock_TCP"
-> 
->     echo "[1] cache path"
->     ls -ld "$cache" 2>/dev/null || true
+>     echo "[1] dmesg rcu/stall"
+>     dmesg -T 2>/dev/null | egrep -i "rcu|stall|soft lockup|hard lockup|blocked for more than" | tail -100 || true
 > 
 >     echo
->     echo "[2] basic sysfs fields"
->     for f in aliases object_size size objs_per_slab objects total_objects slabs partial cpu_partial reclaim_account destroy_by_rcu; do
->       if [ -r "$cache/$f" ]; then
->         printf "%-18s " "$f="
->         cat "$cache/$f"
->       fi
->     done
+>     echo "[2] rcu/ksoftirqd processes"
+>     ps -eo pid,ppid,comm,stat,psr,pcpu,pmem,wchan:32 --sort=-pcpu \
+>       | egrep "rcu|ksoftirqd|migration|watchdog" || true
 > 
 >     echo
->     echo "[3] symlinks related to tw_sock_TCP"
->     find /sys/kernel/slab -maxdepth 1 -type l -printf "%f -> %l\n" 2>/dev/null | egrep "tw_sock_TCP|sock|TCP|time|tw" || true
+>     echo "[3] softirqs"
+>     cat /proc/softirqs | egrep "RCU|TIMER|NET_RX|NET_TX|SCHED"
 > 
 >     echo
->     echo "[4] slabinfo line"
->     grep "^tw_sock_TCP " /proc/slabinfo || true
+>     echo "[4] rcu debugfs if available"
+>     if [ -d /sys/kernel/debug/rcu ]; then
+>       find /sys/kernel/debug/rcu -maxdepth 2 -type f 2>/dev/null \
+>         | egrep "rcudata|rcu_pending|callbacks|gp" \
+>         | head -20 \
+>         | while read f; do echo "### $f"; cat "$f" 2>/dev/null | head -20; done
+>     else
+>       echo "/sys/kernel/debug/rcu not available"
+>     fi
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : slab cache identity ====================
-[1] cache path
-drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
+==================== gz-4f31406-ceph-001201 : RCU check ====================
+[1] dmesg rcu/stall
+[Wed May 13 16:13:30 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:13:30 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:13:33 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:13:33 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:26:42 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:26:42 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:26:42 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:26:42 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 17:17:53 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 17:17:53 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 17:45:51 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 17:45:51 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 17:45:51 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 17:45:51 2026] [syshook_linux]: install_syscall_64_hooks return 0
 
-[2] basic sysfs fields
-aliases=           0
-object_size=       240
-objs_per_slab=     33
-objects=           135987789 N0=4747595 N1=131240194
-total_objects=     135989007 N0=4747908 N1=131241099
-slabs=             4120879 N0=143876 N1=3977003
-partial=           228 N0=43 N1=185
-cpu_partial=       30
-reclaim_account=   0
-destroy_by_rcu=    1
+[2] rcu/ksoftirqd processes
+     11       2 rcu_sched       I     12  0.1  0.0 rcu_gp_kthread
+      3       2 rcu_gp          I<     0  0.0  0.0 rescuer_thread
+      4       2 rcu_par_gp      I<    57  0.0  0.0 rescuer_thread
+     10       2 ksoftirqd/0     S      0  0.0  0.0 smpboot_thread_fn
+     12       2 migration/0     S      0  0.0  0.0 smpboot_thread_fn
+     18       2 migration/1     S      1  0.0  0.0 smpboot_thread_fn
+     19       2 ksoftirqd/1     S      1  0.0  0.0 smpboot_thread_fn
+     24       2 migration/2     S      2  0.0  0.0 smpboot_thread_fn
+     25       2 ksoftirqd/2     S      2  0.0  0.0 smpboot_thread_fn
+     30       2 migration/3     S      3  0.0  0.0 smpboot_thread_fn
+     31       2 ksoftirqd/3     S      3  0.0  0.0 smpboot_thread_fn
+     36       2 migration/4     S      4  0.0  0.0 smpboot_thread_fn
+     37       2 ksoftirqd/4     S      4  0.0  0.0 smpboot_thread_fn
+     42       2 migration/5     S      5  0.0  0.0 smpboot_thread_fn
+     43       2 ksoftirqd/5     S      5  0.0  0.0 smpboot_thread_fn
+     48       2 migration/6     S      6  0.0  0.0 smpboot_thread_fn
+     49       2 ksoftirqd/6     S      6  0.0  0.0 smpboot_thread_fn
+     54       2 migration/7     S      7  0.0  0.0 smpboot_thread_fn
+     55       2 ksoftirqd/7     S      7  0.0  0.0 smpboot_thread_fn
+     60       2 migration/8     S      8  0.0  0.0 smpboot_thread_fn
+     61       2 ksoftirqd/8     S      8  0.0  0.0 smpboot_thread_fn
+     66       2 migration/9     S      9  0.0  0.0 smpboot_thread_fn
+     67       2 ksoftirqd/9     S      9  0.0  0.0 smpboot_thread_fn
+     72       2 migration/10    S     10  0.0  0.0 smpboot_thread_fn
+     73       2 ksoftirqd/10    S     10  0.0  0.0 smpboot_thread_fn
+     78       2 migration/11    S     11  0.0  0.0 smpboot_thread_fn
+     79       2 ksoftirqd/11    S     11  0.0  0.0 smpboot_thread_fn
+     84       2 migration/12    S     12  0.0  0.0 smpboot_thread_fn
+     85       2 ksoftirqd/12    S     12  0.0  0.0 smpboot_thread_fn
+     90       2 migration/13    S     13  0.0  0.0 smpboot_thread_fn
+     91       2 ksoftirqd/13    S     13  0.0  0.0 smpboot_thread_fn
+     96       2 migration/14    S     14  0.0  0.0 smpboot_thread_fn
+     97       2 ksoftirqd/14    S     14  0.0  0.0 smpboot_thread_fn
+    102       2 migration/15    S     15  0.0  0.0 smpboot_thread_fn
+    103       2 ksoftirqd/15    S     15  0.0  0.0 smpboot_thread_fn
+    108       2 migration/16    S     16  0.0  0.0 smpboot_thread_fn
+    109       2 ksoftirqd/16    S     16  0.0  0.0 smpboot_thread_fn
+    115       2 migration/17    S     17  0.0  0.0 smpboot_thread_fn
+    116       2 ksoftirqd/17    S     17  0.0  0.0 smpboot_thread_fn
+    121       2 migration/18    S     18  0.0  0.0 smpboot_thread_fn
+    122       2 ksoftirqd/18    S     18  0.0  0.0 smpboot_thread_fn
+    127       2 migration/19    S     19  0.0  0.0 smpboot_thread_fn
+    128       2 ksoftirqd/19    S     19  0.0  0.0 smpboot_thread_fn
+    133       2 migration/20    S     20  0.0  0.0 smpboot_thread_fn
+    134       2 ksoftirqd/20    S     20  0.0  0.0 smpboot_thread_fn
+    139       2 migration/21    S     21  0.0  0.0 smpboot_thread_fn
+    140       2 ksoftirqd/21    S     21  0.0  0.0 smpboot_thread_fn
+    145       2 migration/22    S     22  0.0  0.0 smpboot_thread_fn
+    146       2 ksoftirqd/22    S     22  0.0  0.0 smpboot_thread_fn
+    151       2 migration/23    S     23  0.0  0.0 smpboot_thread_fn
+    152       2 ksoftirqd/23    S     23  0.0  0.0 smpboot_thread_fn
+    157       2 migration/24    S     24  0.0  0.0 smpboot_thread_fn
+    158       2 ksoftirqd/24    S     24  0.0  0.0 smpboot_thread_fn
+    163       2 migration/25    S     25  0.0  0.0 smpboot_thread_fn
+    164       2 ksoftirqd/25    S     25  0.0  0.0 smpboot_thread_fn
+    169       2 migration/26    S     26  0.0  0.0 smpboot_thread_fn
+    170       2 ksoftirqd/26    S     26  0.0  0.0 smpboot_thread_fn
+    175       2 migration/27    S     27  0.0  0.0 smpboot_thread_fn
+    176       2 ksoftirqd/27    S     27  0.0  0.0 smpboot_thread_fn
+    181       2 migration/28    S     28  0.0  0.0 smpboot_thread_fn
+    182       2 ksoftirqd/28    S     28  0.0  0.0 smpboot_thread_fn
+    187       2 migration/29    S     29  0.0  0.0 smpboot_thread_fn
+    188       2 ksoftirqd/29    S     29  0.0  0.0 smpboot_thread_fn
+    193       2 migration/30    S     30  0.0  0.0 smpboot_thread_fn
+    194       2 ksoftirqd/30    S     30  0.0  0.0 smpboot_thread_fn
+    199       2 migration/31    S     31  0.0  0.0 smpboot_thread_fn
+    200       2 ksoftirqd/31    S     31  0.0  0.0 smpboot_thread_fn
+    205       2 migration/32    S     32  0.0  0.0 smpboot_thread_fn
+    206       2 ksoftirqd/32    S     32  0.0  0.0 smpboot_thread_fn
+    211       2 migration/33    S     33  0.0  0.0 smpboot_thread_fn
+    212       2 ksoftirqd/33    S     33  0.0  0.0 smpboot_thread_fn
+    217       2 migration/34    S     34  0.0  0.0 smpboot_thread_fn
+    218       2 ksoftirqd/34    S     34  0.0  0.0 smpboot_thread_fn
+    223       2 migration/35    S     35  0.0  0.0 smpboot_thread_fn
+    224       2 ksoftirqd/35    S     35  0.0  0.0 smpboot_thread_fn
+    229       2 migration/36    S     36  0.0  0.0 smpboot_thread_fn
+    230       2 ksoftirqd/36    S     36  0.0  0.0 smpboot_thread_fn
+    235       2 migration/37    S     37  0.0  0.0 smpboot_thread_fn
+    236       2 ksoftirqd/37    S     37  0.0  0.0 smpboot_thread_fn
+    241       2 migration/38    S     38  0.0  0.0 smpboot_thread_fn
+    242       2 ksoftirqd/38    S     38  0.0  0.0 smpboot_thread_fn
+    247       2 migration/39    S     39  0.0  0.0 smpboot_thread_fn
+    248       2 ksoftirqd/39    S     39  0.0  0.0 smpboot_thread_fn
+    253       2 migration/40    S     40  0.0  0.0 smpboot_thread_fn
+    254       2 ksoftirqd/40    S     40  0.0  0.0 smpboot_thread_fn
+    259       2 migration/41    S     41  0.0  0.0 smpboot_thread_fn
+    260       2 ksoftirqd/41    S     41  0.0  0.0 smpboot_thread_fn
+    265       2 migration/42    S     42  0.0  0.0 smpboot_thread_fn
+    266       2 ksoftirqd/42    S     42  0.0  0.0 smpboot_thread_fn
+    271       2 migration/43    S     43  0.0  0.0 smpboot_thread_fn
+    272       2 ksoftirqd/43    S     43  0.0  0.0 smpboot_thread_fn
+    277       2 migration/44    S     44  0.0  0.0 smpboot_thread_fn
+    278       2 ksoftirqd/44    S     44  0.0  0.0 smpboot_thread_fn
+    283       2 migration/45    S     45  0.0  0.0 smpboot_thread_fn
+    284       2 ksoftirqd/45    S     45  0.0  0.0 smpboot_thread_fn
+    289       2 migration/46    S     46  0.0  0.0 smpboot_thread_fn
+    290       2 ksoftirqd/46    S     46  0.0  0.0 smpboot_thread_fn
+    295       2 migration/47    S     47  0.0  0.0 smpboot_thread_fn
+    296       2 ksoftirqd/47    S     47  0.0  0.0 smpboot_thread_fn
+    301       2 migration/48    S     48  0.0  0.0 smpboot_thread_fn
+    302       2 ksoftirqd/48    S     48  0.0  0.0 smpboot_thread_fn
+    307       2 migration/49    S     49  0.0  0.0 smpboot_thread_fn
+    308       2 ksoftirqd/49    S     49  0.0  0.0 smpboot_thread_fn
+    313       2 migration/50    S     50  0.0  0.0 smpboot_thread_fn
+    314       2 ksoftirqd/50    S     50  0.0  0.0 smpboot_thread_fn
+    369       2 migration/51    S     51  0.0  0.0 smpboot_thread_fn
+    370       2 ksoftirqd/51    S     51  0.0  0.0 smpboot_thread_fn
+    375       2 migration/52    S     52  0.0  0.0 smpboot_thread_fn
+    376       2 ksoftirqd/52    S     52  0.0  0.0 smpboot_thread_fn
+    381       2 migration/53    S     53  0.0  0.0 smpboot_thread_fn
+    382       2 ksoftirqd/53    S     53  0.0  0.0 smpboot_thread_fn
+    387       2 migration/54    S     54  0.0  0.0 smpboot_thread_fn
+    388       2 ksoftirqd/54    S     54  0.0  0.0 smpboot_thread_fn
+    393       2 migration/55    S     55  0.0  0.0 smpboot_thread_fn
+    394       2 ksoftirqd/55    S     55  0.0  0.0 smpboot_thread_fn
+    399       2 migration/56    S     56  0.0  0.0 smpboot_thread_fn
+    400       2 ksoftirqd/56    S     56  0.0  0.0 smpboot_thread_fn
+    405       2 migration/57    S     57  0.0  0.0 smpboot_thread_fn
+    406       2 ksoftirqd/57    S     57  0.0  0.0 smpboot_thread_fn
+    411       2 migration/58    S     58  0.0  0.0 smpboot_thread_fn
+    412       2 ksoftirqd/58    S     58  0.0  0.0 smpboot_thread_fn
+    417       2 migration/59    S     59  0.0  0.0 smpboot_thread_fn
+    418       2 ksoftirqd/59    S     59  0.0  0.0 smpboot_thread_fn
+    423       2 migration/60    S     60  0.0  0.0 smpboot_thread_fn
+    424       2 ksoftirqd/60    S     60  0.0  0.0 smpboot_thread_fn
+    429       2 migration/61    S     61  0.0  0.0 smpboot_thread_fn
+    430       2 ksoftirqd/61    S     61  0.0  0.0 smpboot_thread_fn
+    435       2 migration/62    S     62  0.0  0.0 smpboot_thread_fn
+    436       2 ksoftirqd/62    S     62  0.0  0.0 smpboot_thread_fn
+    441       2 migration/63    S     63  0.0  0.0 smpboot_thread_fn
+    442       2 ksoftirqd/63    S     63  0.0  0.0 smpboot_thread_fn
+    447       2 rcu_tasks_kthre S      2  0.0  0.0 rcu_tasks_kthread
+    451       2 khungtaskd      S     32  0.0  0.0 watchdog
+    512       2 watchdogd       S      7  0.0  0.0 kthread_worker_fn
+ 211793       2 kworker/3:0-rcu I      3  0.0  0.0 worker_thread
+ 213371       2 kworker/2:1-rcu I      2  0.0  0.0 worker_thread
+ 231054       2 kworker/1:2-rcu I      1  0.0  0.0 worker_thread
+ 233457       2 kworker/6:0-rcu I      6  0.0  0.0 worker_thread
+ 239660       2 kworker/3:1-rcu I      3  0.0  0.0 worker_thread
+ 244685       2 kworker/6:2-rcu I      6  0.0  0.0 worker_thread
+ 244735       2 kworker/9:1-rcu I      9  0.0  0.0 worker_thread
+ 245233       2 kworker/2:2-rcu I      2  0.0  0.0 worker_thread
+ 245280       2 kworker/5:2-rcu I      5  0.0  0.0 worker_thread
+ 247842       2 kworker/7:0-rcu I      7  0.0  0.0 worker_thread
+ 250269       2 kworker/4:1-rcu I      4  0.0  0.0 worker_thread
+ 254581       2 kworker/9:0-rcu I      9  0.0  0.0 worker_thread
+ 256052       2 kworker/0:0-rcu I      0  0.0  0.0 worker_thread
+ 256216       2 kworker/7:2-rcu I      7  0.0  0.0 worker_thread
+ 258920       2 kworker/4:2-rcu I      4  0.0  0.0 worker_thread
 
-[3] symlinks related to tw_sock_TCP
-posix_timers_cache -> :0000256
+[3] softirqs
+       TIMER: 3259572064 3145028528 3045874857 2831928813 2756366695 2694157510 2598339586 2541304543 2593421135 2493631801 2529417972 2358257479 2359272105 2444687015 2523051103 2393419457 1504018136 1451878515 1095601650 1183555479 1115625423  694902639  871045121 1046497766  869726800  997398475  722289708  876327770  548155494  763627280  733456881  888941132 2302596110 2427049438 2408390071 2334491897 2369960080 2390207095 2350658987 2279271813 2362629421 2273653816 2334388557 3226175078 3166726335 2168232418 2413154140 3270800715  281428813  538638508  476382137  674128049  432860254  635653152  353381119  530704376  202389750  461081346   77288599  357796047  359211264  547420934  320666434  580314440
+      NET_TX:   10073196    8162458    7263333    6476326    5996132    5669246    5362312    5114883    5029880    4914799    4851019    4669766    4644100    4795881    4733312    4273738  215202459  283528564  207697978  272497506  298195793  122217881  270497623  293011357  237259894  289852343  208945813  326662729  170742171  271244226  306615322  292936997    4311476    4509578    4666882    4622976    4624689    4650806    4660204    4553663    4568548    4468906    6887191    5509820    2797846    4263998    6163715   15782725  142344724  262998197  295279294  286950524  266193663  304316404  244750555  275100257  162045909  270799505  134721805  294604195  243839105  288904391  259072378  297189274
+      NET_RX:  227957192  212608946  208770998  203855084  201355779  200692170  206462623  204628439  197540443  207307028  197124101  192767492  190768070  201958739  202546642  196119928  425182094  841206735 1655775811 3293527510 4059515903 1418496889 1478172321 4095374150 4047867743 3263112705    8138552 3196624984 1972795912 3609268354 3841399104  719371140  196113518  199039069  202721817  204242607  205113459  208159299  214848456  210234766  207027967  217963841  207051868  185521034  178091459  200780070  220760515  290311270  588569686 3548723519 4064442259 1203026674  333809379 2218598954 1804966587 1528640565 3431608770  758451615 4087642003   44907814 2519731830  830159437 3713830939 1981011759
+       SCHED:  453243511 4175880067 3432941695 3110577221 3001078185 2926564765 2820512059 2757346473 2803932512 2701803303 2740146143 2420182037 2439047390 2645507746 2730480635 2596148601 1809920668 1741610350 1353038416 1449102419 1380283365  921332151 1117386590 1306611227 1107474715 1249611910  950186287 1121946948  764866050  995256002  970510223 1137899712 2522211105 2658733384 2637128427 2557904990 2598717952 2622560432 2580622422 2500040293 2580554557 2485260810 2555174968 1980609938 1902460449 2372587423 2627426206 3526089547  528283695  806149861  742634655  952142898  697748110  910703880  605609431  804068584  444930105  729239722  309696865  609687926  610864993  810573067  566644528  841411137
+     HRTIMER:      74306      68122      66316      65244      64619      64026      65144      64626      64102      64552      65496      64673      65243      67266      67787      63532     424429     765021     416966     581785     760411     310049     542090     740759     572644     811550     637594     752363     351055     605502     573415     862669      62000      64625      66472      66709      67671      67974      69272      68163      68049      67956      69456      48431      42222      57353      66211     100206     432940     603992     575124     846312     519518     973141     493408     712571     384724     690701     330354     609011     623237     935640     508612     668779
+         RCU: 2418456144 2209838555 2171487678 2035099166 2013659428 1982025645 1920660817 1867383490 1919733265 1833121775 1878067849 1754887870 1763685370 1794557335 1869795278 1780184343 4009536432 3982674702 3760113444 3814981109 3774135049 3497040410 3618804501 3728349796 3601460092 3689788147 3503831290 3612577354 3388496445 3528185729 3515752145 3610346688 1747872064 1862638253 1845720815 1776922150 1828602103 1843361575 1812974560 1742349551 1823651001 1733287583 1803278678 1577936489 1524002986 1656305946 1868695119 2500395429 3296230514 3486817537 3453887089 3581223783 3425145423 3556876216 3374038984 3490992768 3261505243 3448420404 3176886108 3380377231 3370985199 3485013034 3347462463 3514771419
 
-[4] slabinfo line
-tw_sock_TCP       136481073 136482291    248   33    2 : tunables    0    0    0 : slabdata 4135827 4135827      0
-==================== gz-4f31406-ceph-001202 : slab cache identity ====================
-[1] cache path
-drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
+[4] rcu debugfs if available
+/sys/kernel/debug/rcu not available
+==================== gz-4f31406-ceph-001202 : RCU check ====================
+[1] dmesg rcu/stall
+[Tue Apr 29 00:26:20 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue Apr 29 00:26:20 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed Apr 30 00:26:06 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed Apr 30 00:26:06 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May  1 00:26:06 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May  1 00:26:06 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 00:26:06 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 00:26:06 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:26:30 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:26:30 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:46:33 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:46:33 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:46:50 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:46:50 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May  3 00:26:06 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May  3 00:26:06 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May  4 00:25:50 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May  4 00:25:50 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May  5 00:25:52 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May  5 00:25:52 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May  6 00:25:52 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May  6 00:25:52 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May  7 00:25:52 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May  7 00:25:52 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May  8 00:25:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May  8 00:25:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 00:25:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 00:25:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:26:46 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:26:46 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:45:45 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:45:45 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:46:00 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:46:00 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May 10 00:25:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May 10 00:25:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May 11 00:25:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May 11 00:25:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May 12 00:25:35 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May 12 00:25:35 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May 13 00:25:33 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May 13 00:25:33 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 14 00:25:33 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 14 00:25:33 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May 15 00:25:29 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May 15 00:25:29 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 00:25:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 00:25:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:26:21 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:26:21 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:45:57 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:45:57 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:46:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:46:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May 17 00:25:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May 17 00:25:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May 18 00:25:17 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May 18 00:25:17 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May 19 00:25:07 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May 19 00:25:07 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May 20 00:25:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May 20 00:25:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 21 00:25:01 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 21 00:25:01 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May 22 00:25:05 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May 22 00:25:05 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 00:24:55 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 00:24:55 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 18:25:52 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 18:25:52 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 19:04:59 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 19:04:59 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 19:05:00 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 19:05:00 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 17:14:55 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 17:14:55 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 17:40:03 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 17:40:03 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 17:40:03 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 17:40:03 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 15:54:17 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 15:54:17 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 15:54:19 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 15:54:19 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:04:29 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:04:29 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:04:30 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:04:30 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:55:39 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:55:39 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 17:33:17 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 17:33:17 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 17:33:17 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 17:33:17 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 18:33:34 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 18:33:34 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 19:09:20 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 19:09:20 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 19:09:20 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 19:09:20 2026] [syshook_linux]: install_syscall_64_hooks return 0
 
-[2] basic sysfs fields
-aliases=           0
-object_size=       240
-objs_per_slab=     33
-objects=           138097204 N0=4906552 N1=133190652
-total_objects=     138098334 N0=4906671 N1=133191663
-slabs=             4184798 N0=148687 N1=4036111
-partial=           172 N0=16 N1=156
-cpu_partial=       30
-reclaim_account=   0
-destroy_by_rcu=    1
+[2] rcu/ksoftirqd processes
+     11       2 rcu_sched       I      2  0.1  0.0 rcu_gp_kthread
+      3       2 rcu_gp          I<     0  0.0  0.0 rescuer_thread
+      4       2 rcu_par_gp      I<    51  0.0  0.0 rescuer_thread
+     10       2 ksoftirqd/0     S      0  0.0  0.0 smpboot_thread_fn
+     12       2 migration/0     S      0  0.0  0.0 smpboot_thread_fn
+     18       2 migration/1     S      1  0.0  0.0 smpboot_thread_fn
+     19       2 ksoftirqd/1     S      1  0.0  0.0 smpboot_thread_fn
+     24       2 migration/2     S      2  0.0  0.0 smpboot_thread_fn
+     25       2 ksoftirqd/2     S      2  0.0  0.0 smpboot_thread_fn
+     30       2 migration/3     S      3  0.0  0.0 smpboot_thread_fn
+     31       2 ksoftirqd/3     S      3  0.0  0.0 smpboot_thread_fn
+     36       2 migration/4     S      4  0.0  0.0 smpboot_thread_fn
+     37       2 ksoftirqd/4     S      4  0.0  0.0 smpboot_thread_fn
+     42       2 migration/5     S      5  0.0  0.0 smpboot_thread_fn
+     43       2 ksoftirqd/5     S      5  0.0  0.0 smpboot_thread_fn
+     48       2 migration/6     S      6  0.0  0.0 smpboot_thread_fn
+     49       2 ksoftirqd/6     S      6  0.0  0.0 smpboot_thread_fn
+     54       2 migration/7     S      7  0.0  0.0 smpboot_thread_fn
+     55       2 ksoftirqd/7     S      7  0.0  0.0 smpboot_thread_fn
+     60       2 migration/8     S      8  0.0  0.0 smpboot_thread_fn
+     61       2 ksoftirqd/8     S      8  0.0  0.0 smpboot_thread_fn
+     66       2 migration/9     S      9  0.0  0.0 smpboot_thread_fn
+     67       2 ksoftirqd/9     S      9  0.0  0.0 smpboot_thread_fn
+     72       2 migration/10    S     10  0.0  0.0 smpboot_thread_fn
+     73       2 ksoftirqd/10    S     10  0.0  0.0 smpboot_thread_fn
+     78       2 migration/11    S     11  0.0  0.0 smpboot_thread_fn
+     79       2 ksoftirqd/11    S     11  0.0  0.0 smpboot_thread_fn
+     84       2 migration/12    S     12  0.0  0.0 smpboot_thread_fn
+     85       2 ksoftirqd/12    S     12  0.0  0.0 smpboot_thread_fn
+     90       2 migration/13    S     13  0.0  0.0 smpboot_thread_fn
+     91       2 ksoftirqd/13    S     13  0.0  0.0 smpboot_thread_fn
+     96       2 migration/14    S     14  0.0  0.0 smpboot_thread_fn
+     97       2 ksoftirqd/14    S     14  0.0  0.0 smpboot_thread_fn
+    102       2 migration/15    S     15  0.0  0.0 smpboot_thread_fn
+    103       2 ksoftirqd/15    S     15  0.0  0.0 smpboot_thread_fn
+    108       2 migration/16    S     16  0.0  0.0 smpboot_thread_fn
+    109       2 ksoftirqd/16    S     16  0.0  0.0 smpboot_thread_fn
+    115       2 migration/17    S     17  0.0  0.0 smpboot_thread_fn
+    116       2 ksoftirqd/17    S     17  0.0  0.0 smpboot_thread_fn
+    121       2 migration/18    S     18  0.0  0.0 smpboot_thread_fn
+    122       2 ksoftirqd/18    S     18  0.0  0.0 smpboot_thread_fn
+    127       2 migration/19    S     19  0.0  0.0 smpboot_thread_fn
+    128       2 ksoftirqd/19    S     19  0.0  0.0 smpboot_thread_fn
+    133       2 migration/20    S     20  0.0  0.0 smpboot_thread_fn
+    134       2 ksoftirqd/20    S     20  0.0  0.0 smpboot_thread_fn
+    139       2 migration/21    S     21  0.0  0.0 smpboot_thread_fn
+    140       2 ksoftirqd/21    S     21  0.0  0.0 smpboot_thread_fn
+    145       2 migration/22    S     22  0.0  0.0 smpboot_thread_fn
+    146       2 ksoftirqd/22    S     22  0.0  0.0 smpboot_thread_fn
+    151       2 migration/23    S     23  0.0  0.0 smpboot_thread_fn
+    152       2 ksoftirqd/23    S     23  0.0  0.0 smpboot_thread_fn
+    157       2 migration/24    S     24  0.0  0.0 smpboot_thread_fn
+    158       2 ksoftirqd/24    S     24  0.0  0.0 smpboot_thread_fn
+    163       2 migration/25    S     25  0.0  0.0 smpboot_thread_fn
+    164       2 ksoftirqd/25    S     25  0.0  0.0 smpboot_thread_fn
+    169       2 migration/26    S     26  0.0  0.0 smpboot_thread_fn
+    170       2 ksoftirqd/26    S     26  0.0  0.0 smpboot_thread_fn
+    175       2 migration/27    S     27  0.0  0.0 smpboot_thread_fn
+    176       2 ksoftirqd/27    S     27  0.0  0.0 smpboot_thread_fn
+    181       2 migration/28    S     28  0.0  0.0 smpboot_thread_fn
+    182       2 ksoftirqd/28    S     28  0.0  0.0 smpboot_thread_fn
+    187       2 migration/29    S     29  0.0  0.0 smpboot_thread_fn
+    188       2 ksoftirqd/29    S     29  0.0  0.0 smpboot_thread_fn
+    193       2 migration/30    S     30  0.0  0.0 smpboot_thread_fn
+    194       2 ksoftirqd/30    S     30  0.0  0.0 smpboot_thread_fn
+    199       2 migration/31    S     31  0.0  0.0 smpboot_thread_fn
+    200       2 ksoftirqd/31    S     31  0.0  0.0 smpboot_thread_fn
+    205       2 migration/32    S     32  0.0  0.0 smpboot_thread_fn
+    206       2 ksoftirqd/32    S     32  0.0  0.0 smpboot_thread_fn
+    211       2 migration/33    S     33  0.0  0.0 smpboot_thread_fn
+    212       2 ksoftirqd/33    S     33  0.0  0.0 smpboot_thread_fn
+    217       2 migration/34    S     34  0.0  0.0 smpboot_thread_fn
+    218       2 ksoftirqd/34    S     34  0.0  0.0 smpboot_thread_fn
+    223       2 migration/35    S     35  0.0  0.0 smpboot_thread_fn
+    224       2 ksoftirqd/35    S     35  0.0  0.0 smpboot_thread_fn
+    229       2 migration/36    S     36  0.0  0.0 smpboot_thread_fn
+    230       2 ksoftirqd/36    S     36  0.0  0.0 smpboot_thread_fn
+    235       2 migration/37    S     37  0.0  0.0 smpboot_thread_fn
+    236       2 ksoftirqd/37    S     37  0.0  0.0 smpboot_thread_fn
+    241       2 migration/38    S     38  0.0  0.0 smpboot_thread_fn
+    242       2 ksoftirqd/38    S     38  0.0  0.0 smpboot_thread_fn
+    247       2 migration/39    S     39  0.0  0.0 smpboot_thread_fn
+    248       2 ksoftirqd/39    S     39  0.0  0.0 smpboot_thread_fn
+    253       2 migration/40    S     40  0.0  0.0 smpboot_thread_fn
+    254       2 ksoftirqd/40    S     40  0.0  0.0 smpboot_thread_fn
+    259       2 migration/41    S     41  0.0  0.0 smpboot_thread_fn
+    260       2 ksoftirqd/41    S     41  0.0  0.0 smpboot_thread_fn
+    265       2 migration/42    S     42  0.0  0.0 smpboot_thread_fn
+    266       2 ksoftirqd/42    S     42  0.0  0.0 smpboot_thread_fn
+    271       2 migration/43    S     43  0.0  0.0 smpboot_thread_fn
+    272       2 ksoftirqd/43    S     43  0.0  0.0 smpboot_thread_fn
+    277       2 migration/44    S     44  0.0  0.0 smpboot_thread_fn
+    278       2 ksoftirqd/44    S     44  0.0  0.0 smpboot_thread_fn
+    283       2 migration/45    S     45  0.0  0.0 smpboot_thread_fn
+    284       2 ksoftirqd/45    S     45  0.0  0.0 smpboot_thread_fn
+    289       2 migration/46    S     46  0.0  0.0 smpboot_thread_fn
+    290       2 ksoftirqd/46    S     46  0.0  0.0 smpboot_thread_fn
+    295       2 migration/47    S     47  0.0  0.0 smpboot_thread_fn
+    296       2 ksoftirqd/47    S     47  0.0  0.0 smpboot_thread_fn
+    301       2 migration/48    S     48  0.0  0.0 smpboot_thread_fn
+    302       2 ksoftirqd/48    S     48  0.0  0.0 smpboot_thread_fn
+    307       2 migration/49    S     49  0.0  0.0 smpboot_thread_fn
+    308       2 ksoftirqd/49    S     49  0.0  0.0 smpboot_thread_fn
+    313       2 migration/50    S     50  0.0  0.0 smpboot_thread_fn
+    314       2 ksoftirqd/50    S     50  0.0  0.0 smpboot_thread_fn
+    319       2 migration/51    S     51  0.0  0.0 smpboot_thread_fn
+    320       2 ksoftirqd/51    S     51  0.0  0.0 smpboot_thread_fn
+    325       2 migration/52    S     52  0.0  0.0 smpboot_thread_fn
+    326       2 ksoftirqd/52    S     52  0.0  0.0 smpboot_thread_fn
+    331       2 migration/53    S     53  0.0  0.0 smpboot_thread_fn
+    332       2 ksoftirqd/53    S     53  0.0  0.0 smpboot_thread_fn
+    390       2 migration/54    S     54  0.0  0.0 smpboot_thread_fn
+    391       2 ksoftirqd/54    S     54  0.0  0.0 smpboot_thread_fn
+    396       2 migration/55    S     55  0.0  0.0 smpboot_thread_fn
+    397       2 ksoftirqd/55    S     55  0.0  0.0 smpboot_thread_fn
+    402       2 migration/56    S     56  0.0  0.0 smpboot_thread_fn
+    403       2 ksoftirqd/56    S     56  0.0  0.0 smpboot_thread_fn
+    408       2 migration/57    S     57  0.0  0.0 smpboot_thread_fn
+    409       2 ksoftirqd/57    S     57  0.0  0.0 smpboot_thread_fn
+    414       2 migration/58    S     58  0.0  0.0 smpboot_thread_fn
+    415       2 ksoftirqd/58    S     58  0.0  0.0 smpboot_thread_fn
+    420       2 migration/59    S     59  0.0  0.0 smpboot_thread_fn
+    421       2 ksoftirqd/59    S     59  0.0  0.0 smpboot_thread_fn
+    426       2 migration/60    S     60  0.0  0.0 smpboot_thread_fn
+    427       2 ksoftirqd/60    S     60  0.0  0.0 smpboot_thread_fn
+    432       2 migration/61    S     61  0.0  0.0 smpboot_thread_fn
+    433       2 ksoftirqd/61    S     61  0.0  0.0 smpboot_thread_fn
+    438       2 migration/62    S     62  0.0  0.0 smpboot_thread_fn
+    439       2 ksoftirqd/62    S     62  0.0  0.0 smpboot_thread_fn
+    444       2 migration/63    S     63  0.0  0.0 smpboot_thread_fn
+    445       2 ksoftirqd/63    S     63  0.0  0.0 smpboot_thread_fn
+    450       2 rcu_tasks_kthre S      0  0.0  0.0 rcu_tasks_kthread
+    454       2 khungtaskd      S      4  0.0  0.0 watchdog
+    515       2 watchdogd       S      7  0.0  0.0 kthread_worker_fn
+ 302863       2 kworker/7:0-rcu I      7  0.0  0.0 worker_thread
+ 304008       2 kworker/6:0-rcu I      6  0.0  0.0 worker_thread
+ 304359       2 kworker/0:1-rcu I      0  0.0  0.0 worker_thread
+ 305878       2 kworker/4:0-rcu I      4  0.0  0.0 worker_thread
+ 319227       2 kworker/0:0-rcu I      0  0.0  0.0 worker_thread
+ 319726       2 kworker/1:0-rcu I      1  0.0  0.0 worker_thread
+ 322168       2 kworker/5:2-rcu I      5  0.0  0.0 worker_thread
+ 326206       2 kworker/8:0-rcu I      8  0.0  0.0 worker_thread
 
-[3] symlinks related to tw_sock_TCP
-posix_timers_cache -> :0000256
+[3] softirqs
+       TIMER: 3060380078 2947532109 2783413749 2617958714 2462112504 2350722523 2313972268 2280140424 2237987816 2179034349 2206535798 2193969123 2205548312 2204759111 2188836259 2050474712  592547644  570110822  216966835  314795000  279547376 4108750466   52793368  217855809 4294122224  143224544 4122872886   63782822 3907808526 4153521100 4123771267   14829997 1995645823 2065388676 2054462074 2047124303 1999813792 1969651288 2002990154 1975782989 1968281507 1921693183 1970573242 1986755940 2004314502 2032612896 2183206012 3203731745 3681197527 3952141113 3902642252 4132920509 3855409312 4095570837 3752405736 3952009370 3576674927 3885520246 3443360200 3771451753 3769575343 3997965116 3710532710 3975578894
+      NET_TX:    9276628    7623773    6644776    5965715    5398837    4997653    4714862    4608372    4487987    4373715    4287595    4228286    4240194    4241952   21596842    3813210  226196796  290983248  231761527  284834673  323196762  137429187  313319692  302503449  238692992  300076099  224384536  338841007  165681722  284434242  305036302  292147547    3956868   19934533    6461262    4105841    4099300    4042577    4021137    4001336    3963937    3860253    3925894    4060622    4119745    4284525    5898035   15678734  142539388  267997721  303594384  285605658  285088854  300022977  251645377  273235873  163291274  283702430  133554637  325197959  231174013  303707509  285258471  287267458
+      NET_RX:  288668292  258158934  243219432  231061643  227937297  218371677  235945621  251000176  205578206  241142176  206136579  212146918  205598400  216466889  205945833  196284443  385250296 1068811440 2235408292 3581162522  755877865 1975681017 3669111666  506910498 3656686213 4008779232   66364776 2991204121 2234300852 4209786380  100295695 1909043385  195242753  202344145  200513317  214080708  202237258  208134123  233586924  220764450  201094490  230132566  200137582  253401801  204176631  214351886  259564157  413359840  383747036 3872419921 3889629114 2515904745  459594369 3515705664 1009075414 1874678924 3174533253 1111564136 3917863123 1342048218 2544713772 2442903366 4240430223 2864233165
+       SCHED: 2080886396 3714341150 3054465235 2802247274 2620723936 2496251511 2456131101 2416014006 2370749044 2308014427 2328321515 2317300385 2325727544 2324033293 2313280515 2167287011  869163593  842292324  450061086  562852717  519026500   23249845  284243598  457267147  213360089  371453217   33894047  290909344 4105130364   70431862   40685794  237190152 2120121952 2202656553 2195437176 2185174492 2135385845 2097961231 2127206326 2093838562 2082800554 2035433337 2086661808 2105879034 2116633790 2138157233 2294255896 3355740415 3890826945 4181797745 4123062944   74488838 4072295989   33914133 3962795416 4182669019 3775881723 4104846240 3634362601 3983942327 3982484985 4227684880 3913296169 4201374539
+     HRTIMER:      84496      78141      77007      76485      75417      76865      75647      78414      79597      77047      80458      80290      83077      82396      80124      77862     350902     434186     326742     416611     436233     245073     419370     461172     379367     468076     348563     454468     293886     416480     433020     470546      81831      83237      85593      86306      85284      87785      85292      87597      87406      84100      87370      85516      88828      86177      88746     114911     270549     428479     425623     479229     413059     495420     370428     446709     301321     432468     257189     444797     413738     479418     400339     448444
+         RCU: 2642410877 2437569199 2333720598 2235802623 2115613901 2038014434 2032001770 2004945223 1978118887 1910544778 1952110049 1945099110 1971178192 1967479343 1954025512 1818313988 4022293865 4017995931 3771310369 3843524214 3816441925 3484115936 3659644352 3771048874 3603741033 3717680634 3481528539 3662834172 3336954213 3508791620 3494864425 3614887381 1838147472 1904991567 1902200600 1900146528 1851085490 1814808078 1861503097 1830141268 1828482626 1758123860 1837231665 1852621012 1880850978 1894628331 2015470744 2824093516 3219985892 3434203896 3398013950 3569730524 3368658850 3545256712 3293573757 3438144971 3149571867 3390727003 3050653618 3300087457 3305880667 3466085189 3258646663 3453804076
 
-[4] slabinfo line
-tw_sock_TCP       138958207 138959337    248   33    2 : tunables    0    0    0 : slabdata 4210889 4210889      0
-==================== gz-4f31406-ceph-001203 : slab cache identity ====================
-[1] cache path
-drwxr-xr-x 3 root root 0 Jul  7 17:47 /sys/kernel/slab/tw_sock_TCP
+[4] rcu debugfs if available
+/sys/kernel/debug/rcu not available
+==================== gz-4f31406-ceph-001203 : RCU check ====================
+[1] dmesg rcu/stall
+[Sat Apr 26 00:34:10 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat Apr 26 00:34:10 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun Apr 27 00:34:11 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun Apr 27 00:34:11 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon Apr 28 00:34:11 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon Apr 28 00:34:11 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue Apr 29 00:33:56 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue Apr 29 00:33:56 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed Apr 30 00:33:57 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed Apr 30 00:33:57 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May  1 00:33:56 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May  1 00:33:56 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 00:33:56 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 00:33:56 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:34:21 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:34:21 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:53:12 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:53:12 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  2 23:53:25 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  2 23:53:25 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May  3 00:33:57 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May  3 00:33:57 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May  4 00:33:56 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May  4 00:33:56 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May  5 00:33:42 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May  5 00:33:42 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May  6 00:33:41 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May  6 00:33:41 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May  7 00:33:40 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May  7 00:33:40 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May  8 00:33:41 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May  8 00:33:41 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 00:33:39 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 00:33:39 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:34:32 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:34:32 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:53:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:53:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May  9 23:53:28 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May  9 23:53:28 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May 10 00:33:38 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May 10 00:33:38 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May 11 00:33:37 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May 11 00:33:37 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May 12 00:33:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May 12 00:33:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May 13 00:33:34 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May 13 00:33:34 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 14 00:33:19 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 14 00:33:19 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May 15 00:33:16 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May 15 00:33:16 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 00:33:14 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 00:33:14 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:34:23 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:34:23 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:53:01 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:53:01 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 16 23:53:13 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 16 23:53:13 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sat May 17 00:33:15 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sat May 17 00:33:15 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Sun May 18 00:33:18 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Sun May 18 00:33:18 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Mon May 19 00:33:07 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Mon May 19 00:33:07 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Tue May 20 00:33:09 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Tue May 20 00:33:09 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 21 00:33:00 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 21 00:33:00 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu May 22 00:33:03 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu May 22 00:33:03 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 00:33:08 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 00:33:08 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 19:04:36 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 19:04:36 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 19:08:34 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 19:08:34 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Fri May 23 19:08:35 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Fri May 23 19:08:35 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 16:24:24 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 16:24:24 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 16:28:26 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 16:28:26 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Thu Nov 27 16:28:26 2025] [syshook_linux]: install_syscall_32_hooks return 0
+[Thu Nov 27 16:28:26 2025] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:06:33 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:06:33 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:06:35 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:06:35 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:16:46 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:16:46 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 16:16:46 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 16:16:46 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 18:07:38 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 18:07:38 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 18:11:48 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 18:11:48 2026] [syshook_linux]: install_syscall_64_hooks return 0
+[Wed May 13 18:11:48 2026] [syshook_linux]: install_syscall_32_hooks return 0
+[Wed May 13 18:11:48 2026] [syshook_linux]: install_syscall_64_hooks return 0
 
-[2] basic sysfs fields
-aliases=           0
-object_size=       240
-objs_per_slab=     33
-objects=           138272693 N0=2481657 N1=135791036
-total_objects=     138274389 N0=2481699 N1=135792690
-slabs=             4190133 N0=75203 N1=4114930
-partial=           298 N0=6 N1=292
-cpu_partial=       30
-reclaim_account=   0
-destroy_by_rcu=    1
+[2] rcu/ksoftirqd processes
+     11       2 rcu_sched       I     61  0.1  0.0 rcu_gp_kthread
+1328706       2 kworker/0:0-rcu I      0  0.1  0.0 worker_thread
+      3       2 rcu_gp          I<     0  0.0  0.0 rescuer_thread
+      4       2 rcu_par_gp      I<    24  0.0  0.0 rescuer_thread
+     10       2 ksoftirqd/0     S      0  0.0  0.0 smpboot_thread_fn
+     12       2 migration/0     S      0  0.0  0.0 smpboot_thread_fn
+     18       2 migration/1     S      1  0.0  0.0 smpboot_thread_fn
+     19       2 ksoftirqd/1     S      1  0.0  0.0 smpboot_thread_fn
+     24       2 migration/2     S      2  0.0  0.0 smpboot_thread_fn
+     25       2 ksoftirqd/2     S      2  0.0  0.0 smpboot_thread_fn
+     30       2 migration/3     S      3  0.0  0.0 smpboot_thread_fn
+     31       2 ksoftirqd/3     S      3  0.0  0.0 smpboot_thread_fn
+     36       2 migration/4     S      4  0.0  0.0 smpboot_thread_fn
+     37       2 ksoftirqd/4     S      4  0.0  0.0 smpboot_thread_fn
+     42       2 migration/5     S      5  0.0  0.0 smpboot_thread_fn
+     43       2 ksoftirqd/5     S      5  0.0  0.0 smpboot_thread_fn
+     48       2 migration/6     S      6  0.0  0.0 smpboot_thread_fn
+     49       2 ksoftirqd/6     S      6  0.0  0.0 smpboot_thread_fn
+     54       2 migration/7     S      7  0.0  0.0 smpboot_thread_fn
+     55       2 ksoftirqd/7     S      7  0.0  0.0 smpboot_thread_fn
+     60       2 migration/8     S      8  0.0  0.0 smpboot_thread_fn
+     61       2 ksoftirqd/8     S      8  0.0  0.0 smpboot_thread_fn
+     66       2 migration/9     S      9  0.0  0.0 smpboot_thread_fn
+     67       2 ksoftirqd/9     S      9  0.0  0.0 smpboot_thread_fn
+     72       2 migration/10    S     10  0.0  0.0 smpboot_thread_fn
+     73       2 ksoftirqd/10    S     10  0.0  0.0 smpboot_thread_fn
+     78       2 migration/11    S     11  0.0  0.0 smpboot_thread_fn
+     79       2 ksoftirqd/11    S     11  0.0  0.0 smpboot_thread_fn
+     84       2 migration/12    S     12  0.0  0.0 smpboot_thread_fn
+     85       2 ksoftirqd/12    S     12  0.0  0.0 smpboot_thread_fn
+     90       2 migration/13    S     13  0.0  0.0 smpboot_thread_fn
+     91       2 ksoftirqd/13    S     13  0.0  0.0 smpboot_thread_fn
+     96       2 migration/14    S     14  0.0  0.0 smpboot_thread_fn
+     97       2 ksoftirqd/14    S     14  0.0  0.0 smpboot_thread_fn
+    102       2 migration/15    S     15  0.0  0.0 smpboot_thread_fn
+    103       2 ksoftirqd/15    S     15  0.0  0.0 smpboot_thread_fn
+    108       2 migration/16    S     16  0.0  0.0 smpboot_thread_fn
+    109       2 ksoftirqd/16    S     16  0.0  0.0 smpboot_thread_fn
+    115       2 migration/17    S     17  0.0  0.0 smpboot_thread_fn
+    116       2 ksoftirqd/17    S     17  0.0  0.0 smpboot_thread_fn
+    121       2 migration/18    S     18  0.0  0.0 smpboot_thread_fn
+    122       2 ksoftirqd/18    S     18  0.0  0.0 smpboot_thread_fn
+    127       2 migration/19    S     19  0.0  0.0 smpboot_thread_fn
+    128       2 ksoftirqd/19    S     19  0.0  0.0 smpboot_thread_fn
+    133       2 migration/20    S     20  0.0  0.0 smpboot_thread_fn
+    134       2 ksoftirqd/20    S     20  0.0  0.0 smpboot_thread_fn
+    139       2 migration/21    S     21  0.0  0.0 smpboot_thread_fn
+    140       2 ksoftirqd/21    S     21  0.0  0.0 smpboot_thread_fn
+    145       2 migration/22    S     22  0.0  0.0 smpboot_thread_fn
+    146       2 ksoftirqd/22    S     22  0.0  0.0 smpboot_thread_fn
+    151       2 migration/23    S     23  0.0  0.0 smpboot_thread_fn
+    152       2 ksoftirqd/23    S     23  0.0  0.0 smpboot_thread_fn
+    157       2 migration/24    S     24  0.0  0.0 smpboot_thread_fn
+    158       2 ksoftirqd/24    S     24  0.0  0.0 smpboot_thread_fn
+    163       2 migration/25    S     25  0.0  0.0 smpboot_thread_fn
+    164       2 ksoftirqd/25    S     25  0.0  0.0 smpboot_thread_fn
+    169       2 migration/26    S     26  0.0  0.0 smpboot_thread_fn
+    170       2 ksoftirqd/26    S     26  0.0  0.0 smpboot_thread_fn
+    175       2 migration/27    S     27  0.0  0.0 smpboot_thread_fn
+    176       2 ksoftirqd/27    S     27  0.0  0.0 smpboot_thread_fn
+    181       2 migration/28    S     28  0.0  0.0 smpboot_thread_fn
+    182       2 ksoftirqd/28    S     28  0.0  0.0 smpboot_thread_fn
+    187       2 migration/29    S     29  0.0  0.0 smpboot_thread_fn
+    188       2 ksoftirqd/29    S     29  0.0  0.0 smpboot_thread_fn
+    193       2 migration/30    S     30  0.0  0.0 smpboot_thread_fn
+    194       2 ksoftirqd/30    S     30  0.0  0.0 smpboot_thread_fn
+    199       2 migration/31    S     31  0.0  0.0 smpboot_thread_fn
+    200       2 ksoftirqd/31    S     31  0.0  0.0 smpboot_thread_fn
+    205       2 migration/32    S     32  0.0  0.0 smpboot_thread_fn
+    206       2 ksoftirqd/32    S     32  0.0  0.0 smpboot_thread_fn
+    211       2 migration/33    S     33  0.0  0.0 smpboot_thread_fn
+    212       2 ksoftirqd/33    S     33  0.0  0.0 smpboot_thread_fn
+    217       2 migration/34    S     34  0.0  0.0 smpboot_thread_fn
+    218       2 ksoftirqd/34    S     34  0.0  0.0 smpboot_thread_fn
+    223       2 migration/35    S     35  0.0  0.0 smpboot_thread_fn
+    224       2 ksoftirqd/35    S     35  0.0  0.0 smpboot_thread_fn
+    229       2 migration/36    S     36  0.0  0.0 smpboot_thread_fn
+    230       2 ksoftirqd/36    S     36  0.0  0.0 smpboot_thread_fn
+    235       2 migration/37    S     37  0.0  0.0 smpboot_thread_fn
+    236       2 ksoftirqd/37    S     37  0.0  0.0 smpboot_thread_fn
+    241       2 migration/38    S     38  0.0  0.0 smpboot_thread_fn
+    242       2 ksoftirqd/38    S     38  0.0  0.0 smpboot_thread_fn
+    247       2 migration/39    S     39  0.0  0.0 smpboot_thread_fn
+    248       2 ksoftirqd/39    S     39  0.0  0.0 smpboot_thread_fn
+    253       2 migration/40    S     40  0.0  0.0 smpboot_thread_fn
+    254       2 ksoftirqd/40    S     40  0.0  0.0 smpboot_thread_fn
+    259       2 migration/41    S     41  0.0  0.0 smpboot_thread_fn
+    260       2 ksoftirqd/41    S     41  0.0  0.0 smpboot_thread_fn
+    265       2 migration/42    S     42  0.0  0.0 smpboot_thread_fn
+    266       2 ksoftirqd/42    S     42  0.0  0.0 smpboot_thread_fn
+    271       2 migration/43    S     43  0.0  0.0 smpboot_thread_fn
+    272       2 ksoftirqd/43    S     43  0.0  0.0 smpboot_thread_fn
+    277       2 migration/44    S     44  0.0  0.0 smpboot_thread_fn
+    278       2 ksoftirqd/44    S     44  0.0  0.0 smpboot_thread_fn
+    283       2 migration/45    S     45  0.0  0.0 smpboot_thread_fn
+    284       2 ksoftirqd/45    S     45  0.0  0.0 smpboot_thread_fn
+    289       2 migration/46    S     46  0.0  0.0 smpboot_thread_fn
+    290       2 ksoftirqd/46    S     46  0.0  0.0 smpboot_thread_fn
+    295       2 migration/47    S     47  0.0  0.0 smpboot_thread_fn
+    296       2 ksoftirqd/47    S     47  0.0  0.0 smpboot_thread_fn
+    301       2 migration/48    S     48  0.0  0.0 smpboot_thread_fn
+    302       2 ksoftirqd/48    S     48  0.0  0.0 smpboot_thread_fn
+    307       2 migration/49    S     49  0.0  0.0 smpboot_thread_fn
+    308       2 ksoftirqd/49    S     49  0.0  0.0 smpboot_thread_fn
+    313       2 migration/50    S     50  0.0  0.0 smpboot_thread_fn
+    314       2 ksoftirqd/50    S     50  0.0  0.0 smpboot_thread_fn
+    319       2 migration/51    S     51  0.0  0.0 smpboot_thread_fn
+    320       2 ksoftirqd/51    S     51  0.0  0.0 smpboot_thread_fn
+    376       2 migration/52    S     52  0.0  0.0 smpboot_thread_fn
+    377       2 ksoftirqd/52    S     52  0.0  0.0 smpboot_thread_fn
+    382       2 migration/53    S     53  0.0  0.0 smpboot_thread_fn
+    383       2 ksoftirqd/53    S     53  0.0  0.0 smpboot_thread_fn
+    388       2 migration/54    S     54  0.0  0.0 smpboot_thread_fn
+    389       2 ksoftirqd/54    S     54  0.0  0.0 smpboot_thread_fn
+    394       2 migration/55    S     55  0.0  0.0 smpboot_thread_fn
+    395       2 ksoftirqd/55    S     55  0.0  0.0 smpboot_thread_fn
+    400       2 migration/56    S     56  0.0  0.0 smpboot_thread_fn
+    401       2 ksoftirqd/56    S     56  0.0  0.0 smpboot_thread_fn
+    406       2 migration/57    S     57  0.0  0.0 smpboot_thread_fn
+    407       2 ksoftirqd/57    S     57  0.0  0.0 smpboot_thread_fn
+    412       2 migration/58    S     58  0.0  0.0 smpboot_thread_fn
+    413       2 ksoftirqd/58    S     58  0.0  0.0 smpboot_thread_fn
+    418       2 migration/59    S     59  0.0  0.0 smpboot_thread_fn
+    419       2 ksoftirqd/59    S     59  0.0  0.0 smpboot_thread_fn
+    424       2 migration/60    S     60  0.0  0.0 smpboot_thread_fn
+    425       2 ksoftirqd/60    S     60  0.0  0.0 smpboot_thread_fn
+    430       2 migration/61    S     61  0.0  0.0 smpboot_thread_fn
+    431       2 ksoftirqd/61    S     61  0.0  0.0 smpboot_thread_fn
+    436       2 migration/62    S     62  0.0  0.0 smpboot_thread_fn
+    437       2 ksoftirqd/62    S     62  0.0  0.0 smpboot_thread_fn
+    442       2 migration/63    S     63  0.0  0.0 smpboot_thread_fn
+    443       2 ksoftirqd/63    S     63  0.0  0.0 smpboot_thread_fn
+    448       2 rcu_tasks_kthre S      1  0.0  0.0 rcu_tasks_kthread
+    452       2 khungtaskd      S     39  0.0  0.0 watchdog
+    513       2 watchdogd       S      7  0.0  0.0 kthread_worker_fn
+1187230       2 kworker/2:0-rcu I      2  0.0  0.0 worker_thread
+1203416       2 kworker/9:2-rcu I      9  0.0  0.0 worker_thread
 
-[3] symlinks related to tw_sock_TCP
-posix_timers_cache -> :0000256
+[3] softirqs
+       TIMER: 2912091883 2677469684 2521665244 2308553934 2245151475 2115511766 2087572137 2058279051 1994989443 1979077239 1981855649 1901798455 1910222270 1936257005 1896465335 1857516501  553045705  543241385  148958550  276130482  251274411 4124077143    1560716  208883981 4277763816  132860273 4106362477 4283445637 3882232112 4143417665 4129459982   24221082 1804355225 1825420583 1818123234 1752583028 1803195690 1749401047 1778431468 1778495805 1744604482 1735828758 1774757484 1699162522 1740592968 1798924714 1930574651 3050098096 3653321600 3935389187 3897403949 4122820655 3832309398 4076456076 3712231298 3934418467 3549037959 3853811917 3390852441 3747132181 3764119054 3972741771 3656567000 3915475259
+      NET_TX:    7439107    6093113    5273832    4580568    4252434    3988423    3721881    3652656    3612893    3557486    3518003    3373114    3313260    3394252    5743101    3101376  205375013  267067197  192734417  247139696  281684513  119503904  262080326  273955148  219421056  269516981  195128945  301374938  142435619  249446749  281084135  268559167    3291321    3328671    3353298    3216189    3232010    3302149    3266010    3220058    3217878    3256612    3318970    3197481    5594260    3370535    4639032   13140739  136614207  232343698  279794311  261791151  246090975  276070872  222969114  240580820  163620829  239523658  118995010  294800298  214334911  261659473  234620855  254114480
+      NET_RX:  338918681  322208104  317437142  295827033  315870623  293948610  299357755  319351181  286608986  318959752  292018972  292482163  289157342  309927224  302945122  305868725 2061072934 3069519193 2601697555  487017023 2066865169 2792478350 3995729479 2312454562  419225070 1416754118 1343886678 4097513788 2987050536 1175999811 2052747342 3536990789  297433421  318017415  306742522  301548587  306795121  329838737  329027861  327929645  309365659  383358675  320493294  319538173  319140630  321195062  342098389  453132471  921286012  864158167 2100051368 4121782638 1830435455  968626462 2590875992 3415139656  253577171 2604694355  580803428 3446913497 4293970307 4159937091  190836341  354614750
+       SCHED: 1153026087 3354725665 2751106954 2465316070 2375842526 2238779371 2202814881 2168774058 2102174348 2081606365 2083038004 1998069952 1998945725 2030030754 1988871950 1945307621  845158562  828011107  397615883  536727833  503516856   56599377  246967291  462787941  216783053  375129752   32193082  226570074 4092024738   70392793   55084529  262681992 1902202669 1934299683 1926142307 1850994851 1903210753 1844888279 1872839489 1868680680 1828883074 1820289298 1858875956 1771798414 1816227125 1861685658 1988894782 3163218268 3875877855 4175452122 4132516272   80972216 4060102004   32821558 3939782040 4174826199 3759323830 4085735750 3592571562 3969474808 3990345107 4213140354 3871335054 4146099159
+     HRTIMER:      89597      82455      79993      77128      76468      75934      76002      76806      75621      75899      78003      77725      77693      78999      78792      74556     347882     436407     334739     420028     440484     245661     416856     451507     376593     452884     353284     453851     292237     425213     430964     462937      79772      79878      80839      80556      79885      82008      81019      81468      79121      77524      81949      79649      80514      81446      86645     131847     263297     405995     432998     471173     408112     489840     373811     424426     299803     433007     263651     460048     401034     470508     392191     441120
+         RCU: 2473576476 2198691338 2092538561 1933923635 1920846819 1815873251 1813012632 1795676916 1742164561 1725470039 1748227035 1651863013 1670184066 1709297784 1664511234 1653346937 3876106955 3877976062 3608341800 3699190275 3678392515 3393574890 3508565337 3649970872 3488826005 3597109722 3368886394 3501229650 3218075587 3396862152 3381633557 3512787850 1647478322 1662353768 1657129832 1575720609 1650257865 1583634829 1628623282 1624944837 1582824137 1572463542 1632115171 1527614665 1585217572 1641307147 1730128546 2646794715 3103695398 3321254534 3295638519 3458985428 3252383282 3429607864 3166175336 3325888264 3043553559 3271049422 2930182550 3194980440 3204115355 3351400755 3118279870 3314125921
 
-[4] slabinfo line
-tw_sock_TCP       139088123 139089819    248   33    2 : tunables    0    0    0 : slabdata 4214843 4214843      0
+[4] rcu debugfs if available
+/sys/kernel/debug/rcu not available
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
->   echo "==================== $h : slabinfo aliases ===================="
+>   echo "==================== $h : kernel modules / taint ===================="
 >   ssh "$h" '
->     command -v slabinfo >/dev/null 2>&1 && slabinfo -a | egrep -A20 -B5 "tw_sock_TCP" || echo "slabinfo command not found"
+>     echo "[1] kernel"
+>     uname -a
+> 
+>     echo
+>     echo "[2] kernel tainted"
+>     cat /proc/sys/kernel/tainted 2>/dev/null || true
+> 
+>     echo
+>     echo "[3] loaded modules suspicious"
+>     lsmod | egrep -i "jt|wss|sec|safe|defen|agent|hook|filter|firewall|ids|ips|edr|av|nf|conntrack|xfrm|iptable|bridge|overlay|rbd|ceph" || true
+> 
+>     echo
+>     echo "[4] all non-standard looking modules"
+>     lsmod | awk "NR==1 || \$1 !~ /^(ip_|ip6_|nf_|xt_|x_tables|tcp_|udp_|unix|bridge|overlay|rbd|libceph|ceph|dm_|sd_|sg|nvme|mlx|ixgbe|i40e|bnx|ena|virtio|veth|br_netfilter|openvswitch|xfs|ext4|jbd2|mbcache|crc|aes|sha|ghash|drm|video|ipmi|kvm|nls|binfmt|aufs)/ {print}"
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : slabinfo aliases ====================
-slabinfo command not found
-==================== gz-4f31406-ceph-001202 : slabinfo aliases ====================
-slabinfo command not found
-==================== gz-4f31406-ceph-001203 : slabinfo aliases ====================
-slabinfo command not found
-root@gz-4f31406-ceph-001201:~# ssh gz-4f31406-ceph-001201 '
-> echo "[before]"
-> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim" /proc/meminfo
-> grep "^tw_sock_TCP " /proc/slabinfo
-> 
-> echo
-> echo "[shrink]"
-> echo 1 > /sys/kernel/slab/tw_sock_TCP/shrink 2>&1 || true
-> 
-> echo
-> echo "[after]"
-> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim" /proc/meminfo
-> grep "^tw_sock_TCP " /proc/slabinfo
-> '
-[before]
-MemAvailable:   28330336 kB
-Slab:           39416404 kB
-SReclaimable:    3756184 kB
-SUnreclaim:     35660220 kB
-tw_sock_TCP       136481073 136482291    248   33    2 : tunables    0    0    0 : slabdata 4135827 4135827      0
+==================== gz-4f31406-ceph-001201 : kernel modules / taint ====================
+[1] kernel
+Linux gz-4f31406-ceph-001201 5.4.0-144-generic #161-Ubuntu SMP Fri Feb 3 14:49:04 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 
-[shrink]
+[2] kernel tainted
+12288
 
-[after]
-MemAvailable:   28329468 kB
-Slab:           39417748 kB
-SReclaimable:    3756896 kB
-SUnreclaim:     35660852 kB
-tw_sock_TCP       136424136 136435332    248   33    2 : tunables    0    0    0 : slabdata 4134404 4134404      0
+[3] loaded modules suspicious
+vmsecmod              200704  3
+secmodel_linux        114688  1
+nfs                   303104  0
+lockd                 102400  1 nfs
+sunrpc                397312  2 lockd,nfs
+fscache               372736  1 nfs
+syshook_linux          73728  2
+ip6table_filter        16384  0
+ip6_tables             32768  1 ip6table_filter
+xt_conntrack           16384  1
+nf_conntrack_netlink    45056  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+nf_nat                 45056  3 xt_nat,iptable_nat,xt_MASQUERADE
+nf_conntrack          139264  6 xt_conntrack,nf_nat,xt_nat,nf_conntrack_netlink,xt_MASQUERADE,ip_vs
+nf_defrag_ipv6         24576  2 nf_conntrack,ip_vs
+nf_defrag_ipv4         16384  1 nf_conntrack
+bpfilter               32768  0
+br_netfilter           28672  0
+bridge                176128  1 br_netfilter
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+overlay               118784  26
+nfit                   65536  0
+binfmt_misc            24576  1
+ip_tables              32768  2 iptable_filter,iptable_nat
+x_tables               40960  9 ip6table_filter,xt_conntrack,iptable_filter,xt_tcpudp,xt_addrtype,xt_nat,ip6_tables,ip_tables,xt_MASQUERADE
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+
+[4] all non-standard looking modules
+Module                  Size  Used by
+vmsecmod              200704  3
+resguard_linux        466944  2
+secmodel_linux        114688  1
+nfs                   303104  0
+lockd                 102400  1 nfs
+grace                  16384  1 lockd
+sunrpc                397312  2 lockd,nfs
+fscache               372736  1 nfs
+syshook_linux          73728  2
+8021q                  32768  0
+garp                   16384  1 8021q
+mrp                    20480  1 8021q
+inet_diag              24576  2 tcp_diag,udp_diag
+ip6table_filter        16384  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+bpfilter               32768  0
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+bonding               167936  0
+scsi_dh_rdac           16384  0
+scsi_dh_emc            16384  0
+scsi_dh_alua           20480  0
+intel_rapl_msr         20480  0
+intel_rapl_common      24576  1 intel_rapl_msr
+nfit                   65536  0
+x86_pkg_temp_thermal    20480  0
+coretemp               20480  0
+mei_me                 40960  0
+isst_if_mmio           16384  0
+isst_if_mbox_pci       16384  0
+isst_if_common         16384  2 isst_if_mmio,isst_if_mbox_pci
+mei                   106496  1 mei_me
+ioatdma                53248  0
+acpi_power_meter       20480  0
+mac_hid                16384  0
+sch_fq_codel           20480  265
+msr                    16384  0
+ramoops                28672  0
+reed_solomon           24576  1 ramoops
+efi_pstore             16384  0
+autofs4                45056  2
+btrfs                1265664  0
+zstd_compress         167936  1 btrfs
+raid10                 61440  0
+raid456               155648  0
+async_raid6_recov      24576  1 raid456
+async_memcpy           20480  2 raid456,async_raid6_recov
+async_pq               24576  2 raid456,async_raid6_recov
+async_xor              20480  3 async_pq,raid456,async_raid6_recov
+async_tx               20480  5 async_pq,async_memcpy,async_xor,raid456,async_raid6_recov
+xor                    24576  2 async_xor,btrfs
+raid6_pq              114688  4 async_pq,btrfs,raid456,async_raid6_recov
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+raid1                  45056  0
+raid0                  24576  0
+multipath              20480  0
+linear                 20480  0
+ast                    53248  0
+ses                    20480  0
+ttm                   106496  1 drm_vram_helper
+enclosure              16384  1 ses
+scsi_transport_sas     36864  1 ses
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+fb_sys_fops            16384  1 drm_kms_helper
+igb                   221184  0
+crypto_simd            16384  1 aesni_intel
+cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+megaraid_sas          163840  14
+ahci                   40960  0
+glue_helper            16384  1 aesni_intel
+dca                    16384  2 igb,ioatdma
+i2c_i801               32768  0
+i2c_algo_bit           16384  2 igb,ast
+libahci                32768  1 ahci
+wmi                    32768  0
+==================== gz-4f31406-ceph-001202 : kernel modules / taint ====================
+[1] kernel
+Linux gz-4f31406-ceph-001202 5.4.0-144-generic #161-Ubuntu SMP Fri Feb 3 14:49:04 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+[2] kernel tainted
+12288
+
+[3] loaded modules suspicious
+vmsecmod              200704  3
+secmodel_linux        114688  1
+syshook_linux          73728  2
+ip6table_filter        16384  0
+ip6_tables             32768  1 ip6table_filter
+xt_conntrack           16384  1
+nf_conntrack_netlink    45056  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+nf_nat                 45056  2 iptable_nat,xt_MASQUERADE
+nf_conntrack          139264  5 xt_conntrack,nf_nat,nf_conntrack_netlink,xt_MASQUERADE,ip_vs
+nf_defrag_ipv6         24576  2 nf_conntrack,ip_vs
+nf_defrag_ipv4         16384  1 nf_conntrack
+bpfilter               32768  0
+br_netfilter           28672  0
+bridge                176128  1 br_netfilter
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+overlay               118784  23
+nfit                   65536  0
+binfmt_misc            24576  1
+ip_tables              32768  2 iptable_filter,iptable_nat
+x_tables               40960  7 ip6table_filter,xt_conntrack,iptable_filter,xt_addrtype,ip6_tables,ip_tables,xt_MASQUERADE
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+
+[4] all non-standard looking modules
+Module                  Size  Used by
+vmsecmod              200704  3
+resguard_linux        466944  2
+secmodel_linux        114688  1
+syshook_linux          73728  2
+8021q                  32768  0
+garp                   16384  1 8021q
+mrp                    20480  1 8021q
+inet_diag              24576  2 tcp_diag,udp_diag
+ip6table_filter        16384  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+bpfilter               32768  0
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+bonding               167936  0
+scsi_dh_rdac           16384  0
+scsi_dh_emc            16384  0
+scsi_dh_alua           20480  0
+intel_rapl_msr         20480  0
+intel_rapl_common      24576  1 intel_rapl_msr
+nfit                   65536  0
+x86_pkg_temp_thermal    20480  0
+coretemp               20480  0
+isst_if_mbox_pci       16384  0
+isst_if_mmio           16384  0
+isst_if_common         16384  2 isst_if_mmio,isst_if_mbox_pci
+mei_me                 40960  0
+mei                   106496  1 mei_me
+ioatdma                53248  0
+acpi_power_meter       20480  0
+mac_hid                16384  0
+sch_fq_codel           20480  265
+msr                    16384  0
+ramoops                28672  0
+reed_solomon           24576  1 ramoops
+efi_pstore             16384  0
+autofs4                45056  2
+btrfs                1265664  0
+zstd_compress         167936  1 btrfs
+raid10                 61440  0
+raid456               155648  0
+async_raid6_recov      24576  1 raid456
+async_memcpy           20480  2 raid456,async_raid6_recov
+async_pq               24576  2 raid456,async_raid6_recov
+async_xor              20480  3 async_pq,raid456,async_raid6_recov
+async_tx               20480  5 async_pq,async_memcpy,async_xor,raid456,async_raid6_recov
+xor                    24576  2 async_xor,btrfs
+raid6_pq              114688  4 async_pq,btrfs,raid456,async_raid6_recov
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+raid1                  45056  0
+raid0                  24576  0
+multipath              20480  0
+linear                 20480  0
+ses                    20480  0
+enclosure              16384  1 ses
+scsi_transport_sas     36864  1 ses
+ast                    53248  0
+ttm                   106496  1 drm_vram_helper
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+fb_sys_fops            16384  1 drm_kms_helper
+igb                   221184  0
+crypto_simd            16384  1 aesni_intel
+cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+glue_helper            16384  1 aesni_intel
+ahci                   40960  0
+megaraid_sas          163840  14
+dca                    16384  2 igb,ioatdma
+i2c_i801               32768  0
+i2c_algo_bit           16384  2 igb,ast
+libahci                32768  1 ahci
+wmi                    32768  0
+==================== gz-4f31406-ceph-001203 : kernel modules / taint ====================
+[1] kernel
+Linux gz-4f31406-ceph-001203 5.4.0-144-generic #161-Ubuntu SMP Fri Feb 3 14:49:04 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+[2] kernel tainted
+12288
+
+[3] loaded modules suspicious
+vmsecmod              200704  3
+secmodel_linux        114688  1
+syshook_linux          73728  2
+ip6table_filter        16384  0
+ip6_tables             32768  1 ip6table_filter
+xt_conntrack           16384  1
+nf_conntrack_netlink    45056  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+nf_nat                 45056  2 iptable_nat,xt_MASQUERADE
+nf_conntrack          139264  5 xt_conntrack,nf_nat,nf_conntrack_netlink,xt_MASQUERADE,ip_vs
+nf_defrag_ipv6         24576  2 nf_conntrack,ip_vs
+nf_defrag_ipv4         16384  1 nf_conntrack
+bpfilter               32768  0
+br_netfilter           28672  0
+bridge                176128  1 br_netfilter
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+overlay               118784  23
+nfit                   65536  0
+binfmt_misc            24576  1
+ip_tables              32768  2 iptable_filter,iptable_nat
+x_tables               40960  7 ip6table_filter,xt_conntrack,iptable_filter,xt_addrtype,ip6_tables,ip_tables,xt_MASQUERADE
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+
+[4] all non-standard looking modules
+Module                  Size  Used by
+vmsecmod              200704  3
+resguard_linux        466944  2
+secmodel_linux        114688  1
+syshook_linux          73728  2
+8021q                  32768  0
+garp                   16384  1 8021q
+mrp                    20480  1 8021q
+inet_diag              24576  2 tcp_diag,udp_diag
+ip6table_filter        16384  0
+nfnetlink              16384  2 nf_conntrack_netlink
+xfrm_user              36864  1
+xfrm_algo              16384  1 xfrm_user
+iptable_filter         16384  1
+iptable_nat            16384  1
+bpfilter               32768  0
+stp                    16384  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+bonding               167936  0
+scsi_dh_rdac           16384  0
+scsi_dh_emc            16384  0
+scsi_dh_alua           20480  0
+intel_rapl_msr         20480  0
+intel_rapl_common      24576  1 intel_rapl_msr
+nfit                   65536  0
+x86_pkg_temp_thermal    20480  0
+coretemp               20480  0
+isst_if_mbox_pci       16384  0
+isst_if_mmio           16384  0
+isst_if_common         16384  2 isst_if_mmio,isst_if_mbox_pci
+mei_me                 40960  0
+mei                   106496  1 mei_me
+ioatdma                53248  0
+acpi_power_meter       20480  0
+mac_hid                16384  0
+sch_fq_codel           20480  265
+msr                    16384  0
+ramoops                28672  0
+reed_solomon           24576  1 ramoops
+efi_pstore             16384  0
+autofs4                45056  2
+btrfs                1265664  0
+zstd_compress         167936  1 btrfs
+raid10                 61440  0
+raid456               155648  0
+async_raid6_recov      24576  1 raid456
+async_memcpy           20480  2 raid456,async_raid6_recov
+async_pq               24576  2 raid456,async_raid6_recov
+async_xor              20480  3 async_pq,raid456,async_raid6_recov
+async_tx               20480  5 async_pq,async_memcpy,async_xor,raid456,async_raid6_recov
+xor                    24576  2 async_xor,btrfs
+raid6_pq              114688  4 async_pq,btrfs,raid456,async_raid6_recov
+libcrc32c              16384  5 nf_conntrack,nf_nat,btrfs,raid456,ip_vs
+raid1                  45056  0
+raid0                  24576  0
+multipath              20480  0
+linear                 20480  0
+ses                    20480  0
+enclosure              16384  1 ses
+scsi_transport_sas     36864  1 ses
+ast                    53248  0
+ttm                   106496  1 drm_vram_helper
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+fb_sys_fops            16384  1 drm_kms_helper
+igb                   221184  0
+crypto_simd            16384  1 aesni_intel
+cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+glue_helper            16384  1 aesni_intel
+megaraid_sas          163840  16
+ahci                   40960  0
+dca                    16384  2 igb,ioatdma
+i2c_i801               32768  0
+i2c_algo_bit           16384  2 igb,ast
+libahci                32768  1 ahci
+wmi                    32768  0
+root@gz-4f31406-ceph-001201:~# cat > /tmp/tw_sock_sample.sh <<'EOF'
+> #!/usr/bin/env bash
+> date '+%F %T'
+> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim" /proc/meminfo
+> cat /proc/net/sockstat | awk '/^TCP:/{print}'
+> grep "^tw_sock_TCP " /proc/slabinfo | awk '{
+>   mem_mib=$3*$4/1024/1024;
+>   printf "tw_sock_TCP active=%s total=%s objsize=%s mem_mib=%.1f\n",$2,$3,$4,mem_mib
+> }'
+> echo
+> EOF
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# chmod +x /tmp/tw_sock_sample.sh
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
+>   echo "starting sample on $h"
+>   ssh "$h" '
+>     nohup bash -c "for i in {1..6}; do /tmp/tw_sock_sample.sh; sleep 300; done" \
+>       > /tmp/tw_sock_sample_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+>   '
+> done
+starting sample on gz-4f31406-ceph-001201
+starting sample on gz-4f31406-ceph-001202
+starting sample on gz-4f31406-ceph-001203
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# cat  /tmp/tw_sock_sample_20260707_175757.log
+2026-07-07 17:57:57
+MemAvailable:   28149212 kB
+Slab:           39417988 kB
+SReclaimable:    3769840 kB
+SUnreclaim:     35648148 kB
+TCP: inuse 3639 orphan 0 tw 107 alloc 3657 mem 596
+tw_sock_TCP active=136425983 total=136435464 objsize=248 mem_mib=32268.5
+
+2026-07-07 18:02:57
+MemAvailable:   28704120 kB
+Slab:           39433508 kB
+SReclaimable:    3785324 kB
+SUnreclaim:     35648184 kB
+TCP: inuse 3611 orphan 0 tw 102 alloc 3630 mem 802
+tw_sock_TCP active=136426016 total=136435497 objsize=248 mem_mib=32268.5
+
+2026-07-07 18:07:57
+MemAvailable:   28582400 kB
+Slab:           39442524 kB
+SReclaimable:    3783552 kB
+SUnreclaim:     35658972 kB
+TCP: inuse 3611 orphan 0 tw 106 alloc 3629 mem 607
+tw_sock_TCP active=136426148 total=136435629 objsize=248 mem_mib=32268.6
+
+2026-07-07 18:12:57
+MemAvailable:   28367092 kB
+Slab:           39459200 kB
+SReclaimable:    3796216 kB
+SUnreclaim:     35662984 kB
+TCP: inuse 3611 orphan 0 tw 98 alloc 3630 mem 542
+tw_sock_TCP active=136426577 total=136436058 objsize=248 mem_mib=32268.7
+
+2026-07-07 18:17:57
+MemAvailable:   28668824 kB
+Slab:           39440516 kB
+SReclaimable:    3791608 kB
+SUnreclaim:     35648908 kB
+TCP: inuse 3614 orphan 0 tw 88 alloc 3632 mem 871
+tw_sock_TCP active=136426593 total=136436058 objsize=248 mem_mib=32268.7
+
+2026-07-07 18:22:57
+MemAvailable:   28656904 kB
+Slab:           39444552 kB
+SReclaimable:    3794392 kB
+SUnreclaim:     35650160 kB
+TCP: inuse 3613 orphan 0 tw 103 alloc 3632 mem 538
+tw_sock_TCP active=136426691 total=136436124 objsize=248 mem_mib=32268.7
+
 root@gz-4f31406-ceph-001201:~# 
