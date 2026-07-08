@@ -1,52 +1,214 @@
-5. 需要继续确认哪些点
-5.1 查这个 Agent 是否接管网络流量
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:44:         "type" : "write|exec|connect|webshell|getProperty|getPath"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:50:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:56:         "type" : "exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:62:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:86:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:92:         "type" : "read|write|exec|connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:98:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:116:         "type" : "exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:128:         "type" : "write|exec|connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:134:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:140:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:158:         "type" : "write|exec|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:170:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:176:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:182:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:188:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:194:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:200:         "type" : "connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:206:         "type" : "connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:212:         "type" : "exec|connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:218:         "type" : "exec|write|connect|webshell"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:224:         "type" : "connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:236:         "type" : "connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:240:         "label" : "CfwTCPImpl",
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:272:         "type" : "exec|write|connect|webshell|getProperty|getPath"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:278:         "type" : "connect"
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:320:         "desc" : "connect2outer",
+/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:344:         "label" : "tomcat_websocket",
+/usr/local/wsssr_defence_agent/script/agent_config_web_secure.json:15:                  "rule" : "maTdlfTFl6rG4qCfl4/n2err5OGq5tfeltTn1ZzX7sucpL/nm8zC4d3F4Vnh19zimFbV6OrPnetPoJCPbc/V51+co5/xwdaemabdqvSn6prT2tyd"
+/usr/local/wsssr_defence_agent/script/agent_config_web_secure.json:33:                  "rule" : "zcvU0+TO0aLG0dPnmlannpib6Oih68rPjejk0aDMmsvnj7+d7dHQ4ezI3I/X1NOcy6Gj0Zfv6uKT6cTQj+DWyFbM5ZnQjt/p5M7TyqDF4VjGmPPX5KDr2tzn1OSh3Ne+Vs/kloqZ7uLZ2Nbd4NfA4+vO4IqSy+qey1f1ta7m2uGk3NfQj+DW6G6w1NDnysfd4+Whrt/V3ZDL29Oi5ZPr6Nfi486R5tLSl9/Wy53jmw=="
+Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/trojan.dat matches
+Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/bwl.dat matches
+Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/htsrf.dat matches
+/usr/local/wsssr_defence_agent/vmsec-host/file/etc/policy.json:1:[{"malware_rule":{"action":4,"compress_option":{"enable":1,"maxDep":3,"maxFileNum":50,"maxSize":10},"decoy":1,"dir_list":["/usr/local/wsssr_defence_agent/"],"ext_list":[],"immunity":0,"ransomEnable":1,"realtime":true,"restoration":0,"scan_dir_setting":{"dir_list":[],"enable":false,"manual":false,"realtime":false,"schedule":false},"scan_ext_setting":{"enable":false,"ext_list":[],"manual":false,"realtime":false,"schedule":false}},"name":"Linux SecPolicy","ods_rule":{"action":4,"compress_option":{"enable":1,"maxDep":3,"maxFileNum":50,"maxSize":10},"continue_status":1,"cpu_limit":{"cpuPercent":50,"protectAppfirst":1,"protectCpuPercent":50,"value":1},"dir_list":["/usr/local/wsssr_defence_agent/"],"ext_list":[],"realtime":true,"scan_dir_setting":{"dir_list":["/lib","C:\\Windows","/lib64","C:\\Program Files","C:\\Documents and Settings","/usr/sbin","/usr/bin","C:\\Users","C:\\Program Files (x86)","/bin","/sbin"],"enable":true,"manual":true,"realtime":false,"schedule":false},"scan_ext_setting":{"enable":true,"ext_list":[],"manual":true,"realtime":false,"schedule":false},"scan_type":2,"schedule":{"date":[],"schedule":"disable","time":0}},"quar_drive_letter":"/"}]
+/usr/local/wsssr_defence_agent/vmsec-host/file/etc/ext_setting.json:1:{"avplus":true,"avplus_show":false,"cloud_proxy_address":"","cloud_proxy_port":"","cloud_scan":true,"cloud_upload_mode":0,"cloudscan_with_proxy":false,"cpu_limit":{"cpuPercent":50,"protectAppfirst":1,"protectCpuPercent":50,"value":1},"join_security_plan":true,"private_cloud_address":"","private_cloud_port":"","proxy_passwd":"","proxy_username":"","quar":{"action":0,"max_days":60,"max_size":1024,"quar_drive_letter":"/"},"scan_file_max_size":10,"sch_concurrent":3}
+Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/htsrf.dat.vir matches
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : module version / hash ===================="
+>   ssh "$h" '
+>     for f in \
+>       /usr/local/wsssr_defence_agent/resguard_linux.ko \
+>       /usr/local/wsssr_defence_agent/secmodel_linux.ko \
+>       /usr/local/wsssr_defence_agent/syshook_linux.ko \
+>       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko \
+>       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+>     do
+>       echo "---------- $f ----------"
+>       [ -f "$f" ] || continue
+>       sha256sum "$f"
+>       modinfo "$f" 2>/dev/null | egrep -i "filename|version|description|author|license|srcversion|vermagic|signer|sig_key|sig_hashalgo|depends|retpoline|intree" || true
+>       echo
+>     done
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : module version / hash ====================
+---------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
+ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
+filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
+license:        GPL
+version:        1.6.29
+srcversion:     533BB7E5866E52F63B9ACCB
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-执行：
+---------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
+d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
+filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
+license:        GPL
+srcversion:     CEB1BFDC307F1D129F44445
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
-  echo "==================== $h : netfilter / nfqueue check ===================="
-  ssh "$h" '
-    echo "[1] iptables rules"
-    iptables-save 2>/dev/null | egrep -i "NFQUEUE|QUEUE|vmsec|wss|defence|secmodel|DROP|REJECT" || true
+---------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
+bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
+filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
+description:    syshook
+license:        GPL
+version:        1.2.16
+srcversion:     C46E51E9927DEED155CC82A
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-    echo
-    echo "[2] nft rules"
-    nft list ruleset 2>/dev/null | egrep -i "queue|vmsec|wss|defence|secmodel|drop|reject" || true
+---------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
+4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
+license:        GPL
+srcversion:     8594FEE128790BACDE7310A
+depends:        nf_conntrack
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-    echo
-    echo "[3] nf related modules"
-    lsmod | egrep -i "nfnetlink_queue|nf_conntrack|nf_queue|ip_queue|vmsec_nfq|nfq" || true
+---------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
+a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+license:        GPL
+description:    Kernel Hooking Module for vmsec 
+                version 3.1.1.1313      2026-04-14   14:43:43
+author:         Linux User
+srcversion:     F296E01D6BF3E9669622357
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-    echo
-    echo "[4] agent network config"
-    egrep -Rni "net|filter|queue|nfq|nfqueue|socket|tcp|connect|accept|close|listen" \
-      /usr/local/wsssr_defence_agent/script \
-      /usr/local/wsssr_defence_agent/vmsec-host/conf \
-      /usr/local/wsssr_defence_agent/vmsec-host/file/etc \
-      2>/dev/null | head -100
-  '
-done
+==================== gz-4f31406-ceph-001202 : module version / hash ====================
+---------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
+ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
+filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
+license:        GPL
+version:        1.6.29
+srcversion:     533BB7E5866E52F63B9ACCB
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-如果看到 NFQUEUE、QUEUE 或 agent 的网络过滤规则，嫌疑会进一步增强。
+---------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
+d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
+filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
+license:        GPL
+srcversion:     CEB1BFDC307F1D129F44445
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-5.2 查模块版本、编译信息、签名信息
-for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
-  echo "==================== $h : module version / hash ===================="
-  ssh "$h" '
-    for f in \
-      /usr/local/wsssr_defence_agent/resguard_linux.ko \
-      /usr/local/wsssr_defence_agent/secmodel_linux.ko \
-      /usr/local/wsssr_defence_agent/syshook_linux.ko \
-      /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko \
-      /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-    do
-      echo "---------- $f ----------"
-      [ -f "$f" ] || continue
-      sha256sum "$f"
-      modinfo "$f" 2>/dev/null | egrep -i "filename|version|description|author|license|srcversion|vermagic|signer|sig_key|sig_hashalgo|depends|retpoline|intree" || true
-      echo
-    done
-  '
-done
+---------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
+bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
+filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
+description:    syshook
+license:        GPL
+version:        1.2.16
+srcversion:     C46E51E9927DEED155CC82A
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
 
-这些信息后续要发给安全软件厂商确认是否有已知问题或补丁版本。
+---------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
+4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
+license:        GPL
+srcversion:     8594FEE128790BACDE7310A
+depends:        nf_conntrack
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+---------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
+a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+license:        GPL
+description:    Kernel Hooking Module for vmsec 
+                version 3.1.1.1313      2026-04-14   14:43:43
+author:         Linux User
+srcversion:     F296E01D6BF3E9669622357
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+==================== gz-4f31406-ceph-001203 : module version / hash ====================
+---------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
+ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
+filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
+license:        GPL
+version:        1.6.29
+srcversion:     533BB7E5866E52F63B9ACCB
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+---------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
+d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
+filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
+license:        GPL
+srcversion:     CEB1BFDC307F1D129F44445
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+---------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
+bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
+filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
+description:    syshook
+license:        GPL
+version:        1.2.16
+srcversion:     C46E51E9927DEED155CC82A
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+---------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
+4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
+license:        GPL
+srcversion:     8594FEE128790BACDE7310A
+depends:        nf_conntrack
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+---------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
+a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+license:        GPL
+description:    Kernel Hooking Module for vmsec 
+                version 3.1.1.1313      2026-04-14   14:43:43
+author:         Linux User
+srcversion:     F296E01D6BF3E9669622357
+depends:        
+retpoline:      Y
+vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+
+root@gz-4f31406-ceph-001201:~# 
