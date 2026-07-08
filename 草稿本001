@@ -1,214 +1,355 @@
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:44:         "type" : "write|exec|connect|webshell|getProperty|getPath"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:50:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:56:         "type" : "exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:62:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:86:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:92:         "type" : "read|write|exec|connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:98:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:116:         "type" : "exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:128:         "type" : "write|exec|connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:134:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:140:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:158:         "type" : "write|exec|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:170:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:176:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:182:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:188:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:194:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:200:         "type" : "connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:206:         "type" : "connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:212:         "type" : "exec|connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:218:         "type" : "exec|write|connect|webshell"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:224:         "type" : "connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:236:         "type" : "connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:240:         "label" : "CfwTCPImpl",
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:272:         "type" : "exec|write|connect|webshell|getProperty|getPath"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:278:         "type" : "connect"
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:320:         "desc" : "connect2outer",
-/usr/local/wsssr_defence_agent/script/java_rasp_virtual_patch.json:344:         "label" : "tomcat_websocket",
-/usr/local/wsssr_defence_agent/script/agent_config_web_secure.json:15:                  "rule" : "maTdlfTFl6rG4qCfl4/n2err5OGq5tfeltTn1ZzX7sucpL/nm8zC4d3F4Vnh19zimFbV6OrPnetPoJCPbc/V51+co5/xwdaemabdqvSn6prT2tyd"
-/usr/local/wsssr_defence_agent/script/agent_config_web_secure.json:33:                  "rule" : "zcvU0+TO0aLG0dPnmlannpib6Oih68rPjejk0aDMmsvnj7+d7dHQ4ezI3I/X1NOcy6Gj0Zfv6uKT6cTQj+DWyFbM5ZnQjt/p5M7TyqDF4VjGmPPX5KDr2tzn1OSh3Ne+Vs/kloqZ7uLZ2Nbd4NfA4+vO4IqSy+qey1f1ta7m2uGk3NfQj+DW6G6w1NDnysfd4+Whrt/V3ZDL29Oi5ZPr6Nfi486R5tLSl9/Wy53jmw=="
-Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/trojan.dat matches
-Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/bwl.dat matches
-Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/htsrf.dat matches
-/usr/local/wsssr_defence_agent/vmsec-host/file/etc/policy.json:1:[{"malware_rule":{"action":4,"compress_option":{"enable":1,"maxDep":3,"maxFileNum":50,"maxSize":10},"decoy":1,"dir_list":["/usr/local/wsssr_defence_agent/"],"ext_list":[],"immunity":0,"ransomEnable":1,"realtime":true,"restoration":0,"scan_dir_setting":{"dir_list":[],"enable":false,"manual":false,"realtime":false,"schedule":false},"scan_ext_setting":{"enable":false,"ext_list":[],"manual":false,"realtime":false,"schedule":false}},"name":"Linux SecPolicy","ods_rule":{"action":4,"compress_option":{"enable":1,"maxDep":3,"maxFileNum":50,"maxSize":10},"continue_status":1,"cpu_limit":{"cpuPercent":50,"protectAppfirst":1,"protectCpuPercent":50,"value":1},"dir_list":["/usr/local/wsssr_defence_agent/"],"ext_list":[],"realtime":true,"scan_dir_setting":{"dir_list":["/lib","C:\\Windows","/lib64","C:\\Program Files","C:\\Documents and Settings","/usr/sbin","/usr/bin","C:\\Users","C:\\Program Files (x86)","/bin","/sbin"],"enable":true,"manual":true,"realtime":false,"schedule":false},"scan_ext_setting":{"enable":true,"ext_list":[],"manual":true,"realtime":false,"schedule":false},"scan_type":2,"schedule":{"date":[],"schedule":"disable","time":0}},"quar_drive_letter":"/"}]
-/usr/local/wsssr_defence_agent/vmsec-host/file/etc/ext_setting.json:1:{"avplus":true,"avplus_show":false,"cloud_proxy_address":"","cloud_proxy_port":"","cloud_scan":true,"cloud_upload_mode":0,"cloudscan_with_proxy":false,"cpu_limit":{"cpuPercent":50,"protectAppfirst":1,"protectCpuPercent":50,"value":1},"join_security_plan":true,"private_cloud_address":"","private_cloud_port":"","proxy_passwd":"","proxy_username":"","quar":{"action":0,"max_days":60,"max_size":1024,"quar_drive_letter":"/"},"scan_file_max_size":10,"sch_concurrent":3}
-Binary file /usr/local/wsssr_defence_agent/vmsec-host/file/etc/htsrf.dat.vir matches
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
->   echo "==================== $h : module version / hash ===================="
+>   echo "==================== $h : qax processes ===================="
 >   ssh "$h" '
->     for f in \
->       /usr/local/wsssr_defence_agent/resguard_linux.ko \
->       /usr/local/wsssr_defence_agent/secmodel_linux.ko \
->       /usr/local/wsssr_defence_agent/syshook_linux.ko \
->       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko \
->       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
->     do
->       echo "---------- $f ----------"
->       [ -f "$f" ] || continue
->       sha256sum "$f"
->       modinfo "$f" 2>/dev/null | egrep -i "filename|version|description|author|license|srcversion|vermagic|signer|sig_key|sig_hashalgo|depends|retpoline|intree" || true
->       echo
->     done
+>     ps -ef | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe" | grep -v egrep || true
 >   '
 > done
-==================== gz-4f31406-ceph-001201 : module version / hash ====================
----------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
-ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
-filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
-license:        GPL
-version:        1.6.29
-srcversion:     533BB7E5866E52F63B9ACCB
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+==================== gz-4f31406-ceph-001201 : qax processes ====================
+root     1969619       1  0  2024 ?        2-00:05:42 ./bin/easyAgent
+root     1970170       1  0  2024 ?        02:40:50 ./bin/collector_agent
+root     2885831 2885829  0 17:49 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
+==================== gz-4f31406-ceph-001202 : qax processes ====================
+root      613438       1  0  2024 ?        2-23:33:08 ./bin/easyAgent
+root      613924       1  0  2024 ?        02:17:44 ./bin/collector_agent
+root     2443634 2443632  0 17:49 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
+==================== gz-4f31406-ceph-001203 : qax processes ====================
+root     2160880       1  0  2024 ?        3-08:17:52 ./bin/easyAgent
+root     2161368       1  0  2024 ?        02:23:01 ./bin/collector_agent
+root     2277693 2277691  0 17:49 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
+root     3500465       2  0 May13 ?        00:00:00 [resguard_worker]
+root     3500809       1  0 May13 ?        01:31:08 /usr/local/wsssr_defence_agent/wsssr_defence_daemon
+root     3536591       1  1 May13 ?        15:10:26 ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon
+root     3573032       1  0 May13 ?        00:03:26 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
+root     3573033 3573032  0 May13 ?        05:14:14 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : qax kernel modules ===================="
+>   ssh "$h" '
+>     lsmod | egrep -i "vmsec|nfq|resguard|secmodel|syshook|wss|defence" || echo "no qax related modules loaded"
+>     echo
+>     echo "kernel tainted:"
+>     cat /proc/sys/kernel/tainted 2>/dev/null || true
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : qax kernel modules ====================
+syshook_linux          73728  0
 
----------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
-d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
-filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
-license:        GPL
-srcversion:     CEB1BFDC307F1D129F44445
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+kernel tainted:
+12288
+==================== gz-4f31406-ceph-001202 : qax kernel modules ====================
+syshook_linux          73728  0
 
----------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
-bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
-filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
-description:    syshook
-license:        GPL
-version:        1.2.16
-srcversion:     C46E51E9927DEED155CC82A
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+kernel tainted:
+12288
+==================== gz-4f31406-ceph-001203 : qax kernel modules ====================
+vmsecmod              200704  3
+resguard_linux        466944  2
+secmodel_linux        114688  1
+syshook_linux          73728  2
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
-4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
-license:        GPL
-srcversion:     8594FEE128790BACDE7310A
-depends:        nf_conntrack
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+kernel tainted:
+12288
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : qax services ===================="
+>   ssh "$h" '
+>     systemctl list-units --type=service --all \
+>       | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|edr|safe|agent" || true
+> 
+>     echo
+>     systemctl list-unit-files \
+>       | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|edr|safe|agent" || true
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : qax services ====================
+  ics-agent-file.service                                                                                        loaded    active   exited  LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+● wsssr.service                                                                                                 not-found failed   failed  wsssr.service                                                                                            
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
-a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-license:        GPL
-description:    Kernel Hooking Module for vmsec 
-                version 3.1.1.1313      2026-04-14   14:43:43
-author:         Linux User
-srcversion:     F296E01D6BF3E9669622357
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+lxd-agent-9p.service                               enabled         enabled      
+lxd-agent.service                                  enabled         enabled      
+==================== gz-4f31406-ceph-001202 : qax services ====================
+  ics-agent-file.service                                                                                        loaded    active   exited  LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+● wsssr.service                                                                                                 not-found failed   failed  wsssr.service                                                                                            
 
-==================== gz-4f31406-ceph-001202 : module version / hash ====================
----------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
-ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
-filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
-license:        GPL
-version:        1.6.29
-srcversion:     533BB7E5866E52F63B9ACCB
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+lxd-agent-9p.service                               enabled         enabled      
+lxd-agent.service                                  enabled         enabled      
+==================== gz-4f31406-ceph-001203 : qax services ====================
+  ics-agent-file.service                                                                                        loaded    active   running LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+  wsssr.service                                                                                                 loaded    active   running WSSSR                                                                                                    
+  wsssr_guard.service                                                                                           loaded    active   running WSSSR GUARD                                                                                              
 
----------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
-d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
-filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
-license:        GPL
-srcversion:     CEB1BFDC307F1D129F44445
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+ics-agent-file.service                             generated       enabled      
+lxd-agent-9p.service                               enabled         enabled      
+lxd-agent.service                                  enabled         enabled      
+wsssr.service                                      enabled         enabled      
+wsssr_guard.service                                enabled         enabled      
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : qax files ===================="
+>   ssh "$h" '
+>     ls -ld /usr/local/wsssr_defence_agent 2>/dev/null || echo "/usr/local/wsssr_defence_agent not found"
+> 
+>     find /usr/local/wsssr_defence_agent -maxdepth 5 \
+>       \( -iname "*vmsec*" -o -iname "*resguard*" -o -iname "*secmodel*" -o -iname "*syshook*" -o -iname "*nfq*" \) \
+>       2>/dev/null | head -50
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : qax files ====================
+/usr/local/wsssr_defence_agent not found
+==================== gz-4f31406-ceph-001202 : qax files ====================
+/usr/local/wsssr_defence_agent not found
+==================== gz-4f31406-ceph-001203 : qax files ====================
+drwxr-xr-x 29 root root 4096 Jul  8 16:58 /usr/local/wsssr_defence_agent
+/usr/local/wsssr_defence_agent/vmsec-host
+/usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
+/usr/local/wsssr_defence_agent/vmsec-host/file/etc/vmsec-file.ini
+/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod-5.4.0-144-generic.x86_64.o
+/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+/usr/local/wsssr_defence_agent/vmsec-host/file/bin/vmsec-tool
+/usr/local/wsssr_defence_agent/vmsec-host/conf/vmsec_file.conf
+/usr/local/wsssr_defence_agent/libs/libsecmodel_log_linux.so
+/usr/local/wsssr_defence_agent/libs/libSecModel_linux.so
+/usr/local/wsssr_defence_agent/secmodel_linux.ko
+/usr/local/wsssr_defence_agent/tool/repair_syshook.sh
+/usr/local/wsssr_defence_agent/resguard_linux.ko
+/usr/local/wsssr_defence_agent/syshook_linux.ko
+/usr/local/wsssr_defence_agent/script/secmodel_log_whitelist.json
+/usr/local/wsssr_defence_agent/script/secmodel_log_fast_whitelist
+/usr/local/wsssr_defence_agent/script/secmodel_log_net_filter.json
+/usr/local/wsssr_defence_agent/tmp/edr/script/secmodel_log_whitelist.json
+root@gz-4f31406-ceph-001201:~# cat > /tmp/watch_qax_tw_sock.sh <<'EOF'
+> #!/usr/bin/env bash
+> echo "===== $(hostname) $(date '+%F %T') ====="
+> 
+> echo "[1] meminfo"
+> egrep "MemAvailable|Slab|SReclaimable|SUnreclaim|SwapTotal|SwapFree" /proc/meminfo
+> 
+> echo
+> echo "[2] sockstat"
+> cat /proc/net/sockstat | awk '/^TCP:/{print}'
+> ss -s | egrep "TCP:|timewait|estab|closed" || true
+> 
+> echo
+> echo "[3] tw_sock_TCP"
+> grep "^tw_sock_TCP " /proc/slabinfo | awk '{
+>   mem_mib=$3*$4/1024/1024;
+>   printf "tw_sock_TCP active=%s total=%s objsize=%s mem_mib=%.1f\n",$2,$3,$4,mem_mib
+> }'
+> 
+> echo
+> echo "[4] qax modules"
+> lsmod | egrep -i "vmsec|nfq|resguard|secmodel|syshook|wss|defence" || echo "no qax related modules loaded"
+> 
+> echo
+> echo "[5] qax processes"
+> ps -ef | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe" | grep -v egrep || echo "no qax related processes"
+> 
+> echo
+> EOF
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# chmod +x /tmp/watch_qax_tw_sock.sh
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   scp /tmp/watch_qax_tw_sock.sh "$h":/tmp/watch_qax_tw_sock.sh
+>   ssh "$h" '
+>     chmod +x /tmp/watch_qax_tw_sock.sh
+>     nohup bash -c "while true; do /tmp/watch_qax_tw_sock.sh >> /var/log/watch_qax_tw_sock.log; sleep 600; done" >/tmp/watch_qax_tw_sock.nohup 2>&1 &
+>   '
+> done
+watch_qax_tw_sock.sh                                                                                                                                                                                                                                   100%  819     1.8MB/s   00:00    
+watch_qax_tw_sock.sh                                                                                                                                                                                                                                   100%  819     1.4MB/s   00:00    
+watch_qax_tw_sock.sh                                                                                                                                                                                                                                   100%  819     1.1MB/s   00:00    
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : connection summary ===================="
+>   ssh "$h" '
+>     date
+>     echo "[port 80 established]"
+>     ss -tan state established "( sport = :80 or dport = :80 )" 2>/dev/null | wc -l
+> 
+>     echo "[rgw 7480/7481 established]"
+>     ss -tan state established "( sport = :7480 or sport = :7481 or dport = :7480 or dport = :7481 )" 2>/dev/null | wc -l
+> 
+>     echo "[all tcp summary]"
+>     ss -s
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : connection summary ====================
+Wed 08 Jul 2026 05:52:00 PM CST
+[port 80 established]
+1
+[rgw 7480/7481 established]
+1
+[all tcp summary]
+Total: 4432
+TCP:   3735 (estab 3471, closed 124, orphaned 0, timewait 123)
 
----------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
-bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
-filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
-description:    syshook
-license:        GPL
-version:        1.2.16
-srcversion:     C46E51E9927DEED155CC82A
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+Transport Total     IP        IPv6
+RAW       6         4         2        
+UDP       69        67        2        
+TCP       3611      3595      16       
+INET      3686      3666      20       
+FRAG      0         0         0        
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
-4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
-license:        GPL
-srcversion:     8594FEE128790BACDE7310A
-depends:        nf_conntrack
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+==================== gz-4f31406-ceph-001202 : connection summary ====================
+Wed 08 Jul 2026 05:52:01 PM CST
+[port 80 established]
+1
+[rgw 7480/7481 established]
+1
+[all tcp summary]
+Total: 3913
+TCP:   3262 (estab 3023, closed 117, orphaned 0, timewait 117)
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
-a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-license:        GPL
-description:    Kernel Hooking Module for vmsec 
-                version 3.1.1.1313      2026-04-14   14:43:43
-author:         Linux User
-srcversion:     F296E01D6BF3E9669622357
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+Transport Total     IP        IPv6
+RAW       6         4         2        
+UDP       68        67        1        
+TCP       3145      3137      8        
+INET      3219      3208      11       
+FRAG      0         0         0        
 
-==================== gz-4f31406-ceph-001203 : module version / hash ====================
----------- /usr/local/wsssr_defence_agent/resguard_linux.ko ----------
-ae93a8f8d6b5584dc3ea056efdda417a0d76c8df528c6badaa4cca38435af851  /usr/local/wsssr_defence_agent/resguard_linux.ko
-filename:       /usr/local/wsssr_defence_agent/resguard_linux.ko
-license:        GPL
-version:        1.6.29
-srcversion:     533BB7E5866E52F63B9ACCB
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+==================== gz-4f31406-ceph-001203 : connection summary ====================
+Wed 08 Jul 2026 05:52:02 PM CST
+[port 80 established]
+1
+[rgw 7480/7481 established]
+1
+[all tcp summary]
+Total: 3974
+TCP:   3263 (estab 3018, closed 119, orphaned 0, timewait 118)
 
----------- /usr/local/wsssr_defence_agent/secmodel_linux.ko ----------
-d570cb5a7e1cf4b30bdb7b6139fa6d08d9cbccdc930ac5d5f10d3ffea9942252  /usr/local/wsssr_defence_agent/secmodel_linux.ko
-filename:       /usr/local/wsssr_defence_agent/secmodel_linux.ko
-license:        GPL
-srcversion:     CEB1BFDC307F1D129F44445
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+Transport Total     IP        IPv6
+RAW       6         4         2        
+UDP       68        67        1        
+TCP       3144      3136      8        
+INET      3218      3207      11       
+FRAG      0         0         0        
 
----------- /usr/local/wsssr_defence_agent/syshook_linux.ko ----------
-bdef83f2dc757425887c686643a8e61b64a8fe06fbf9ac16147ef5b8c26e2b42  /usr/local/wsssr_defence_agent/syshook_linux.ko
-filename:       /usr/local/wsssr_defence_agent/syshook_linux.ko
-description:    syshook
-license:        GPL
-version:        1.2.16
-srcversion:     C46E51E9927DEED155CC82A
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+>   echo "==================== $h : post-uninstall validation ===================="
+>   ssh "$h" '
+>     echo "[1] qax processes"
+>     ps -ef | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe" | grep -v egrep || echo "no qax related processes"
+> 
+>     echo
+>     echo "[2] qax kernel modules"
+>     lsmod | egrep -i "vmsec|nfq|resguard|secmodel|syshook|wss|defence" || echo "no qax related modules loaded"
+> 
+>     echo
+>     echo "[3] qax services"
+>     systemctl list-units --type=service --all | egrep -i "wsssr|defence|vmsec|resguard|secmodel|syshook|edr|safe|agent" || true
+> 
+>     echo
+>     echo "[4] qax directory"
+>     ls -ld /usr/local/wsssr_defence_agent 2>/dev/null || echo "/usr/local/wsssr_defence_agent not found"
+> 
+>     echo
+>     echo "[5] memory and tw_sock_TCP"
+>     egrep "MemAvailable|Slab|SReclaimable|SUnreclaim|SwapTotal|SwapFree" /proc/meminfo
+>     cat /proc/net/sockstat | awk "/^TCP:/{print}"
+>     grep "^tw_sock_TCP " /proc/slabinfo | awk '"'"'{
+>       mem_mib=$3*$4/1024/1024;
+>       printf "tw_sock_TCP active=%s total=%s objsize=%s mem_mib=%.1f\n",$2,$3,$4,mem_mib
+>     }'"'"'
+>   '
+> done
+==================== gz-4f31406-ceph-001201 : post-uninstall validation ====================
+[1] qax processes
+root     1969619       1  0  2024 ?        2-00:05:42 ./bin/easyAgent
+root     1970170       1  0  2024 ?        02:40:50 ./bin/collector_agent
+root     2892656 2892654  0 17:53 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko ----------
-4dfc4ea00093037caefdf8935115b1f7f2454d6b70242b58ba9daa883f91f311  /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-description:    VMSEC_NFQ COMMIT: c4b9b6c84b3280871ff46ab67975f691bae85f86
-license:        GPL
-srcversion:     8594FEE128790BACDE7310A
-depends:        nf_conntrack
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+[2] qax kernel modules
+syshook_linux          73728  0
 
----------- /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko ----------
-a4768f25cf418f47adb5f2f341cccde702d3e1c1b5b22c770398d087e7870da9  /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-filename:       /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-license:        GPL
-description:    Kernel Hooking Module for vmsec 
-                version 3.1.1.1313      2026-04-14   14:43:43
-author:         Linux User
-srcversion:     F296E01D6BF3E9669622357
-depends:        
-retpoline:      Y
-vermagic:       5.4.0-144-generic SMP mod_unload modversions 
+[3] qax services
+  ics-agent-file.service                                                                                        loaded    active   exited  LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+● wsssr.service                                                                                                 not-found failed   failed  wsssr.service                                                                                            
 
+[4] qax directory
+/usr/local/wsssr_defence_agent not found
+
+[5] memory and tw_sock_TCP
+MemAvailable:   28756092 kB
+SwapTotal:       8388604 kB
+SwapFree:        1133352 kB
+Slab:           39384536 kB
+SReclaimable:    3798300 kB
+SUnreclaim:     35586236 kB
+TCP: inuse 3601 orphan 0 tw 97 alloc 3618 mem 585
+tw_sock_TCP active=136437510 total=136445133 objsize=248 mem_mib=32270.8
+==================== gz-4f31406-ceph-001202 : post-uninstall validation ====================
+[1] qax processes
+root      613438       1  0  2024 ?        2-23:33:09 ./bin/easyAgent
+root      613924       1  0  2024 ?        02:17:44 ./bin/collector_agent
+root     2448868 2448866  0 17:53 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
+
+[2] qax kernel modules
+syshook_linux          73728  0
+
+[3] qax services
+  ics-agent-file.service                                                                                        loaded    active   exited  LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+● wsssr.service                                                                                                 not-found failed   failed  wsssr.service                                                                                            
+
+[4] qax directory
+/usr/local/wsssr_defence_agent not found
+
+[5] memory and tw_sock_TCP
+MemAvailable:   23060080 kB
+SwapTotal:       8388604 kB
+SwapFree:        5231140 kB
+Slab:           39334680 kB
+SReclaimable:    3398388 kB
+SUnreclaim:     35936292 kB
+TCP: inuse 3140 orphan 0 tw 93 alloc 3148 mem 114
+tw_sock_TCP active=138958060 total=138959337 objsize=248 mem_mib=32865.4
+==================== gz-4f31406-ceph-001203 : post-uninstall validation ====================
+[1] qax processes
+root     2160880       1  0  2024 ?        3-08:17:53 ./bin/easyAgent
+root     2161368       1  0  2024 ?        02:23:01 ./bin/collector_agent
+root     2279194 2279192  0 17:53 ?        00:00:00 grep -E -i wsssr|defence|vmsec|resguard|secmodel|syshook|icsfilesec|easyAgent|collector_agent|edr|safe
+root     3500465       2  0 May13 ?        00:00:00 [resguard_worker]
+root     3500809       1  0 May13 ?        01:31:08 /usr/local/wsssr_defence_agent/wsssr_defence_daemon
+root     3536591       1  1 May13 ?        15:10:30 ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon
+root     3573032       1  0 May13 ?        00:03:26 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
+root     3573033 3573032  0 May13 ?        05:14:17 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
+
+[2] qax kernel modules
+vmsecmod              200704  3
+resguard_linux        466944  2
+secmodel_linux        114688  1
+syshook_linux          73728  2
+
+[3] qax services
+  ics-agent-file.service                                                                                        loaded    active   running LSB: Start/Stop anti-virus service                                                                       
+  lldpad.service                                                                                                loaded    active   running Link Layer Discovery Protocol Agent Daemon.                                                              
+  lxd-agent-9p.service                                                                                          loaded    inactive dead    LXD - agent - 9p mount                                                                                   
+  lxd-agent.service                                                                                             loaded    inactive dead    LXD - agent                                                                                              
+  wsssr.service                                                                                                 loaded    active   running WSSSR                                                                                                    
+  wsssr_guard.service                                                                                           loaded    active   running WSSSR GUARD                                                                                              
+
+[4] qax directory
+drwxr-xr-x 29 root root 4096 Jul  8 16:58 /usr/local/wsssr_defence_agent
+
+[5] memory and tw_sock_TCP
+MemAvailable:   26428096 kB
+SwapTotal:       8388604 kB
+SwapFree:        1264452 kB
+Slab:           39838136 kB
+SReclaimable:    3775492 kB
+SUnreclaim:     36062644 kB
+TCP: inuse 3141 orphan 0 tw 101 alloc 3150 mem 241
+tw_sock_TCP active=139088643 total=139090512 objsize=248 mem_mib=32896.5
 root@gz-4f31406-ceph-001201:~# 
