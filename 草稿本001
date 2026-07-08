@@ -1,126 +1,52 @@
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
->   echo "==================== $h : module provenance ===================="
->   ssh "$h" '
->     for m in vmsecmod resguard_linux secmodel_linux syshook_linux; do
->       echo "---------- $m ----------"
->       modinfo "$m" 2>/dev/null || true
->       echo
->     done
-> 
->     echo "===== related processes ====="
->     ps -ef | egrep -i "vmsec|resguard|secmodel|syshook|wss|defen|safe|agent|edr|av|icsfile|filesec" | grep -v egrep || true
-> 
->     echo "===== related files ====="
->     find /lib/modules/$(uname -r) /usr/local /opt /etc -iname "*vmsec*" -o -iname "*resguard*" -o -iname "*secmodel*" -o -iname "*syshook*" 2>/dev/null | head -100
->   '
-> done
-==================== gz-4f31406-ceph-001201 : module provenance ====================
----------- vmsecmod ----------
+5. 需要继续确认哪些点
+5.1 查这个 Agent 是否接管网络流量
 
----------- resguard_linux ----------
+执行：
 
----------- secmodel_linux ----------
+for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+  echo "==================== $h : netfilter / nfqueue check ===================="
+  ssh "$h" '
+    echo "[1] iptables rules"
+    iptables-save 2>/dev/null | egrep -i "NFQUEUE|QUEUE|vmsec|wss|defence|secmodel|DROP|REJECT" || true
 
----------- syshook_linux ----------
+    echo
+    echo "[2] nft rules"
+    nft list ruleset 2>/dev/null | egrep -i "queue|vmsec|wss|defence|secmodel|drop|reject" || true
 
-===== related processes =====
-root     1969619       1  0  2024 ?        2-00:04:46 ./bin/easyAgent
-root     1970170       1  0  2024 ?        02:40:46 ./bin/collector_agent
-root     2093361 2093355  0 10:41 ?        00:00:00 grep -E -i vmsec|resguard|secmodel|syshook|wss|defen|safe|agent|edr|av|icsfile|filesec
-root     2315507       1 52 May13 ?        29-02:00:02 ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon
-root     2317113       2  0 May13 ?        00:00:00 [resguard_worker]
-root     2317847       1  0 May13 ?        10:05:10 /usr/local/wsssr_defence_agent/wsssr_defence_daemon
-root     2488490       1  0 May13 ?        00:04:07 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-root     2488491 2488490 15 May13 ?        8-12:02:02 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-===== related files =====
-/usr/local/wsssr_defence_agent/tool/repair_syshook.sh
-/usr/local/wsssr_defence_agent/tmp/edr/script/secmodel_log_whitelist.json
-/usr/local/wsssr_defence_agent/resguard_linux.ko
-/usr/local/wsssr_defence_agent/secmodel_linux.ko
-/usr/local/wsssr_defence_agent/libs/libSecModel_linux.so
-/usr/local/wsssr_defence_agent/libs/libsecmodel_log_linux.so
-/usr/local/wsssr_defence_agent/script/secmodel_log_net_filter.json
-/usr/local/wsssr_defence_agent/script/secmodel_log_fast_whitelist
-/usr/local/wsssr_defence_agent/script/secmodel_log_whitelist.json
-/usr/local/wsssr_defence_agent/syshook_linux.ko
-/usr/local/wsssr_defence_agent/vmsec-host
-/usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-/usr/local/wsssr_defence_agent/vmsec-host/conf/vmsec_file.conf
-/usr/local/wsssr_defence_agent/vmsec-host/file/bin/vmsec-tool
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod-5.4.0-144-generic.x86_64.o
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-/usr/local/wsssr_defence_agent/vmsec-host/file/etc/vmsec-file.ini
-==================== gz-4f31406-ceph-001202 : module provenance ====================
----------- vmsecmod ----------
+    echo
+    echo "[3] nf related modules"
+    lsmod | egrep -i "nfnetlink_queue|nf_conntrack|nf_queue|ip_queue|vmsec_nfq|nfq" || true
 
----------- resguard_linux ----------
+    echo
+    echo "[4] agent network config"
+    egrep -Rni "net|filter|queue|nfq|nfqueue|socket|tcp|connect|accept|close|listen" \
+      /usr/local/wsssr_defence_agent/script \
+      /usr/local/wsssr_defence_agent/vmsec-host/conf \
+      /usr/local/wsssr_defence_agent/vmsec-host/file/etc \
+      2>/dev/null | head -100
+  '
+done
 
----------- secmodel_linux ----------
+如果看到 NFQUEUE、QUEUE 或 agent 的网络过滤规则，嫌疑会进一步增强。
 
----------- syshook_linux ----------
+5.2 查模块版本、编译信息、签名信息
+for h in gz-4f31406-ceph-001201 gz-4f31406-ceph-001202 gz-4f31406-ceph-001203; do
+  echo "==================== $h : module version / hash ===================="
+  ssh "$h" '
+    for f in \
+      /usr/local/wsssr_defence_agent/resguard_linux.ko \
+      /usr/local/wsssr_defence_agent/secmodel_linux.ko \
+      /usr/local/wsssr_defence_agent/syshook_linux.ko \
+      /usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko \
+      /usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
+    do
+      echo "---------- $f ----------"
+      [ -f "$f" ] || continue
+      sha256sum "$f"
+      modinfo "$f" 2>/dev/null | egrep -i "filename|version|description|author|license|srcversion|vermagic|signer|sig_key|sig_hashalgo|depends|retpoline|intree" || true
+      echo
+    done
+  '
+done
 
-===== related processes =====
-root      613438       1  0  2024 ?        2-23:31:35 ./bin/easyAgent
-root      613924       1  0  2024 ?        02:17:41 ./bin/collector_agent
-root     1437446       1 49 May13 ?        27-16:18:17 ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon
-root     1438906       2  0 May13 ?        00:00:00 [resguard_worker]
-root     1439603       1  0 May13 ?        09:14:53 /usr/local/wsssr_defence_agent/wsssr_defence_daemon
-root     1728095       1  0 May13 ?        00:03:39 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-root     1728096 1728095  1 May13 ?        17:25:30 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-root     1808928 1808922  0 10:41 ?        00:00:00 grep -E -i vmsec|resguard|secmodel|syshook|wss|defen|safe|agent|edr|av|icsfile|filesec
-===== related files =====
-/usr/local/wsssr_defence_agent/tool/repair_syshook.sh
-/usr/local/wsssr_defence_agent/tmp/edr/script/secmodel_log_whitelist.json
-/usr/local/wsssr_defence_agent/secmodel_linux.ko
-/usr/local/wsssr_defence_agent/vmsec-host
-/usr/local/wsssr_defence_agent/vmsec-host/conf/vmsec_file.conf
-/usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-/usr/local/wsssr_defence_agent/vmsec-host/file/etc/vmsec-file.ini
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod-5.4.0-144-generic.x86_64.o
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-/usr/local/wsssr_defence_agent/vmsec-host/file/bin/vmsec-tool
-/usr/local/wsssr_defence_agent/resguard_linux.ko
-/usr/local/wsssr_defence_agent/libs/libSecModel_linux.so
-/usr/local/wsssr_defence_agent/libs/libsecmodel_log_linux.so
-/usr/local/wsssr_defence_agent/syshook_linux.ko
-/usr/local/wsssr_defence_agent/script/secmodel_log_net_filter.json
-/usr/local/wsssr_defence_agent/script/secmodel_log_fast_whitelist
-/usr/local/wsssr_defence_agent/script/secmodel_log_whitelist.json
-==================== gz-4f31406-ceph-001203 : module provenance ====================
----------- vmsecmod ----------
-
----------- resguard_linux ----------
-
----------- secmodel_linux ----------
-
----------- syshook_linux ----------
-
-===== related processes =====
-root     2039407 2039401  0 10:41 ?        00:00:00 grep -E -i vmsec|resguard|secmodel|syshook|wss|defen|safe|agent|edr|av|icsfile|filesec
-root     2160880       1  0  2024 ?        3-08:16:02 ./bin/easyAgent
-root     2161368       1  0  2024 ?        02:22:58 ./bin/collector_agent
-root     3500465       2  0 May13 ?        00:00:00 [resguard_worker]
-root     3500809       1  0 May13 ?        01:30:39 /usr/local/wsssr_defence_agent/wsssr_defence_daemon
-root     3536591       1  1 May13 ?        15:05:31 ./wsssr_defence_service -c config.xml -l runlog/run_log.log -e ALL -t ALL -s safe -m daemon
-root     3573032       1  0 May13 ?        00:03:25 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-root     3573033 3573032  0 May13 ?        05:12:42 /usr/local/wsssr_defence_agent/vmsec-host/file/bin/icsfilesec
-===== related files =====
-/usr/local/wsssr_defence_agent/vmsec-host
-/usr/local/wsssr_defence_agent/vmsec-host/net/module/vmsec_nfq-5.4.0-144-generic.x86_64.ko
-/usr/local/wsssr_defence_agent/vmsec-host/file/etc/vmsec-file.ini
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod-5.4.0-144-generic.x86_64.o
-/usr/local/wsssr_defence_agent/vmsec-host/file/module/vmsecmod.ko
-/usr/local/wsssr_defence_agent/vmsec-host/file/bin/vmsec-tool
-/usr/local/wsssr_defence_agent/vmsec-host/conf/vmsec_file.conf
-/usr/local/wsssr_defence_agent/libs/libsecmodel_log_linux.so
-/usr/local/wsssr_defence_agent/libs/libSecModel_linux.so
-/usr/local/wsssr_defence_agent/secmodel_linux.ko
-/usr/local/wsssr_defence_agent/tool/repair_syshook.sh
-/usr/local/wsssr_defence_agent/resguard_linux.ko
-/usr/local/wsssr_defence_agent/syshook_linux.ko
-/usr/local/wsssr_defence_agent/script/secmodel_log_whitelist.json
-/usr/local/wsssr_defence_agent/script/secmodel_log_fast_whitelist
-/usr/local/wsssr_defence_agent/script/secmodel_log_net_filter.json
-/usr/local/wsssr_defence_agent/tmp/edr/script/secmodel_log_whitelist.json
-root@gz-4f31406-ceph-001201:~# 
+这些信息后续要发给安全软件厂商确认是否有已知问题或补丁版本。
