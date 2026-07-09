@@ -1,157 +1,27 @@
 root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
+root@gz-4f31406-ceph-001201:~# TS="$(date +%s)"
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_pool_metadata' \
->   | jq '.data.result[0:10]'
+>   --data-urlencode 'query=ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name,type,description) ceph_pool_metadata' \
+>   --data-urlencode "time=$TS" \
+>   | jq '.data.result[0:20]'
 [
   {
     "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "ec:4+2",
+      "description": "replica:4",
       "instance": "gz-4f31406-ceph-001201:9283",
       "job": "ceph",
-      "name": "guangzhou.rgw.buckets.data",
-      "pool_id": "7",
-      "type": "erasure"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "ec:8+2",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.archive.data",
-      "pool_id": "8",
-      "type": "erasure"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "ec:8+2",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.glacier.data",
-      "pool_id": "9",
-      "type": "erasure"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": ".rgw.root",
-      "pool_id": "15",
+      "name": "cephfs-metadata",
+      "pool_id": "10",
       "type": "replicated"
     },
     "value": [
-      1783581575.434,
-      "1"
+      1783582771,
+      "1143039539"
     ]
   },
   {
     "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "backups",
-      "pool_id": "5",
-      "type": "replicated"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "cephfs-data",
-      "pool_id": "6",
-      "type": "replicated"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "device_health_metrics",
-      "pool_id": "2",
-      "type": "replicated"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.archive.index",
-      "pool_id": "12",
-      "type": "replicated"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.archive.non-ec",
-      "pool_id": "14",
-      "type": "replicated"
-    },
-    "value": [
-      1783581575.434,
-      "1"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_metadata",
-      "compression_mode": "none",
       "description": "replica:3",
       "instance": "gz-4f31406-ceph-001201:9283",
       "job": "ceph",
@@ -160,100 +30,318 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "type": "replicated"
     },
     "value": [
-      1783581575.434,
-      "1"
+      1783582771,
+      "8007762627"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.archive.index",
+      "pool_id": "12",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "20895683563"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.buckets.non-ec",
+      "pool_id": "13",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "1800418"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.archive.non-ec",
+      "pool_id": "14",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "26205202"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": ".rgw.root",
+      "pool_id": "15",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "221184"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.control",
+      "pool_id": "16",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "0"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.meta",
+      "pool_id": "17",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "4915529"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.log",
+      "pool_id": "18",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "2060747"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.otp",
+      "pool_id": "19",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "0"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "device_health_metrics",
+      "pool_id": "2",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "1624319625"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "gz-01-plat-prod-0001",
+      "pool_id": "21",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "306643596072"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "gz-01-business-prod-0001",
+      "pool_id": "22",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "0"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "images-new",
+      "pool_id": "23",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "232672309085"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "volumes-new",
+      "pool_id": "24",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "7191239392523"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "gz-01-plat-prod-0002",
+      "pool_id": "26",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "11809703127"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "gz-01-plat-prod-0003",
+      "pool_id": "27",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "428082349525"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "images",
+      "pool_id": "3",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "432783894147"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "gz-dc01-tmp-test-0001",
+      "pool_id": "30",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "1569151561"
+    ]
+  },
+  {
+    "metric": {
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "volumes",
+      "pool_id": "4",
+      "type": "replicated"
+    },
+    "value": [
+      1783582771,
+      "46693624488146"
     ]
   }
 ]
-root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
-root@gz-4f31406-ceph-001201:~# TS="$(date +%s)"
-root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_cluster_total_used_raw_bytes' \
->   --data-urlencode "time=$TS" | jq .
+>   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"(^\\.rgw\\.root$|.*\\.rgw\\..*)"})' \
+>   --data-urlencode "time=$TS" \
+>   | jq .
 {
   "status": "success",
   "data": {
     "resultType": "vector",
     "result": [
       {
-        "metric": {
-          "__name__": "ceph_cluster_total_used_raw_bytes",
-          "instance": "gz-4f31406-ceph-001201:9283",
-          "job": "ceph"
-        },
+        "metric": {},
         "value": [
-          1783581709,
-          "211425315295232"
+          1783582771,
+          "139977330269878"
         ]
       }
     ]
   }
 }
-root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_pool_bytes_used' \
->   --data-urlencode "time=$TS" | jq '.data.result[0:5]'
-[
-  {
-    "metric": {
-      "__name__": "ceph_pool_bytes_used",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "10"
-    },
-    "value": [
-      1783581709,
-      "1152051241"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_bytes_used",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "11"
-    },
-    "value": [
-      1783581709,
-      "8007999908"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_bytes_used",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "12"
-    },
-    "value": [
-      1783581709,
-      "21032748073"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_bytes_used",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "13"
-    },
-    "value": [
-      1783581709,
-      "1800418"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_bytes_used",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "14"
-    },
-    "value": [
-      1783581709,
-      "27256893"
+>   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"(^cephfs-.*|.*cephfs.*)"})' \
+>   --data-urlencode "time=$TS" \
+>   | jq .
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1783582771,
+          "106633004595"
+        ]
+      }
     ]
   }
-]
+}
+root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
+>   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"^(images|images-new|volumes|volumes-new|backups|gz-01-plat-prod-.*|gz-01-business-prod-.*|gz-dc01-tmp-test-.*)$"})' \
+>   --data-urlencode "time=$TS" \
+>   | jq .
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1783582771,
+          "55298425781210"
+        ]
+      }
+    ]
+  }
+}
 root@gz-4f31406-ceph-001201:~# 
