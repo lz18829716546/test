@@ -1,347 +1,1485 @@
-root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
-root@gz-4f31406-ceph-001201:~# TS="$(date +%s)"
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name,type,description) ceph_pool_metadata' \
->   --data-urlencode "time=$TS" \
->   | jq '.data.result[0:20]'
-[
-  {
-    "metric": {
-      "description": "replica:4",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "cephfs-metadata",
-      "pool_id": "10",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "1143039539"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.buckets.index",
-      "pool_id": "11",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "8007762627"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.archive.index",
-      "pool_id": "12",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "20895683563"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.buckets.non-ec",
-      "pool_id": "13",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "1800418"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.archive.non-ec",
-      "pool_id": "14",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "26205202"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": ".rgw.root",
-      "pool_id": "15",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "221184"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.control",
-      "pool_id": "16",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "0"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.meta",
-      "pool_id": "17",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "4915529"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.log",
-      "pool_id": "18",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "2060747"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "guangzhou.rgw.otp",
-      "pool_id": "19",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "0"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "device_health_metrics",
-      "pool_id": "2",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "1624319625"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "gz-01-plat-prod-0001",
-      "pool_id": "21",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "306643596072"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "gz-01-business-prod-0001",
-      "pool_id": "22",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "0"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "images-new",
-      "pool_id": "23",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "232672309085"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "volumes-new",
-      "pool_id": "24",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "7191239392523"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "gz-01-plat-prod-0002",
-      "pool_id": "26",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "11809703127"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "gz-01-plat-prod-0003",
-      "pool_id": "27",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "428082349525"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "images",
-      "pool_id": "3",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "432783894147"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "gz-dc01-tmp-test-0001",
-      "pool_id": "30",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "1569151561"
-    ]
-  },
-  {
-    "metric": {
-      "description": "replica:3",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "name": "volumes",
-      "pool_id": "4",
-      "type": "replicated"
-    },
-    "value": [
-      1783582771,
-      "46693624488146"
-    ]
-  }
-]
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"(^\\.rgw\\.root$|.*\\.rgw\\..*)"})' \
->   --data-urlencode "time=$TS" \
->   | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783582771,
-          "139977330269878"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"(^cephfs-.*|.*cephfs.*)"})' \
->   --data-urlencode "time=$TS" \
->   | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783582771,
-          "106633004595"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_bytes_used * on(pool_id,instance,job) group_left(name) ceph_pool_metadata{name=~"^(images|images-new|volumes|volumes-new|backups|gz-01-plat-prod-.*|gz-01-business-prod-.*|gz-dc01-tmp-test-.*)$"})' \
->   --data-urlencode "time=$TS" \
->   | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783582771,
-          "55298425781210"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# 
+root@platform-auto-172-21-44-143:~# 
+root@platform-auto-172-21-44-143:~# curl -sS -k -X GET "${XMS_BASE}/v2/os/overview/samples" \
+  -H "Xms-Auth-Token: ${XMS_TOKEN}" \
+  | jq -r '
+    paths(scalars) as $p
+    | [$p[] | tostring] | join(".")
+  ' | sort -u
+overview_samples.0.cold_data_backend_bytes
+overview_samples.0.cold_data_backend_object_num
+overview_samples.0.data_bytes
+overview_samples.0.del_latency_us
+overview_samples.0.del_ops_pm
+overview_samples.0.down_latency_us
+overview_samples.0.external_data_used_capacity
+overview_samples.0.file_data_backend_bytes
+overview_samples.0.file_data_backend_object_num
+overview_samples.0.list_latency_us
+overview_samples.0.list_ops_pm
+overview_samples.0.local_data_used_capacity
+overview_samples.0.object_data_backend_bytes
+overview_samples.0.object_data_backend_object_num
+overview_samples.0.object_num
+overview_samples.0.raw_data_backend_bytes
+overview_samples.0.raw_data_backend_object_num
+overview_samples.0.rx_bandwidth_kbyte
+overview_samples.0.rx_ops_pm
+overview_samples.0.time
+overview_samples.0.tx_bandwidth_kbyte
+overview_samples.0.tx_ops_pm
+overview_samples.0.up_latency_us
+overview_samples.1.cold_data_backend_bytes
+overview_samples.1.cold_data_backend_object_num
+overview_samples.1.data_bytes
+overview_samples.1.del_latency_us
+overview_samples.1.del_ops_pm
+overview_samples.1.down_latency_us
+overview_samples.1.external_data_used_capacity
+overview_samples.1.file_data_backend_bytes
+overview_samples.1.file_data_backend_object_num
+overview_samples.1.list_latency_us
+overview_samples.1.list_ops_pm
+overview_samples.1.local_data_used_capacity
+overview_samples.1.object_data_backend_bytes
+overview_samples.1.object_data_backend_object_num
+overview_samples.1.object_num
+overview_samples.1.raw_data_backend_bytes
+overview_samples.1.raw_data_backend_object_num
+overview_samples.1.rx_bandwidth_kbyte
+overview_samples.1.rx_ops_pm
+overview_samples.1.time
+overview_samples.1.tx_bandwidth_kbyte
+overview_samples.1.tx_ops_pm
+overview_samples.1.up_latency_us
+overview_samples.10.cold_data_backend_bytes
+overview_samples.10.cold_data_backend_object_num
+overview_samples.10.data_bytes
+overview_samples.10.del_latency_us
+overview_samples.10.del_ops_pm
+overview_samples.10.down_latency_us
+overview_samples.10.external_data_used_capacity
+overview_samples.10.file_data_backend_bytes
+overview_samples.10.file_data_backend_object_num
+overview_samples.10.list_latency_us
+overview_samples.10.list_ops_pm
+overview_samples.10.local_data_used_capacity
+overview_samples.10.object_data_backend_bytes
+overview_samples.10.object_data_backend_object_num
+overview_samples.10.object_num
+overview_samples.10.raw_data_backend_bytes
+overview_samples.10.raw_data_backend_object_num
+overview_samples.10.rx_bandwidth_kbyte
+overview_samples.10.rx_ops_pm
+overview_samples.10.time
+overview_samples.10.tx_bandwidth_kbyte
+overview_samples.10.tx_ops_pm
+overview_samples.10.up_latency_us
+overview_samples.11.cold_data_backend_bytes
+overview_samples.11.cold_data_backend_object_num
+overview_samples.11.data_bytes
+overview_samples.11.del_latency_us
+overview_samples.11.del_ops_pm
+overview_samples.11.down_latency_us
+overview_samples.11.external_data_used_capacity
+overview_samples.11.file_data_backend_bytes
+overview_samples.11.file_data_backend_object_num
+overview_samples.11.list_latency_us
+overview_samples.11.list_ops_pm
+overview_samples.11.local_data_used_capacity
+overview_samples.11.object_data_backend_bytes
+overview_samples.11.object_data_backend_object_num
+overview_samples.11.object_num
+overview_samples.11.raw_data_backend_bytes
+overview_samples.11.raw_data_backend_object_num
+overview_samples.11.rx_bandwidth_kbyte
+overview_samples.11.rx_ops_pm
+overview_samples.11.time
+overview_samples.11.tx_bandwidth_kbyte
+overview_samples.11.tx_ops_pm
+overview_samples.11.up_latency_us
+overview_samples.12.cold_data_backend_bytes
+overview_samples.12.cold_data_backend_object_num
+overview_samples.12.data_bytes
+overview_samples.12.del_latency_us
+overview_samples.12.del_ops_pm
+overview_samples.12.down_latency_us
+overview_samples.12.external_data_used_capacity
+overview_samples.12.file_data_backend_bytes
+overview_samples.12.file_data_backend_object_num
+overview_samples.12.list_latency_us
+overview_samples.12.list_ops_pm
+overview_samples.12.local_data_used_capacity
+overview_samples.12.object_data_backend_bytes
+overview_samples.12.object_data_backend_object_num
+overview_samples.12.object_num
+overview_samples.12.raw_data_backend_bytes
+overview_samples.12.raw_data_backend_object_num
+overview_samples.12.rx_bandwidth_kbyte
+overview_samples.12.rx_ops_pm
+overview_samples.12.time
+overview_samples.12.tx_bandwidth_kbyte
+overview_samples.12.tx_ops_pm
+overview_samples.12.up_latency_us
+overview_samples.13.cold_data_backend_bytes
+overview_samples.13.cold_data_backend_object_num
+overview_samples.13.data_bytes
+overview_samples.13.del_latency_us
+overview_samples.13.del_ops_pm
+overview_samples.13.down_latency_us
+overview_samples.13.external_data_used_capacity
+overview_samples.13.file_data_backend_bytes
+overview_samples.13.file_data_backend_object_num
+overview_samples.13.list_latency_us
+overview_samples.13.list_ops_pm
+overview_samples.13.local_data_used_capacity
+overview_samples.13.object_data_backend_bytes
+overview_samples.13.object_data_backend_object_num
+overview_samples.13.object_num
+overview_samples.13.raw_data_backend_bytes
+overview_samples.13.raw_data_backend_object_num
+overview_samples.13.rx_bandwidth_kbyte
+overview_samples.13.rx_ops_pm
+overview_samples.13.time
+overview_samples.13.tx_bandwidth_kbyte
+overview_samples.13.tx_ops_pm
+overview_samples.13.up_latency_us
+overview_samples.14.cold_data_backend_bytes
+overview_samples.14.cold_data_backend_object_num
+overview_samples.14.data_bytes
+overview_samples.14.del_latency_us
+overview_samples.14.del_ops_pm
+overview_samples.14.down_latency_us
+overview_samples.14.external_data_used_capacity
+overview_samples.14.file_data_backend_bytes
+overview_samples.14.file_data_backend_object_num
+overview_samples.14.list_latency_us
+overview_samples.14.list_ops_pm
+overview_samples.14.local_data_used_capacity
+overview_samples.14.object_data_backend_bytes
+overview_samples.14.object_data_backend_object_num
+overview_samples.14.object_num
+overview_samples.14.raw_data_backend_bytes
+overview_samples.14.raw_data_backend_object_num
+overview_samples.14.rx_bandwidth_kbyte
+overview_samples.14.rx_ops_pm
+overview_samples.14.time
+overview_samples.14.tx_bandwidth_kbyte
+overview_samples.14.tx_ops_pm
+overview_samples.14.up_latency_us
+overview_samples.15.cold_data_backend_bytes
+overview_samples.15.cold_data_backend_object_num
+overview_samples.15.data_bytes
+overview_samples.15.del_latency_us
+overview_samples.15.del_ops_pm
+overview_samples.15.down_latency_us
+overview_samples.15.external_data_used_capacity
+overview_samples.15.file_data_backend_bytes
+overview_samples.15.file_data_backend_object_num
+overview_samples.15.list_latency_us
+overview_samples.15.list_ops_pm
+overview_samples.15.local_data_used_capacity
+overview_samples.15.object_data_backend_bytes
+overview_samples.15.object_data_backend_object_num
+overview_samples.15.object_num
+overview_samples.15.raw_data_backend_bytes
+overview_samples.15.raw_data_backend_object_num
+overview_samples.15.rx_bandwidth_kbyte
+overview_samples.15.rx_ops_pm
+overview_samples.15.time
+overview_samples.15.tx_bandwidth_kbyte
+overview_samples.15.tx_ops_pm
+overview_samples.15.up_latency_us
+overview_samples.16.cold_data_backend_bytes
+overview_samples.16.cold_data_backend_object_num
+overview_samples.16.data_bytes
+overview_samples.16.del_latency_us
+overview_samples.16.del_ops_pm
+overview_samples.16.down_latency_us
+overview_samples.16.external_data_used_capacity
+overview_samples.16.file_data_backend_bytes
+overview_samples.16.file_data_backend_object_num
+overview_samples.16.list_latency_us
+overview_samples.16.list_ops_pm
+overview_samples.16.local_data_used_capacity
+overview_samples.16.object_data_backend_bytes
+overview_samples.16.object_data_backend_object_num
+overview_samples.16.object_num
+overview_samples.16.raw_data_backend_bytes
+overview_samples.16.raw_data_backend_object_num
+overview_samples.16.rx_bandwidth_kbyte
+overview_samples.16.rx_ops_pm
+overview_samples.16.time
+overview_samples.16.tx_bandwidth_kbyte
+overview_samples.16.tx_ops_pm
+overview_samples.16.up_latency_us
+overview_samples.17.cold_data_backend_bytes
+overview_samples.17.cold_data_backend_object_num
+overview_samples.17.data_bytes
+overview_samples.17.del_latency_us
+overview_samples.17.del_ops_pm
+overview_samples.17.down_latency_us
+overview_samples.17.external_data_used_capacity
+overview_samples.17.file_data_backend_bytes
+overview_samples.17.file_data_backend_object_num
+overview_samples.17.list_latency_us
+overview_samples.17.list_ops_pm
+overview_samples.17.local_data_used_capacity
+overview_samples.17.object_data_backend_bytes
+overview_samples.17.object_data_backend_object_num
+overview_samples.17.object_num
+overview_samples.17.raw_data_backend_bytes
+overview_samples.17.raw_data_backend_object_num
+overview_samples.17.rx_bandwidth_kbyte
+overview_samples.17.rx_ops_pm
+overview_samples.17.time
+overview_samples.17.tx_bandwidth_kbyte
+overview_samples.17.tx_ops_pm
+overview_samples.17.up_latency_us
+overview_samples.18.cold_data_backend_bytes
+overview_samples.18.cold_data_backend_object_num
+overview_samples.18.data_bytes
+overview_samples.18.del_latency_us
+overview_samples.18.del_ops_pm
+overview_samples.18.down_latency_us
+overview_samples.18.external_data_used_capacity
+overview_samples.18.file_data_backend_bytes
+overview_samples.18.file_data_backend_object_num
+overview_samples.18.list_latency_us
+overview_samples.18.list_ops_pm
+overview_samples.18.local_data_used_capacity
+overview_samples.18.object_data_backend_bytes
+overview_samples.18.object_data_backend_object_num
+overview_samples.18.object_num
+overview_samples.18.raw_data_backend_bytes
+overview_samples.18.raw_data_backend_object_num
+overview_samples.18.rx_bandwidth_kbyte
+overview_samples.18.rx_ops_pm
+overview_samples.18.time
+overview_samples.18.tx_bandwidth_kbyte
+overview_samples.18.tx_ops_pm
+overview_samples.18.up_latency_us
+overview_samples.19.cold_data_backend_bytes
+overview_samples.19.cold_data_backend_object_num
+overview_samples.19.data_bytes
+overview_samples.19.del_latency_us
+overview_samples.19.del_ops_pm
+overview_samples.19.down_latency_us
+overview_samples.19.external_data_used_capacity
+overview_samples.19.file_data_backend_bytes
+overview_samples.19.file_data_backend_object_num
+overview_samples.19.list_latency_us
+overview_samples.19.list_ops_pm
+overview_samples.19.local_data_used_capacity
+overview_samples.19.object_data_backend_bytes
+overview_samples.19.object_data_backend_object_num
+overview_samples.19.object_num
+overview_samples.19.raw_data_backend_bytes
+overview_samples.19.raw_data_backend_object_num
+overview_samples.19.rx_bandwidth_kbyte
+overview_samples.19.rx_ops_pm
+overview_samples.19.time
+overview_samples.19.tx_bandwidth_kbyte
+overview_samples.19.tx_ops_pm
+overview_samples.19.up_latency_us
+overview_samples.2.cold_data_backend_bytes
+overview_samples.2.cold_data_backend_object_num
+overview_samples.2.data_bytes
+overview_samples.2.del_latency_us
+overview_samples.2.del_ops_pm
+overview_samples.2.down_latency_us
+overview_samples.2.external_data_used_capacity
+overview_samples.2.file_data_backend_bytes
+overview_samples.2.file_data_backend_object_num
+overview_samples.2.list_latency_us
+overview_samples.2.list_ops_pm
+overview_samples.2.local_data_used_capacity
+overview_samples.2.object_data_backend_bytes
+overview_samples.2.object_data_backend_object_num
+overview_samples.2.object_num
+overview_samples.2.raw_data_backend_bytes
+overview_samples.2.raw_data_backend_object_num
+overview_samples.2.rx_bandwidth_kbyte
+overview_samples.2.rx_ops_pm
+overview_samples.2.time
+overview_samples.2.tx_bandwidth_kbyte
+overview_samples.2.tx_ops_pm
+overview_samples.2.up_latency_us
+overview_samples.20.cold_data_backend_bytes
+overview_samples.20.cold_data_backend_object_num
+overview_samples.20.data_bytes
+overview_samples.20.del_latency_us
+overview_samples.20.del_ops_pm
+overview_samples.20.down_latency_us
+overview_samples.20.external_data_used_capacity
+overview_samples.20.file_data_backend_bytes
+overview_samples.20.file_data_backend_object_num
+overview_samples.20.list_latency_us
+overview_samples.20.list_ops_pm
+overview_samples.20.local_data_used_capacity
+overview_samples.20.object_data_backend_bytes
+overview_samples.20.object_data_backend_object_num
+overview_samples.20.object_num
+overview_samples.20.raw_data_backend_bytes
+overview_samples.20.raw_data_backend_object_num
+overview_samples.20.rx_bandwidth_kbyte
+overview_samples.20.rx_ops_pm
+overview_samples.20.time
+overview_samples.20.tx_bandwidth_kbyte
+overview_samples.20.tx_ops_pm
+overview_samples.20.up_latency_us
+overview_samples.21.cold_data_backend_bytes
+overview_samples.21.cold_data_backend_object_num
+overview_samples.21.data_bytes
+overview_samples.21.del_latency_us
+overview_samples.21.del_ops_pm
+overview_samples.21.down_latency_us
+overview_samples.21.external_data_used_capacity
+overview_samples.21.file_data_backend_bytes
+overview_samples.21.file_data_backend_object_num
+overview_samples.21.list_latency_us
+overview_samples.21.list_ops_pm
+overview_samples.21.local_data_used_capacity
+overview_samples.21.object_data_backend_bytes
+overview_samples.21.object_data_backend_object_num
+overview_samples.21.object_num
+overview_samples.21.raw_data_backend_bytes
+overview_samples.21.raw_data_backend_object_num
+overview_samples.21.rx_bandwidth_kbyte
+overview_samples.21.rx_ops_pm
+overview_samples.21.time
+overview_samples.21.tx_bandwidth_kbyte
+overview_samples.21.tx_ops_pm
+overview_samples.21.up_latency_us
+overview_samples.22.cold_data_backend_bytes
+overview_samples.22.cold_data_backend_object_num
+overview_samples.22.data_bytes
+overview_samples.22.del_latency_us
+overview_samples.22.del_ops_pm
+overview_samples.22.down_latency_us
+overview_samples.22.external_data_used_capacity
+overview_samples.22.file_data_backend_bytes
+overview_samples.22.file_data_backend_object_num
+overview_samples.22.list_latency_us
+overview_samples.22.list_ops_pm
+overview_samples.22.local_data_used_capacity
+overview_samples.22.object_data_backend_bytes
+overview_samples.22.object_data_backend_object_num
+overview_samples.22.object_num
+overview_samples.22.raw_data_backend_bytes
+overview_samples.22.raw_data_backend_object_num
+overview_samples.22.rx_bandwidth_kbyte
+overview_samples.22.rx_ops_pm
+overview_samples.22.time
+overview_samples.22.tx_bandwidth_kbyte
+overview_samples.22.tx_ops_pm
+overview_samples.22.up_latency_us
+overview_samples.23.cold_data_backend_bytes
+overview_samples.23.cold_data_backend_object_num
+overview_samples.23.data_bytes
+overview_samples.23.del_latency_us
+overview_samples.23.del_ops_pm
+overview_samples.23.down_latency_us
+overview_samples.23.external_data_used_capacity
+overview_samples.23.file_data_backend_bytes
+overview_samples.23.file_data_backend_object_num
+overview_samples.23.list_latency_us
+overview_samples.23.list_ops_pm
+overview_samples.23.local_data_used_capacity
+overview_samples.23.object_data_backend_bytes
+overview_samples.23.object_data_backend_object_num
+overview_samples.23.object_num
+overview_samples.23.raw_data_backend_bytes
+overview_samples.23.raw_data_backend_object_num
+overview_samples.23.rx_bandwidth_kbyte
+overview_samples.23.rx_ops_pm
+overview_samples.23.time
+overview_samples.23.tx_bandwidth_kbyte
+overview_samples.23.tx_ops_pm
+overview_samples.23.up_latency_us
+overview_samples.24.cold_data_backend_bytes
+overview_samples.24.cold_data_backend_object_num
+overview_samples.24.data_bytes
+overview_samples.24.del_latency_us
+overview_samples.24.del_ops_pm
+overview_samples.24.down_latency_us
+overview_samples.24.external_data_used_capacity
+overview_samples.24.file_data_backend_bytes
+overview_samples.24.file_data_backend_object_num
+overview_samples.24.list_latency_us
+overview_samples.24.list_ops_pm
+overview_samples.24.local_data_used_capacity
+overview_samples.24.object_data_backend_bytes
+overview_samples.24.object_data_backend_object_num
+overview_samples.24.object_num
+overview_samples.24.raw_data_backend_bytes
+overview_samples.24.raw_data_backend_object_num
+overview_samples.24.rx_bandwidth_kbyte
+overview_samples.24.rx_ops_pm
+overview_samples.24.time
+overview_samples.24.tx_bandwidth_kbyte
+overview_samples.24.tx_ops_pm
+overview_samples.24.up_latency_us
+overview_samples.25.cold_data_backend_bytes
+overview_samples.25.cold_data_backend_object_num
+overview_samples.25.data_bytes
+overview_samples.25.del_latency_us
+overview_samples.25.del_ops_pm
+overview_samples.25.down_latency_us
+overview_samples.25.external_data_used_capacity
+overview_samples.25.file_data_backend_bytes
+overview_samples.25.file_data_backend_object_num
+overview_samples.25.list_latency_us
+overview_samples.25.list_ops_pm
+overview_samples.25.local_data_used_capacity
+overview_samples.25.object_data_backend_bytes
+overview_samples.25.object_data_backend_object_num
+overview_samples.25.object_num
+overview_samples.25.raw_data_backend_bytes
+overview_samples.25.raw_data_backend_object_num
+overview_samples.25.rx_bandwidth_kbyte
+overview_samples.25.rx_ops_pm
+overview_samples.25.time
+overview_samples.25.tx_bandwidth_kbyte
+overview_samples.25.tx_ops_pm
+overview_samples.25.up_latency_us
+overview_samples.26.cold_data_backend_bytes
+overview_samples.26.cold_data_backend_object_num
+overview_samples.26.data_bytes
+overview_samples.26.del_latency_us
+overview_samples.26.del_ops_pm
+overview_samples.26.down_latency_us
+overview_samples.26.external_data_used_capacity
+overview_samples.26.file_data_backend_bytes
+overview_samples.26.file_data_backend_object_num
+overview_samples.26.list_latency_us
+overview_samples.26.list_ops_pm
+overview_samples.26.local_data_used_capacity
+overview_samples.26.object_data_backend_bytes
+overview_samples.26.object_data_backend_object_num
+overview_samples.26.object_num
+overview_samples.26.raw_data_backend_bytes
+overview_samples.26.raw_data_backend_object_num
+overview_samples.26.rx_bandwidth_kbyte
+overview_samples.26.rx_ops_pm
+overview_samples.26.time
+overview_samples.26.tx_bandwidth_kbyte
+overview_samples.26.tx_ops_pm
+overview_samples.26.up_latency_us
+overview_samples.27.cold_data_backend_bytes
+overview_samples.27.cold_data_backend_object_num
+overview_samples.27.data_bytes
+overview_samples.27.del_latency_us
+overview_samples.27.del_ops_pm
+overview_samples.27.down_latency_us
+overview_samples.27.external_data_used_capacity
+overview_samples.27.file_data_backend_bytes
+overview_samples.27.file_data_backend_object_num
+overview_samples.27.list_latency_us
+overview_samples.27.list_ops_pm
+overview_samples.27.local_data_used_capacity
+overview_samples.27.object_data_backend_bytes
+overview_samples.27.object_data_backend_object_num
+overview_samples.27.object_num
+overview_samples.27.raw_data_backend_bytes
+overview_samples.27.raw_data_backend_object_num
+overview_samples.27.rx_bandwidth_kbyte
+overview_samples.27.rx_ops_pm
+overview_samples.27.time
+overview_samples.27.tx_bandwidth_kbyte
+overview_samples.27.tx_ops_pm
+overview_samples.27.up_latency_us
+overview_samples.28.cold_data_backend_bytes
+overview_samples.28.cold_data_backend_object_num
+overview_samples.28.data_bytes
+overview_samples.28.del_latency_us
+overview_samples.28.del_ops_pm
+overview_samples.28.down_latency_us
+overview_samples.28.external_data_used_capacity
+overview_samples.28.file_data_backend_bytes
+overview_samples.28.file_data_backend_object_num
+overview_samples.28.list_latency_us
+overview_samples.28.list_ops_pm
+overview_samples.28.local_data_used_capacity
+overview_samples.28.object_data_backend_bytes
+overview_samples.28.object_data_backend_object_num
+overview_samples.28.object_num
+overview_samples.28.raw_data_backend_bytes
+overview_samples.28.raw_data_backend_object_num
+overview_samples.28.rx_bandwidth_kbyte
+overview_samples.28.rx_ops_pm
+overview_samples.28.time
+overview_samples.28.tx_bandwidth_kbyte
+overview_samples.28.tx_ops_pm
+overview_samples.28.up_latency_us
+overview_samples.29.cold_data_backend_bytes
+overview_samples.29.cold_data_backend_object_num
+overview_samples.29.data_bytes
+overview_samples.29.del_latency_us
+overview_samples.29.del_ops_pm
+overview_samples.29.down_latency_us
+overview_samples.29.external_data_used_capacity
+overview_samples.29.file_data_backend_bytes
+overview_samples.29.file_data_backend_object_num
+overview_samples.29.list_latency_us
+overview_samples.29.list_ops_pm
+overview_samples.29.local_data_used_capacity
+overview_samples.29.object_data_backend_bytes
+overview_samples.29.object_data_backend_object_num
+overview_samples.29.object_num
+overview_samples.29.raw_data_backend_bytes
+overview_samples.29.raw_data_backend_object_num
+overview_samples.29.rx_bandwidth_kbyte
+overview_samples.29.rx_ops_pm
+overview_samples.29.time
+overview_samples.29.tx_bandwidth_kbyte
+overview_samples.29.tx_ops_pm
+overview_samples.29.up_latency_us
+overview_samples.3.cold_data_backend_bytes
+overview_samples.3.cold_data_backend_object_num
+overview_samples.3.data_bytes
+overview_samples.3.del_latency_us
+overview_samples.3.del_ops_pm
+overview_samples.3.down_latency_us
+overview_samples.3.external_data_used_capacity
+overview_samples.3.file_data_backend_bytes
+overview_samples.3.file_data_backend_object_num
+overview_samples.3.list_latency_us
+overview_samples.3.list_ops_pm
+overview_samples.3.local_data_used_capacity
+overview_samples.3.object_data_backend_bytes
+overview_samples.3.object_data_backend_object_num
+overview_samples.3.object_num
+overview_samples.3.raw_data_backend_bytes
+overview_samples.3.raw_data_backend_object_num
+overview_samples.3.rx_bandwidth_kbyte
+overview_samples.3.rx_ops_pm
+overview_samples.3.time
+overview_samples.3.tx_bandwidth_kbyte
+overview_samples.3.tx_ops_pm
+overview_samples.3.up_latency_us
+overview_samples.30.cold_data_backend_bytes
+overview_samples.30.cold_data_backend_object_num
+overview_samples.30.data_bytes
+overview_samples.30.del_latency_us
+overview_samples.30.del_ops_pm
+overview_samples.30.down_latency_us
+overview_samples.30.external_data_used_capacity
+overview_samples.30.file_data_backend_bytes
+overview_samples.30.file_data_backend_object_num
+overview_samples.30.list_latency_us
+overview_samples.30.list_ops_pm
+overview_samples.30.local_data_used_capacity
+overview_samples.30.object_data_backend_bytes
+overview_samples.30.object_data_backend_object_num
+overview_samples.30.object_num
+overview_samples.30.raw_data_backend_bytes
+overview_samples.30.raw_data_backend_object_num
+overview_samples.30.rx_bandwidth_kbyte
+overview_samples.30.rx_ops_pm
+overview_samples.30.time
+overview_samples.30.tx_bandwidth_kbyte
+overview_samples.30.tx_ops_pm
+overview_samples.30.up_latency_us
+overview_samples.31.cold_data_backend_bytes
+overview_samples.31.cold_data_backend_object_num
+overview_samples.31.data_bytes
+overview_samples.31.del_latency_us
+overview_samples.31.del_ops_pm
+overview_samples.31.down_latency_us
+overview_samples.31.external_data_used_capacity
+overview_samples.31.file_data_backend_bytes
+overview_samples.31.file_data_backend_object_num
+overview_samples.31.list_latency_us
+overview_samples.31.list_ops_pm
+overview_samples.31.local_data_used_capacity
+overview_samples.31.object_data_backend_bytes
+overview_samples.31.object_data_backend_object_num
+overview_samples.31.object_num
+overview_samples.31.raw_data_backend_bytes
+overview_samples.31.raw_data_backend_object_num
+overview_samples.31.rx_bandwidth_kbyte
+overview_samples.31.rx_ops_pm
+overview_samples.31.time
+overview_samples.31.tx_bandwidth_kbyte
+overview_samples.31.tx_ops_pm
+overview_samples.31.up_latency_us
+overview_samples.32.cold_data_backend_bytes
+overview_samples.32.cold_data_backend_object_num
+overview_samples.32.data_bytes
+overview_samples.32.del_latency_us
+overview_samples.32.del_ops_pm
+overview_samples.32.down_latency_us
+overview_samples.32.external_data_used_capacity
+overview_samples.32.file_data_backend_bytes
+overview_samples.32.file_data_backend_object_num
+overview_samples.32.list_latency_us
+overview_samples.32.list_ops_pm
+overview_samples.32.local_data_used_capacity
+overview_samples.32.object_data_backend_bytes
+overview_samples.32.object_data_backend_object_num
+overview_samples.32.object_num
+overview_samples.32.raw_data_backend_bytes
+overview_samples.32.raw_data_backend_object_num
+overview_samples.32.rx_bandwidth_kbyte
+overview_samples.32.rx_ops_pm
+overview_samples.32.time
+overview_samples.32.tx_bandwidth_kbyte
+overview_samples.32.tx_ops_pm
+overview_samples.32.up_latency_us
+overview_samples.33.cold_data_backend_bytes
+overview_samples.33.cold_data_backend_object_num
+overview_samples.33.data_bytes
+overview_samples.33.del_latency_us
+overview_samples.33.del_ops_pm
+overview_samples.33.down_latency_us
+overview_samples.33.external_data_used_capacity
+overview_samples.33.file_data_backend_bytes
+overview_samples.33.file_data_backend_object_num
+overview_samples.33.list_latency_us
+overview_samples.33.list_ops_pm
+overview_samples.33.local_data_used_capacity
+overview_samples.33.object_data_backend_bytes
+overview_samples.33.object_data_backend_object_num
+overview_samples.33.object_num
+overview_samples.33.raw_data_backend_bytes
+overview_samples.33.raw_data_backend_object_num
+overview_samples.33.rx_bandwidth_kbyte
+overview_samples.33.rx_ops_pm
+overview_samples.33.time
+overview_samples.33.tx_bandwidth_kbyte
+overview_samples.33.tx_ops_pm
+overview_samples.33.up_latency_us
+overview_samples.34.cold_data_backend_bytes
+overview_samples.34.cold_data_backend_object_num
+overview_samples.34.data_bytes
+overview_samples.34.del_latency_us
+overview_samples.34.del_ops_pm
+overview_samples.34.down_latency_us
+overview_samples.34.external_data_used_capacity
+overview_samples.34.file_data_backend_bytes
+overview_samples.34.file_data_backend_object_num
+overview_samples.34.list_latency_us
+overview_samples.34.list_ops_pm
+overview_samples.34.local_data_used_capacity
+overview_samples.34.object_data_backend_bytes
+overview_samples.34.object_data_backend_object_num
+overview_samples.34.object_num
+overview_samples.34.raw_data_backend_bytes
+overview_samples.34.raw_data_backend_object_num
+overview_samples.34.rx_bandwidth_kbyte
+overview_samples.34.rx_ops_pm
+overview_samples.34.time
+overview_samples.34.tx_bandwidth_kbyte
+overview_samples.34.tx_ops_pm
+overview_samples.34.up_latency_us
+overview_samples.35.cold_data_backend_bytes
+overview_samples.35.cold_data_backend_object_num
+overview_samples.35.data_bytes
+overview_samples.35.del_latency_us
+overview_samples.35.del_ops_pm
+overview_samples.35.down_latency_us
+overview_samples.35.external_data_used_capacity
+overview_samples.35.file_data_backend_bytes
+overview_samples.35.file_data_backend_object_num
+overview_samples.35.list_latency_us
+overview_samples.35.list_ops_pm
+overview_samples.35.local_data_used_capacity
+overview_samples.35.object_data_backend_bytes
+overview_samples.35.object_data_backend_object_num
+overview_samples.35.object_num
+overview_samples.35.raw_data_backend_bytes
+overview_samples.35.raw_data_backend_object_num
+overview_samples.35.rx_bandwidth_kbyte
+overview_samples.35.rx_ops_pm
+overview_samples.35.time
+overview_samples.35.tx_bandwidth_kbyte
+overview_samples.35.tx_ops_pm
+overview_samples.35.up_latency_us
+overview_samples.36.cold_data_backend_bytes
+overview_samples.36.cold_data_backend_object_num
+overview_samples.36.data_bytes
+overview_samples.36.del_latency_us
+overview_samples.36.del_ops_pm
+overview_samples.36.down_latency_us
+overview_samples.36.external_data_used_capacity
+overview_samples.36.file_data_backend_bytes
+overview_samples.36.file_data_backend_object_num
+overview_samples.36.list_latency_us
+overview_samples.36.list_ops_pm
+overview_samples.36.local_data_used_capacity
+overview_samples.36.object_data_backend_bytes
+overview_samples.36.object_data_backend_object_num
+overview_samples.36.object_num
+overview_samples.36.raw_data_backend_bytes
+overview_samples.36.raw_data_backend_object_num
+overview_samples.36.rx_bandwidth_kbyte
+overview_samples.36.rx_ops_pm
+overview_samples.36.time
+overview_samples.36.tx_bandwidth_kbyte
+overview_samples.36.tx_ops_pm
+overview_samples.36.up_latency_us
+overview_samples.37.cold_data_backend_bytes
+overview_samples.37.cold_data_backend_object_num
+overview_samples.37.data_bytes
+overview_samples.37.del_latency_us
+overview_samples.37.del_ops_pm
+overview_samples.37.down_latency_us
+overview_samples.37.external_data_used_capacity
+overview_samples.37.file_data_backend_bytes
+overview_samples.37.file_data_backend_object_num
+overview_samples.37.list_latency_us
+overview_samples.37.list_ops_pm
+overview_samples.37.local_data_used_capacity
+overview_samples.37.object_data_backend_bytes
+overview_samples.37.object_data_backend_object_num
+overview_samples.37.object_num
+overview_samples.37.raw_data_backend_bytes
+overview_samples.37.raw_data_backend_object_num
+overview_samples.37.rx_bandwidth_kbyte
+overview_samples.37.rx_ops_pm
+overview_samples.37.time
+overview_samples.37.tx_bandwidth_kbyte
+overview_samples.37.tx_ops_pm
+overview_samples.37.up_latency_us
+overview_samples.38.cold_data_backend_bytes
+overview_samples.38.cold_data_backend_object_num
+overview_samples.38.data_bytes
+overview_samples.38.del_latency_us
+overview_samples.38.del_ops_pm
+overview_samples.38.down_latency_us
+overview_samples.38.external_data_used_capacity
+overview_samples.38.file_data_backend_bytes
+overview_samples.38.file_data_backend_object_num
+overview_samples.38.list_latency_us
+overview_samples.38.list_ops_pm
+overview_samples.38.local_data_used_capacity
+overview_samples.38.object_data_backend_bytes
+overview_samples.38.object_data_backend_object_num
+overview_samples.38.object_num
+overview_samples.38.raw_data_backend_bytes
+overview_samples.38.raw_data_backend_object_num
+overview_samples.38.rx_bandwidth_kbyte
+overview_samples.38.rx_ops_pm
+overview_samples.38.time
+overview_samples.38.tx_bandwidth_kbyte
+overview_samples.38.tx_ops_pm
+overview_samples.38.up_latency_us
+overview_samples.39.cold_data_backend_bytes
+overview_samples.39.cold_data_backend_object_num
+overview_samples.39.data_bytes
+overview_samples.39.del_latency_us
+overview_samples.39.del_ops_pm
+overview_samples.39.down_latency_us
+overview_samples.39.external_data_used_capacity
+overview_samples.39.file_data_backend_bytes
+overview_samples.39.file_data_backend_object_num
+overview_samples.39.list_latency_us
+overview_samples.39.list_ops_pm
+overview_samples.39.local_data_used_capacity
+overview_samples.39.object_data_backend_bytes
+overview_samples.39.object_data_backend_object_num
+overview_samples.39.object_num
+overview_samples.39.raw_data_backend_bytes
+overview_samples.39.raw_data_backend_object_num
+overview_samples.39.rx_bandwidth_kbyte
+overview_samples.39.rx_ops_pm
+overview_samples.39.time
+overview_samples.39.tx_bandwidth_kbyte
+overview_samples.39.tx_ops_pm
+overview_samples.39.up_latency_us
+overview_samples.4.cold_data_backend_bytes
+overview_samples.4.cold_data_backend_object_num
+overview_samples.4.data_bytes
+overview_samples.4.del_latency_us
+overview_samples.4.del_ops_pm
+overview_samples.4.down_latency_us
+overview_samples.4.external_data_used_capacity
+overview_samples.4.file_data_backend_bytes
+overview_samples.4.file_data_backend_object_num
+overview_samples.4.list_latency_us
+overview_samples.4.list_ops_pm
+overview_samples.4.local_data_used_capacity
+overview_samples.4.object_data_backend_bytes
+overview_samples.4.object_data_backend_object_num
+overview_samples.4.object_num
+overview_samples.4.raw_data_backend_bytes
+overview_samples.4.raw_data_backend_object_num
+overview_samples.4.rx_bandwidth_kbyte
+overview_samples.4.rx_ops_pm
+overview_samples.4.time
+overview_samples.4.tx_bandwidth_kbyte
+overview_samples.4.tx_ops_pm
+overview_samples.4.up_latency_us
+overview_samples.40.cold_data_backend_bytes
+overview_samples.40.cold_data_backend_object_num
+overview_samples.40.data_bytes
+overview_samples.40.del_latency_us
+overview_samples.40.del_ops_pm
+overview_samples.40.down_latency_us
+overview_samples.40.external_data_used_capacity
+overview_samples.40.file_data_backend_bytes
+overview_samples.40.file_data_backend_object_num
+overview_samples.40.list_latency_us
+overview_samples.40.list_ops_pm
+overview_samples.40.local_data_used_capacity
+overview_samples.40.object_data_backend_bytes
+overview_samples.40.object_data_backend_object_num
+overview_samples.40.object_num
+overview_samples.40.raw_data_backend_bytes
+overview_samples.40.raw_data_backend_object_num
+overview_samples.40.rx_bandwidth_kbyte
+overview_samples.40.rx_ops_pm
+overview_samples.40.time
+overview_samples.40.tx_bandwidth_kbyte
+overview_samples.40.tx_ops_pm
+overview_samples.40.up_latency_us
+overview_samples.41.cold_data_backend_bytes
+overview_samples.41.cold_data_backend_object_num
+overview_samples.41.data_bytes
+overview_samples.41.del_latency_us
+overview_samples.41.del_ops_pm
+overview_samples.41.down_latency_us
+overview_samples.41.external_data_used_capacity
+overview_samples.41.file_data_backend_bytes
+overview_samples.41.file_data_backend_object_num
+overview_samples.41.list_latency_us
+overview_samples.41.list_ops_pm
+overview_samples.41.local_data_used_capacity
+overview_samples.41.object_data_backend_bytes
+overview_samples.41.object_data_backend_object_num
+overview_samples.41.object_num
+overview_samples.41.raw_data_backend_bytes
+overview_samples.41.raw_data_backend_object_num
+overview_samples.41.rx_bandwidth_kbyte
+overview_samples.41.rx_ops_pm
+overview_samples.41.time
+overview_samples.41.tx_bandwidth_kbyte
+overview_samples.41.tx_ops_pm
+overview_samples.41.up_latency_us
+overview_samples.42.cold_data_backend_bytes
+overview_samples.42.cold_data_backend_object_num
+overview_samples.42.data_bytes
+overview_samples.42.del_latency_us
+overview_samples.42.del_ops_pm
+overview_samples.42.down_latency_us
+overview_samples.42.external_data_used_capacity
+overview_samples.42.file_data_backend_bytes
+overview_samples.42.file_data_backend_object_num
+overview_samples.42.list_latency_us
+overview_samples.42.list_ops_pm
+overview_samples.42.local_data_used_capacity
+overview_samples.42.object_data_backend_bytes
+overview_samples.42.object_data_backend_object_num
+overview_samples.42.object_num
+overview_samples.42.raw_data_backend_bytes
+overview_samples.42.raw_data_backend_object_num
+overview_samples.42.rx_bandwidth_kbyte
+overview_samples.42.rx_ops_pm
+overview_samples.42.time
+overview_samples.42.tx_bandwidth_kbyte
+overview_samples.42.tx_ops_pm
+overview_samples.42.up_latency_us
+overview_samples.43.cold_data_backend_bytes
+overview_samples.43.cold_data_backend_object_num
+overview_samples.43.data_bytes
+overview_samples.43.del_latency_us
+overview_samples.43.del_ops_pm
+overview_samples.43.down_latency_us
+overview_samples.43.external_data_used_capacity
+overview_samples.43.file_data_backend_bytes
+overview_samples.43.file_data_backend_object_num
+overview_samples.43.list_latency_us
+overview_samples.43.list_ops_pm
+overview_samples.43.local_data_used_capacity
+overview_samples.43.object_data_backend_bytes
+overview_samples.43.object_data_backend_object_num
+overview_samples.43.object_num
+overview_samples.43.raw_data_backend_bytes
+overview_samples.43.raw_data_backend_object_num
+overview_samples.43.rx_bandwidth_kbyte
+overview_samples.43.rx_ops_pm
+overview_samples.43.time
+overview_samples.43.tx_bandwidth_kbyte
+overview_samples.43.tx_ops_pm
+overview_samples.43.up_latency_us
+overview_samples.44.cold_data_backend_bytes
+overview_samples.44.cold_data_backend_object_num
+overview_samples.44.data_bytes
+overview_samples.44.del_latency_us
+overview_samples.44.del_ops_pm
+overview_samples.44.down_latency_us
+overview_samples.44.external_data_used_capacity
+overview_samples.44.file_data_backend_bytes
+overview_samples.44.file_data_backend_object_num
+overview_samples.44.list_latency_us
+overview_samples.44.list_ops_pm
+overview_samples.44.local_data_used_capacity
+overview_samples.44.object_data_backend_bytes
+overview_samples.44.object_data_backend_object_num
+overview_samples.44.object_num
+overview_samples.44.raw_data_backend_bytes
+overview_samples.44.raw_data_backend_object_num
+overview_samples.44.rx_bandwidth_kbyte
+overview_samples.44.rx_ops_pm
+overview_samples.44.time
+overview_samples.44.tx_bandwidth_kbyte
+overview_samples.44.tx_ops_pm
+overview_samples.44.up_latency_us
+overview_samples.45.cold_data_backend_bytes
+overview_samples.45.cold_data_backend_object_num
+overview_samples.45.data_bytes
+overview_samples.45.del_latency_us
+overview_samples.45.del_ops_pm
+overview_samples.45.down_latency_us
+overview_samples.45.external_data_used_capacity
+overview_samples.45.file_data_backend_bytes
+overview_samples.45.file_data_backend_object_num
+overview_samples.45.list_latency_us
+overview_samples.45.list_ops_pm
+overview_samples.45.local_data_used_capacity
+overview_samples.45.object_data_backend_bytes
+overview_samples.45.object_data_backend_object_num
+overview_samples.45.object_num
+overview_samples.45.raw_data_backend_bytes
+overview_samples.45.raw_data_backend_object_num
+overview_samples.45.rx_bandwidth_kbyte
+overview_samples.45.rx_ops_pm
+overview_samples.45.time
+overview_samples.45.tx_bandwidth_kbyte
+overview_samples.45.tx_ops_pm
+overview_samples.45.up_latency_us
+overview_samples.46.cold_data_backend_bytes
+overview_samples.46.cold_data_backend_object_num
+overview_samples.46.data_bytes
+overview_samples.46.del_latency_us
+overview_samples.46.del_ops_pm
+overview_samples.46.down_latency_us
+overview_samples.46.external_data_used_capacity
+overview_samples.46.file_data_backend_bytes
+overview_samples.46.file_data_backend_object_num
+overview_samples.46.list_latency_us
+overview_samples.46.list_ops_pm
+overview_samples.46.local_data_used_capacity
+overview_samples.46.object_data_backend_bytes
+overview_samples.46.object_data_backend_object_num
+overview_samples.46.object_num
+overview_samples.46.raw_data_backend_bytes
+overview_samples.46.raw_data_backend_object_num
+overview_samples.46.rx_bandwidth_kbyte
+overview_samples.46.rx_ops_pm
+overview_samples.46.time
+overview_samples.46.tx_bandwidth_kbyte
+overview_samples.46.tx_ops_pm
+overview_samples.46.up_latency_us
+overview_samples.47.cold_data_backend_bytes
+overview_samples.47.cold_data_backend_object_num
+overview_samples.47.data_bytes
+overview_samples.47.del_latency_us
+overview_samples.47.del_ops_pm
+overview_samples.47.down_latency_us
+overview_samples.47.external_data_used_capacity
+overview_samples.47.file_data_backend_bytes
+overview_samples.47.file_data_backend_object_num
+overview_samples.47.list_latency_us
+overview_samples.47.list_ops_pm
+overview_samples.47.local_data_used_capacity
+overview_samples.47.object_data_backend_bytes
+overview_samples.47.object_data_backend_object_num
+overview_samples.47.object_num
+overview_samples.47.raw_data_backend_bytes
+overview_samples.47.raw_data_backend_object_num
+overview_samples.47.rx_bandwidth_kbyte
+overview_samples.47.rx_ops_pm
+overview_samples.47.time
+overview_samples.47.tx_bandwidth_kbyte
+overview_samples.47.tx_ops_pm
+overview_samples.47.up_latency_us
+overview_samples.48.cold_data_backend_bytes
+overview_samples.48.cold_data_backend_object_num
+overview_samples.48.data_bytes
+overview_samples.48.del_latency_us
+overview_samples.48.del_ops_pm
+overview_samples.48.down_latency_us
+overview_samples.48.external_data_used_capacity
+overview_samples.48.file_data_backend_bytes
+overview_samples.48.file_data_backend_object_num
+overview_samples.48.list_latency_us
+overview_samples.48.list_ops_pm
+overview_samples.48.local_data_used_capacity
+overview_samples.48.object_data_backend_bytes
+overview_samples.48.object_data_backend_object_num
+overview_samples.48.object_num
+overview_samples.48.raw_data_backend_bytes
+overview_samples.48.raw_data_backend_object_num
+overview_samples.48.rx_bandwidth_kbyte
+overview_samples.48.rx_ops_pm
+overview_samples.48.time
+overview_samples.48.tx_bandwidth_kbyte
+overview_samples.48.tx_ops_pm
+overview_samples.48.up_latency_us
+overview_samples.49.cold_data_backend_bytes
+overview_samples.49.cold_data_backend_object_num
+overview_samples.49.data_bytes
+overview_samples.49.del_latency_us
+overview_samples.49.del_ops_pm
+overview_samples.49.down_latency_us
+overview_samples.49.external_data_used_capacity
+overview_samples.49.file_data_backend_bytes
+overview_samples.49.file_data_backend_object_num
+overview_samples.49.list_latency_us
+overview_samples.49.list_ops_pm
+overview_samples.49.local_data_used_capacity
+overview_samples.49.object_data_backend_bytes
+overview_samples.49.object_data_backend_object_num
+overview_samples.49.object_num
+overview_samples.49.raw_data_backend_bytes
+overview_samples.49.raw_data_backend_object_num
+overview_samples.49.rx_bandwidth_kbyte
+overview_samples.49.rx_ops_pm
+overview_samples.49.time
+overview_samples.49.tx_bandwidth_kbyte
+overview_samples.49.tx_ops_pm
+overview_samples.49.up_latency_us
+overview_samples.5.cold_data_backend_bytes
+overview_samples.5.cold_data_backend_object_num
+overview_samples.5.data_bytes
+overview_samples.5.del_latency_us
+overview_samples.5.del_ops_pm
+overview_samples.5.down_latency_us
+overview_samples.5.external_data_used_capacity
+overview_samples.5.file_data_backend_bytes
+overview_samples.5.file_data_backend_object_num
+overview_samples.5.list_latency_us
+overview_samples.5.list_ops_pm
+overview_samples.5.local_data_used_capacity
+overview_samples.5.object_data_backend_bytes
+overview_samples.5.object_data_backend_object_num
+overview_samples.5.object_num
+overview_samples.5.raw_data_backend_bytes
+overview_samples.5.raw_data_backend_object_num
+overview_samples.5.rx_bandwidth_kbyte
+overview_samples.5.rx_ops_pm
+overview_samples.5.time
+overview_samples.5.tx_bandwidth_kbyte
+overview_samples.5.tx_ops_pm
+overview_samples.5.up_latency_us
+overview_samples.50.cold_data_backend_bytes
+overview_samples.50.cold_data_backend_object_num
+overview_samples.50.data_bytes
+overview_samples.50.del_latency_us
+overview_samples.50.del_ops_pm
+overview_samples.50.down_latency_us
+overview_samples.50.external_data_used_capacity
+overview_samples.50.file_data_backend_bytes
+overview_samples.50.file_data_backend_object_num
+overview_samples.50.list_latency_us
+overview_samples.50.list_ops_pm
+overview_samples.50.local_data_used_capacity
+overview_samples.50.object_data_backend_bytes
+overview_samples.50.object_data_backend_object_num
+overview_samples.50.object_num
+overview_samples.50.raw_data_backend_bytes
+overview_samples.50.raw_data_backend_object_num
+overview_samples.50.rx_bandwidth_kbyte
+overview_samples.50.rx_ops_pm
+overview_samples.50.time
+overview_samples.50.tx_bandwidth_kbyte
+overview_samples.50.tx_ops_pm
+overview_samples.50.up_latency_us
+overview_samples.51.cold_data_backend_bytes
+overview_samples.51.cold_data_backend_object_num
+overview_samples.51.data_bytes
+overview_samples.51.del_latency_us
+overview_samples.51.del_ops_pm
+overview_samples.51.down_latency_us
+overview_samples.51.external_data_used_capacity
+overview_samples.51.file_data_backend_bytes
+overview_samples.51.file_data_backend_object_num
+overview_samples.51.list_latency_us
+overview_samples.51.list_ops_pm
+overview_samples.51.local_data_used_capacity
+overview_samples.51.object_data_backend_bytes
+overview_samples.51.object_data_backend_object_num
+overview_samples.51.object_num
+overview_samples.51.raw_data_backend_bytes
+overview_samples.51.raw_data_backend_object_num
+overview_samples.51.rx_bandwidth_kbyte
+overview_samples.51.rx_ops_pm
+overview_samples.51.time
+overview_samples.51.tx_bandwidth_kbyte
+overview_samples.51.tx_ops_pm
+overview_samples.51.up_latency_us
+overview_samples.52.cold_data_backend_bytes
+overview_samples.52.cold_data_backend_object_num
+overview_samples.52.data_bytes
+overview_samples.52.del_latency_us
+overview_samples.52.del_ops_pm
+overview_samples.52.down_latency_us
+overview_samples.52.external_data_used_capacity
+overview_samples.52.file_data_backend_bytes
+overview_samples.52.file_data_backend_object_num
+overview_samples.52.list_latency_us
+overview_samples.52.list_ops_pm
+overview_samples.52.local_data_used_capacity
+overview_samples.52.object_data_backend_bytes
+overview_samples.52.object_data_backend_object_num
+overview_samples.52.object_num
+overview_samples.52.raw_data_backend_bytes
+overview_samples.52.raw_data_backend_object_num
+overview_samples.52.rx_bandwidth_kbyte
+overview_samples.52.rx_ops_pm
+overview_samples.52.time
+overview_samples.52.tx_bandwidth_kbyte
+overview_samples.52.tx_ops_pm
+overview_samples.52.up_latency_us
+overview_samples.53.cold_data_backend_bytes
+overview_samples.53.cold_data_backend_object_num
+overview_samples.53.data_bytes
+overview_samples.53.del_latency_us
+overview_samples.53.del_ops_pm
+overview_samples.53.down_latency_us
+overview_samples.53.external_data_used_capacity
+overview_samples.53.file_data_backend_bytes
+overview_samples.53.file_data_backend_object_num
+overview_samples.53.list_latency_us
+overview_samples.53.list_ops_pm
+overview_samples.53.local_data_used_capacity
+overview_samples.53.object_data_backend_bytes
+overview_samples.53.object_data_backend_object_num
+overview_samples.53.object_num
+overview_samples.53.raw_data_backend_bytes
+overview_samples.53.raw_data_backend_object_num
+overview_samples.53.rx_bandwidth_kbyte
+overview_samples.53.rx_ops_pm
+overview_samples.53.time
+overview_samples.53.tx_bandwidth_kbyte
+overview_samples.53.tx_ops_pm
+overview_samples.53.up_latency_us
+overview_samples.54.cold_data_backend_bytes
+overview_samples.54.cold_data_backend_object_num
+overview_samples.54.data_bytes
+overview_samples.54.del_latency_us
+overview_samples.54.del_ops_pm
+overview_samples.54.down_latency_us
+overview_samples.54.external_data_used_capacity
+overview_samples.54.file_data_backend_bytes
+overview_samples.54.file_data_backend_object_num
+overview_samples.54.list_latency_us
+overview_samples.54.list_ops_pm
+overview_samples.54.local_data_used_capacity
+overview_samples.54.object_data_backend_bytes
+overview_samples.54.object_data_backend_object_num
+overview_samples.54.object_num
+overview_samples.54.raw_data_backend_bytes
+overview_samples.54.raw_data_backend_object_num
+overview_samples.54.rx_bandwidth_kbyte
+overview_samples.54.rx_ops_pm
+overview_samples.54.time
+overview_samples.54.tx_bandwidth_kbyte
+overview_samples.54.tx_ops_pm
+overview_samples.54.up_latency_us
+overview_samples.55.cold_data_backend_bytes
+overview_samples.55.cold_data_backend_object_num
+overview_samples.55.data_bytes
+overview_samples.55.del_latency_us
+overview_samples.55.del_ops_pm
+overview_samples.55.down_latency_us
+overview_samples.55.external_data_used_capacity
+overview_samples.55.file_data_backend_bytes
+overview_samples.55.file_data_backend_object_num
+overview_samples.55.list_latency_us
+overview_samples.55.list_ops_pm
+overview_samples.55.local_data_used_capacity
+overview_samples.55.object_data_backend_bytes
+overview_samples.55.object_data_backend_object_num
+overview_samples.55.object_num
+overview_samples.55.raw_data_backend_bytes
+overview_samples.55.raw_data_backend_object_num
+overview_samples.55.rx_bandwidth_kbyte
+overview_samples.55.rx_ops_pm
+overview_samples.55.time
+overview_samples.55.tx_bandwidth_kbyte
+overview_samples.55.tx_ops_pm
+overview_samples.55.up_latency_us
+overview_samples.56.cold_data_backend_bytes
+overview_samples.56.cold_data_backend_object_num
+overview_samples.56.data_bytes
+overview_samples.56.del_latency_us
+overview_samples.56.del_ops_pm
+overview_samples.56.down_latency_us
+overview_samples.56.external_data_used_capacity
+overview_samples.56.file_data_backend_bytes
+overview_samples.56.file_data_backend_object_num
+overview_samples.56.list_latency_us
+overview_samples.56.list_ops_pm
+overview_samples.56.local_data_used_capacity
+overview_samples.56.object_data_backend_bytes
+overview_samples.56.object_data_backend_object_num
+overview_samples.56.object_num
+overview_samples.56.raw_data_backend_bytes
+overview_samples.56.raw_data_backend_object_num
+overview_samples.56.rx_bandwidth_kbyte
+overview_samples.56.rx_ops_pm
+overview_samples.56.time
+overview_samples.56.tx_bandwidth_kbyte
+overview_samples.56.tx_ops_pm
+overview_samples.56.up_latency_us
+overview_samples.57.cold_data_backend_bytes
+overview_samples.57.cold_data_backend_object_num
+overview_samples.57.data_bytes
+overview_samples.57.del_latency_us
+overview_samples.57.del_ops_pm
+overview_samples.57.down_latency_us
+overview_samples.57.external_data_used_capacity
+overview_samples.57.file_data_backend_bytes
+overview_samples.57.file_data_backend_object_num
+overview_samples.57.list_latency_us
+overview_samples.57.list_ops_pm
+overview_samples.57.local_data_used_capacity
+overview_samples.57.object_data_backend_bytes
+overview_samples.57.object_data_backend_object_num
+overview_samples.57.object_num
+overview_samples.57.raw_data_backend_bytes
+overview_samples.57.raw_data_backend_object_num
+overview_samples.57.rx_bandwidth_kbyte
+overview_samples.57.rx_ops_pm
+overview_samples.57.time
+overview_samples.57.tx_bandwidth_kbyte
+overview_samples.57.tx_ops_pm
+overview_samples.57.up_latency_us
+overview_samples.58.cold_data_backend_bytes
+overview_samples.58.cold_data_backend_object_num
+overview_samples.58.data_bytes
+overview_samples.58.del_latency_us
+overview_samples.58.del_ops_pm
+overview_samples.58.down_latency_us
+overview_samples.58.external_data_used_capacity
+overview_samples.58.file_data_backend_bytes
+overview_samples.58.file_data_backend_object_num
+overview_samples.58.list_latency_us
+overview_samples.58.list_ops_pm
+overview_samples.58.local_data_used_capacity
+overview_samples.58.object_data_backend_bytes
+overview_samples.58.object_data_backend_object_num
+overview_samples.58.object_num
+overview_samples.58.raw_data_backend_bytes
+overview_samples.58.raw_data_backend_object_num
+overview_samples.58.rx_bandwidth_kbyte
+overview_samples.58.rx_ops_pm
+overview_samples.58.time
+overview_samples.58.tx_bandwidth_kbyte
+overview_samples.58.tx_ops_pm
+overview_samples.58.up_latency_us
+overview_samples.59.cold_data_backend_bytes
+overview_samples.59.cold_data_backend_object_num
+overview_samples.59.data_bytes
+overview_samples.59.del_latency_us
+overview_samples.59.del_ops_pm
+overview_samples.59.down_latency_us
+overview_samples.59.external_data_used_capacity
+overview_samples.59.file_data_backend_bytes
+overview_samples.59.file_data_backend_object_num
+overview_samples.59.list_latency_us
+overview_samples.59.list_ops_pm
+overview_samples.59.local_data_used_capacity
+overview_samples.59.object_data_backend_bytes
+overview_samples.59.object_data_backend_object_num
+overview_samples.59.object_num
+overview_samples.59.raw_data_backend_bytes
+overview_samples.59.raw_data_backend_object_num
+overview_samples.59.rx_bandwidth_kbyte
+overview_samples.59.rx_ops_pm
+overview_samples.59.time
+overview_samples.59.tx_bandwidth_kbyte
+overview_samples.59.tx_ops_pm
+overview_samples.59.up_latency_us
+overview_samples.6.cold_data_backend_bytes
+overview_samples.6.cold_data_backend_object_num
+overview_samples.6.data_bytes
+overview_samples.6.del_latency_us
+overview_samples.6.del_ops_pm
+overview_samples.6.down_latency_us
+overview_samples.6.external_data_used_capacity
+overview_samples.6.file_data_backend_bytes
+overview_samples.6.file_data_backend_object_num
+overview_samples.6.list_latency_us
+overview_samples.6.list_ops_pm
+overview_samples.6.local_data_used_capacity
+overview_samples.6.object_data_backend_bytes
+overview_samples.6.object_data_backend_object_num
+overview_samples.6.object_num
+overview_samples.6.raw_data_backend_bytes
+overview_samples.6.raw_data_backend_object_num
+overview_samples.6.rx_bandwidth_kbyte
+overview_samples.6.rx_ops_pm
+overview_samples.6.time
+overview_samples.6.tx_bandwidth_kbyte
+overview_samples.6.tx_ops_pm
+overview_samples.6.up_latency_us
+overview_samples.60.cold_data_backend_bytes
+overview_samples.60.cold_data_backend_object_num
+overview_samples.60.data_bytes
+overview_samples.60.del_latency_us
+overview_samples.60.del_ops_pm
+overview_samples.60.down_latency_us
+overview_samples.60.external_data_used_capacity
+overview_samples.60.file_data_backend_bytes
+overview_samples.60.file_data_backend_object_num
+overview_samples.60.list_latency_us
+overview_samples.60.list_ops_pm
+overview_samples.60.local_data_used_capacity
+overview_samples.60.object_data_backend_bytes
+overview_samples.60.object_data_backend_object_num
+overview_samples.60.object_num
+overview_samples.60.raw_data_backend_bytes
+overview_samples.60.raw_data_backend_object_num
+overview_samples.60.rx_bandwidth_kbyte
+overview_samples.60.rx_ops_pm
+overview_samples.60.time
+overview_samples.60.tx_bandwidth_kbyte
+overview_samples.60.tx_ops_pm
+overview_samples.60.up_latency_us
+overview_samples.7.cold_data_backend_bytes
+overview_samples.7.cold_data_backend_object_num
+overview_samples.7.data_bytes
+overview_samples.7.del_latency_us
+overview_samples.7.del_ops_pm
+overview_samples.7.down_latency_us
+overview_samples.7.external_data_used_capacity
+overview_samples.7.file_data_backend_bytes
+overview_samples.7.file_data_backend_object_num
+overview_samples.7.list_latency_us
+overview_samples.7.list_ops_pm
+overview_samples.7.local_data_used_capacity
+overview_samples.7.object_data_backend_bytes
+overview_samples.7.object_data_backend_object_num
+overview_samples.7.object_num
+overview_samples.7.raw_data_backend_bytes
+overview_samples.7.raw_data_backend_object_num
+overview_samples.7.rx_bandwidth_kbyte
+overview_samples.7.rx_ops_pm
+overview_samples.7.time
+overview_samples.7.tx_bandwidth_kbyte
+overview_samples.7.tx_ops_pm
+overview_samples.7.up_latency_us
+overview_samples.8.cold_data_backend_bytes
+overview_samples.8.cold_data_backend_object_num
+overview_samples.8.data_bytes
+overview_samples.8.del_latency_us
+overview_samples.8.del_ops_pm
+overview_samples.8.down_latency_us
+overview_samples.8.external_data_used_capacity
+overview_samples.8.file_data_backend_bytes
+overview_samples.8.file_data_backend_object_num
+overview_samples.8.list_latency_us
+overview_samples.8.list_ops_pm
+overview_samples.8.local_data_used_capacity
+overview_samples.8.object_data_backend_bytes
+overview_samples.8.object_data_backend_object_num
+overview_samples.8.object_num
+overview_samples.8.raw_data_backend_bytes
+overview_samples.8.raw_data_backend_object_num
+overview_samples.8.rx_bandwidth_kbyte
+overview_samples.8.rx_ops_pm
+overview_samples.8.time
+overview_samples.8.tx_bandwidth_kbyte
+overview_samples.8.tx_ops_pm
+overview_samples.8.up_latency_us
+overview_samples.9.cold_data_backend_bytes
+overview_samples.9.cold_data_backend_object_num
+overview_samples.9.data_bytes
+overview_samples.9.del_latency_us
+overview_samples.9.del_ops_pm
+overview_samples.9.down_latency_us
+overview_samples.9.external_data_used_capacity
+overview_samples.9.file_data_backend_bytes
+overview_samples.9.file_data_backend_object_num
+overview_samples.9.list_latency_us
+overview_samples.9.list_ops_pm
+overview_samples.9.local_data_used_capacity
+overview_samples.9.object_data_backend_bytes
+overview_samples.9.object_data_backend_object_num
+overview_samples.9.object_num
+overview_samples.9.raw_data_backend_bytes
+overview_samples.9.raw_data_backend_object_num
+overview_samples.9.rx_bandwidth_kbyte
+overview_samples.9.rx_ops_pm
+overview_samples.9.time
+overview_samples.9.tx_bandwidth_kbyte
+overview_samples.9.tx_ops_pm
+overview_samples.9.up_latency_us
+paging.limit
+root@platform-auto-172-21-44-143:~# curl -sS -k -X GET "${XMS_BASE}/v1/block-volumes/samples" \
+  -H "Xms-Auth-Token: ${XMS_TOKEN}" \
+  | jq -r '
+    paths(scalars) as $p
+    | [$p[] | tostring] | join(".")
+  ' | sort -u
+msg
+root@platform-auto-172-21-44-143:~# curl -sS -k -X GET "${XMS_BASE}/v1/dfs-rootfses/" \
+  -H "Xms-Auth-Token: ${XMS_TOKEN}" \
+  | jq -r '
+    paths(scalars) as $p
+    | [$p[] | tostring] | join(".")
+  ' | sort -u
+dfs_rootfses.0.action_status
+dfs_rootfses.0.client_stat_enabled
+dfs_rootfses.0.cluster.fs_id
+dfs_rootfses.0.cluster.id
+dfs_rootfses.0.cluster.name
+dfs_rootfses.0.cluster.status
+dfs_rootfses.0.cluster.type
+dfs_rootfses.0.create
+dfs_rootfses.0.description
+dfs_rootfses.0.dfs_gateway_group.hdfs_securities.0
+dfs_rootfses.0.dfs_gateway_group.id
+dfs_rootfses.0.dfs_gateway_group.name
+dfs_rootfses.0.dfs_gateway_group.sftp_port
+dfs_rootfses.0.gateway_group_ids.0
+dfs_rootfses.0.gc_speed
+dfs_rootfses.0.hdfs_num
+dfs_rootfses.0.id
+dfs_rootfses.0.metadata_cluster.id
+dfs_rootfses.0.metadata_cluster.name
+dfs_rootfses.0.name
+dfs_rootfses.0.qos_num
+dfs_rootfses.0.s3_bucket_num
+dfs_rootfses.0.samples.0.create
+dfs_rootfses.0.samples.0.data_cache_hit_rate
+dfs_rootfses.0.samples.0.data_delete_bandwidth_kbyte
+dfs_rootfses.0.samples.0.data_delete_iops
+dfs_rootfses.0.samples.0.data_delete_latency_us
+dfs_rootfses.0.samples.0.data_read_bandwidth_kbyte
+dfs_rootfses.0.samples.0.data_read_iops
+dfs_rootfses.0.samples.0.data_read_latency_us
+dfs_rootfses.0.samples.0.data_write_bandwidth_kbyte
+dfs_rootfses.0.samples.0.data_write_iops
+dfs_rootfses.0.samples.0.data_write_latency_us
+dfs_rootfses.0.samples.0.meta_cache_hit_rate
+dfs_rootfses.0.samples.0.meta_delete_iops
+dfs_rootfses.0.samples.0.meta_delete_latency_us
+dfs_rootfses.0.samples.0.meta_list_iops
+dfs_rootfses.0.samples.0.meta_list_latency_us
+dfs_rootfses.0.samples.0.meta_read_iops
+dfs_rootfses.0.samples.0.meta_read_latency_us
+dfs_rootfses.0.samples.0.meta_write_iops
+dfs_rootfses.0.samples.0.meta_write_latency_us
+dfs_rootfses.0.samples.0.read_ahead_bandwidth_kbyte
+dfs_rootfses.0.samples.0.read_ahead_iops
+dfs_rootfses.0.share_nums.ftp
+dfs_rootfses.0.share_nums.nfs
+dfs_rootfses.0.share_nums.sftp
+dfs_rootfses.0.share_nums.smb
+dfs_rootfses.0.shared
+dfs_rootfses.0.size
+dfs_rootfses.0.status
+dfs_rootfses.0.storage_policy_num
+dfs_rootfses.0.tier_num
+dfs_rootfses.0.update
+dfs_rootfses.0.uuid
+dfs_rootfses.0.worm_log_path
+paging.count
+paging.limit
+paging.offset
+paging.total_count
+root@platform-auto-172-21-44-143:~# 
