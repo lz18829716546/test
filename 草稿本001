@@ -1,8 +1,176 @@
-root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_cluster_total_used_raw_bytes' | jq .
+>   --data-urlencode 'query=ceph_pool_metadata' \
+>   | jq '.data.result[0:10]'
+[
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "ec:4+2",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.buckets.data",
+      "pool_id": "7",
+      "type": "erasure"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "ec:8+2",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.archive.data",
+      "pool_id": "8",
+      "type": "erasure"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "ec:8+2",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.glacier.data",
+      "pool_id": "9",
+      "type": "erasure"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": ".rgw.root",
+      "pool_id": "15",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "backups",
+      "pool_id": "5",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "cephfs-data",
+      "pool_id": "6",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "device_health_metrics",
+      "pool_id": "2",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.archive.index",
+      "pool_id": "12",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.archive.non-ec",
+      "pool_id": "14",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  },
+  {
+    "metric": {
+      "__name__": "ceph_pool_metadata",
+      "compression_mode": "none",
+      "description": "replica:3",
+      "instance": "gz-4f31406-ceph-001201:9283",
+      "job": "ceph",
+      "name": "guangzhou.rgw.buckets.index",
+      "pool_id": "11",
+      "type": "replicated"
+    },
+    "value": [
+      1783581575.434,
+      "1"
+    ]
+  }
+]
+root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
+root@gz-4f31406-ceph-001201:~# TS="$(date +%s)"
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
+>   --data-urlencode 'query=ceph_cluster_total_used_raw_bytes' \
+>   --data-urlencode "time=$TS" | jq .
 {
   "status": "success",
   "data": {
@@ -15,137 +183,17 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
           "job": "ceph"
         },
         "value": [
-          1783579706.208,
-          "211421305806848"
+          1783581709,
+          "211425315295232"
         ]
       }
     ]
   }
 }
 root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_stored_raw)' | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783579706.285,
-          "195326789186266"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_bytes_used)' | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783579706.353,
-          "195327125506450"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=sum(ceph_pool_stored)' | jq .
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {},
-        "value": [
-          1783579709.051,
-          "129196668671317"
-        ]
-      }
-    ]
-  }
-}
-root@gz-4f31406-ceph-001201:~# PROM="http://172.21.1.201:9095"
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
->   --data-urlencode 'query=ceph_pool_stored_raw' \
->   | jq '.data.result[0:5]'
-[
-  {
-    "metric": {
-      "__name__": "ceph_pool_stored_raw",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "10"
-    },
-    "value": [
-      1783579993.247,
-      "1156293248"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_stored_raw",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "11"
-    },
-    "value": [
-      1783579993.247,
-      "8007999488"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_stored_raw",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "12"
-    },
-    "value": [
-      1783579993.247,
-      "21021999104"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_stored_raw",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "13"
-    },
-    "value": [
-      1783579993.247,
-      "1165653"
-    ]
-  },
-  {
-    "metric": {
-      "__name__": "ceph_pool_stored_raw",
-      "instance": "gz-4f31406-ceph-001201:9283",
-      "job": "ceph",
-      "pool_id": "14"
-    },
-    "value": [
-      1783579993.247,
-      "27175268"
-    ]
-  }
-]
 root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
 >   --data-urlencode 'query=ceph_pool_bytes_used' \
->   | jq '.data.result[0:5]'
+>   --data-urlencode "time=$TS" | jq '.data.result[0:5]'
 [
   {
     "metric": {
@@ -155,8 +203,8 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "pool_id": "10"
     },
     "value": [
-      1783580016.487,
-      "1156573225"
+      1783581709,
+      "1152051241"
     ]
   },
   {
@@ -167,7 +215,7 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "pool_id": "11"
     },
     "value": [
-      1783580016.487,
+      1783581709,
       "8007999908"
     ]
   },
@@ -179,8 +227,8 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "pool_id": "12"
     },
     "value": [
-      1783580016.487,
-      "21021998478"
+      1783581709,
+      "21032748073"
     ]
   },
   {
@@ -191,7 +239,7 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "pool_id": "13"
     },
     "value": [
-      1783580016.487,
+      1783581709,
       "1800418"
     ]
   },
@@ -203,8 +251,8 @@ root@gz-4f31406-ceph-001201:~# curl -sG "$PROM/api/v1/query" \
       "pool_id": "14"
     },
     "value": [
-      1783580016.487,
-      "27211979"
+      1783581709,
+      "27256893"
     ]
   }
 ]
