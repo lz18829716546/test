@@ -1,3 +1,854 @@
+==================== gz-4f31406-ceph-001201 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:31:40 PM CST
+ 16:31:40 up 1082 days, 20:57,  2 users,  load average: 3.12, 2.72, 2.77
+         system boot  2023-07-26 19:34
+
+[2] journal boots
+ 0 9043256826dc4f6d960a5f40b22648c2 Mon 2026-06-29 06:26:59 CST—Mon 2026-07-13 16:31:40 CST
+
+[3] journal disk usage
+Archived and active journals take up 3.9G in the file system.
+
+[4] log files timestamp
+2023-05-13 09:38:59.450426457 +0800      32253 /var/log/dmesg.4.gz
+2023-05-13 10:28:51.042122019 +0800      32324 /var/log/dmesg.3.gz
+2023-05-15 10:15:39.146353853 +0800      32413 /var/log/dmesg.2.gz
+2023-05-16 14:36:04.153601271 +0800      32308 /var/log/dmesg.1.gz
+2023-05-18 08:42:08.423390376 +0800     166950 /var/log/dmesg.0
+2023-05-23 13:48:31.000000000 +0800      12148 /var/log/apt/history.log.8.gz
+2023-05-23 13:48:31.000000000 +0800      51924 /var/log/dpkg.log.9.gz
+2023-06-13 14:25:59.000000000 +0800        152 /var/log/dpkg.log.8.gz
+2023-07-26 19:34:44.235533754 +0800     167092 /var/log/dmesg
+2023-09-21 18:05:53.000000000 +0800        140 /var/log/apt/history.log.7.gz
+2023-09-21 18:05:53.000000000 +0800        274 /var/log/dpkg.log.7.gz
+2023-12-15 16:12:20.000000000 +0800        157 /var/log/apt/history.log.6.gz
+2023-12-15 16:12:20.000000000 +0800        345 /var/log/dpkg.log.6.gz
+2025-01-20 10:36:31.000000000 +0800        141 /var/log/apt/history.log.5.gz
+2025-01-20 10:36:31.000000000 +0800        305 /var/log/dpkg.log.5.gz
+2025-03-05 14:25:26.000000000 +0800        180 /var/log/apt/history.log.4.gz
+2025-03-05 14:25:26.000000000 +0800        388 /var/log/dpkg.log.4.gz
+2026-02-04 18:50:15.000000000 +0800        123 /var/log/apt/history.log.3.gz
+2026-02-04 18:50:15.000000000 +0800        217 /var/log/dpkg.log.3.gz
+2026-02-06 10:53:49.000000000 +0800        162 /var/log/apt/history.log.2.gz
+2026-02-06 10:53:49.000000000 +0800        396 /var/log/dpkg.log.2.gz
+2026-04-21 10:55:55.000000000 +0800        117 /var/log/apt/history.log.1.gz
+2026-04-21 10:55:55.298458075 +0800        762 /var/log/dpkg.log.1
+2026-04-22 00:00:02.088613611 +0800          0 /var/log/apt/history.log
+2026-04-22 00:00:41.393634686 +0800          0 /var/log/dpkg.log
+2026-05-22 23:59:59.000000000 +0800      32160 /var/log/haproxy.log.52.gz
+2026-05-24 00:00:10.000000000 +0800      30368 /var/log/haproxy.log.51.gz
+2026-05-25 00:00:24.000000000 +0800      30518 /var/log/haproxy.log.50.gz
+2026-05-26 00:00:35.000000000 +0800      34152 /var/log/haproxy.log.49.gz
+2026-05-26 23:59:47.000000000 +0800      34113 /var/log/haproxy.log.48.gz
+2026-05-28 00:00:11.000000000 +0800      31377 /var/log/haproxy.log.47.gz
+2026-05-29 00:00:26.000000000 +0800      31530 /var/log/haproxy.log.46.gz
+2026-05-29 23:59:45.000000000 +0800      31394 /var/log/haproxy.log.45.gz
+2026-05-30 23:59:55.000000000 +0800      30326 /var/log/haproxy.log.44.gz
+2026-06-01 00:00:12.000000000 +0800      30454 /var/log/haproxy.log.43.gz
+2026-06-01 23:59:49.000000000 +0800     101623 /var/log/haproxy.log.42.gz
+2026-06-03 00:00:05.000000000 +0800      31928 /var/log/haproxy.log.41.gz
+2026-06-04 00:00:24.000000000 +0800      46197 /var/log/haproxy.log.40.gz
+2026-06-04 23:59:40.000000000 +0800      45633 /var/log/haproxy.log.39.gz
+2026-06-06 00:00:00.000000000 +0800      33682 /var/log/haproxy.log.38.gz
+2026-06-07 00:00:17.000000000 +0800      31831 /var/log/haproxy.log.37.gz
+2026-06-07 10:52:42.000000000 +0800        120 /var/log/kern.log.4.gz
+2026-06-08 00:00:30.000000000 +0800      28653 /var/log/haproxy.log.36.gz
+2026-06-08 09:39:04.000000000 +0800        119 /var/log/kern.log.3.gz
+2026-06-08 23:59:43.000000000 +0800      35131 /var/log/haproxy.log.35.gz
+2026-06-10 00:00:01.000000000 +0800      32051 /var/log/haproxy.log.34.gz
+2026-06-11 00:00:17.000000000 +0800      31913 /var/log/haproxy.log.33.gz
+2026-06-12 00:00:33.000000000 +0800      35520 /var/log/haproxy.log.32.gz
+2026-06-12 23:59:56.000000000 +0800      33484 /var/log/haproxy.log.31.gz
+2026-06-14 00:00:14.000000000 +0800      31789 /var/log/haproxy.log.30.gz
+2026-06-15 00:00:29.000000000 +0800      31845 /var/log/haproxy.log.29.gz
+2026-06-15 23:59:41.000000000 +0800      32002 /var/log/haproxy.log.28.gz
+2026-06-16 23:59:53.000000000 +0800      33689 /var/log/haproxy.log.27.gz
+2026-06-18 00:00:05.000000000 +0800      33746 /var/log/haproxy.log.26.gz
+2026-06-19 00:00:19.000000000 +0800      31708 /var/log/haproxy.log.25.gz
+2026-06-20 00:00:32.000000000 +0800      31366 /var/log/haproxy.log.24.gz
+2026-06-20 23:59:41.000000000 +0800      31342 /var/log/haproxy.log.23.gz
+2026-06-21 23:59:51.000000000 +0800      31410 /var/log/haproxy.log.22.gz
+2026-06-23 00:00:04.000000000 +0800      32740 /var/log/haproxy.log.21.gz
+2026-06-24 00:00:16.000000000 +0800      32008 /var/log/haproxy.log.20.gz
+2026-06-25 00:00:29.000000000 +0800      31924 /var/log/haproxy.log.19.gz
+2026-06-25 23:59:47.000000000 +0800      32948 /var/log/haproxy.log.18.gz
+2026-06-27 00:00:05.000000000 +0800      32474 /var/log/haproxy.log.17.gz
+2026-06-28 00:00:14.000000000 +0800      31214 /var/log/haproxy.log.16.gz
+2026-06-29 00:00:23.000000000 +0800      31206 /var/log/haproxy.log.15.gz
+2026-06-30 00:00:35.000000000 +0800      32151 /var/log/haproxy.log.14.gz
+2026-06-30 23:59:52.000000000 +0800      32074 /var/log/haproxy.log.13.gz
+2026-07-02 00:00:05.000000000 +0800      34101 /var/log/haproxy.log.12.gz
+2026-07-02 00:51:48.000000000 +0800        120 /var/log/kern.log.2.gz
+2026-07-03 00:00:20.000000000 +0800      33053 /var/log/haproxy.log.11.gz
+2026-07-04 00:00:33.000000000 +0800      32140 /var/log/haproxy.log.10.gz
+2026-07-04 23:59:44.000000000 +0800      31410 /var/log/haproxy.log.9.gz
+2026-07-05 23:59:55.000000000 +0800      31446 /var/log/haproxy.log.8.gz
+2026-07-07 00:00:08.000000000 +0800      33633 /var/log/haproxy.log.7.gz
+2026-07-07 00:00:38.000000000 +0800    3455311 /var/log/syslog.7.gz
+2026-07-08 00:00:18.000000000 +0800      31061 /var/log/haproxy.log.6.gz
+2026-07-08 00:00:39.000000000 +0800    3479002 /var/log/syslog.6.gz
+2026-07-08 14:40:54.628553462 +0800       6291 /var/log/kern.log.1
+2026-07-09 00:00:32.000000000 +0800      30637 /var/log/haproxy.log.5.gz
+2026-07-09 00:00:40.000000000 +0800    3410060 /var/log/syslog.5.gz
+2026-07-09 23:59:42.000000000 +0800      31705 /var/log/haproxy.log.4.gz
+2026-07-10 00:00:40.000000000 +0800    3313155 /var/log/syslog.4.gz
+2026-07-10 00:00:40.521977349 +0800          0 /var/log/kern.log
+2026-07-11 00:00:53.000000000 +0800      31502 /var/log/haproxy.log.3.gz
+2026-07-11 00:00:54.000000000 +0800    3312804 /var/log/syslog.3.gz
+2026-07-12 00:00:04.000000000 +0800      30510 /var/log/haproxy.log.2.gz
+2026-07-12 00:00:55.000000000 +0800    3305542 /var/log/syslog.2.gz
+2026-07-13 00:00:00.279130137 +0800     200000 /var/log/ceph/ceph-client.admin.log
+2026-07-13 00:00:17.371577137 +0800     338919 /var/log/haproxy.log.1
+2026-07-13 00:01:10.096956006 +0800   44730857 /var/log/syslog.1
+2026-07-13 03:26:29.763450136 +0800      57676 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.0.log
+2026-07-13 05:59:59.537133516 +0800     354160 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.6.log
+2026-07-13 05:59:59.821140962 +0800     368460 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.3.log
+2026-07-13 06:01:06.542890450 +0800     113108 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.1.log
+2026-07-13 06:08:49.543030611 +0800     102189 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.4.log
+2026-07-13 07:11:50.090224193 +0800     839672 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.9.log
+2026-07-13 07:11:54.818348523 +0800     867848 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.8.log
+2026-07-13 09:27:35.672607538 +0800     149418 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.5.log
+2026-07-13 11:08:46.296122908 +0800      99955 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.2.log
+2026-07-13 16:27:28.820450301 +0800      78030 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.cephadm.log
+2026-07-13 16:31:07.122160681 +0800     186670 /var/log/haproxy.log
+2026-07-13 16:31:20.190502523 +0800    9056154 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.audit.log
+2026-07-13 16:31:24.042603288 +0800   22826945 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mon.gz-4f31406-ceph-001201.log
+2026-07-13 16:31:35.334898674 +0800    1945487 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.10.log
+2026-07-13 16:31:36.018916566 +0800  498350952 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-volume.log
+2026-07-13 16:31:37.006942412 +0800    1134358 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.11.log
+2026-07-13 16:31:38.698986672 +0800    1965093 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.12.log
+2026-07-13 16:31:38.874991276 +0800    7588467 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mgr.gz-4f31406-ceph-001201.txztaq.log
+2026-07-13 16:31:39.239000799 +0800  128761482 /var/log/ceph/cephadm.log
+2026-07-13 16:31:39.763014505 +0800    1115648 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.7.log
+2026-07-13 16:31:39.903018167 +0800   54781373 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.log
+2026-07-13 16:31:40.111023609 +0800  480503462 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.vwzjfn.log
+2026-07-13 16:31:40.111023609 +0800  480519265 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001201.tcrgya.log
+2026-07-13 16:31:40.187025596 +0800   30589369 /var/log/syslog
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+==================== gz-4f31406-ceph-001202 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:31:41 PM CST
+ 16:31:41 up 1082 days, 20:58,  1 user,  load average: 2.46, 1.94, 1.97
+         system boot  2023-07-26 19:33
+
+[2] journal boots
+ 0 db3f24611fb749c89c6677a20845a4ec Fri 2026-06-26 05:15:53 CST—Mon 2026-07-13 16:31:40 CST
+
+[3] journal disk usage
+Archived and active journals take up 4.0G in the file system.
+
+[4] log files timestamp
+2023-05-13 09:38:53.800041904 +0800      32129 /var/log/dmesg.4.gz
+2023-05-13 10:43:40.661278832 +0800      31973 /var/log/dmesg.3.gz
+2023-05-15 10:15:36.990780170 +0800      32173 /var/log/dmesg.2.gz
+2023-05-16 14:35:52.643384901 +0800      32207 /var/log/dmesg.1.gz
+2023-05-18 08:42:09.779176147 +0800     166110 /var/log/dmesg.0
+2023-05-23 13:47:37.000000000 +0800      12103 /var/log/apt/history.log.3.gz
+2023-05-23 13:47:37.000000000 +0800      51833 /var/log/dpkg.log.3.gz
+2023-07-26 19:33:15.195837029 +0800     166322 /var/log/dmesg
+2023-12-15 16:16:54.000000000 +0800        204 /var/log/apt/history.log.2.gz
+2023-12-15 16:16:54.000000000 +0800        349 /var/log/dpkg.log.2.gz
+2025-06-13 23:14:45.000000000 +0800        222 /var/log/haproxy.log.52.gz
+2025-06-14 01:31:52.000000000 +0800        223 /var/log/haproxy.log.51.gz
+2025-06-20 23:14:56.000000000 +0800        224 /var/log/haproxy.log.50.gz
+2025-06-21 01:31:49.000000000 +0800        223 /var/log/haproxy.log.49.gz
+2025-06-27 23:14:54.000000000 +0800        224 /var/log/haproxy.log.48.gz
+2025-06-28 01:31:47.000000000 +0800        224 /var/log/haproxy.log.47.gz
+2025-07-04 23:14:51.000000000 +0800        224 /var/log/haproxy.log.46.gz
+2025-07-05 01:31:44.000000000 +0800        223 /var/log/haproxy.log.45.gz
+2025-07-11 23:14:53.000000000 +0800        223 /var/log/haproxy.log.44.gz
+2025-07-12 01:31:45.000000000 +0800        224 /var/log/haproxy.log.43.gz
+2025-07-16 16:45:47.000000000 +0800        223 /var/log/haproxy.log.42.gz
+2025-07-18 23:14:16.000000000 +0800        225 /var/log/haproxy.log.41.gz
+2025-07-19 01:31:24.000000000 +0800        224 /var/log/haproxy.log.40.gz
+2025-07-25 23:14:51.000000000 +0800        224 /var/log/haproxy.log.39.gz
+2025-07-26 01:31:44.000000000 +0800        225 /var/log/haproxy.log.38.gz
+2025-08-01 23:14:51.000000000 +0800        221 /var/log/haproxy.log.37.gz
+2025-08-02 01:31:44.000000000 +0800        222 /var/log/haproxy.log.36.gz
+2025-08-08 23:14:43.000000000 +0800        222 /var/log/haproxy.log.35.gz
+2025-08-09 01:31:51.000000000 +0800        224 /var/log/haproxy.log.34.gz
+2025-08-15 23:14:49.000000000 +0800        224 /var/log/haproxy.log.33.gz
+2025-08-16 01:31:57.000000000 +0800        224 /var/log/haproxy.log.32.gz
+2025-08-21 22:38:36.000000000 +0800        366 /var/log/haproxy.log.31.gz
+2025-08-22 23:14:49.000000000 +0800        357 /var/log/haproxy.log.30.gz
+2025-08-23 01:31:57.000000000 +0800        223 /var/log/haproxy.log.29.gz
+2025-08-29 23:14:49.000000000 +0800        224 /var/log/haproxy.log.28.gz
+2025-08-30 01:31:27.000000000 +0800        224 /var/log/haproxy.log.27.gz
+2025-09-05 23:14:46.000000000 +0800        223 /var/log/haproxy.log.26.gz
+2025-09-06 01:31:54.000000000 +0800        221 /var/log/haproxy.log.25.gz
+2025-09-12 23:14:50.000000000 +0800        222 /var/log/haproxy.log.24.gz
+2025-09-13 01:31:43.000000000 +0800        221 /var/log/haproxy.log.23.gz
+2025-09-19 23:14:46.000000000 +0800        223 /var/log/haproxy.log.22.gz
+2025-09-20 01:31:54.000000000 +0800        222 /var/log/haproxy.log.21.gz
+2025-09-26 23:14:55.000000000 +0800        223 /var/log/haproxy.log.20.gz
+2025-09-27 01:31:49.000000000 +0800        220 /var/log/haproxy.log.19.gz
+2025-10-03 23:14:49.000000000 +0800        223 /var/log/haproxy.log.18.gz
+2025-10-04 01:31:57.000000000 +0800        222 /var/log/haproxy.log.17.gz
+2025-10-10 23:14:43.000000000 +0800        222 /var/log/haproxy.log.16.gz
+2025-10-11 01:31:51.000000000 +0800        221 /var/log/haproxy.log.15.gz
+2025-10-17 23:14:49.000000000 +0800        222 /var/log/haproxy.log.14.gz
+2025-10-18 01:31:57.000000000 +0800        222 /var/log/haproxy.log.13.gz
+2025-10-24 23:13:52.000000000 +0800        223 /var/log/haproxy.log.12.gz
+2025-10-25 01:31:15.000000000 +0800        223 /var/log/haproxy.log.11.gz
+2025-10-31 23:14:49.000000000 +0800        222 /var/log/haproxy.log.10.gz
+2025-11-01 01:31:57.000000000 +0800        221 /var/log/haproxy.log.9.gz
+2025-11-07 23:14:47.000000000 +0800        222 /var/log/haproxy.log.8.gz
+2025-11-08 01:31:55.000000000 +0800        220 /var/log/haproxy.log.7.gz
+2025-11-14 23:14:28.000000000 +0800        223 /var/log/haproxy.log.6.gz
+2025-11-15 01:31:21.000000000 +0800        222 /var/log/haproxy.log.5.gz
+2025-11-21 23:13:52.000000000 +0800        223 /var/log/haproxy.log.4.gz
+2025-11-22 01:30:46.000000000 +0800        222 /var/log/haproxy.log.3.gz
+2026-02-04 19:47:07.000000000 +0800        121 /var/log/kern.log.4.gz
+2026-02-05 10:21:05.000000000 +0800        123 /var/log/apt/history.log.1.gz
+2026-02-05 10:21:05.117538836 +0800        818 /var/log/dpkg.log.1
+2026-02-05 18:31:11.000000000 +0800        383 /var/log/haproxy.log.2.gz
+2026-02-06 00:00:01.226678476 +0800          0 /var/log/apt/history.log
+2026-02-06 00:00:23.571528342 +0800          0 /var/log/dpkg.log
+2026-02-09 04:02:40.000000000 +0800        392 /var/log/kern.log.3.gz
+2026-05-13 20:03:58.000000000 +0800       3870 /var/log/kern.log.2.gz
+2026-06-01 15:09:44.343363353 +0800       1896 /var/log/haproxy.log.1
+2026-06-02 00:00:38.787276528 +0800          0 /var/log/haproxy.log
+2026-07-07 00:00:36.000000000 +0800    3128380 /var/log/syslog.7.gz
+2026-07-08 00:00:35.000000000 +0800    3101247 /var/log/syslog.6.gz
+2026-07-08 14:42:03.578403182 +0800      19428 /var/log/kern.log.1
+2026-07-09 00:00:36.000000000 +0800    3122462 /var/log/syslog.5.gz
+2026-07-09 00:00:36.571944927 +0800          0 /var/log/kern.log
+2026-07-10 00:00:36.000000000 +0800    3110557 /var/log/syslog.4.gz
+2026-07-11 00:00:47.000000000 +0800    3095075 /var/log/syslog.3.gz
+2026-07-12 00:00:49.000000000 +0800    3110045 /var/log/syslog.2.gz
+2026-07-13 00:01:00.963016100 +0800   42765688 /var/log/syslog.1
+2026-07-13 05:59:59.830144280 +0800     310797 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.18.log
+2026-07-13 06:41:56.394389077 +0800     204113 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.17.log
+2026-07-13 06:52:14.870088092 +0800     305800 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.14.log
+2026-07-13 07:00:39.757439808 +0800     247364 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.15.log
+2026-07-13 07:11:51.543192680 +0800     830962 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.24.log
+2026-07-13 10:56:34.563668843 +0800      32820 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.13.log
+2026-07-13 11:01:06.094059578 +0800     255111 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.19.log
+2026-07-13 14:44:38.149790414 +0800     846653 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.20.log
+2026-07-13 15:19:48.894267674 +0800     107171 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.16.log
+2026-07-13 16:25:01.847331159 +0800       6501 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mgr.gz-4f31406-ceph-001202.yeyqxz.log
+2026-07-13 16:27:28.816930876 +0800      78030 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.cephadm.log
+2026-07-13 16:31:20.193747569 +0800    9056154 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.audit.log
+2026-07-13 16:31:23.609877741 +0800   15533927 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mon.gz-4f31406-ceph-001202.log
+2026-07-13 16:31:38.146431661 +0800  498276568 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-volume.log
+2026-07-13 16:31:39.866497204 +0800    2049247 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.22.log
+2026-07-13 16:31:40.246511685 +0800    1113270 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.21.log
+2026-07-13 16:31:40.434518849 +0800    1965657 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.23.log
+2026-07-13 16:31:40.778531957 +0800  479859155 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.djeddm.log
+2026-07-13 16:31:41.034541713 +0800    1106855 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.25.log
+2026-07-13 16:31:41.114544761 +0800  479682610 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001202.rodumt.log
+2026-07-13 16:31:41.234549334 +0800  126550470 /var/log/ceph/cephadm.log
+2026-07-13 16:31:41.838572350 +0800   29305350 /var/log/syslog
+2026-07-13 16:31:41.914575246 +0800   54783008 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.log
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+==================== gz-4f31406-ceph-001203 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:31:42 PM CST
+ 16:31:42 up 1082 days, 20:58,  1 user,  load average: 1.37, 1.50, 1.64
+         system boot  2023-07-26 19:33
+
+[2] journal boots
+ 0 99a7c27e03c346db88b13c69bcdbc20a Fri 2026-06-12 02:23:57 CST—Mon 2026-07-13 16:31:42 CST
+
+[3] journal disk usage
+Archived and active journals take up 4.0G in the file system.
+
+[4] log files timestamp
+2023-05-13 09:38:50.579154038 +0800      32096 /var/log/dmesg.4.gz
+2023-05-13 10:48:12.539832675 +0800      31985 /var/log/dmesg.3.gz
+2023-05-15 10:15:37.576548568 +0800      32187 /var/log/dmesg.2.gz
+2023-05-16 14:35:55.374829634 +0800      32136 /var/log/dmesg.1.gz
+2023-05-18 08:42:12.178635585 +0800     166108 /var/log/dmesg.0
+2023-05-23 13:46:26.000000000 +0800      12081 /var/log/apt/history.log.3.gz
+2023-05-23 13:46:26.000000000 +0800      51798 /var/log/dpkg.log.3.gz
+2023-07-26 19:33:18.645800322 +0800     166430 /var/log/dmesg
+2023-12-15 16:16:53.000000000 +0800        204 /var/log/apt/history.log.2.gz
+2023-12-15 16:16:53.000000000 +0800        349 /var/log/dpkg.log.2.gz
+2025-06-13 23:14:55.000000000 +0800        223 /var/log/haproxy.log.52.gz
+2025-06-14 01:31:48.000000000 +0800        223 /var/log/haproxy.log.51.gz
+2025-06-20 23:14:51.000000000 +0800        223 /var/log/haproxy.log.50.gz
+2025-06-21 01:31:59.000000000 +0800        219 /var/log/haproxy.log.49.gz
+2025-06-27 23:14:50.000000000 +0800        223 /var/log/haproxy.log.48.gz
+2025-06-28 01:31:58.000000000 +0800        218 /var/log/haproxy.log.47.gz
+2025-07-04 23:14:47.000000000 +0800        225 /var/log/haproxy.log.46.gz
+2025-07-05 01:31:55.000000000 +0800        223 /var/log/haproxy.log.45.gz
+2025-07-11 23:14:49.000000000 +0800        224 /var/log/haproxy.log.44.gz
+2025-07-12 01:31:56.000000000 +0800        221 /var/log/haproxy.log.43.gz
+2025-07-16 16:45:58.000000000 +0800        224 /var/log/haproxy.log.42.gz
+2025-07-18 23:14:27.000000000 +0800        224 /var/log/haproxy.log.41.gz
+2025-07-19 01:31:19.000000000 +0800        225 /var/log/haproxy.log.40.gz
+2025-07-25 23:14:47.000000000 +0800        225 /var/log/haproxy.log.39.gz
+2025-07-26 01:31:55.000000000 +0800        222 /var/log/haproxy.log.38.gz
+2025-08-01 23:14:47.000000000 +0800        221 /var/log/haproxy.log.37.gz
+2025-08-02 01:31:55.000000000 +0800        222 /var/log/haproxy.log.36.gz
+2025-08-08 23:14:55.000000000 +0800        222 /var/log/haproxy.log.35.gz
+2025-08-09 01:31:48.000000000 +0800        223 /var/log/haproxy.log.34.gz
+2025-08-15 23:14:44.000000000 +0800        224 /var/log/haproxy.log.33.gz
+2025-08-16 01:31:52.000000000 +0800        224 /var/log/haproxy.log.32.gz
+2025-08-21 22:38:35.000000000 +0800        360 /var/log/haproxy.log.31.gz
+2025-08-22 23:14:45.000000000 +0800        356 /var/log/haproxy.log.30.gz
+2025-08-23 01:31:53.000000000 +0800        222 /var/log/haproxy.log.29.gz
+2025-08-29 23:14:46.000000000 +0800        223 /var/log/haproxy.log.28.gz
+2025-08-30 01:31:24.000000000 +0800        217 /var/log/haproxy.log.27.gz
+2025-09-05 23:14:57.000000000 +0800        221 /var/log/haproxy.log.26.gz
+2025-09-06 01:31:50.000000000 +0800        215 /var/log/haproxy.log.25.gz
+2025-09-12 23:14:43.000000000 +0800        218 /var/log/haproxy.log.24.gz
+2025-09-13 01:31:51.000000000 +0800        214 /var/log/haproxy.log.23.gz
+2025-09-19 23:14:51.000000000 +0800        219 /var/log/haproxy.log.22.gz
+2025-09-20 01:31:44.000000000 +0800        217 /var/log/haproxy.log.21.gz
+2025-09-26 23:14:57.000000000 +0800        219 /var/log/haproxy.log.20.gz
+2025-09-27 01:31:50.000000000 +0800        214 /var/log/haproxy.log.19.gz
+2025-10-03 23:14:45.000000000 +0800        220 /var/log/haproxy.log.18.gz
+2025-10-04 01:31:54.000000000 +0800        219 /var/log/haproxy.log.17.gz
+2025-10-10 23:14:51.000000000 +0800        215 /var/log/haproxy.log.16.gz
+2025-10-11 01:31:44.000000000 +0800        215 /var/log/haproxy.log.15.gz
+2025-10-17 23:14:53.000000000 +0800        218 /var/log/haproxy.log.14.gz
+2025-10-18 01:31:46.000000000 +0800        218 /var/log/haproxy.log.13.gz
+2025-10-24 23:13:52.000000000 +0800        219 /var/log/haproxy.log.12.gz
+2025-10-25 01:31:15.000000000 +0800        219 /var/log/haproxy.log.11.gz
+2025-10-31 23:14:45.000000000 +0800        221 /var/log/haproxy.log.10.gz
+2025-11-01 01:31:54.000000000 +0800        214 /var/log/haproxy.log.9.gz
+2025-11-07 23:14:55.000000000 +0800        221 /var/log/haproxy.log.8.gz
+2025-11-08 01:31:48.000000000 +0800        215 /var/log/haproxy.log.7.gz
+2025-11-14 23:14:17.000000000 +0800        215 /var/log/haproxy.log.6.gz
+2025-11-15 01:31:25.000000000 +0800        215 /var/log/haproxy.log.5.gz
+2025-11-21 23:13:55.000000000 +0800        215 /var/log/haproxy.log.4.gz
+2025-11-22 01:30:48.000000000 +0800        215 /var/log/haproxy.log.3.gz
+2026-02-05 10:23:24.000000000 +0800        122 /var/log/apt/history.log.1.gz
+2026-02-05 10:23:24.542319131 +0800        818 /var/log/dpkg.log.1
+2026-02-05 18:31:11.000000000 +0800        381 /var/log/haproxy.log.2.gz
+2026-02-06 00:00:02.031889378 +0800          0 /var/log/apt/history.log
+2026-02-06 00:00:11.824185926 +0800          0 /var/log/dpkg.log
+2026-04-20 17:44:00.000000000 +0800        399 /var/log/kern.log.4.gz
+2026-05-13 18:54:22.000000000 +0800       3210 /var/log/kern.log.3.gz
+2026-05-24 18:31:00.000000000 +0800        163 /var/log/kern.log.2.gz
+2026-06-01 15:09:44.357897003 +0800       1896 /var/log/haproxy.log.1
+2026-06-02 00:00:22.748910406 +0800          0 /var/log/haproxy.log
+2026-07-07 00:00:19.000000000 +0800     907028 /var/log/syslog.7.gz
+2026-07-08 00:00:19.000000000 +0800     909207 /var/log/syslog.6.gz
+2026-07-09 00:00:19.000000000 +0800     903999 /var/log/syslog.5.gz
+2026-07-10 00:00:19.000000000 +0800     880005 /var/log/syslog.4.gz
+2026-07-11 00:00:31.000000000 +0800     914200 /var/log/syslog.3.gz
+2026-07-11 01:27:54.103975102 +0800        469 /var/log/kern.log.1
+2026-07-12 00:00:30.000000000 +0800     952779 /var/log/syslog.2.gz
+2026-07-12 00:00:31.499637530 +0800          0 /var/log/kern.log
+2026-07-13 00:00:02.053733868 +0800        157 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mds.cephfs.gz-4f31406-ceph-001203.vnsoyp.log
+2026-07-13 00:00:02.053733868 +0800        157 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.33.log
+2026-07-13 00:00:46.427092710 +0800   21266055 /var/log/syslog.1
+2026-07-13 04:11:00.083413880 +0800      88255 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.27.log
+2026-07-13 05:59:56.112257966 +0800     456098 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.30.log
+2026-07-13 05:59:59.020347246 +0800     284928 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.29.log
+2026-07-13 05:59:59.396358789 +0800     361014 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.32.log
+2026-07-13 07:11:51.344969304 +0800     899593 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.36.log
+2026-07-13 07:14:39.018136007 +0800      36184 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.26.log
+2026-07-13 07:28:20.487468764 +0800     366576 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.28.log
+2026-07-13 11:57:28.116237735 +0800     250289 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.31.log
+2026-07-13 16:17:45.245911573 +0800       6605 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mgr.gz-4f31406-ceph-001203.qycafv.log
+2026-07-13 16:22:57.319465135 +0800    4784064 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-volume.log
+2026-07-13 16:27:28.819781230 +0800      78030 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.cephadm.log
+2026-07-13 16:31:19.614850371 +0800    4353371 /var/log/ceph/cephadm.log
+2026-07-13 16:31:20.194868137 +0800    9055842 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.audit.log
+2026-07-13 16:31:23.634973504 +0800   15178988 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-mon.gz-4f31406-ceph-001203.log
+2026-07-13 16:31:40.871501442 +0800    1088929 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.35.log
+2026-07-13 16:31:41.539521903 +0800    1926048 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.37.log
+2026-07-13 16:31:41.943534278 +0800    1529216 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.38.log
+2026-07-13 16:31:42.227542977 +0800   14635766 /var/log/syslog
+2026-07-13 16:31:42.779559884 +0800  480006095 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.qrvfsa.log
+2026-07-13 16:31:42.807560743 +0800    1493107 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-osd.34.log
+2026-07-13 16:31:42.919564173 +0800   54781557 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph.log
+2026-07-13 16:31:43.007566868 +0800  479599580 /var/log/ceph/7ebb8530-f215-11ed-80e2-97aadb4506a0/ceph-client.rgw.evoc.guangzhou.gz-4f31406-ceph-001203.paypjz.log
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+==================== fs-1f8hh0103-ceph-224201 : log coverage ====================
+ssh: Could not resolve hostname fs-1f8hh0103-ceph-224201: Name or service not known
+==================== fs-1f8hh0104-ceph-224202 : log coverage ====================
+ssh: Could not resolve hostname fs-1f8hh0104-ceph-224202: Name or service not known
+==================== fs-1f8hh0105-ceph-224203 : log coverage ====================
+ssh: Could not resolve hostname fs-1f8hh0105-ceph-224203: Name or service not known
+
+==================== fs-1f8hh0103-ceph-224201 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:32:05 PM CST
+ 16:32:05 up 1154 days,  2:49,  2 users,  load average: 3.18, 3.42, 3.76
+         system boot  2023-05-16 13:42
+
+[2] journal boots
+ 0 ee2fb304ca114d8597403f039c2cdf44 Tue 2026-06-16 16:20:41 CST—Mon 2026-07-13 16:32:04 CST
+
+[3] journal disk usage
+Archived and active journals take up 4.1G in the file system.
+
+[4] log files timestamp
+2023-05-13 14:43:19.959672322 +0800      32279 /var/log/dmesg.4.gz
+2023-05-14 12:02:21.433888691 +0800      32806 /var/log/dmesg.3.gz
+2023-05-14 12:33:30.843706096 +0800      32180 /var/log/dmesg.2.gz
+2023-05-15 09:38:59.074358865 +0800      32290 /var/log/dmesg.1.gz
+2023-05-15 18:05:22.567159673 +0800     169144 /var/log/dmesg.0
+2023-05-16 13:42:45.059693719 +0800     166467 /var/log/dmesg
+2023-05-22 21:31:09.000000000 +0800      12095 /var/log/apt/history.log.9.gz
+2023-05-22 21:31:09.000000000 +0800      51826 /var/log/dpkg.log.10.gz
+2023-06-13 14:22:21.000000000 +0800        151 /var/log/dpkg.log.9.gz
+2023-12-15 16:00:56.000000000 +0800        157 /var/log/apt/history.log.8.gz
+2023-12-15 16:00:56.000000000 +0800        343 /var/log/dpkg.log.8.gz
+2023-12-18 18:40:39.000000000 +0800        314 /var/log/apt/history.log.7.gz
+2023-12-18 18:40:39.000000000 +0800        856 /var/log/dpkg.log.7.gz
+2024-07-12 15:06:08.000000000 +0800        141 /var/log/apt/history.log.6.gz
+2024-07-12 15:06:08.000000000 +0800        321 /var/log/dpkg.log.6.gz
+2024-12-17 14:12:07.000000000 +0800        181 /var/log/apt/history.log.5.gz
+2024-12-17 14:12:07.000000000 +0800        388 /var/log/dpkg.log.5.gz
+2025-01-20 14:19:58.000000000 +0800        142 /var/log/apt/history.log.4.gz
+2025-01-20 14:19:58.000000000 +0800        308 /var/log/dpkg.log.4.gz
+2025-06-05 17:50:56.000000000 +0800        251 /var/log/dpkg.log.3.gz
+2025-06-05 17:50:57.000000000 +0800        115 /var/log/apt/history.log.3.gz
+2026-02-04 18:48:16.000000000 +0800        123 /var/log/apt/history.log.2.gz
+2026-02-04 18:48:16.000000000 +0800        218 /var/log/dpkg.log.2.gz
+2026-02-06 14:54:11.000000000 +0800        220 /var/log/apt/history.log.1.gz
+2026-02-06 14:54:11.301281302 +0800       4173 /var/log/dpkg.log.1
+2026-03-01 00:00:01.454824780 +0800          0 /var/log/apt/history.log
+2026-03-01 00:00:28.643777776 +0800          0 /var/log/dpkg.log
+2026-05-22 22:51:40.000000000 +0800       8220 /var/log/haproxy.log.52.gz
+2026-05-23 22:52:05.000000000 +0800       7794 /var/log/haproxy.log.51.gz
+2026-05-24 22:51:56.000000000 +0800       7682 /var/log/haproxy.log.50.gz
+2026-05-25 22:51:49.000000000 +0800       9567 /var/log/haproxy.log.49.gz
+2026-05-26 23:32:42.000000000 +0800       9377 /var/log/haproxy.log.48.gz
+2026-05-28 00:00:15.000000000 +0800      16996 /var/log/haproxy.log.47.gz
+2026-05-28 22:51:30.000000000 +0800      17946 /var/log/haproxy.log.46.gz
+2026-05-29 22:51:35.000000000 +0800       8971 /var/log/haproxy.log.45.gz
+2026-05-30 22:52:01.000000000 +0800       7795 /var/log/haproxy.log.44.gz
+2026-05-31 22:51:52.000000000 +0800       7925 /var/log/haproxy.log.43.gz
+2026-06-01 22:51:40.000000000 +0800       8800 /var/log/haproxy.log.42.gz
+2026-06-02 22:51:36.000000000 +0800       8726 /var/log/haproxy.log.41.gz
+2026-06-03 22:51:36.000000000 +0800      11031 /var/log/haproxy.log.40.gz
+2026-06-04 22:51:55.000000000 +0800       8876 /var/log/haproxy.log.39.gz
+2026-06-05 22:49:00.000000000 +0800       8631 /var/log/haproxy.log.38.gz
+2026-06-06 22:52:43.000000000 +0800       7818 /var/log/haproxy.log.37.gz
+2026-06-07 22:49:22.000000000 +0800       7758 /var/log/haproxy.log.36.gz
+2026-06-08 22:52:15.000000000 +0800       9362 /var/log/haproxy.log.35.gz
+2026-06-09 22:53:03.000000000 +0800       8544 /var/log/haproxy.log.34.gz
+2026-06-10 22:52:31.000000000 +0800       8690 /var/log/haproxy.log.33.gz
+2026-06-11 22:52:52.000000000 +0800       8729 /var/log/haproxy.log.32.gz
+2026-06-12 22:52:04.000000000 +0800       8936 /var/log/haproxy.log.31.gz
+2026-06-13 22:52:03.000000000 +0800       7950 /var/log/haproxy.log.30.gz
+2026-06-14 22:52:54.000000000 +0800       8105 /var/log/haproxy.log.29.gz
+2026-06-15 22:51:05.000000000 +0800       8659 /var/log/haproxy.log.28.gz
+2026-06-16 22:51:11.000000000 +0800       9578 /var/log/haproxy.log.27.gz
+2026-06-17 22:51:16.000000000 +0800       3520 /var/log/haproxy.log.26.gz
+2026-06-18 23:59:55.000000000 +0800       9576 /var/log/haproxy.log.25.gz
+2026-06-19 23:59:31.000000000 +0800      32860 /var/log/haproxy.log.24.gz
+2026-06-20 12:06:00.000000000 +0800        322 /var/log/kern.log.4.gz
+2026-06-20 23:59:44.000000000 +0800      32454 /var/log/haproxy.log.23.gz
+2026-06-21 23:59:55.000000000 +0800      32560 /var/log/haproxy.log.22.gz
+2026-06-23 00:00:07.000000000 +0800      34645 /var/log/haproxy.log.21.gz
+2026-06-24 00:00:25.000000000 +0800      32945 /var/log/haproxy.log.20.gz
+2026-06-24 22:51:13.000000000 +0800      26417 /var/log/haproxy.log.19.gz
+2026-06-25 22:51:21.000000000 +0800       8693 /var/log/haproxy.log.18.gz
+2026-06-26 22:51:22.000000000 +0800       8412 /var/log/haproxy.log.17.gz
+2026-06-27 12:06:11.000000000 +0800        382 /var/log/kern.log.3.gz
+2026-06-27 22:51:10.000000000 +0800       7950 /var/log/haproxy.log.16.gz
+2026-06-28 22:51:08.000000000 +0800       7906 /var/log/haproxy.log.15.gz
+2026-06-29 22:51:16.000000000 +0800       9666 /var/log/haproxy.log.14.gz
+2026-06-30 22:51:28.000000000 +0800       7899 /var/log/haproxy.log.13.gz
+2026-07-01 22:51:31.000000000 +0800       8994 /var/log/haproxy.log.12.gz
+2026-07-02 22:51:21.000000000 +0800      10397 /var/log/haproxy.log.11.gz
+2026-07-03 22:51:22.000000000 +0800       8549 /var/log/haproxy.log.10.gz
+2026-07-04 12:06:01.000000000 +0800        382 /var/log/kern.log.2.gz
+2026-07-04 22:51:17.000000000 +0800       7935 /var/log/haproxy.log.9.gz
+2026-07-05 22:51:24.000000000 +0800       7961 /var/log/haproxy.log.8.gz
+2026-07-06 22:51:10.000000000 +0800       9058 /var/log/haproxy.log.7.gz
+2026-07-07 00:00:33.000000000 +0800    1289875 /var/log/syslog.7.gz
+2026-07-07 22:51:12.000000000 +0800       9869 /var/log/haproxy.log.6.gz
+2026-07-08 00:00:37.000000000 +0800    1301369 /var/log/syslog.6.gz
+2026-07-08 22:51:02.000000000 +0800       8470 /var/log/haproxy.log.5.gz
+2026-07-09 00:00:39.000000000 +0800    1295174 /var/log/syslog.5.gz
+2026-07-09 22:51:03.000000000 +0800       9541 /var/log/haproxy.log.4.gz
+2026-07-10 00:00:39.000000000 +0800    1271796 /var/log/syslog.4.gz
+2026-07-10 23:52:29.000000000 +0800       9148 /var/log/haproxy.log.3.gz
+2026-07-11 00:00:41.000000000 +0800    1304557 /var/log/syslog.3.gz
+2026-07-11 12:06:08.559198868 +0800       2590 /var/log/kern.log.1
+2026-07-12 00:00:31.000000000 +0800      30626 /var/log/haproxy.log.2.gz
+2026-07-12 00:00:43.000000000 +0800    1277609 /var/log/syslog.2.gz
+2026-07-12 23:59:41.522096979 +0800     372266 /var/log/haproxy.log.1
+2026-07-13 00:00:01.738806829 +0800     293195 /var/log/ceph/ceph-client.foo.log
+2026-07-13 00:00:01.738806829 +0800     294635 /var/log/ceph/ceph-client.admin.log
+2026-07-13 00:00:38.156085364 +0800   29953292 /var/log/syslog.1
+2026-07-13 12:06:06.261366663 +0800        740 /var/log/kern.log
+2026-07-13 12:16:02.962550857 +0800     515100 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.6.log
+2026-07-13 13:43:16.474842321 +0800       1397 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.0.log
+2026-07-13 13:43:16.810854152 +0800     233129 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.1.log
+2026-07-13 13:43:19.182937677 +0800     447204 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.2.log
+2026-07-13 13:43:19.990966128 +0800     569304 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.3.log
+2026-07-13 13:43:20.590987255 +0800     161704 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.10.log
+2026-07-13 13:43:21.539020637 +0800     444043 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.7.log
+2026-07-13 13:43:21.815030355 +0800     443481 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.8.log
+2026-07-13 13:43:21.863032045 +0800     235240 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.11.log
+2026-07-13 13:43:21.923034158 +0800     290490 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.9.log
+2026-07-13 13:43:22.235045144 +0800     618596 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.5.log
+2026-07-13 13:43:23.891103456 +0800     283451 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.12.log
+2026-07-13 15:33:16.630446413 +0800     381626 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.4.log
+2026-07-13 16:14:13.248551786 +0800     154053 /var/log/haproxy.log
+2026-07-13 16:22:19.185645082 +0800       6898 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mgr.fs-1f8hh0103-ceph-224201.iebdjh.log
+2026-07-13 16:22:34.458181857 +0800      81310 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.cephadm.log
+2026-07-13 16:24:49.534928415 +0800    4930992 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-volume.log
+2026-07-13 16:31:55.273804849 +0800    4935022 /var/log/ceph/cephadm.log
+2026-07-13 16:31:55.589815937 +0800   18296003 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mon.fs-1f8hh0103-ceph-224201.log
+2026-07-13 16:31:56.345842463 +0800    6390901 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.audit.log
+2026-07-13 16:32:04.906142811 +0800   20637177 /var/log/syslog
+2026-07-13 16:32:05.378159372 +0800   35779017 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.log
+2026-07-13 16:32:05.410160494 +0800  598197947 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0103-ceph-224201.ufrjcr.log
+2026-07-13 16:32:05.634168355 +0800  598243485 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0103-ceph-224201.rtcjbn.log
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+==================== fs-1f8hh0104-ceph-224202 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:32:06 PM CST
+ 16:32:06 up 1154 days,  2:50,  1 user,  load average: 5.43, 4.40, 4.23
+         system boot  2023-05-16 13:42
+
+[2] journal boots
+ 0 f1f5c6c93b174f588c254f3606ec4c91 Thu 2026-06-18 03:01:57 CST—Mon 2026-07-13 16:32:05 CST
+
+[3] journal disk usage
+Archived and active journals take up 4.0G in the file system.
+
+[4] log files timestamp
+2023-05-13 14:43:15.888305835 +0800      32132 /var/log/dmesg.4.gz
+2023-05-14 11:58:54.047591621 +0800      32226 /var/log/dmesg.3.gz
+2023-05-14 12:33:34.498822157 +0800      32114 /var/log/dmesg.2.gz
+2023-05-15 09:38:15.603261890 +0800      32082 /var/log/dmesg.1.gz
+2023-05-15 17:58:42.269000798 +0800        431 /var/log/ceph/ceph-client.admin.log
+2023-05-15 18:01:47.136441366 +0800     165747 /var/log/dmesg.0
+2023-05-16 13:42:35.809730035 +0800     165643 /var/log/dmesg
+2023-05-23 13:47:59.000000000 +0800      12108 /var/log/apt/history.log.3.gz
+2023-05-23 13:47:59.000000000 +0800      51872 /var/log/dpkg.log.3.gz
+2023-12-15 16:08:12.000000000 +0800        204 /var/log/apt/history.log.2.gz
+2023-12-15 16:08:12.000000000 +0800        344 /var/log/dpkg.log.2.gz
+2024-06-18 16:28:47.081594816 +0800    7754377 /var/log/ceph/mgr.log
+2025-06-20 23:14:51.000000000 +0800        222 /var/log/haproxy.log.52.gz
+2025-06-21 01:32:02.000000000 +0800        219 /var/log/haproxy.log.51.gz
+2025-06-27 23:14:50.000000000 +0800        219 /var/log/haproxy.log.50.gz
+2025-06-28 01:31:51.000000000 +0800        224 /var/log/haproxy.log.49.gz
+2025-07-04 23:15:00.000000000 +0800        224 /var/log/haproxy.log.48.gz
+2025-07-05 01:32:01.000000000 +0800        224 /var/log/haproxy.log.47.gz
+2025-07-11 23:15:00.000000000 +0800        221 /var/log/haproxy.log.46.gz
+2025-07-12 01:31:56.000000000 +0800        218 /var/log/haproxy.log.45.gz
+2025-07-16 16:45:52.000000000 +0800        225 /var/log/haproxy.log.44.gz
+2025-07-18 23:14:32.000000000 +0800        224 /var/log/haproxy.log.43.gz
+2025-07-19 01:31:28.000000000 +0800        221 /var/log/haproxy.log.42.gz
+2025-07-25 23:15:04.000000000 +0800        225 /var/log/haproxy.log.41.gz
+2025-07-26 01:31:55.000000000 +0800        223 /var/log/haproxy.log.40.gz
+2025-08-01 23:14:51.000000000 +0800        223 /var/log/haproxy.log.39.gz
+2025-08-02 01:31:57.000000000 +0800        223 /var/log/haproxy.log.38.gz
+2025-08-08 23:14:48.000000000 +0800        497 /var/log/haproxy.log.37.gz
+2025-08-09 01:31:53.000000000 +0800        227 /var/log/haproxy.log.36.gz
+2025-08-15 23:15:00.000000000 +0800        224 /var/log/haproxy.log.35.gz
+2025-08-16 01:31:49.000000000 +0800        224 /var/log/haproxy.log.34.gz
+2025-08-22 23:14:54.000000000 +0800        226 /var/log/haproxy.log.33.gz
+2025-08-23 01:31:47.000000000 +0800        226 /var/log/haproxy.log.32.gz
+2025-08-29 23:14:52.000000000 +0800        224 /var/log/haproxy.log.31.gz
+2025-08-30 01:31:18.000000000 +0800        225 /var/log/haproxy.log.30.gz
+2025-09-05 23:14:59.000000000 +0800        224 /var/log/haproxy.log.29.gz
+2025-09-06 01:31:52.000000000 +0800        223 /var/log/haproxy.log.28.gz
+2025-09-12 23:14:50.000000000 +0800        225 /var/log/haproxy.log.27.gz
+2025-09-13 01:31:54.000000000 +0800        228 /var/log/haproxy.log.26.gz
+2025-09-19 23:14:54.000000000 +0800        225 /var/log/haproxy.log.25.gz
+2025-09-20 01:32:00.000000000 +0800        222 /var/log/haproxy.log.24.gz
+2025-09-26 23:15:01.000000000 +0800        224 /var/log/haproxy.log.23.gz
+2025-09-27 01:31:46.000000000 +0800        223 /var/log/haproxy.log.22.gz
+2025-10-03 23:14:56.000000000 +0800        224 /var/log/haproxy.log.21.gz
+2025-10-04 01:31:56.000000000 +0800        225 /var/log/haproxy.log.20.gz
+2025-10-10 23:14:47.000000000 +0800        223 /var/log/haproxy.log.19.gz
+2025-10-11 01:31:59.000000000 +0800        225 /var/log/haproxy.log.18.gz
+2025-10-17 23:15:01.000000000 +0800        223 /var/log/haproxy.log.17.gz
+2025-10-18 01:31:56.000000000 +0800        226 /var/log/haproxy.log.16.gz
+2025-10-24 23:13:51.000000000 +0800        223 /var/log/haproxy.log.15.gz
+2025-10-25 01:31:19.000000000 +0800        224 /var/log/haproxy.log.14.gz
+2025-10-31 23:14:57.000000000 +0800        224 /var/log/haproxy.log.13.gz
+2025-11-01 01:31:54.000000000 +0800        225 /var/log/haproxy.log.12.gz
+2025-11-07 23:14:55.000000000 +0800        223 /var/log/haproxy.log.11.gz
+2025-11-08 01:31:51.000000000 +0800        224 /var/log/haproxy.log.10.gz
+2025-11-14 23:14:29.000000000 +0800        223 /var/log/haproxy.log.9.gz
+2025-11-15 01:31:25.000000000 +0800        223 /var/log/haproxy.log.8.gz
+2025-11-21 23:14:02.000000000 +0800        223 /var/log/haproxy.log.7.gz
+2025-11-22 01:30:58.000000000 +0800        225 /var/log/haproxy.log.6.gz
+2026-02-04 19:32:06.000000000 +0800        123 /var/log/apt/history.log.1.gz
+2026-02-04 19:32:06.410461212 +0800        818 /var/log/dpkg.log.1
+2026-02-05 00:00:02.013711704 +0800          0 /var/log/apt/history.log
+2026-02-05 00:00:27.586722589 +0800          0 /var/log/dpkg.log
+2026-02-05 18:27:47.000000000 +0800        386 /var/log/haproxy.log.5.gz
+2026-02-06 22:18:42.000000000 +0800        388 /var/log/haproxy.log.4.gz
+2026-03-18 17:03:18.000000000 +0800      16188 /var/log/haproxy.log.3.gz
+2026-04-10 11:46:59.000000000 +0800        368 /var/log/haproxy.log.2.gz
+2026-04-25 15:55:06.000000000 +0800        382 /var/log/kern.log.4.gz
+2026-05-02 15:55:26.000000000 +0800        372 /var/log/kern.log.3.gz
+2026-05-09 15:55:46.000000000 +0800        365 /var/log/kern.log.2.gz
+2026-05-13 20:49:31.802300481 +0800      48960 /var/log/kern.log.1
+2026-05-17 00:00:28.874911987 +0800          0 /var/log/kern.log
+2026-06-17 22:18:40.079216953 +0800       1950 /var/log/haproxy.log.1
+2026-06-18 00:00:33.577872393 +0800          0 /var/log/haproxy.log
+2026-07-07 00:00:31.000000000 +0800    1304816 /var/log/syslog.7.gz
+2026-07-08 00:00:33.000000000 +0800    1291344 /var/log/syslog.6.gz
+2026-07-09 00:00:36.000000000 +0800    1310696 /var/log/syslog.5.gz
+2026-07-10 00:00:35.000000000 +0800    1296145 /var/log/syslog.4.gz
+2026-07-11 00:00:35.000000000 +0800    1287940 /var/log/syslog.3.gz
+2026-07-12 00:00:37.000000000 +0800    1370297 /var/log/syslog.2.gz
+2026-07-13 00:00:35.052185842 +0800   29433189 /var/log/syslog.1
+2026-07-13 11:18:33.451974802 +0800     185808 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.17.log
+2026-07-13 13:43:10.549688631 +0800       2339 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.13.log
+2026-07-13 13:43:11.153712663 +0800     333157 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.20.log
+2026-07-13 13:43:15.177872767 +0800     571313 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.16.log
+2026-07-13 13:43:16.101909530 +0800     454145 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.19.log
+2026-07-13 13:43:16.769936109 +0800     415707 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.21.log
+2026-07-13 13:43:17.233954570 +0800     496252 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.22.log
+2026-07-13 13:43:18.830018070 +0800     488692 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.18.log
+2026-07-13 13:43:19.166031439 +0800     715948 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.15.log
+2026-07-13 13:43:22.414160668 +0800     570382 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.14.log
+2026-07-13 14:14:33.624403383 +0800     215756 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.23.log
+2026-07-13 15:33:10.519596995 +0800     510149 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.25.log
+2026-07-13 16:03:47.748461968 +0800    4782752 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-volume.log
+2026-07-13 16:11:01.241664988 +0800     580578 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.24.log
+2026-07-13 16:22:34.461214248 +0800      81310 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.cephadm.log
+2026-07-13 16:31:30.314451641 +0800   11560792 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mon.fs-1f8hh0104-ceph-224202.log
+2026-07-13 16:31:55.231441647 +0800    4401555 /var/log/ceph/cephadm.log
+2026-07-13 16:31:56.347485990 +0800    6390901 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.audit.log
+2026-07-13 16:32:05.379844865 +0800   35779017 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.log
+2026-07-13 16:32:05.823862506 +0800   20232279 /var/log/syslog
+2026-07-13 16:32:06.323882374 +0800    7869171 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mgr.fs-1f8hh0104-ceph-224202.ckonvl.log
+2026-07-13 16:32:06.799901287 +0800  598311569 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0104-ceph-224202.lyttyy.log
+2026-07-13 16:32:06.811901764 +0800  598064483 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0104-ceph-224202.ywqada.log
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+==================== fs-1f8hh0105-ceph-224203 : log coverage ====================
+[1] date / uptime / boot time
+Mon 13 Jul 2026 04:32:07 PM CST
+ 16:32:07 up 1154 days,  2:50,  1 user,  load average: 4.84, 4.15, 3.89
+         system boot  2023-05-16 13:42
+
+[2] journal boots
+ 0 eff853dcbe814a32bc025c4ced230d87 Thu 2026-06-18 00:20:58 CST—Mon 2026-07-13 16:32:07 CST
+
+[3] journal disk usage
+Archived and active journals take up 4.0G in the file system.
+
+[4] log files timestamp
+2023-05-14 11:58:53.403867622 +0800      32057 /var/log/dmesg.4.gz
+2023-05-14 12:33:25.081416195 +0800      31999 /var/log/dmesg.3.gz
+2023-05-15 09:38:18.092633308 +0800      32198 /var/log/dmesg.2.gz
+2023-05-15 17:58:42.254675171 +0800        431 /var/log/ceph/ceph-client.admin.log
+2023-05-15 18:01:45.374801581 +0800      32146 /var/log/dmesg.1.gz
+2023-05-15 18:53:07.297135297 +0800     168462 /var/log/dmesg.0
+2023-05-16 13:42:36.671238069 +0800     165637 /var/log/dmesg
+2023-05-23 13:47:06.000000000 +0800      12089 /var/log/apt/history.log.3.gz
+2023-05-23 13:47:06.000000000 +0800      51817 /var/log/dpkg.log.3.gz
+2023-12-15 16:08:11.000000000 +0800        204 /var/log/apt/history.log.2.gz
+2023-12-15 16:08:11.000000000 +0800        345 /var/log/dpkg.log.2.gz
+2025-06-20 23:15:00.000000000 +0800        224 /var/log/haproxy.log.52.gz
+2025-06-21 01:31:54.000000000 +0800        224 /var/log/haproxy.log.51.gz
+2025-06-27 23:14:49.000000000 +0800        225 /var/log/haproxy.log.50.gz
+2025-06-28 01:31:51.000000000 +0800        225 /var/log/haproxy.log.49.gz
+2025-07-04 23:14:48.000000000 +0800        224 /var/log/haproxy.log.48.gz
+2025-07-05 01:31:47.000000000 +0800        225 /var/log/haproxy.log.47.gz
+2025-07-11 23:14:52.000000000 +0800        224 /var/log/haproxy.log.46.gz
+2025-07-12 01:31:48.000000000 +0800        226 /var/log/haproxy.log.45.gz
+2025-07-16 16:45:53.000000000 +0800        224 /var/log/haproxy.log.44.gz
+2025-07-18 23:14:24.000000000 +0800        224 /var/log/haproxy.log.43.gz
+2025-07-19 01:31:19.000000000 +0800        221 /var/log/haproxy.log.42.gz
+2025-07-25 23:14:58.000000000 +0800        230 /var/log/haproxy.log.41.gz
+2025-07-26 01:31:58.000000000 +0800        221 /var/log/haproxy.log.40.gz
+2025-08-01 23:14:50.000000000 +0800        224 /var/log/haproxy.log.39.gz
+2025-08-02 01:31:52.000000000 +0800        224 /var/log/haproxy.log.38.gz
+2025-08-08 23:14:50.000000000 +0800        503 /var/log/haproxy.log.37.gz
+2025-08-09 01:31:50.000000000 +0800        222 /var/log/haproxy.log.36.gz
+2025-08-15 23:14:50.000000000 +0800        224 /var/log/haproxy.log.35.gz
+2025-08-16 01:32:01.000000000 +0800        219 /var/log/haproxy.log.34.gz
+2025-08-22 23:14:49.000000000 +0800        218 /var/log/haproxy.log.33.gz
+2025-08-23 01:31:52.000000000 +0800        224 /var/log/haproxy.log.32.gz
+2025-08-29 23:14:46.000000000 +0800        223 /var/log/haproxy.log.31.gz
+2025-08-30 01:31:29.000000000 +0800        224 /var/log/haproxy.log.30.gz
+2025-09-05 23:14:51.000000000 +0800        222 /var/log/haproxy.log.29.gz
+2025-09-06 01:31:57.000000000 +0800        222 /var/log/haproxy.log.28.gz
+2025-09-12 23:14:53.000000000 +0800        222 /var/log/haproxy.log.27.gz
+2025-09-13 01:31:53.000000000 +0800        223 /var/log/haproxy.log.26.gz
+2025-09-19 23:14:49.000000000 +0800        222 /var/log/haproxy.log.25.gz
+2025-09-20 01:31:53.000000000 +0800        216 /var/log/haproxy.log.24.gz
+2025-09-26 23:14:58.000000000 +0800        219 /var/log/haproxy.log.23.gz
+2025-09-27 01:31:56.000000000 +0800        220 /var/log/haproxy.log.22.gz
+2025-10-03 23:14:48.000000000 +0800        223 /var/log/haproxy.log.21.gz
+2025-10-04 01:32:01.000000000 +0800        220 /var/log/haproxy.log.20.gz
+2025-10-10 23:14:59.000000000 +0800        218 /var/log/haproxy.log.19.gz
+2025-10-11 01:31:54.000000000 +0800        220 /var/log/haproxy.log.18.gz
+2025-10-17 23:14:55.000000000 +0800        226 /var/log/haproxy.log.17.gz
+2025-10-18 01:31:53.000000000 +0800        222 /var/log/haproxy.log.16.gz
+2025-10-24 23:13:54.000000000 +0800        218 /var/log/haproxy.log.15.gz
+2025-10-25 01:31:24.000000000 +0800        220 /var/log/haproxy.log.14.gz
+2025-10-31 23:14:56.000000000 +0800        224 /var/log/haproxy.log.13.gz
+2025-11-01 01:31:54.000000000 +0800        218 /var/log/haproxy.log.12.gz
+2025-11-07 23:14:51.000000000 +0800        222 /var/log/haproxy.log.11.gz
+2025-11-08 01:31:48.000000000 +0800        221 /var/log/haproxy.log.10.gz
+2025-11-14 23:14:27.000000000 +0800        222 /var/log/haproxy.log.9.gz
+2025-11-15 01:31:24.000000000 +0800        222 /var/log/haproxy.log.8.gz
+2025-11-21 23:13:58.000000000 +0800        221 /var/log/haproxy.log.7.gz
+2025-11-22 01:30:55.000000000 +0800        222 /var/log/haproxy.log.6.gz
+2025-12-03 22:13:54.000000000 +0800        422 /var/log/kern.log.4.gz
+2026-01-14 18:06:06.000000000 +0800        406 /var/log/kern.log.3.gz
+2026-02-05 08:30:21.000000000 +0800        124 /var/log/apt/history.log.1.gz
+2026-02-05 08:30:21.688382475 +0800        818 /var/log/dpkg.log.1
+2026-02-05 18:27:47.000000000 +0800        384 /var/log/haproxy.log.5.gz
+2026-02-06 00:00:01.470245814 +0800          0 /var/log/apt/history.log
+2026-02-06 00:00:28.015251988 +0800          0 /var/log/dpkg.log
+2026-02-06 16:37:18.000000000 +0800        179 /var/log/kern.log.2.gz
+2026-02-06 22:18:42.000000000 +0800        384 /var/log/haproxy.log.4.gz
+2026-03-18 17:03:30.000000000 +0800      30912 /var/log/haproxy.log.3.gz
+2026-04-10 11:46:59.000000000 +0800        368 /var/log/haproxy.log.2.gz
+2026-05-13 19:27:04.775858907 +0800      34383 /var/log/kern.log.1
+2026-05-14 00:00:34.284171201 +0800          0 /var/log/kern.log
+2026-06-17 22:18:40.084616429 +0800       1950 /var/log/haproxy.log.1
+2026-06-18 00:00:32.845097757 +0800          0 /var/log/haproxy.log
+2026-07-07 00:00:29.000000000 +0800    1267568 /var/log/syslog.7.gz
+2026-07-08 00:00:33.000000000 +0800    1247537 /var/log/syslog.6.gz
+2026-07-09 00:00:37.000000000 +0800    1274593 /var/log/syslog.5.gz
+2026-07-10 00:00:37.000000000 +0800    1292405 /var/log/syslog.4.gz
+2026-07-11 00:00:35.000000000 +0800    1265108 /var/log/syslog.3.gz
+2026-07-12 00:00:38.000000000 +0800    1288067 /var/log/syslog.2.gz
+2026-07-13 00:00:01.538479438 +0800        157 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mds.cephfs.fs-1f8hh0105-ceph-224203.wtfrbm.log
+2026-07-13 00:00:34.615740046 +0800   29408052 /var/log/syslog.1
+2026-07-13 05:26:08.200622232 +0800     404633 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.37.log
+2026-07-13 11:38:55.970867093 +0800      49190 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.32.log
+2026-07-13 13:43:11.095771454 +0800       3124 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.26.log
+2026-07-13 13:43:13.487863051 +0800     438990 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.33.log
+2026-07-13 13:43:15.907955721 +0800     354900 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.35.log
+2026-07-13 13:43:16.139964605 +0800     360379 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.38.log
+2026-07-13 13:43:16.263969353 +0800     417129 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.30.log
+2026-07-13 13:43:16.463977012 +0800     263422 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.27.log
+2026-07-13 13:43:16.463977012 +0800     362829 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.34.log
+2026-07-13 13:43:17.152003357 +0800     427233 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.29.log
+2026-07-13 13:43:17.284008412 +0800     699303 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.31.log
+2026-07-13 13:43:19.524094189 +0800     328427 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.36.log
+2026-07-13 13:43:20.488131104 +0800     500071 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-osd.28.log
+2026-07-13 16:05:01.607808792 +0800    4782944 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-volume.log
+2026-07-13 16:18:50.155378960 +0800       6791 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mgr.fs-1f8hh0105-ceph-224203.zmugca.log
+2026-07-13 16:22:34.463934607 +0800      81310 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.cephadm.log
+2026-07-13 16:31:40.900703035 +0800   11674486 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-mon.fs-1f8hh0105-ceph-224203.log
+2026-07-13 16:31:55.237248991 +0800    4466304 /var/log/ceph/cephadm.log
+2026-07-13 16:31:56.345291200 +0800    6390901 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.audit.log
+2026-07-13 16:32:07.145702621 +0800   20252330 /var/log/syslog
+2026-07-13 16:32:07.389711916 +0800   35779289 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph.log
+2026-07-13 16:32:07.961733706 +0800  598187276 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.syauyf.log
+2026-07-13 16:32:07.973734163 +0800  598232706 /var/log/ceph/01e6b4fc-f13f-11ed-983c-f94c29f6fe9a/ceph-client.rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv.log
+
+[5] rsyslog rules
+/etc/rsyslog.conf:24:# provides kernel logging support and enable non-kernel klog messages
+/etc/rsyslog.conf:25:module(load="imklog" permitnonkernelfacility="on")
+/etc/rsyslog.conf:37:# Filter duplicated messages
+/etc/rsyslog.d/20-ufw.conf:1:# Log kernel generated UFW log messages to file
+/etc/rsyslog.d/20-ufw.conf:5:# Doing this will stop logging kernel generated UFW log messages to the file
+/etc/rsyslog.d/20-ufw.conf:6:# normally containing kern.* messages (eg, /var/log/kern.log)
+/etc/rsyslog.d/49-haproxy.conf:1:# Create an additional socket in haproxy's chroot in order to allow logging via
+/etc/rsyslog.d/49-haproxy.conf:2:# /dev/log to chroot'ed HAProxy processes
+/etc/rsyslog.d/49-haproxy.conf:3:$AddUnixListenSocket /var/lib/haproxy/dev/log
+/etc/rsyslog.d/49-haproxy.conf:5:# Send HAProxy messages to a dedicated logfile
+/etc/rsyslog.d/49-haproxy.conf:6::programname, startswith, "haproxy" {
+/etc/rsyslog.d/49-haproxy.conf:7:  /var/log/haproxy.log
+/etc/rsyslog.d/21-cloudinit.conf:1:# Log cloudinit generated log messages to file
+/etc/rsyslog.d/21-cloudinit.conf:4:# comment out the following line to allow CLOUDINIT messages through.
+/etc/rsyslog.d/21-cloudinit.conf:5:# Doing so means you'll also get CLOUDINIT messages in /var/log/syslog
+/etc/rsyslog.d/50-default.conf:12:kern.*                                -/var/log/kern.log
+/etc/rsyslog.d/50-default.conf:34:#     mail,news.none          -/var/log/messages
+/etc/rsyslog.d/50-default.conf:42:# I like to have messages displayed on the console, but only on a virtual
+
+
 root@gz-4f31406-ceph-001201:~# for h in "${HOSTS[@]}"; do
 >   echo "==================== $h : kernel network/memory clues ===================="
 >   ssh "$h" '
