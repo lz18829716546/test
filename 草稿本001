@@ -1,123 +1,177 @@
-root@platform-auto-172-21-44-143:~# export XMS_BASE="http://172.21.1.206:8051"
-export XMS_TOKEN="68y6t43edv430oh6754edcf4g678nhbvf56"
+root@platform-auto-172-21-44-143:~# 
+root@platform-auto-172-21-44-143:~# cat > /tmp/ceph_tw_slab_fleet_audit.sh <<'EOF'
+#!/usr/bin/env bash
+set -u
 
-curl -sS -k -X GET "${XMS_BASE}/v1/pools/?limit=10000" \
-  -H "Xms-Auth-Token: ${XMS_TOKEN}" \
-  | jq '
-      .pools[]
-      | select(.name == "blknas-data-pool")
-      | {
-          id,
-          name,
-          product_type,
-          pool_role,
-          pool_type,
-          sample: (.samples | sort_by(.create) | last),
-          used_kbyte: ((.samples | sort_by(.create) | last | .used_kbyte) // 0),
-          used_bytes: (((.samples | sort_by(.create) | last | .used_kbyte) // 0) * 1024),
-          used_tib: ((((.samples | sort_by(.create) | last | .used_kbyte) // 0) * 1024) / 1099511627776),
-          data_kbyte: ((.samples | sort_by(.create) | last | .data_kbyte) // 0),
-          data_tib: ((((.samples | sort_by(.create) | last | .data_kbyte) // 0) * 1024) / 1099511627776),
-          total_tib: ((((.samples | sort_by(.create) | last | .total_kbyte) // 0) * 1024) / 1099511627776)
-        }
-    '
-{
-  "id": 1,
-  "name": "blknas-data-pool",
-  "product_type": "block,file,object",
-  "pool_role": "tier_data",
-  "pool_type": "erasure",
-  "sample": {
-    "actual_kbyte": 156017623040,
-    "available_actual_kbyte": 132614979584,
-    "client_read_bandwidth_kbyte": 1,
-    "client_read_io_size_kbyte": 0,
-    "client_read_iops": 1,
-    "client_read_latency_us": 37253,
-    "client_write_bandwidth_kbyte": 0,
-    "client_write_io_size_kbyte": 0,
-    "client_write_iops": 0,
-    "client_write_latency_us": 0,
-    "compress_ratio": 1.5476,
-    "compressed_kbyte": 13988159095,
-    "create": "2026-07-10T10:47:13+08:00",
-    "creating_num": 0,
-    "data_kbyte": 25544874783,
-    "degraded_num": 0,
-    "degraded_percent": 0,
-    "error_kbyte": 0,
-    "flush_read_bandwidth_kbyte": 0,
-    "flush_read_io_size_kbyte": 0,
-    "flush_read_iops": 0,
-    "flush_read_latency_us": 0,
-    "flush_write_bandwidth_kbyte": 8228,
-    "flush_write_io_size_kbyte": 1237,
-    "flush_write_iops": 7,
-    "flush_write_latency_us": 5509,
-    "garbage_ratio": 0.5789735045663933,
-    "gc_read_bandwidth_kbyte": 0,
-    "gc_read_io_size_kbyte": 0,
-    "gc_read_iops": 0,
-    "gc_read_latency_us": 0,
-    "gc_remove_bandwidth_kbyte": 0,
-    "gc_remove_io_size_kbyte": 0,
-    "gc_remove_iops": 0,
-    "gc_write_bandwidth_kbyte": 0,
-    "gc_write_io_size_kbyte": 0,
-    "gc_write_iops": 0,
-    "gc_write_latency_us": 0,
-    "healthy_num": 512,
-    "healthy_percent": 1,
-    "max_avail_kbyte": 95328313344,
-    "min_garbage_kbyte": 35127968993,
-    "omap_total_kbyte": 0,
-    "omap_used_kbyte": 0,
-    "omap_used_percent": 0,
-    "osd_capacity_unbalance": false,
-    "pool_capacity_usage": 0,
-    "read_bandwidth_kbyte": 123,
-    "read_cache_hit_rate": 1,
-    "read_cache_kbyte": 0,
-    "read_cache_percent": 0,
-    "read_io_size_kbyte": 67,
-    "read_iops": 2,
-    "read_latency_us": 24106,
-    "recovery_bandwidth_kbyte": 0,
-    "recovery_iops": 0,
-    "recovery_num": 0,
-    "recovery_percent": 0,
-    "recovery_remain_second": 0,
-    "remove_bandwidth_kbyte": 0,
-    "remove_iops": 0,
-    "reserved_data_kbyte": 23402643456,
-    "reserved_data_percent": 0.15,
-    "reserved_used_kbyte": 35158228992,
-    "rmw_bandwidth_kbyte": 0,
-    "rmw_iops": 0,
-    "snap_kbyte": 86016,
-    "total_bandwidth_kbyte": 8351,
-    "total_cache_kbyte": 0,
-    "total_iops": 9,
-    "total_kbyte": 234388193280,
-    "unavailable_num": 0,
-    "unavailable_percent": 0,
-    "unused_data_kbyte": 107070104801,
-    "used_kbyte": 91395735552,
-    "used_percent": 0.3899,
-    "water_level": 0,
-    "write_bandwidth_kbyte": 8228,
-    "write_cache_kbyte": 0,
-    "write_cache_merge_rate": 0,
-    "write_cache_percent": 0,
-    "write_io_size_kbyte": 1237,
-    "write_iops": 7,
-    "write_latency_us": 5509
-  },
-  "used_kbyte": 91395735552,
-  "used_bytes": 93589233205248,
-  "used_tib": 85.11891174316406,
-  "data_kbyte": 25544874783,
-  "data_tib": 23.790518551133573,
-  "total_tib": 218.291015625
-}
+OUT="/tmp/ceph_tw_slab_audit_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$OUT/raw" "$OUT/logs"
+
+SUMMARY="$OUT/summary.tsv"
+
+cat > "$SUMMARY" <<'HEADER'
+cluster ip      ssh_target      hostname        kernel  uptime_days     has_rgw has_haproxy     has_osd mem_total_gib   mem_avail_gib   swap_total_gib  swap_free_gib   slab_gib        sreclaim_gib    sunreclaim_gib  tw_active       tw_total        tw_objsize  tw_gib  sockstat_tw     ratio_tw_active_to_live_tw      qax_dir qax_modules     syshook_refcnt  qax_proc_count  wsssr_service   kernel_tainted
+HEADER
+
+# 格式：cluster|ssh_target|ip|role_hint
+NODES=(
+"gz01|gz-4f31406-ceph-001201|172.21.1.201|rgw_ingress"
+"gz01|gz-4f31406-ceph-001202|172.21.1.202|rgw_ingress"
+"gz01|gz-4f31406-ceph-001203|172.21.1.203|rgw_ingress"
+"gz01|gz-4f31406-ceph-001204|172.21.1.204|rgw_ingress"
+"gz01|gz-4f31406-ceph-001205|172.21.1.205|rgw_ingress"
+
+"fs01|fs-1f8hh0103-ceph-224201|172.21.224.201|unknown"
+"fs01|fs-1f8hh0104-ceph-224202|172.21.224.202|unknown"
+"fs01|fs-1f8hh0105-ceph-224203|172.21.224.203|unknown"
+"fs01|fs-1f8hh0103-ceph-224204|172.21.224.204|unknown"
+"fs01|fs-1f8hh0107-ceph-224205|172.21.224.205|unknown"
+
+"fs02|fs-1f8hh0104-ceph-224250|172.21.224.250|unknown"
+"fs02|fs-1f8hh0105-ceph-224249|172.21.224.249|unknown"
+"fs02|fs-1f8hh0106-ceph-224248|172.21.224.248|unknown"
+"fs02|fs-1f8hh0102-ceph-224247|172.21.224.247|unknown"
+"fs02|fs-1f8hh0102-ceph-224246|172.21.224.246|unknown"
+"fs02|fs-1f8hh0102-ceph-224245|172.21.224.245|unknown"
+"fs02|fs1-pub-ceph-172-21-224-244|172.21.224.244|unknown"
+"fs02|fs1-pub-ceph-172-21-224-243|172.21.224.243|unknown"
+"fs02|fs1-pub-ceph-172-21-224-242|172.21.224.242|unknown"
+
+"gm01|gm1-pub-ceph-172-16-3-107|172.16.3.107|unknown"
+"gm01|gm1-pub-ceph-172-16-3-153|172.16.3.153|unknown"
+"gm01|gm1-pub-ceph-172-16-3-158|172.16.3.158|unknown"
+)
+
+SSH_OPTS="-o ConnectTimeout=8 -o StrictHostKeyChecking=no"
+
+chmod +x /tmp/ceph_tw_slab_fleet_audit.sh/summary.pretty.txt"_ssh.err"out"RVICE" "$KERNEL_TAINTED"\t%s\t%s\t%s\t%s\t%s\n" \tw_collect_${ip}.out" 2>"/tmp/tw_collect_${ip}.err"
+root@platform-auto-172-21-44-143:~# 
+root@platform-auto-172-21-44-143:~# 
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_fleet_audit.sh
+root@platform-auto-172-21-44-143:~# chmod +x /tmp/ceph_tw_slab_fleet_audit.sh
+root@platform-auto-172-21-44-143:~# /tmp/ceph_tw_slab_fleet_audit.sh
+========== collecting gz01 gz-4f31406-ceph-001201 172.21.1.201 ==========
+root@172.21.1.201's password: 
+========== collecting gz01 gz-4f31406-ceph-001202 172.21.1.202 ==========
+root@172.21.1.202's password: 
+========== collecting gz01 gz-4f31406-ceph-001203 172.21.1.203 ==========
+root@172.21.1.203's password: 
+========== collecting gz01 gz-4f31406-ceph-001204 172.21.1.204 ==========
+root@172.21.1.204's password: 
+========== collecting gz01 gz-4f31406-ceph-001205 172.21.1.205 ==========
+root@172.21.1.205's password: 
+========== collecting fs01 fs-1f8hh0103-ceph-224201 172.21.224.201 ==========
+root@172.21.224.201's password: 
+========== collecting fs01 fs-1f8hh0104-ceph-224202 172.21.224.202 ==========
+root@172.21.224.202's password: 
+========== collecting fs01 fs-1f8hh0105-ceph-224203 172.21.224.203 ==========
+root@172.21.224.203's password: 
+========== collecting fs01 fs-1f8hh0103-ceph-224204 172.21.224.204 ==========
+root@172.21.224.204's password: 
+========== collecting fs01 fs-1f8hh0107-ceph-224205 172.21.224.205 ==========
+root@172.21.224.205's password: 
+========== collecting fs02 fs-1f8hh0104-ceph-224250 172.21.224.250 ==========
+root@172.21.224.250's password: 
+========== collecting fs02 fs-1f8hh0105-ceph-224249 172.21.224.249 ==========
+root@172.21.224.249's password: 
+========== collecting fs02 fs-1f8hh0106-ceph-224248 172.21.224.248 ==========
+root@172.21.224.248's password: 
+========== collecting fs02 fs-1f8hh0102-ceph-224247 172.21.224.247 ==========
+root@172.21.224.247's password: 
+========== collecting fs02 fs-1f8hh0102-ceph-224246 172.21.224.246 ==========
+root@172.21.224.246's password: 
+========== collecting fs02 fs-1f8hh0102-ceph-224245 172.21.224.245 ==========
+root@172.21.224.245's password: 
+========== collecting fs02 fs1-pub-ceph-172-21-224-244 172.21.224.244 ==========
+root@172.21.224.244's password: 
+========== collecting fs02 fs1-pub-ceph-172-21-224-243 172.21.224.243 ==========
+root@172.21.224.243's password: 
+========== collecting fs02 fs1-pub-ceph-172-21-224-242 172.21.224.242 ==========
+root@172.21.224.242's password: 
+========== collecting gm01 gm1-pub-ceph-172-16-3-107 172.16.3.107 ==========
+root@172.16.3.107's password: 
+========== collecting gm01 gm1-pub-ceph-172-16-3-153 172.16.3.153 ==========
+root@172.16.3.153's password: 
+========== collecting gm01 gm1-pub-ceph-172-16-3-158 172.16.3.158 ==========
+root@172.16.3.158's password: 
+
+SUMMARY: /tmp/ceph_tw_slab_audit_20260713_120544/summary.tsv
+OUTDIR : /tmp/ceph_tw_slab_audit_20260713_120544
+cluster  ip              ssh_target                   hostname                     kernel             uptime_days  has_rgw  has_haproxy  has_osd  mem_total_gib  mem_avail_gib  swap_total_gib  swap_free_gib  slab_gib  sreclaim_gib  sunreclaim_gib  tw_active  tw_total   tw_objsize  tw_gib  sockstat_tw  ratio_tw_active_to_live_tw  qax_dir  qax_modules                                           syshook_refcnt  qax_proc_count  wsssr_service                                                                                          kernel_tainted
+gz01     172.21.1.201    gz-4f31406-ceph-001201       gz-4f31406-ceph-001201       5.4.0-144-generic  1082.7       1        1            1        125.406        27.387         8.000           1.123          37.616    3.658         33.959          136463686  136468068  248         31.520  170          802727.6                    0        syshook_linux                                         0               1               ics-agent-file.service:active:exited,●:not-found:failed                                                12288
+gz01     172.21.1.202    gz-4f31406-ceph-001202       gz-4f31406-ceph-001202       5.4.0-144-generic  1082.7       1        1            1        125.406        21.878         8.000           4.993          37.623    3.313         34.310          138957926  138959337  248         32.095  134          1036999.4                   0        syshook_linux                                         0               1               ics-agent-file.service:active:exited,●:not-found:failed                                                12288
+gz01     172.21.1.203    gz-4f31406-ceph-001203       gz-4f31406-ceph-001203       5.4.0-144-generic  1082.7       1        1            1        125.406        25.136         8.000           1.211          38.076    3.675         34.401          139087062  139089885  248         32.125  130          1069900.5                   1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gz01     172.21.1.204    gz-4f31406-ceph-001204       gz-4f31406-ceph-001204       5.4.0-144-generic  1082.7       0        0            1        125.406        61.221         8.000           6.580          7.306     5.151         2.155           67456      67584      248         0.016   57           1183.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gz01     172.21.1.205    gz-4f31406-ceph-001205       gz-4f31406-ceph-001205       5.4.0-144-generic  1082.7       0        0            1        125.405        61.486         8.000           6.483          7.254     5.165         2.089           56001      56034      248         0.013   42           1333.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.201  fs-1f8hh0103-ceph-224201     fs-1f8hh0103-ceph-224201     5.4.0-144-generic  1153.9       1        1            1        125.406        51.643         8.000           5.572          8.497     5.131         3.366           2909159    2910105    248         0.672   567          5130.8                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.202  fs-1f8hh0104-ceph-224202     fs-1f8hh0104-ceph-224202     5.4.0-144-generic  1153.9       1        1            1        125.406        52.270         8.000           5.201          7.833     4.651         3.181           2984332    2985576    248         0.690   653          4570.2                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.203  fs-1f8hh0105-ceph-224203     fs-1f8hh0105-ceph-224203     5.4.0-144-generic  1153.9       1        1            1        125.406        53.085         8.000           6.448          8.397     5.124         3.273           2884124    2884662    248         0.666   1167         2471.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.204  fs-1f8hh0103-ceph-224204     fs-1f8hh0103-ceph-224204     5.4.0-144-generic  1153.9       0        0            1        125.405        60.375         8.000           6.701          7.410     5.046         2.364           48576      48576      248         0.011   153          317.5                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.205  fs-1f8hh0107-ceph-224205     fs-1f8hh0107-ceph-224205     5.4.0-144-generic  1153.9       0        0            1        125.406        58.857         8.000           6.451          7.586     5.210         2.376           43131      43131      248         0.010   80           539.1                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.250  fs-1f8hh0104-ceph-224250     fs-1f8hh0104-ceph-224250     5.4.0-42-generic   1198.5       0        0            1        125.799        86.215         0.953           0.101          8.725     5.633         3.091           11253      11253      248         0.003   34           331.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.249  fs-1f8hh0105-ceph-224249     fs-1f8hh0105-ceph-224249     5.4.0-42-generic   276.1        0        0            1        125.799        93.415         0.953           0.386          6.639     5.528         1.112           1650       1650       248         0.000   15           110.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.248  fs-1f8hh0106-ceph-224248     fs-1f8hh0106-ceph-224248     5.4.0-42-generic   1198.5       0        0            1        125.799        88.949         0.953           0.016          8.528     5.542         2.986           7293       7293       248         0.002   9            810.3                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.247  fs-1f8hh0102-ceph-224247     fs-1f8hh0102-ceph-224247     5.4.0-42-generic   1082.9       0        0            1        125.800        86.284         0.953           0.000          8.888     5.992         2.896           9042       9042       248         0.002   7            1291.7                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.246  fs-1f8hh0102-ceph-224246     fs-1f8hh0102-ceph-224246     5.4.0-42-generic   1082.9       0        0            1        125.800        86.260         0.953           0.001          8.984     6.088         2.896           8514       8514       248         0.002   15           567.6                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.245  fs-1f8hh0102-ceph-224245     fs-1f8hh0102-ceph-224245     5.4.0-42-generic   585.9        0        0            1        125.799        90.686         0.953           0.029          7.753     6.030         1.723           7227       7227       248         0.002   21           344.1                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.244  fs1-pub-ceph-172-21-224-244  fs1-pub-ceph-172-21-224-244  5.4.0-144-generic  441.6        0        0            1        125.793        99.582         0.000           0.000          6.621     5.906         0.715           7128       7128       248         0.002   19           375.2                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.243  fs1-pub-ceph-172-21-224-243  fs1-pub-ceph-172-21-224-243  5.4.0-144-generic  442.1        0        0            1        125.793        99.826         0.000           0.000          6.696     5.909         0.788           7095       7095       248         0.002   21           337.9                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.242  fs1-pub-ceph-172-21-224-242  fs1-pub-ceph-172-21-224-242  5.4.0-144-generic  442.1        0        0            1        125.793        101.066        0.000           0.000          6.945     6.159         0.786           6402       6402       248         0.001   58           110.4                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.107    gm1-pub-ceph-172-16-3-107    gm1-pub-ceph-172-16-3-107    5.4.0-144-generic  377.1        1        0            1        125.796        51.303         0.000           0.000          4.281     3.385         0.896           15510      15510      248         0.004   22           705.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.153    gm1-pub-ceph-172-16-3-153    gm1-pub-ceph-172-16-3-153    5.4.0-144-generic  580.9        1        0            1        125.793        49.471         0.000           0.000          4.328     3.475         0.853           20757      20757      248         0.005   25           830.3                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.158    gm1-pub-ceph-172-16-3-158    gm1-pub-ceph-172-16-3-158    5.4.0-144-generic  580.9        1        0            1        125.793        47.850         0.000           0.000          4.257     3.386         0.872           20493      20493      248         0.005   69           297.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_audit_20260713_120544/summary.tsv
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_audit_20260713_120544
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_audit_20260713_120544/
+logs/               raw/                summary.pretty.txt  summary.tsv         
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_audit_20260713_120544/
+logs/               raw/                summary.pretty.txt  summary.tsv         
+root@platform-auto-172-21-44-143:~# vim /tmp/ceph_tw_slab_audit_20260713_120544/summary.pretty.txt 
+root@platform-auto-172-21-44-143:~# cat /tmp/ceph_tw_slab_audit_*/summary.tsv
+cluster ip      ssh_target      hostname        kernel  uptime_days     has_rgw has_haproxy     has_osd mem_total_gib   mem_avail_gib   swap_total_gib  swap_free_gib   slab_gib        sreclaim_gib    sunreclaim_gib  tw_active       tw_total        tw_objsize  tw_gib  sockstat_tw     ratio_tw_active_to_live_tw      qax_dir qax_modules     syshook_refcnt  qax_proc_count  wsssr_service   kernel_tainted
+gz01    172.21.1.201    gz-4f31406-ceph-001201  gz-4f31406-ceph-001201  5.4.0-144-generic       1082.7  1       1       1       125.406 27.387  8.000   1.123   37.616  3.658   33.959  136463686       136468068       248     31.520  170     802727.6   0syshook_linux   0       1       ics-agent-file.service:active:exited,●:not-found:failed 12288
+gz01    172.21.1.202    gz-4f31406-ceph-001202  gz-4f31406-ceph-001202  5.4.0-144-generic       1082.7  1       1       1       125.406 21.878  8.000   4.993   37.623  3.313   34.310  138957926       138959337       248     32.095  134     1036999.4  0syshook_linux   0       1       ics-agent-file.service:active:exited,●:not-found:failed 12288
+gz01    172.21.1.203    gz-4f31406-ceph-001203  gz-4f31406-ceph-001203  5.4.0-144-generic       1082.7  1       1       1       125.406 25.136  8.000   1.211   38.076  3.675   34.401  139087062       139089885       248     32.125  130     1069900.5  1vmsecmod,resguard_linux,secmodel_linux,syshook_linux    2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+gz01    172.21.1.204    gz-4f31406-ceph-001204  gz-4f31406-ceph-001204  5.4.0-144-generic       1082.7  0       0       1       125.406 61.221  8.000   6.580   7.306   5.151   2.155   67456   67584   248     0.016   57      1183.4  1       vmsecmod,resguard_linux,secmodel_linux,syshook_linux        2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+gz01    172.21.1.205    gz-4f31406-ceph-001205  gz-4f31406-ceph-001205  5.4.0-144-generic       1082.7  0       0       1       125.405 61.486  8.000   6.483   7.254   5.165   2.089   56001   56034   248     0.013   42      1333.4  1       vmsecmod,resguard_linux,secmodel_linux,syshook_linux        2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs01    172.21.224.201  fs-1f8hh0103-ceph-224201        fs-1f8hh0103-ceph-224201        5.4.0-144-generic       1153.9  1       1       1       125.406 51.643  8.000   5.572   8.497   5.131   3.366   2909159 2910105 248     0.672   567     5130.8  1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs01    172.21.224.202  fs-1f8hh0104-ceph-224202        fs-1f8hh0104-ceph-224202        5.4.0-144-generic       1153.9  1       1       1       125.406 52.270  8.000   5.201   7.833   4.651   3.181   2984332 2985576 248     0.690   653     4570.2  1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs01    172.21.224.203  fs-1f8hh0105-ceph-224203        fs-1f8hh0105-ceph-224203        5.4.0-144-generic       1153.9  1       1       1       125.406 53.085  8.000   6.448   8.397   5.124   3.273   2884124 2884662 248     0.666   1167    2471.4  1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs01    172.21.224.204  fs-1f8hh0103-ceph-224204        fs-1f8hh0103-ceph-224204        5.4.0-144-generic       1153.9  0       0       1       125.405 60.375  8.000   6.701   7.410   5.046   2.364   48576   48576   248     0.011   153     317.5   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs01    172.21.224.205  fs-1f8hh0107-ceph-224205        fs-1f8hh0107-ceph-224205        5.4.0-144-generic       1153.9  0       0       1       125.406 58.857  8.000   6.451   7.586   5.210   2.376   43131   43131   248     0.010   80      539.1   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.250  fs-1f8hh0104-ceph-224250        fs-1f8hh0104-ceph-224250        5.4.0-42-generic        1198.5  0       0       1       125.799 86.215  0.953   0.101   8.725   5.633   3.091   11253   11253   248     0.003   34      331.0   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.249  fs-1f8hh0105-ceph-224249        fs-1f8hh0105-ceph-224249        5.4.0-42-generic        276.1   0       0       1       125.799 93.415  0.953   0.386   6.639   5.528   1.112   1650    1650    248     0.000   15      110.0   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.248  fs-1f8hh0106-ceph-224248        fs-1f8hh0106-ceph-224248        5.4.0-42-generic        1198.5  0       0       1       125.799 88.949  0.953   0.016   8.528   5.542   2.986   7293    7293    248     0.002   9       810.3   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.247  fs-1f8hh0102-ceph-224247        fs-1f8hh0102-ceph-224247        5.4.0-42-generic        1082.9  0       0       1       125.800 86.284  0.953   0.000   8.888   5.992   2.896   9042    9042    248     0.002   7       1291.7  1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.246  fs-1f8hh0102-ceph-224246        fs-1f8hh0102-ceph-224246        5.4.0-42-generic        1082.9  0       0       1       125.800 86.260  0.953   0.001   8.984   6.088   2.896   8514    8514    248     0.002   15      567.6   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.245  fs-1f8hh0102-ceph-224245        fs-1f8hh0102-ceph-224245        5.4.0-42-generic        585.9   0       0       1       125.799 90.686  0.953   0.029   7.753   6.030   1.723   7227    7227    248     0.002   21      344.1   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.244  fs1-pub-ceph-172-21-224-244     fs1-pub-ceph-172-21-224-244     5.4.0-144-generic       441.6   0       0       1       125.793 99.582  0.000   0.000   6.621   5.906   0.715   7128    7128    248     0.002   19      375.2   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.243  fs1-pub-ceph-172-21-224-243     fs1-pub-ceph-172-21-224-243     5.4.0-144-generic       442.1   0       0       1       125.793 99.826  0.000   0.000   6.696   5.909   0.788   7095    7095    248     0.002   21      337.9   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+fs02    172.21.224.242  fs1-pub-ceph-172-21-224-242     fs1-pub-ceph-172-21-224-242     5.4.0-144-generic       442.1   0       0       1       125.793 101.066 0.000   0.000   6.945   6.159   0.786   6402    6402    248     0.001   58      110.4   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+gm01    172.16.3.107    gm1-pub-ceph-172-16-3-107       gm1-pub-ceph-172-16-3-107       5.4.0-144-generic       377.1   1       0       1       125.796 51.303  0.000   0.000   4.281   3.385   0.896   15510   15510   248     0.004   22      705.0   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+gm01    172.16.3.153    gm1-pub-ceph-172-16-3-153       gm1-pub-ceph-172-16-3-153       5.4.0-144-generic       580.9   1       0       1       125.793 49.471  0.000   0.000   4.328   3.475   0.853   20757   20757   248     0.005   25      830.3   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+gm01    172.16.3.158    gm1-pub-ceph-172-16-3-158       gm1-pub-ceph-172-16-3-158       5.4.0-144-generic       580.9   1       0       1       125.793 47.850  0.000   0.000   4.257   3.386   0.872   20493   20493   248     0.005   69      297.0   1  vmsecmod,resguard_linux,secmodel_linux,syshook_linux     2       6       ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running   12288
+root@platform-auto-172-21-44-143:~# cat /tmp/ceph_tw_slab_audit_*/summary.pretty.txt
+cluster  ip              ssh_target                   hostname                     kernel             uptime_days  has_rgw  has_haproxy  has_osd  mem_total_gib  mem_avail_gib  swap_total_gib  swap_free_gib  slab_gib  sreclaim_gib  sunreclaim_gib  tw_active  tw_total   tw_objsize  tw_gib  sockstat_tw  ratio_tw_active_to_live_tw  qax_dir  qax_modules                                           syshook_refcnt  qax_proc_count  wsssr_service                                                                                          kernel_tainted
+gz01     172.21.1.201    gz-4f31406-ceph-001201       gz-4f31406-ceph-001201       5.4.0-144-generic  1082.7       1        1            1        125.406        27.387         8.000           1.123          37.616    3.658         33.959          136463686  136468068  248         31.520  170          802727.6                    0        syshook_linux                                         0               1               ics-agent-file.service:active:exited,●:not-found:failed                                                12288
+gz01     172.21.1.202    gz-4f31406-ceph-001202       gz-4f31406-ceph-001202       5.4.0-144-generic  1082.7       1        1            1        125.406        21.878         8.000           4.993          37.623    3.313         34.310          138957926  138959337  248         32.095  134          1036999.4                   0        syshook_linux                                         0               1               ics-agent-file.service:active:exited,●:not-found:failed                                                12288
+gz01     172.21.1.203    gz-4f31406-ceph-001203       gz-4f31406-ceph-001203       5.4.0-144-generic  1082.7       1        1            1        125.406        25.136         8.000           1.211          38.076    3.675         34.401          139087062  139089885  248         32.125  130          1069900.5                   1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gz01     172.21.1.204    gz-4f31406-ceph-001204       gz-4f31406-ceph-001204       5.4.0-144-generic  1082.7       0        0            1        125.406        61.221         8.000           6.580          7.306     5.151         2.155           67456      67584      248         0.016   57           1183.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gz01     172.21.1.205    gz-4f31406-ceph-001205       gz-4f31406-ceph-001205       5.4.0-144-generic  1082.7       0        0            1        125.405        61.486         8.000           6.483          7.254     5.165         2.089           56001      56034      248         0.013   42           1333.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.201  fs-1f8hh0103-ceph-224201     fs-1f8hh0103-ceph-224201     5.4.0-144-generic  1153.9       1        1            1        125.406        51.643         8.000           5.572          8.497     5.131         3.366           2909159    2910105    248         0.672   567          5130.8                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.202  fs-1f8hh0104-ceph-224202     fs-1f8hh0104-ceph-224202     5.4.0-144-generic  1153.9       1        1            1        125.406        52.270         8.000           5.201          7.833     4.651         3.181           2984332    2985576    248         0.690   653          4570.2                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.203  fs-1f8hh0105-ceph-224203     fs-1f8hh0105-ceph-224203     5.4.0-144-generic  1153.9       1        1            1        125.406        53.085         8.000           6.448          8.397     5.124         3.273           2884124    2884662    248         0.666   1167         2471.4                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.204  fs-1f8hh0103-ceph-224204     fs-1f8hh0103-ceph-224204     5.4.0-144-generic  1153.9       0        0            1        125.405        60.375         8.000           6.701          7.410     5.046         2.364           48576      48576      248         0.011   153          317.5                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs01     172.21.224.205  fs-1f8hh0107-ceph-224205     fs-1f8hh0107-ceph-224205     5.4.0-144-generic  1153.9       0        0            1        125.406        58.857         8.000           6.451          7.586     5.210         2.376           43131      43131      248         0.010   80           539.1                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.250  fs-1f8hh0104-ceph-224250     fs-1f8hh0104-ceph-224250     5.4.0-42-generic   1198.5       0        0            1        125.799        86.215         0.953           0.101          8.725     5.633         3.091           11253      11253      248         0.003   34           331.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.249  fs-1f8hh0105-ceph-224249     fs-1f8hh0105-ceph-224249     5.4.0-42-generic   276.1        0        0            1        125.799        93.415         0.953           0.386          6.639     5.528         1.112           1650       1650       248         0.000   15           110.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.248  fs-1f8hh0106-ceph-224248     fs-1f8hh0106-ceph-224248     5.4.0-42-generic   1198.5       0        0            1        125.799        88.949         0.953           0.016          8.528     5.542         2.986           7293       7293       248         0.002   9            810.3                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.247  fs-1f8hh0102-ceph-224247     fs-1f8hh0102-ceph-224247     5.4.0-42-generic   1082.9       0        0            1        125.800        86.284         0.953           0.000          8.888     5.992         2.896           9042       9042       248         0.002   7            1291.7                      1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.246  fs-1f8hh0102-ceph-224246     fs-1f8hh0102-ceph-224246     5.4.0-42-generic   1082.9       0        0            1        125.800        86.260         0.953           0.001          8.984     6.088         2.896           8514       8514       248         0.002   15           567.6                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.245  fs-1f8hh0102-ceph-224245     fs-1f8hh0102-ceph-224245     5.4.0-42-generic   585.9        0        0            1        125.799        90.686         0.953           0.029          7.753     6.030         1.723           7227       7227       248         0.002   21           344.1                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.244  fs1-pub-ceph-172-21-224-244  fs1-pub-ceph-172-21-224-244  5.4.0-144-generic  441.6        0        0            1        125.793        99.582         0.000           0.000          6.621     5.906         0.715           7128       7128       248         0.002   19           375.2                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.243  fs1-pub-ceph-172-21-224-243  fs1-pub-ceph-172-21-224-243  5.4.0-144-generic  442.1        0        0            1        125.793        99.826         0.000           0.000          6.696     5.909         0.788           7095       7095       248         0.002   21           337.9                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+fs02     172.21.224.242  fs1-pub-ceph-172-21-224-242  fs1-pub-ceph-172-21-224-242  5.4.0-144-generic  442.1        0        0            1        125.793        101.066        0.000           0.000          6.945     6.159         0.786           6402       6402       248         0.001   58           110.4                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.107    gm1-pub-ceph-172-16-3-107    gm1-pub-ceph-172-16-3-107    5.4.0-144-generic  377.1        1        0            1        125.796        51.303         0.000           0.000          4.281     3.385         0.896           15510      15510      248         0.004   22           705.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.153    gm1-pub-ceph-172-16-3-153    gm1-pub-ceph-172-16-3-153    5.4.0-144-generic  580.9        1        0            1        125.793        49.471         0.000           0.000          4.328     3.475         0.853           20757      20757      248         0.005   25           830.3                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
+gm01     172.16.3.158    gm1-pub-ceph-172-16-3-158    gm1-pub-ceph-172-16-3-158    5.4.0-144-generic  580.9        1        0            1        125.793        47.850         0.000           0.000          4.257     3.386         0.872           20493      20493      248         0.005   69           297.0                       1        vmsecmod,resguard_linux,secmodel_linux,syshook_linux  2               6               ics-agent-file.service:active:running,wsssr.service:active:running,wsssr_guard.service:active:running  12288
 root@platform-auto-172-21-44-143:~# 
