@@ -1,3 +1,4 @@
+对比广州 01 和佛山 01 的 HAProxy 配置
 ==================== gz-4f31406-ceph-001201 : haproxy config ====================
 container=ceph-7ebb8530-f215-11ed-80e2-97aadb4506a0-haproxy-rgw-evoc-guangzhou-gz-4f31406-ceph-001201-jaqqwu
 ===== haproxy.cfg =====
@@ -328,3 +329,233 @@ backend backend
     server rgw.rgw.fs-1f8hh0104-ceph-224202.lyttyy 172.21.224.202:7480 check weight 100
     server rgw.rgw.fs-1f8hh0105-ceph-224203.syauyf 172.21.224.203:7481 check weight 100
     server rgw.rgw.fs-1f8hh0105-ceph-224203.tdhqzv 172.21.224.203:7480 check weight 100
+
+对比广州 01 和佛山 01 的 TCP 历史累计指标
+
+==================== gz-4f31406-ceph-001201 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:03:36 PM CST
+ 14:03:36 up 1082 days, 18:29,  2 users,  load average: 2.98, 4.04, 3.82
+TcpEstabResets                  1332860388         0.0
+TcpRetransSegs                  735399900          0.0
+TcpOutRsts                      934574146          0.0
+TcpExtSyncookiesSent            1646               0.0
+TcpExtSyncookiesRecv            2279               0.0
+TcpExtSyncookiesFailed          888                0.0
+TcpExtEmbryonicRsts             9148               0.0
+TcpExtPruneCalled               56297              0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        271870353          0.0
+TcpExtTWRecycled                92631              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           118993             0.0
+TcpExtListenDrops               118993             0.0
+TcpExtTCPAbortOnData            616663895          0.0
+TcpExtTCPAbortOnClose           92225312           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         73625              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== gz-4f31406-ceph-001202 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:03:37 PM CST
+ 14:03:37 up 1082 days, 18:30,  1 user,  load average: 12.28, 7.12, 4.22
+TcpEstabResets                  1250833229         0.0
+TcpRetransSegs                  648563458          0.0
+TcpOutRsts                      968642762          0.0
+TcpExtSyncookiesSent            0                  0.0
+TcpExtSyncookiesRecv            0                  0.0
+TcpExtSyncookiesFailed          2                  0.0
+TcpExtEmbryonicRsts             21255              0.0
+TcpExtPruneCalled               454                0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        269220531          0.0
+TcpExtTWRecycled                93505              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           361586             0.0
+TcpExtListenDrops               361586             0.0
+TcpExtTCPAbortOnData            643253893          0.0
+TcpExtTCPAbortOnClose           67668423           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         53481              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== gz-4f31406-ceph-001203 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:03:38 PM CST
+ 14:03:38 up 1082 days, 18:30,  1 user,  load average: 1.89, 2.05, 2.32
+TcpEstabResets                  1252475866         0.0
+TcpRetransSegs                  622559268          0.0
+TcpOutRsts                      977946378          0.0
+TcpExtSyncookiesSent            45                 0.0
+TcpExtSyncookiesRecv            167                0.0
+TcpExtSyncookiesFailed          294                0.0
+TcpExtEmbryonicRsts             32009              0.0
+TcpExtPruneCalled               11434              0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        271618952          0.0
+TcpExtTWRecycled                93070              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           24251689           0.0
+TcpExtListenDrops               24251690           0.0
+TcpExtTCPAbortOnData            652571274          0.0
+TcpExtTCPAbortOnClose           64934295           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         87065              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+
+==================== fs-1f8hh0103-ceph-224201 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:05 PM CST
+ 14:05:05 up 1154 days, 22 min,  2 users,  load average: 2.66, 2.98, 3.62
+TcpEstabResets                  1474769103         0.0
+TcpRetransSegs                  1353058098         0.0
+TcpOutRsts                      730754682          0.0
+TcpExtSyncookiesSent            6                  0.0
+TcpExtSyncookiesRecv            6                  0.0
+TcpExtSyncookiesFailed          67                 0.0
+TcpExtEmbryonicRsts             72049              0.0
+TcpExtPruneCalled               215                0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        322033741          0.0
+TcpExtTWRecycled                99268              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           918289             0.0
+TcpExtListenDrops               918314             0.0
+TcpExtTCPAbortOnData            417853079          0.0
+TcpExtTCPAbortOnClose           114622208          0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         50042              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== fs-1f8hh0104-ceph-224202 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:06 PM CST
+ 14:05:06 up 1154 days, 23 min,  1 user,  load average: 3.13, 3.36, 3.43
+TcpEstabResets                  1407345474         0.0
+TcpRetransSegs                  1451811468         0.0
+TcpOutRsts                      736903338          0.0
+TcpExtSyncookiesSent            0                  0.0
+TcpExtSyncookiesRecv            0                  0.0
+TcpExtSyncookiesFailed          3                  0.0
+TcpExtEmbryonicRsts             225298             0.0
+TcpExtPruneCalled               209                0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        321807582          0.0
+TcpExtTWRecycled                99245              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           767                0.0
+TcpExtListenDrops               781                0.0
+TcpExtTCPAbortOnData            440340863          0.0
+TcpExtTCPAbortOnClose           76595120           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         51981              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== fs-1f8hh0105-ceph-224203 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:07 PM CST
+ 14:05:07 up 1154 days, 23 min,  1 user,  load average: 3.27, 3.42, 3.44
+TcpEstabResets                  2883285880         0.0
+TcpRetransSegs                  939598236          0.0
+TcpOutRsts                      2238346791         0.0
+TcpExtSyncookiesSent            82                 0.0
+TcpExtSyncookiesRecv            216                0.0
+TcpExtSyncookiesFailed          423                0.0
+TcpExtEmbryonicRsts             52528              0.0
+TcpExtPruneCalled               215                0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        529963491          0.0
+TcpExtTWRecycled                99028              0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           5450560            0.0
+TcpExtListenDrops               5450620            0.0
+TcpExtTCPAbortOnData            1872072556         0.0
+TcpExtTCPAbortOnClose           75495176           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         50185              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+
+==================== gm1-pub-ceph-172-16-3-107 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:57 PM CST
+ 14:05:57 up 377 days,  3:40,  1 user,  load average: 1.05, 1.22, 0.99
+TcpEstabResets                  65597937           0.0
+TcpRetransSegs                  292246697          0.0
+TcpOutRsts                      65614309           0.0
+TcpExtSyncookiesSent            0                  0.0
+TcpExtSyncookiesRecv            0                  0.0
+TcpExtSyncookiesFailed          0                  0.0
+TcpExtEmbryonicRsts             2702               0.0
+TcpExtPruneCalled               5                  0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        13714170           0.0
+TcpExtTWRecycled                0                  0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           0                  0.0
+TcpExtListenDrops               57                 0.0
+TcpExtTCPAbortOnData            37040414           0.0
+TcpExtTCPAbortOnClose           12236156           0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         18200              0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== gm1-pub-ceph-172-16-3-153 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:58 PM CST
+ 14:05:58 up 580 days, 23:20,  1 user,  load average: 2.18, 2.04, 1.85
+TcpEstabResets                  24069736           0.0
+TcpRetransSegs                  310642875          0.0
+TcpOutRsts                      304196             0.0
+TcpExtSyncookiesSent            0                  0.0
+TcpExtSyncookiesRecv            0                  0.0
+TcpExtSyncookiesFailed          0                  0.0
+TcpExtEmbryonicRsts             2774               0.0
+TcpExtPruneCalled               0                  0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        26053589           0.0
+TcpExtTWRecycled                0                  0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           194                0.0
+TcpExtListenDrops               194                0.0
+TcpExtTCPAbortOnData            57967              0.0
+TcpExtTCPAbortOnClose           69436              0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         577                0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
+==================== gm1-pub-ceph-172-16-3-158 : tcp cumulative counters ====================
+Mon 13 Jul 2026 02:05:59 PM CST
+ 14:05:59 up 580 days, 23:20,  1 user,  load average: 2.65, 2.36, 1.82
+TcpEstabResets                  23892106           0.0
+TcpRetransSegs                  287713075          0.0
+TcpOutRsts                      458329             0.0
+TcpExtSyncookiesSent            243                0.0
+TcpExtSyncookiesRecv            802                0.0
+TcpExtSyncookiesFailed          89                 0.0
+TcpExtEmbryonicRsts             2698               0.0
+TcpExtPruneCalled               7                  0.0
+TcpExtRcvPruned                 0                  0.0
+TcpExtOfoPruned                 0                  0.0
+TcpExtTW                        28198600           0.0
+TcpExtTWRecycled                0                  0.0
+TcpExtTWKilled                  0                  0.0
+TcpExtListenOverflows           2226               0.0
+TcpExtListenDrops               2226               0.0
+TcpExtTCPAbortOnData            227378             0.0
+TcpExtTCPAbortOnClose           55424              0.0
+TcpExtTCPAbortOnMemory          0                  0.0
+TcpExtTCPAbortOnTimeout         635                0.0
+TcpExtTCPAbortOnLinger          0                  0.0
+TcpExtTCPAbortFailed            0                  0.0
+TcpExtTCPTimeWaitOverflow       0                  0.0
