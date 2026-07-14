@@ -1,3 +1,69 @@
+主机侧做单节点 RX ring 对照实验过程和结果如下
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# echo "[before]"
+[before]
+root@gz-4f31406-ceph-001201:~# ethtool -g ens5f0
+Ring parameters for ens5f0:
+Pre-set maximums:
+RX:             4096
+RX Mini:        0
+RX Jumbo:       0
+TX:             4096
+Current hardware settings:
+RX:             512
+RX Mini:        0
+RX Jumbo:       0
+TX:             512
+
+root@gz-4f31406-ceph-001201:~# ethtool -g ens6f0
+Ring parameters for ens6f0:
+Pre-set maximums:
+RX:             4096
+RX Mini:        0
+RX Jumbo:       0
+TX:             4096
+Current hardware settings:
+RX:             512
+RX Mini:        0
+RX Jumbo:       0
+TX:             512
+
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# ethtool -G ens5f0 rx 4096 tx 4096
+root@gz-4f31406-ceph-001201:~# ethtool -G ens6f0 rx 4096 tx 4096
+Cannot set device ring parameters: Cannot allocate memory
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# echo "[after]"
+[after]
+root@gz-4f31406-ceph-001201:~# ethtool -g ens5f0
+Ring parameters for ens5f0:
+Pre-set maximums:
+RX:             4096
+RX Mini:        0
+RX Jumbo:       0
+TX:             4096
+Current hardware settings:
+RX:             4096
+RX Mini:        0
+RX Jumbo:       0
+TX:             4096
+
+root@gz-4f31406-ceph-001201:~# ethtool -g ens6f0
+Ring parameters for ens6f0:
+Pre-set maximums:
+RX:             4096
+RX Mini:        0
+RX Jumbo:       0
+TX:             4096
+Current hardware settings:
+RX:             512
+RX Mini:        0
+RX Jumbo:       0
+TX:             512
+
+root@gz-4f31406-ceph-001201:~# 
+root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# 
 root@gz-4f31406-ceph-001201:~# nohup bash -c '
 > for i in $(seq 1 30); do
