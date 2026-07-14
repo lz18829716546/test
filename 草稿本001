@@ -1,418 +1,74 @@
-主机侧做单节点 RX ring 对照实验过程和结果如下
+按照你说的查失败日志的过程和结果如下：
 root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# echo "[before]"
-[before]
-root@gz-4f31406-ceph-001201:~# ethtool -g ens5f0
-Ring parameters for ens5f0:
-Pre-set maximums:
-RX:             4096
-RX Mini:        0
-RX Jumbo:       0
-TX:             4096
-Current hardware settings:
-RX:             512
-RX Mini:        0
-RX Jumbo:       0
-TX:             512
-
-root@gz-4f31406-ceph-001201:~# ethtool -g ens6f0
-Ring parameters for ens6f0:
-Pre-set maximums:
-RX:             4096
-RX Mini:        0
-RX Jumbo:       0
-TX:             4096
-Current hardware settings:
-RX:             512
-RX Mini:        0
-RX Jumbo:       0
-TX:             512
-
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# ethtool -G ens5f0 rx 4096 tx 4096
-root@gz-4f31406-ceph-001201:~# ethtool -G ens6f0 rx 4096 tx 4096
-Cannot set device ring parameters: Cannot allocate memory
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# echo "[after]"
-[after]
-root@gz-4f31406-ceph-001201:~# ethtool -g ens5f0
-Ring parameters for ens5f0:
-Pre-set maximums:
-RX:             4096
-RX Mini:        0
-RX Jumbo:       0
-TX:             4096
-Current hardware settings:
-RX:             4096
-RX Mini:        0
-RX Jumbo:       0
-TX:             4096
-
-root@gz-4f31406-ceph-001201:~# ethtool -g ens6f0
-Ring parameters for ens6f0:
-Pre-set maximums:
-RX:             4096
-RX Mini:        0
-RX Jumbo:       0
-TX:             4096
-Current hardware settings:
-RX:             512
-RX Mini:        0
-RX Jumbo:       0
-TX:             512
-
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# 
-root@gz-4f31406-ceph-001201:~# nohup bash -c '
-> for i in $(seq 1 30); do
->   bash /tmp/check_bond_int_drop_delta.sh
->   sleep 60
-> done
-> ' > /var/log/check_bond_int_drop_delta_after_ring_30min.log 2>&1 &
-[1] 3837573
-root@gz-4f31406-ceph-001201:~# egrep "=====|rx_dropped|TcpRetrans|TcpOutRsts|TCPTimeouts" \
-[1]+  Done                    nohup bash -c '
-for i in $(seq 1 30); do
-  bash /tmp/check_bond_int_drop_delta.sh
-  sleep 60
-done
-' > /var/log/check_bond_int_drop_delta_after_ring_30min.log 2>&1
->   /var/log/check_bond_int_drop_delta_30min.log \
->   /var/log/check_bond_int_drop_delta_after_ring_30min.log
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:12:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=475 now=117960758
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=475 now=101093259
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=309 now=101093258
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=64 now=735554850
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=401 now=934677793
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:14:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=57 now=117960973
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=57 now=101093474
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=57 now=101093473
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=139 now=735554990
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=2418 now=934680624
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:16:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=49 now=117961675
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=49 now=101093904
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=49 now=101093903
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=150 now=735555464
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=5528 now=934691714
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=17 now=46406210
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:18:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=493 now=117962320
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=493 now=101094549
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=493 now=101094548
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=79 now=735555840
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=6318 now=934703589
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:20:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=19 now=117962635
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     sys_rx_dropped                      delta=19 now=14456274
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     eth_rx_dropped                      delta=19 now=14456274
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=472 now=735556414
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=400 now=934709548
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:22:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=313 now=735556727
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=411 now=934710361
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:24:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=82 now=117962900
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=82 now=101095035
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=82 now=101095034
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=1661 now=735558505
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=402 now=934711168
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:26:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=1 now=735559556
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=409 now=934711983
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:28:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=33 now=735559793
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=388 now=934712765
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:30:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=531 now=117963825
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=356 now=101095785
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     sys_rx_dropped                      delta=175 now=14456524
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=356 now=101095784
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     eth_rx_dropped                      delta=175 now=14456524
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=513 now=735560389
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=397 now=934713578
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:32:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=89 now=735560716
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=391 now=934714370
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:34:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=155 now=117963980
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=155 now=101095940
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=155 now=101095939
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=58 now=735560774
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=401 now=934715181
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:36:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=92 now=735561129
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=397 now=934715983
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:38:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=95 now=117964340
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     sys_rx_dropped                      delta=95 now=14456784
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     eth_rx_dropped                      delta=95 now=14456784
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=41 now=735561170
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=407 now=934716786
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=19 now=46406250
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:40:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=545 now=117964885
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=532 now=101096572
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     sys_rx_dropped                      delta=13 now=14456797
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=532 now=101096571
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     eth_rx_dropped                      delta=13 now=14456797
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=1300 now=735562486
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=380 now=934717564
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=15 now=46406281
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:42:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=89 now=117964974
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=89 now=101096661
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=89 now=101096660
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=10 now=735562720
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=403 now=934718382
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=11 now=46406294
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:44:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=39 now=117965074
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=39 now=101096761
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=39 now=101096760
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=938 now=735564165
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=391 now=934719187
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=16 now=46406326
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:46:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=40 now=735564899
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=398 now=934719986
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=16 now=46406361
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:48:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=245 now=117966683
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=112 now=101098237
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     sys_rx_dropped                      delta=133 now=14456930
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=112 now=101098236
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0     eth_rx_dropped                      delta=133 now=14456930
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=134 now=735565469
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=410 now=934720789
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=17 now=46406395
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:50:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=644 now=735566128
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=378 now=934721570
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=12 now=46406423
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:52:39 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=407 now=934722390
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:54:39 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=26 now=117966709
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=26 now=101098263
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=26 now=101098262
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=443 now=735566787
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=393 now=934723210
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:56:39 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=18 now=735567029
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=411 now=934724020
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=18 now=46406453
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 18:58:39 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=18 now=735567433
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=397 now=934724804
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:00:40 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=1282 now=117969381
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=1282 now=101100935
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=1282 now=101100934
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=1456 now=735568890
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=402 now=934725601
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:02:40 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=179 now=117969688
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=179 now=101101242
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=179 now=101101241
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=354 now=735569791
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=390 now=934726394
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:04:40 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=53 now=735569844
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=408 now=934727216
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:06:40 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=25 now=117969858
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=25 now=101101412
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=25 now=101101411
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=229 now=735570473
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=399 now=934728039
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=17 now=46406511
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:08:41 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=235 now=735570764
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=416 now=934728865
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=7 now=46406545
-/var/log/check_bond_int_drop_delta_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 19:10:41 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_30min.log:bond-int   sys_rx_dropped                      delta=155 now=117970013
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     sys_rx_dropped                      delta=155 now=101101567
-/var/log/check_bond_int_drop_delta_30min.log:ens5f0     eth_rx_dropped                      delta=155 now=101101566
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpRetransSegs                      delta=1197 now=735572033
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpOutRsts                          delta=399 now=934729676
-/var/log/check_bond_int_drop_delta_30min.log:nstat      TcpExtTCPTimeouts                   delta=9 now=46406572
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:21:31 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=55 now=735585063
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=404 now=934758148
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:23:31 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=1 now=735585214
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=423 now=934758967
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:25:31 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:bond-int   sys_rx_dropped                      delta=19 now=117980725
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     sys_rx_dropped                      delta=19 now=14458418
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     eth_rx_dropped                      delta=19 now=14458418
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=382 now=735585719
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=399 now=934759760
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=9 now=46406978
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:27:32 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=1 now=735585769
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=406 now=934760565
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:29:32 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=7 now=735585776
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=394 now=934761354
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:31:32 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=38 now=735586387
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=419 now=934762811
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:33:32 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=4 now=735586560
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=402 now=934763627
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:35:33 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=809 now=735587806
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=420 now=934764442
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=9 now=46406987
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:37:33 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=7 now=735587831
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=400 now=934765258
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=6 now=46407011
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:39:33 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=399 now=934766047
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:41:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=78 now=735588544
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=408 now=934766845
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:43:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=421 now=735589162
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=404 now=934767649
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:45:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:bond-int   sys_rx_dropped                      delta=87 now=117981294
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     sys_rx_dropped                      delta=87 now=14458987
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     eth_rx_dropped                      delta=87 now=14458987
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=970 now=735590132
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=394 now=934768440
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=9 now=46407020
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:47:34 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=407 now=934769231
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:49:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=1 now=735590322
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=397 now=934770021
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=1 now=46407021
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:51:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=396 now=934770808
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:53:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=189 now=735590535
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=405 now=934771612
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:55:35 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=85 now=735590620
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=405 now=934772422
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=10 now=46407031
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:57:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=7 now=735590746
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=400 now=934773216
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=5 now=46407054
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 20:59:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=16 now=735591290
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=397 now=934773999
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:01:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=198 now=735591554
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=904 now=934775575
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:03:36 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:bond-int   sys_rx_dropped                      delta=181 now=117981475
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     sys_rx_dropped                      delta=181 now=14459168
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     eth_rx_dropped                      delta=181 now=14459168
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=411 now=735592484
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=608 now=934776859
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:05:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=1332 now=735594218
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=561 now=934777986
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=16 now=46407070
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:07:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=448 now=735595200
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=552 now=934779119
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=14 now=46407101
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:09:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=891 now=735596551
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=520 now=934780200
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=13 now=46407134
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:11:37 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=191 now=735597459
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=1523 now=934783140
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=10 now=46407165
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:13:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=315 now=735597899
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=1534 now=934786245
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=14 now=46407201
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:15:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=712 now=735598781
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=1553 now=934789344
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=19 now=46407240
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:17:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=206 now=735599242
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=1544 now=934792400
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpExtTCPTimeouts                   delta=7 now=46407266
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:===== gz-4f31406-ceph-001201 2026-07-13 21:19:38 bond-int slaves: ens5f0
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0 60s delta =====
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:bond-int   sys_rx_dropped                      delta=258 now=117981733
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     sys_rx_dropped                      delta=258 now=14459426
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:ens6f0     eth_rx_dropped                      delta=258 now=14459426
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpRetransSegs                      delta=41 now=735599763
-/var/log/check_bond_int_drop_delta_after_ring_30min.log:nstat      TcpOutRsts                          delta=1545 now=934795483
+root@gz-4f31406-ceph-001201:~# dmesg -T | egrep -i \
+> 'i40e|ens5f0|ens6f0|ring|descriptor|alloc|memory|dma|page allocation|failed' \
+> | tail -200
+[Wed May 13 16:13:30 2026] [syshook_linux]: alloc client 0xffff9e9c540f26c0, module_name "resguard_linux", ops 0xffffffffc0da98c0
+[Wed May 13 16:13:30 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 16:13:30 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 16:13:33 2026] [syshook_linux]: alloc client 0xffff9e93b61a8ba0, module_name "vmsecmod", ops 0xffffffffc0bf0060
+[Wed May 13 16:13:33 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 16:13:33 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 16:26:42 2026] [syshook_linux]: alloc client 0xffff9e9bcb988a20, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed May 13 16:26:42 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 16:26:42 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 16:26:42 2026] [syshook_linux]: alloc client 0xffff9e9bcb988a20, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed May 13 16:26:42 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 16:26:42 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 17:17:53 2026] [syshook_linux]: alloc client 0xffff9e8dc65f22a0, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed May 13 17:17:53 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 17:17:53 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 17:45:51 2026] [syshook_linux]: alloc client 0xffff9e87c59df540, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed May 13 17:45:51 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 17:45:51 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed May 13 17:45:51 2026] [syshook_linux]: alloc client 0xffff9e9267a0fb40, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed May 13 17:45:51 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed May 13 17:45:51 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Wed Jul  8 14:01:21 2026] [syshook_linux]: alloc client 0xffff9e9b933ff720, module_name "vmsecmod", ops 0xffffffffc0ba1060
+[Wed Jul  8 14:01:21 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+[Wed Jul  8 14:01:21 2026] [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+[Mon Jul 13 19:40:35 2026] i40e 0000:99:00.0 ens5f0: Changing Tx descriptor count from 512 to 4096.
+[Mon Jul 13 19:40:35 2026] i40e 0000:99:00.0 ens5f0: Changing Rx descriptor count from 512 to 4096
+[Mon Jul 13 19:40:36 2026] i40e 0000:98:00.0 ens6f0: Changing Tx descriptor count from 512 to 4096.
+[Mon Jul 13 19:40:36 2026] ethtool: page allocation failure: order:6, mode:0x40dc0(GFP_KERNEL|__GFP_COMP|__GFP_ZERO), nodemask=(null),cpuset=/,mems_allowed=0-1
+[Mon Jul 13 19:40:36 2026]  warn_alloc.cold+0x7b/0xdf
+[Mon Jul 13 19:40:36 2026]  __alloc_pages_slowpath+0xe6e/0xeb0
+[Mon Jul 13 19:40:36 2026]  __alloc_pages_nodemask+0x2d0/0x320
+[Mon Jul 13 19:40:36 2026]  alloc_pages_current+0x87/0xe0
+[Mon Jul 13 19:40:36 2026]  kmalloc_order+0x1f/0x80
+[Mon Jul 13 19:40:36 2026]  kmalloc_order_trace+0x24/0xa0
+[Mon Jul 13 19:40:36 2026]  __kmalloc+0x22b/0x290
+[Mon Jul 13 19:40:36 2026]  i40e_setup_tx_descriptors+0x37/0xc0 [i40e]
+[Mon Jul 13 19:40:36 2026]  i40e_set_ringparam.cold+0x50a/0x595 [i40e]
+[Mon Jul 13 19:40:36 2026] Node 0 active_anon:22031156kB inactive_anon:8377316kB active_file:7011180kB inactive_file:19719516kB unevictable:25416kB isolated(anon):1992kB isolated(file):128kB mapped:295264kB dirty:80kB writeback:0kB shmem:696kB shmem_thp: 0kB shmem_pmdmapped: 0kB anon_thp: 8192kB writeback_tmp:0kB unstable:0kB all_unreclaimable? no
+[Mon Jul 13 19:40:36 2026] Node 1 active_anon:20304896kB inactive_anon:7623244kB active_file:50888kB inactive_file:233236kB unevictable:1056kB isolated(anon):248kB isolated(file):248kB mapped:4240kB dirty:12kB writeback:0kB shmem:284kB shmem_thp: 0kB shmem_pmdmapped: 0kB anon_thp: 2048kB writeback_tmp:0kB unstable:0kB all_unreclaimable? no
+[Mon Jul 13 19:40:36 2026] Node 0 DMA free:15896kB min:252kB low:312kB high:372kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15980kB managed:15896kB mlocked:0kB kernel_stack:0kB pagetables:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+[Mon Jul 13 19:40:36 2026] Node 0 DMA32 free:284248kB min:23900kB low:29872kB high:35844kB active_anon:431096kB inactive_anon:166560kB active_file:144272kB inactive_file:289880kB unevictable:0kB writepending:0kB present:1564208kB managed:1498672kB mlocked:0kB kernel_stack:64kB pagetables:952kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+[Mon Jul 13 19:40:36 2026] Node 0 DMA: 0*4kB 1*8kB (U) 1*16kB (U) 0*32kB 2*64kB (U) 1*128kB (U) 1*256kB (U) 0*512kB 1*1024kB (U) 1*2048kB (M) 3*4096kB (M) = 15896kB
+[Mon Jul 13 19:40:36 2026] Node 0 DMA32: 10263*4kB (UME) 8426*8kB (UME) 4692*16kB (UME) 2454*32kB (UME) 348*64kB (UME) 0*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB = 284332kB
+root@gz-4f31406-ceph-001201:~# journalctl -k --no-pager | egrep -i \
+> 'i40e|ens5f0|ens6f0|ring|descriptor|alloc|memory|dma|failed' \
+> | tail -200
+Jul 08 14:39:23 gz-4f31406-ceph-001201 kernel: [syshook_linux]: alloc client 0xffff9e9b933ff720, module_name "vmsecmod", ops 0xffffffffc0ba1060
+Jul 08 14:39:23 gz-4f31406-ceph-001201 kernel: [syshook_linux]: memory_rw_info addr 0xffffffffbbc02400, size 2856, page start 0xffffffffbbc02000, page offset 0x400, numpages 1
+Jul 08 14:39:23 gz-4f31406-ceph-001201 kernel: [syshook_linux]: memory_rw_info addr 0xffffffffbbc013c0, size 2856, page start 0xffffffffbbc01000, page offset 0x3c0, numpages 1
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: i40e 0000:99:00.0 ens5f0: Changing Tx descriptor count from 512 to 4096.
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: i40e 0000:99:00.0 ens5f0: Changing Rx descriptor count from 512 to 4096
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: i40e 0000:98:00.0 ens6f0: Changing Tx descriptor count from 512 to 4096.
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: ethtool: page allocation failure: order:6, mode:0x40dc0(GFP_KERNEL|__GFP_COMP|__GFP_ZERO), nodemask=(null),cpuset=/,mems_allowed=0-1
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  warn_alloc.cold+0x7b/0xdf
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  __alloc_pages_slowpath+0xe6e/0xeb0
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  __alloc_pages_nodemask+0x2d0/0x320
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  alloc_pages_current+0x87/0xe0
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  kmalloc_order+0x1f/0x80
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  kmalloc_order_trace+0x24/0xa0
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  __kmalloc+0x22b/0x290
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  i40e_setup_tx_descriptors+0x37/0xc0 [i40e]
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel:  i40e_set_ringparam.cold+0x50a/0x595 [i40e]
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 0 active_anon:22031156kB inactive_anon:8377316kB active_file:7011180kB inactive_file:19719516kB unevictable:25416kB isolated(anon):1992kB isolated(file):128kB mapped:295264kB dirty:80kB writeback:0kB shmem:696kB shmem_thp: 0kB shmem_pmdmapped: 0kB anon_thp: 8192kB writeback_tmp:0kB unstable:0kB all_unreclaimable? no
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 1 active_anon:20304896kB inactive_anon:7623244kB active_file:50888kB inactive_file:233236kB unevictable:1056kB isolated(anon):248kB isolated(file):248kB mapped:4240kB dirty:12kB writeback:0kB shmem:284kB shmem_thp: 0kB shmem_pmdmapped: 0kB anon_thp: 2048kB writeback_tmp:0kB unstable:0kB all_unreclaimable? no
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 0 DMA free:15896kB min:252kB low:312kB high:372kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15980kB managed:15896kB mlocked:0kB kernel_stack:0kB pagetables:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 0 DMA32 free:284248kB min:23900kB low:29872kB high:35844kB active_anon:431096kB inactive_anon:166560kB active_file:144272kB inactive_file:289880kB unevictable:0kB writepending:0kB present:1564208kB managed:1498672kB mlocked:0kB kernel_stack:64kB pagetables:952kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 0 DMA: 0*4kB 1*8kB (U) 1*16kB (U) 0*32kB 2*64kB (U) 1*128kB (U) 1*256kB (U) 0*512kB 1*1024kB (U) 1*2048kB (M) 3*4096kB (M) = 15896kB
+Jul 13 20:18:49 gz-4f31406-ceph-001201 kernel: Node 0 DMA32: 10263*4kB (UME) 8426*8kB (UME) 4692*16kB (UME) 2454*32kB (UME) 348*64kB (UME) 0*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB = 284332kB
 root@gz-4f31406-ceph-001201:~# 
